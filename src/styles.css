@@ -323,15 +323,12 @@ main {
 .acro {
   border-bottom: 1px dotted rgba(79, 140, 255, 0.55);
   cursor: help;
-  position: relative;
 }
 
-.acro::after {
-  content: attr(data-tip);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 7px);
-  transform: translateX(-50%);
+.acro-tip {
+  position: fixed;
+  z-index: 400;
+  display: none;
   background: #0c1526;
   color: var(--text);
   border: 1px solid #233452;
@@ -340,17 +337,12 @@ main {
   font-size: 12px;
   font-weight: 400;
   line-height: 1.45;
-  white-space: normal;
-  width: max-content;
-  max-width: 280px;
-  z-index: 200;
-  display: none;
+  max-width: min(280px, calc(100vw - 16px));
   pointer-events: none;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
-.acro:hover::after,
-.acro:focus::after {
+.acro-tip.on {
   display: block;
 }
 

@@ -11,6 +11,7 @@ import { StoriesView } from "./components/StoriesView";
 import { SourcesView } from "./components/SourcesView";
 import { LangContext, type Lang } from "./i18n";
 import { UatPlanProvider } from "./lib/uatPlan";
+import { initAcroTips } from "./lib/acroTip";
 
 const VIEWS: { id: ViewId; ro: string; en: string }[] = [
   { id: "summary", ro: "Rezumat", en: "Summary" },
@@ -38,6 +39,8 @@ export default function App() {
     localStorage.setItem("dra-lang", lang);
     document.documentElement.lang = lang;
   }, [lang]);
+
+  useEffect(() => initAcroTips(), []);
 
   return (
     <LangContext.Provider value={{ lang, setLang }}>

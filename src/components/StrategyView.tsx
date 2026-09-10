@@ -1,4 +1,16 @@
-import { COSTS, LAYERS, MACHINES, PILLARS, PORTALS, REDUNDANCY_TIERS, SAVINGS } from "../data/strategy";
+import {
+  CONSOLIDATION,
+  COSTS,
+  GOV_RULES,
+  INVENTORY,
+  KPIS,
+  LAYERS,
+  MACHINES,
+  PILLARS,
+  PORTALS,
+  REDUNDANCY_TIERS,
+  SAVINGS,
+} from "../data/strategy";
 import { pick, useLang } from "../i18n";
 
 const STATUS_LABEL: Record<string, { ro: string; en: string }> = {
@@ -195,6 +207,89 @@ export function StrategyView() {
             <p>{pick(p.what, lang)}</p>
           </div>
         ))}
+      </div>
+
+      <h3>
+        {lang === "ro"
+          ? "Raționalizarea portalurilor existente"
+          : "Rationalising the existing portals"}
+      </h3>
+      <p className="muted note">
+        {lang === "ro" ? (
+          <>
+            Inventarul de azi și destinația fiecărui sistem. Principiu director:{" "}
+            <strong>„wrap, don't rewrite”</strong> — niciun sistem legacy nu se rescrie; fiecare
+            primește un conector și devine sursă autentică în spatele backbone-ului. HUB MAI
+            demonstrează că modelul funcționează deja la scară de minister.
+          </>
+        ) : (
+          <>
+            Today's inventory and each system's destination. Governing principle:{" "}
+            <strong>“wrap, don't rewrite”</strong> — no legacy system is rewritten; each gets a
+            connector and becomes an authentic source behind the backbone. HUB MAI proves the
+            model already works at ministry scale.
+          </>
+        )}
+      </p>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Sector" : "Sector"}</th>
+              <th>{lang === "ro" ? "Servicii existente" : "Existing services"}</th>
+              <th>{lang === "ro" ? "Operator" : "Operator"}</th>
+              <th>{lang === "ro" ? "Notă" : "Note"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {INVENTORY.map((r) => (
+              <tr key={pick(r.sector, "ro")}>
+                <td className="dim">{pick(r.sector, lang)}</td>
+                <td>{pick(r.services, lang)}</td>
+                <td>{pick(r.operator, lang)}</td>
+                <td>{pick(r.note, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Acțiune" : "Action"}</th>
+              <th>{lang === "ro" ? "Sisteme" : "Systems"}</th>
+              <th>{lang === "ro" ? "Destinație" : "Destination"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {CONSOLIDATION.map((r) => (
+              <tr key={pick(r.action, "ro")}>
+                <td className="dim">{pick(r.action, lang)}</td>
+                <td>{pick(r.systems, lang)}</td>
+                <td>{pick(r.destination, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="pillars" style={{ marginTop: 12 }}>
+        <section className="pillar">
+          <h4>{lang === "ro" ? "Patru reguli de guvernanță" : "Four governance rules"}</h4>
+          <ul>
+            {GOV_RULES.map((r, i) => (
+              <li key={i}>{pick(r, lang)}</li>
+            ))}
+          </ul>
+        </section>
+        <section className="pillar">
+          <h4>{lang === "ro" ? "KPI țintă 2028" : "2028 target KPIs"}</h4>
+          <ul>
+            {KPIS.map((k, i) => (
+              <li key={i}>{pick(k, lang)}</li>
+            ))}
+          </ul>
+        </section>
       </div>
 
       <p className="muted note">

@@ -462,6 +462,301 @@ export interface BulletGroup {
   items: Bi[];
 }
 
+export interface InventoryRow {
+  sector: Bi;
+  services: Bi;
+  operator: Bi;
+  note: Bi;
+}
+
+export const INVENTORY: InventoryRow[] = [
+  {
+    sector: { ro: "Plăți", en: "Payments" },
+    services: {
+      ro: "Ghiseul.ro (~2M+ conturi), SNEP (motorul de plăți)",
+      en: "Ghiseul.ro (~2M+ accounts), SNEP (payment engine)",
+    },
+    operator: { ro: "ADR / STS", en: "ADR / STS" },
+    note: {
+      ro: "cel mai folosit serviciu public; card, nu RTP",
+      en: "the most used public service; card, not RTP",
+    },
+  },
+  {
+    sector: { ro: "Fiscal", en: "Tax" },
+    services: {
+      ro: "SPV, e-Factura, e-Transport, e-TVA, SAF-T (D406), e-Case de marcat",
+      en: "SPV, e-Factura, e-Transport, e-TVA, SAF-T (D406), e-Cash registers",
+    },
+    operator: { ro: "ANAF", en: "ANAF" },
+    note: {
+      ro: "6+ frontend-uri pentru același contribuabil",
+      en: "6+ frontends for the same taxpayer",
+    },
+  },
+  {
+    sector: { ro: "Identitate", en: "Identity" },
+    services: {
+      ro: "ROeID (notificat eIDAS), eIdentity (CEI, NU notificată), RO Wallet (2026)",
+      en: "ROeID (notified eIDAS), eIdentity (ID card, NOT notified), RO Wallet (2026)",
+    },
+    operator: { ro: "ADR / MAI", en: "ADR / MAI" },
+    note: {
+      ro: "3 identități digitale simultane",
+      en: "3 simultaneous digital identities",
+    },
+  },
+  {
+    sector: { ro: "MAI", en: "MAI" },
+    services: {
+      ro: "HUB MAI: programări CEI, ePașaport, permise, înmatriculări, cazier online, apostile, eSAR",
+      en: "HUB MAI: ID appointments, ePassport, licences, registrations, online criminal record, apostilles, eSAR",
+    },
+    operator: { ro: "MAI-DGCTI", en: "MAI-DGCTI" },
+    note: {
+      ro: "deja un mini-portal unificat — modelul de urmat",
+      en: "already a unified mini-portal — the model to follow",
+    },
+  },
+  {
+    sector: { ro: "Sănătate", en: "Health" },
+    services: {
+      ro: "CEAS / PIAS, DES/e-rețetă, cardul de sănătate; SIUI în spate",
+      en: "CEAS / PIAS, DES/e-prescription, health card; SIUI behind",
+    },
+    operator: { ro: "CNAS", en: "CNAS" },
+    note: {
+      ro: "mai multe interfețe peste același registru",
+      en: "several interfaces over the same registry",
+    },
+  },
+  {
+    sector: { ro: "Pensii", en: "Pensions" },
+    services: {
+      ro: "Portal CNPP (e-cerere pensie, talon online)",
+      en: "CNPP portal (e-pension request, online coupon)",
+    },
+    operator: { ro: "CNPP", en: "CNPP" },
+    note: { ro: "—", en: "—" },
+  },
+  {
+    sector: { ro: "Muncă", en: "Labour" },
+    services: {
+      ro: "ANOFM e-formular, Locuri de Muncă Vacante",
+      en: "ANOFM e-form, Vacant Jobs",
+    },
+    operator: { ro: "ANOFM", en: "ANOFM" },
+    note: { ro: "—", en: "—" },
+  },
+  {
+    sector: { ro: "Firme", en: "Companies" },
+    services: {
+      ro: "ONRC RECOM + InfoCert, PSCID (edirect), SICAP / e-licitație.ro",
+      en: "ONRC RECOM + InfoCert, PSCID (edirect), SICAP / e-licitatie.ro",
+    },
+    operator: { ro: "ONRC / ADR / ANAP", en: "ONRC / ADR / ANAP" },
+    note: {
+      ro: "e-licitația funcționează — B2B, se păstrează",
+      en: "e-procurement works — B2B, kept as-is",
+    },
+  },
+  {
+    sector: { ro: "Cadastru", en: "Cadastre" },
+    services: {
+      ro: "e-Terra, servicii online ANCPI",
+      en: "e-Terra, ANCPI online services",
+    },
+    operator: { ro: "ANCPI", en: "ANCPI" },
+    note: { ro: "—", en: "—" },
+  },
+  {
+    sector: { ro: "Educație", en: "Education" },
+    services: {
+      ro: "SIIIR/REGES, ARN (registrul absolvenților)",
+      en: "SIIIR/REGES, ARN (graduates registry)",
+    },
+    operator: { ro: "MEN", en: "MEN" },
+    note: {
+      ro: "fără frontend unificat de cetățean",
+      en: "no unified citizen frontend",
+    },
+  },
+  {
+    sector: { ro: "Justiție", en: "Justice" },
+    services: {
+      ro: "portal.just.ro (dosar electronic), ECRIS",
+      en: "portal.just.ro (e-case file), ECRIS",
+    },
+    operator: { ro: "MJ", en: "MJ" },
+    note: { ro: "—", en: "—" },
+  },
+  {
+    sector: { ro: "Local", en: "Local" },
+    services: {
+      ro: "~3.200 site-uri UAT cu formulare proprii",
+      en: "~3,200 UAT websites with bespoke forms",
+    },
+    operator: { ro: "fiecare primărie", en: "each town hall" },
+    note: { ro: "zero standard", en: "zero standard" },
+  },
+  {
+    sector: { ro: "Director", en: "Directory" },
+    services: {
+      ro: "e-guvernare.ro",
+      en: "e-guvernare.ro",
+    },
+    operator: { ro: "ADR", en: "ADR" },
+    note: {
+      ro: "pagină de linkuri, nu serviciu",
+      en: "a link page, not a service",
+    },
+  },
+];
+
+export interface ConsolidationRow {
+  action: Bi;
+  systems: Bi;
+  destination: Bi;
+}
+
+export const CONSOLIDATION: ConsolidationRow[] = [
+  {
+    action: { ro: "Rămân surse autentice", en: "Stay as authentic sources" },
+    systems: {
+      ro: "SIUI, RNEP, backends ANAF, RCE/ONRC, SIIIR/REGES, ECRIS, e-Terra, baza SEAP",
+      en: "SIUI, RNEP, ANAF backends, RCE/ONRC, SIIIR/REGES, ECRIS, e-Terra, SEAP DB",
+    },
+    destination: {
+      ro: "în spatele backbone-ului (L3)",
+      en: "behind the backbone (L3)",
+    },
+  },
+  {
+    action: { ro: "Se unifică în Portalul cetățean", en: "Merged into the Citizen Portal" },
+    systems: {
+      ro: "Ghiseul.ro v2 absoarbe PSCID + majoritatea tranzacțiilor",
+      en: "Ghiseul.ro v2 absorbs PSCID + most transactions",
+    },
+    destination: { ro: "Portal p1", en: "Portal p1" },
+  },
+  {
+    action: { ro: "Se unifică în Cutia Digitală", en: "Merged into the Digital Postbox" },
+    systems: {
+      ro: "SPV (corespondența), notificările HUB MAI",
+      en: "SPV (correspondence), HUB MAI notifications",
+    },
+    destination: { ro: "Portal p2", en: "Portal p2" },
+  },
+  {
+    action: { ro: "Cont fiscal unic (remake)", en: "Single tax account (remake)" },
+    systems: {
+      ro: "SPV + e-Factura + e-Transport + e-TVA + SAF-T + e-Case → o singură intrare per contribuabil",
+      en: "SPV + e-Factura + e-Transport + e-TVA + SAF-T + e-Case → one entry per taxpayer",
+    },
+    destination: {
+      ro: "backends separate, frontend unic",
+      en: "separate backends, single frontend",
+    },
+  },
+  {
+    action: { ro: "„Sănătatea mea” (remake)", en: "“My Health” (remake)" },
+    systems: {
+      ro: "CEAS + DES/e-rețetă + dosarul electronic de sănătate → un singur frontend",
+      en: "CEAS + DES/e-prescription + the electronic health file → one frontend",
+    },
+    destination: {
+      ro: "SIUI rămâne sursa",
+      en: "SIUI stays the source",
+    },
+  },
+  {
+    action: { ro: "Identitate unică", en: "Single identity" },
+    systems: {
+      ro: "RO Wallet devine singura identitate de cetățean; eIdentity se dezactivează (2027); ROeID rămâne backstop notificat",
+      en: "RO Wallet becomes the only citizen identity; eIdentity is deactivated (2027); ROeID stays as the notified backstop",
+    },
+    destination: { ro: "converge în L2", en: "converges into L2" },
+  },
+  {
+    action: { ro: "Plăți unice", en: "Single payments" },
+    systems: {
+      ro: "Toate taxele trec prin hub-ul național (SNEP + SEPA Instant + RTP); se desființează PSP-urile per portal",
+      en: "All taxes flow through the national hub (SNEP + SEPA Instant + RTP); per-portal PSP contracts end",
+    },
+    destination: { ro: "Portal p8", en: "Portal p8" },
+  },
+  {
+    action: { ro: "ONRC RECOM", en: "ONRC RECOM" },
+    systems: {
+      ro: "rămâne portal business, autentificarea migrează pe wallet",
+      en: "stays the business portal, authentication moves to the wallet",
+    },
+    destination: { ro: "Portal p10", en: "Portal p10" },
+  },
+  {
+    action: { ro: "Se păstrează", en: "Kept as-is" },
+    systems: {
+      ro: "e-licitație.ro / SICAP (B2B, obligatoriu UE, funcționează)",
+      en: "e-licitatie.ro / SICAP (B2B, EU-mandated, works)",
+    },
+    destination: { ro: "neschimbat", en: "unchanged" },
+  },
+  {
+    action: { ro: "Retragere", en: "Retirement" },
+    systems: {
+      ro: "e-guvernare.ro, portaluri de programări duplicate, eIdentity",
+      en: "e-guvernare.ro, duplicate appointment portals, eIdentity",
+    },
+    destination: { ro: "dezafectare", en: "decommissioning" },
+  },
+  {
+    action: { ro: "UAT-uri", en: "UATs" },
+    systems: {
+      ro: "~3.200 site-uri bespoke → o platformă unică cu șabloane (instanță per UAT pe hub-ul L0)",
+      en: "~3,200 bespoke sites → one templated platform (instance per UAT on the L0 hub)",
+    },
+    destination: { ro: "Portal p12 + L0", en: "Portal p12 + L0" },
+  },
+];
+
+export const GOV_RULES: Bi[] = [
+  {
+    ro: "Regula identității: un singur login de stat (wallet); login-urile vechi sunt backstop max. 2 ani.",
+    en: "Identity rule: one state login (wallet); legacy logins are a backstop for max. 2 years.",
+  },
+  {
+    ro: "Regula plăților: orice taxă plătibilă public trece prin hub; niciun portal nou fără RTP.",
+    en: "Payments rule: every public tax flows through the hub; no new portal without RTP.",
+  },
+  {
+    ro: "Regula notificărilor: nimic nu se trimite cetățeanului decât prin canale de încredere (Cutia Digitală).",
+    en: "Notifications rule: nothing reaches the citizen except through trusted channels (Digital Postbox).",
+  },
+  {
+    ro: "Regula datelor: „once-only” — datele se cer o dată și se refolosesc la sursă (principiul belgian).",
+    en: "Data rule: once-only — data is asked once and reused at the source (the Belgian principle).",
+  },
+];
+
+export const KPIS: Bi[] = [
+  {
+    ro: "Portaluri tranzacționale pentru cetățean: de la ~40+ la 3 front-doors + 6 sectoriale (țintă 2028)",
+    en: "Transactional citizen portals: from ~40+ to 3 front doors + 6 sectoral (target 2028)",
+  },
+  {
+    ro: "≥80% dintre servicii cu autentificare wallet",
+    en: "≥80% of services with wallet authentication",
+  },
+  {
+    ro: "100% dintre plățile publice prin hub-ul național",
+    en: "100% of public payments through the national hub",
+  },
+  {
+    ro: "Un singur canal de notificare (Cutia Digitală)",
+    en: "A single notification channel (Digital Postbox)",
+  },
+];
+
 export const PILLARS: BulletGroup[] = [
   {
     title: { ro: "Redundanță ultra", en: "Ultra redundancy" },

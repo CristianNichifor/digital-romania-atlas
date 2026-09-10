@@ -88,6 +88,20 @@ Romanian content with diacritics, mandatory i18n (`{ ro, en }` on every data fie
 [Code of Conduct](https://github.com/civicnet/code-of-conduct) (see `CODE_OF_CONDUCT.md` and
 `CONTRIBUTING.md`).
 
+## Security
+
+See [SECURITY.md](SECURITY.md) for the reporting policy. The repository enforces in CI:
+
+- every GitHub Action pinned to a full commit SHA;
+- `npm audit --audit-level=high` as a build gate;
+- CodeQL static analysis on every push and PR;
+- OSV-Scanner on every push and PR;
+- OSSF Scorecard weekly (results published on the Security tab);
+- SLSA provenance attestation for the GitHub Pages artifact;
+- least-privilege workflow permissions (`contents: read` by default);
+- Dependabot: weekly npm + monthly Actions PRs, plus push protection and
+  private vulnerability reporting enabled on the repository.
+
 ## Known limitations
 
 - Coordinates for national institutions are approximate (Bucharest area) and manually spread

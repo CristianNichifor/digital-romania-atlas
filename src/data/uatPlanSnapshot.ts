@@ -1,7 +1,7 @@
 // Locked snapshot of the administrative-reform-simulator default scenario.
 //
-// Source (published): https://cristiannichifor.github.io/administrative-reform-simulator/
-// Repo: https://github.com/CristianNichifor/administrative-reform-simulator
+// Source (published): https://cristiannichifor.github.io/romania-reforms/administrativ/
+// Repo: https://github.com/CristianNichifor/romania-reforms (simulators/administrativ)
 // Scenario: default parameters — 3,186 UATs collapse to 682 regions (-78.6%).
 //
 // This is only the fallback: when the reform page is open in another tab of
@@ -13,5 +13,5 @@ export const UAT_SNAPSHOT = {
   baseline: 3186,
   units: 682,
   reductionPct: 78.6,
-  source: "https://cristiannichifor.github.io/administrative-reform-simulator/",
+  source: "https://cristiannichifor.github.io/romania-reforms/administrativ/",
 } as const;

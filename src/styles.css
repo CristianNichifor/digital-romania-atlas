@@ -171,7 +171,7 @@ main {
 
 .pillars {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
   gap: 12px;
 }
 
@@ -180,6 +180,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 16px;
+  min-width: 0;
 }
 
 .pillar h4 {
@@ -197,7 +198,7 @@ main {
 
 .grid-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 10px;
   margin: 10px 0;
 }
@@ -226,7 +227,7 @@ main {
 
 .risk-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
   gap: 12px;
   margin: 10px 0;
 }
@@ -236,6 +237,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 14px 16px;
+  min-width: 0;
 }
 
 .risk-card h4 {
@@ -303,17 +305,14 @@ main {
   width: max-content;
   max-width: 280px;
   z-index: 200;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.12s;
+  display: none;
   pointer-events: none;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
 .acro:hover::after,
 .acro:focus::after {
-  opacity: 1;
-  visibility: visible;
+  display: block;
 }
 
 .grid-cards .card {
@@ -321,6 +320,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px;
+  min-width: 0;
 }
 
 .grid-cards .card strong {
@@ -370,7 +370,7 @@ main {
 
 .portals {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 10px;
 }
 
@@ -757,8 +757,18 @@ footer {
   .summary-cards,
   .pillars,
   .portals,
-  .sources {
-    grid-template-columns: 1fr;
+  .sources,
+  .risk-grid,
+  .grid-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cost-list em {
+    white-space: normal;
+  }
+
+  .cost-list li {
+    flex-wrap: wrap;
   }
 
   .summary-cta .cta {
@@ -818,7 +828,7 @@ footer {
 
 .summary-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 12px;
   margin-top: 18px;
 }
@@ -827,6 +837,7 @@ footer {
   border-radius: 12px;
   padding: 16px;
   border: 1px solid var(--border);
+  min-width: 0;
 }
 
 .summary-card.today {
@@ -996,13 +1007,14 @@ footer {
 
 .sources {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 10px;
   margin-top: 10px;
 }
 
 .source-card {
   background: #0c1526;
+  min-width: 0;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px;

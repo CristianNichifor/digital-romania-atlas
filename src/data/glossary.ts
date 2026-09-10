@@ -8,6 +8,9 @@ export interface GlossaryEntry {
 
 export const GLOSSARY: GlossaryEntry[] = [
   { term: "PID", text: { ro: "Personal Identification Data — date de identificare personală", en: "Personal Identification Data" } },
+  { term: "LoA", text: { ro: "Level of Assurance — nivelul de încredere al unei identități electronice (Low, Substantial, High)", en: "Level of Assurance — the trust level of an electronic identity (Low, Substantial, High)" } },
+  { term: "NIIS", text: { ro: "Nordic Institute for Interoperability Solutions — institutul care dezvoltă X-Road", en: "Nordic Institute for Interoperability Solutions — the institute that develops X-Road" } },
+  { term: "QES", text: { ro: "Qualified Electronic Signature — semnătură electronică calificată", en: "Qualified Electronic Signature" } },
   { term: "EUDI", text: { ro: "European Digital Identity — identitatea digitală europeană", en: "European Digital Identity" } },
   { term: "ARF", text: { ro: "Architecture and Reference Framework — arhitectura de referință EUDI", en: "Architecture and Reference Framework (EUDI)" } },
   {

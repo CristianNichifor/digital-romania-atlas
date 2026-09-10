@@ -47,6 +47,8 @@ function parseFlows(code) {
 const instCode = readTs("src/data/institutions.ts");
 const flowsCode = readTs("src/data/flows.ts");
 const storiesCode = readTs("src/data/stories.ts");
+const euSystemsCode = readTs("src/data/euSystems.ts");
+const sourcesCode = readTs("src/data/sources.ts");
 
 const inst = parseInstitutions(instCode);
 const flows = parseFlows(flowsCode);
@@ -70,10 +72,23 @@ if (inst) {
   }
 }
 
+const euSystems = [...euSystemsCode.matchAll(/\bkey:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
+const euRows = (euSystemsCode.match(/\bdimension:\s*\{/g) || []).length;
+if (euSystems.length === 0) errors.push("euSystems: no systems defined");
+if (euRows === 0) errors.push("euSystems: no matrix rows defined");
+for (const k of euSystems) {
+  const cells = (euSystemsCode.match(new RegExp(`\\b${k}:\\s*\\{`, "g")) || []).length;
+  if (cells !== euRows) {
+    errors.push(`euSystems: system "${k}" has ${cells} cells for ${euRows} rows`);
+  }
+}
+
 for (const [file, code] of [
   ["src/data/institutions.ts", instCode],
   ["src/data/flows.ts", flowsCode],
   ["src/data/stories.ts", storiesCode],
+  ["src/data/euSystems.ts", euSystemsCode],
+  ["src/data/sources.ts", sourcesCode],
 ]) {
   const roCount = (code.match(/ro:\s*"/g) || []).length;
   const enCount = (code.match(/en:\s*"/g) || []).length;
@@ -100,5 +115,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Data OK: ${inst.ids.length} institutions, ${flows.length} flows, ${storySteps.length} story steps.`
+  `Data OK: ${inst.ids.length} institutions, ${flows.length} flows, ${storySteps.length} story steps, ${euSystems.length} EU systems across ${euRows} dimensions.`
 );

@@ -287,4 +287,68 @@ export const SOURCES: Source[] = [
       en: "Checked on 10 Sep 2026: no usable content — the reason for the decommissioning proposal",
     },
   },
+  {
+    claim: {
+      ro: "X-Road — codul sursă și documentația bus-ului de schimb de date (licență MIT, NIIS)",
+      en: "X-Road — source code and documentation of the data-exchange bus (MIT licence, NIIS)",
+    },
+    kind: { ro: "Repo public (NIIS)", en: "Public repo (NIIS)" },
+    url: "https://github.com/nordic-institute/X-Road",
+  },
+  {
+    claim: {
+      ro: "X-Road Estonia — statistici de utilizare (instituții, interogări)",
+      en: "X-Road Estonia — usage statistics (institutions, queries)",
+    },
+    kind: { ro: "Portal oficial", en: "Official portal" },
+    url: "https://www.x-tee.ee/",
+  },
+  {
+    claim: {
+      ro: "DigiD — portalul oficial al identității olandeze (Logius)",
+      en: "DigiD — the official Dutch identity portal (Logius)",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.digid.nl/",
+  },
+  {
+    claim: {
+      ro: "itsme — site-ul oficial al consorțiului belgian de identitate mobilă",
+      en: "itsme — the official site of the Belgian mobile identity consortium",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.itsme.be/",
+  },
+  {
+    claim: {
+      ro: "MitID — portalul oficial al identității daneze",
+      en: "MitID — the official Danish identity portal",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.mitid.dk/",
+  },
+  {
+    claim: {
+      ro: "mObywatel — aplicația oficială de portofel digital a Poloniei",
+      en: "mObywatel — Poland's official digital wallet app",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.gov.pl/web/mobywatel",
+  },
+  {
+    claim: {
+      ro: "Gov.gr Wallet — portofelul digital oficial al Greciei",
+      en: "Gov.gr Wallet — Greece's official digital wallet",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://wallet.gov.gr/",
+  },
+  {
+    claim: {
+      ro: "EUDI Wallet — paginile oficiale ale Comisiei Europene (cadrul, obligațiile statelor membre)",
+      en: "EUDI Wallet — the European Commission's official pages (framework, member-state obligations)",
+    },
+    kind: { ro: "Site oficial UE", en: "Official EU site" },
+    url: "https://digital-strategy.ec.europa.eu/en/policies/eudi-wallet-implementation",
+  },
 ];

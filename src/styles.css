@@ -709,6 +709,68 @@ main {
   color: #7ee2a8;
 }
 
+.eu-table {
+  min-width: 1020px;
+}
+
+.table-scroll.eu-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.eu-table th {
+  vertical-align: bottom;
+}
+
+.eu-table .eu-name {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+}
+
+.eu-table .eu-country {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 3px;
+}
+
+.eu-table td {
+  min-width: 160px;
+}
+
+.eu-table th.eu-ours,
+.eu-table td.eu-ours {
+  background: rgba(46, 204, 113, 0.06);
+}
+
+.eu-table th.eu-ours {
+  border-bottom: 2px solid #2ecc71;
+}
+
+.eu-table td.eu-ours {
+  border-left: 1px solid rgba(46, 204, 113, 0.25);
+  border-right: 1px solid rgba(46, 204, 113, 0.25);
+}
+
+.eu-sub {
+  font-size: 15px;
+  margin: 20px 0 8px;
+}
+
+.eu-takeaways {
+  margin: 0 0 4px;
+  padding-left: 20px;
+}
+
+.eu-takeaways li {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
 .note {
   font-size: 12.5px;
   margin-top: 18px;

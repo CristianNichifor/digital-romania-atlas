@@ -1,4 +1,5 @@
 import { COMPARISON, VERDICT_LABELS } from "../data/comparison";
+import { EU_MATRIX, EU_SYSTEMS } from "../data/euSystems";
 import { pick, useLang } from "../i18n";
 import { T } from "./T";
 
@@ -68,6 +69,85 @@ export function CompareView() {
           </>
         )}
       </p>
+      <div className="panel">
+        <div className="panel-head">
+          <h2>
+            {lang === "ro"
+              ? "Propunerea noastră vs. sistemele digitale din UE"
+              : "Our proposal vs. other EU digital systems"}
+          </h2>
+        </div>
+        <p className="muted">
+          {lang === "ro"
+            ? "Cele mai mature sisteme de identitate și schimb de date din UE fac fiecare câte una dintre bucăți; aproape nimeni nu le combină. Mai jos, propunerea din acest atlas pusă lângă ele."
+            : "The EU's most mature identity and data-exchange systems each do one of the pieces; almost nobody combines them. Below, this atlas's proposal next to them."}
+        </p>
+        <div className="table-scroll eu-wrap">
+          <table className="compare-table eu-table">
+            <thead>
+              <tr>
+                <th>{lang === "ro" ? "Dimensiune" : "Dimension"}</th>
+                {EU_SYSTEMS.map((s) => (
+                  <th key={s.key} className={s.ours ? "eu-ours" : ""}>
+                    <div className="eu-name">{pick(s.name, lang)}</div>
+                    <div className="eu-country">{pick(s.country, lang)}</div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {EU_MATRIX.map((row) => (
+                <tr key={pick(row.dimension, "ro")}>
+                  <td className="dim"><T text={pick(row.dimension, lang)} /></td>
+                  {EU_SYSTEMS.map((s) => (
+                    <td key={s.key} className={s.ours ? "eu-ours" : ""}>
+                      <T text={pick(row.cells[s.key], lang)} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <h3 className="eu-sub">
+          {lang === "ro" ? "Ce aduce propunerea în plus" : "What the proposal adds"}
+        </h3>
+        <ul className="eu-takeaways">
+          <li>
+            {lang === "ro"
+              ? "Nimeni altcineva nu leagă cele trei: X-Road acoperă schimbul de date fără identitate pentru cetățeni, DigiD/itsme/MitID acoperă identitatea fără un backbone de date — propunerea le combină pe ambele și adaugă plăți."
+              : "Nobody else joins the three: X-Road covers data exchange with no citizen identity, DigiD/itsme/MitID cover identity with no data backbone — the proposal combines both and adds payments."}
+          </li>
+          <li>
+            {lang === "ro"
+              ? "Rămâne 100% compatibilă cu cadrul EUDI (PID LoA High, dezvăluire selectivă, QES gratuită), deci interoperabilă cu toate portofelele europene."
+              : "It stays 100% compatible with the EUDI framework (PID LoA High, selective disclosure, free QES), so it interoperates with every European wallet."}
+          </li>
+          <li>
+            {lang === "ro"
+              ? "Este singurul design cu strat offline (L0) și arhivă subterană — continuitate pe care sistemele „doar online” nu o au."
+              : "It is the only design with an offline layer (L0) and an underground archive — continuity that the online-only systems do not have."}
+          </li>
+          <li>
+            {lang === "ro"
+              ? "Transparență verificabilă (cod EUPL + ancore publice hash-only) acolo unde DigiD, itsme sau MitID sunt închise — și mai departe decât X-Road (MIT), cu ancore criptografice pentru build-uri, registru și ceremonii de chei."
+              : "Verifiable transparency (EUPL code + hash-only public anchors) where DigiD, itsme and MitID are closed — and further than X-Road (MIT), with cryptographic anchors for builds, registry and key ceremonies."}
+          </li>
+        </ul>
+        <p className="muted note">
+          {lang === "ro" ? (
+            <>
+              Cifrele de adopție sunt aproximative (≈) și pot fi depășite de acumularea recentă;
+              sursele complete pentru fiecare sistem sunt în tabul Surse.
+            </>
+          ) : (
+            <>
+              Adoption figures are approximate (≈) and may already be exceeded by recent growth;
+              full sources for each system are in the Sources tab.
+            </>
+          )}
+        </p>
+      </div>
     </div>
   );
 }

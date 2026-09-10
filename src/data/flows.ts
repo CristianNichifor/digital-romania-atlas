@@ -10,7 +10,8 @@ export type FlowKind =
   | "trust"
   | "oversight"
   | "governance"
-  | "service";
+  | "service"
+  | "anchor";
 
 export interface Flow {
   id: string;
@@ -35,6 +36,7 @@ export const FLOW_COLORS: Record<FlowKind, string> = {
   oversight: "#9aa7b8",
   governance: "#9aa7b8",
   service: "#53c1e8",
+  anchor: "#22d3ee",
 };
 
 export const FLOW_LABELS: Record<FlowKind, string> = {
@@ -50,6 +52,7 @@ export const FLOW_LABELS: Record<FlowKind, string> = {
   oversight: "Supraveghere",
   governance: "Guvernanță",
   service: "Servicii",
+  anchor: "Ancoră publică",
 };
 
 export const FLOWS: Flow[] = [
@@ -330,6 +333,51 @@ export const FLOWS: Flow[] = [
     kind: "oversight",
     label: "Supraveghere protecția datelor, DPIA",
     tech: "—",
+    status: "proposed",
+  },
+  {
+    id: "p-a-sts",
+    from: "sts",
+    to: "anchor",
+    kind: "anchor",
+    label: "Ancorează starea registrului WRPRC/WRPAC + minutele ceremoniilor de chei",
+    tech: "root hash-uri · lanț permisiv + EBSI",
+    status: "proposed",
+  },
+  {
+    id: "p-a-build",
+    from: "dgcti",
+    to: "anchor",
+    kind: "anchor",
+    label: "Ancorează hash-urile fiecărui build al wallet-ului (SBOM/SLSA)",
+    tech: "build-uri reproducibile",
+    status: "proposed",
+  },
+  {
+    id: "p-a-ostree",
+    from: "hub-l0",
+    to: "anchor",
+    kind: "anchor",
+    label: "Ancorează hash-urile imaginilor OSTree",
+    tech: "commit OSTree",
+    status: "proposed",
+  },
+  {
+    id: "p-a-report",
+    from: "transparency",
+    to: "anchor",
+    kind: "anchor",
+    label: "Ancorează rapoarte SLA, incidente, achiziții",
+    tech: "minute ancorate",
+    status: "proposed",
+  },
+  {
+    id: "p-a-verify",
+    from: "citizen",
+    to: "transparency",
+    kind: "service",
+    label: "Verifică public orice artefact — verify, don't trust",
+    tech: "portal public",
     status: "proposed",
   },
 ];

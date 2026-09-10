@@ -9,6 +9,7 @@ export type Category =
   | "service"
   | "backbone"
   | "payment"
+  | "anchor"
   | "external";
 
 export type Scope = "current" | "proposed" | "both";
@@ -36,6 +37,7 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   service: "#53c1e8",
   backbone: "#ffb020",
   payment: "#2ecc71",
+  anchor: "#22d3ee",
   external: "#6b7a90",
 };
 
@@ -50,6 +52,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   service: "Servicii",
   backbone: "Backbone de date",
   payment: "Plăți",
+  anchor: "Ancoră publică",
   external: "Extern (hărți/consulate)",
 };
 
@@ -341,6 +344,37 @@ export const INSTITUTIONS: Institution[] = [
     role: "Onboarding diaspora, verificare identitate la distanță",
     category: "external",
     county: "",
+    scope: "proposed",
+  },
+  {
+    id: "anchor",
+    name: "Ancoră publică de transparență (lanț permisiv + EBSI)",
+    acronym: "ANCORĂ",
+    role: "Doar hash-uri de artefacte nep-personale: registru, build-uri, ceremonii, SLA",
+    category: "anchor",
+    county: "",
+    scope: "proposed",
+  },
+  {
+    id: "hub-l0",
+    name: "Hub suveran L0 (endpoint-uri)",
+    acronym: "HUBL0",
+    role: "OSTree, FreeIPA, Matrix, WireGuard — infrastructura stațiilor de lucru",
+    category: "infra",
+    county: "Bucuresti",
+    lat: 44.391,
+    lon: 26.12,
+    scope: "proposed",
+  },
+  {
+    id: "transparency",
+    name: "Portal de transparență",
+    acronym: "TRANSP",
+    role: "Rapoarte publice: audituri, uptime, ceremonii de chei, achiziții",
+    category: "service",
+    county: "Bucuresti",
+    lat: 44.466,
+    lon: 26.075,
     scope: "proposed",
   },
 ];

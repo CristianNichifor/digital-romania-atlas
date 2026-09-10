@@ -12,7 +12,7 @@ journalists, and decision makers.
 | View | Content |
 |---|---|
 | **Harta României** | County map with institutions as colored points (category-filterable). Small dots in every county = town halls (UAT) as assisted-enrollment / offline fallback points in the proposal. |
-| **Fluxuri de date** | Two toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, and independent oversight. Filter by flow type. |
+| **Fluxuri de date** | Two toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). Filter by flow type. |
 | **Comparație** | 12-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
 | **Calendar** | EU obligations, the national plan, and our proposed additions side by side. |
 | **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the four pillars (redundancy, open source, security, scalability), 5-year cost estimates, and the 12 outward-facing portals. |

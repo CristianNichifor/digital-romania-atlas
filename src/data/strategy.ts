@@ -224,4 +224,15 @@ export const PILLARS: BulletGroup[] = [
       "Rollout L0 ca în propunerea endpoint: instalare USB, cod de înrolare, migrare chat-first, 8 săptămâni per primărie",
     ],
   },
+  {
+    title: "Ancore de transparență (blockchain)",
+    items: [
+      "Principiu: doar hash-uri ale artefactelor nep-personale merg pe lanț — niciodată date personale (GDPR art. 17, dreptul la ștergere)",
+      "Registrul STS: starea WRPRC/WRPAC ancorată la fiecare modificare — nimeni nu poate edita silențios",
+      "Binary transparency: SBOM/SLSA pentru fiecare build al wallet-ului și fiecare imagine OSTree — „aplicația din store e codul din repo?”",
+      "Ceremonii de chei, rapoarte SLA/incidente/achiziții — minute ancorate, verificabile de oricine",
+      "Lanțul trebuie să fie în afara controlului statului: lanț permisiv (Ethereum L1) + EBSI/Europeum, dublă ancorare (~cenți/anchor)",
+      "Ce NU face blockchain-ul aici: disponibilitate (CDN/DC), confidențialitate (SD-JWT), scalare (gateway), identitate (OpenID4VC + status lists)",
+    ],
+  },
 ];

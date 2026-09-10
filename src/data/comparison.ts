@@ -78,6 +78,12 @@ export const COMPARISON: ComparisonRow[] = [
     proposed: "Același + interogabilitate publică și redundanță geo",
     verdict: "extended",
   },
+  {
+    dimension: "Transparență verificabilă",
+    current: "Doar documentație publică (CC-BY-4.0)",
+    proposed: "Ancore criptografice publice (lanț permisiv + EBSI) pentru registru, build-uri, ceremonii de chei, rapoarte SLA — doar hash-uri, niciodată date personale",
+    verdict: "added",
+  },
 ];
 
 export const VERDICT_LABELS: Record<ComparisonRow["verdict"], string> = {

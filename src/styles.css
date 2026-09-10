@@ -564,6 +564,17 @@ main {
   opacity: 0.45;
 }
 
+.cluster-badge {
+  cursor: pointer;
+}
+
+.cluster-count {
+  fill: #dbe4f3;
+  font-size: 9.5px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
 @keyframes link-flow {
   to {
     stroke-dashoffset: -0.1;

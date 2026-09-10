@@ -30,6 +30,8 @@ interface GeoCollection {
 const W = 960;
 const H = 760;
 
+const BY_ID = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+
 function norm(s: string) {
   return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
@@ -49,8 +51,6 @@ interface TipContent {
   title: Bi;
   detail: Bi;
 }
-
-const TIP_CELL = 12;
 
 export function MapView() {
   const { lang } = useLang();
@@ -78,7 +78,7 @@ export function MapView() {
     if (!svg) return;
     const behavior = d3
       .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([1, 20])
+      .scaleExtent([1, 40])
       .translateExtent([
         [-W, -H],
         [W * 2, H * 2],
@@ -168,42 +168,91 @@ export function MapView() {
   const uat = INSTITUTIONS.find((i) => i.county === "*");
   const uatVisible = !!uat && (!filter || filter === "service");
 
-  // Collision spreading: group points that land in the same screen cell and
-  // fan them out so they stay distinguishable at any zoom level.
-  const pts: { id: string; key: string; x: number; y: number }[] = [];
+  // Collision resolution in screen space: relax overlapping dots apart so
+  // they stay distinguishable, then let geographic separation take over as
+  // you zoom in (the artificial spread shrinks with zoom).
+  const pts: { id: string; x: number; y: number; px: number; py: number; isUat: boolean }[] = [];
   for (const i of visibleMarkers) {
     const [px, py] = projection([i.lon!, i.lat!]) ?? [0, 0];
-    pts.push({ id: i.id, key: i.id, x: zoom.x + px * k, y: zoom.y + py * k });
+    pts.push({ id: i.id, x: zoom.x + px * k, y: zoom.y + py * k, px, py, isUat: false });
   }
   if (uatVisible) {
     geo.features.forEach((f, fi) => {
       const [cx, cy] = path.centroid(f as unknown as GeoJSON.Feature);
-      pts.push({ id: `uat-${fi}`, key: `uat-${fi}`, x: zoom.x + cx * k, y: zoom.y + cy * k });
+      pts.push({ id: `uat-${fi}`, x: zoom.x + cx * k, y: zoom.y + cy * k, px: cx, py: cy, isUat: true });
     });
   }
-  const groups = new Map<string, typeof pts>();
-  for (const p of pts) {
-    const gk = `${Math.floor(p.x / TIP_CELL)}:${Math.floor(p.y / TIP_CELL)}`;
-    const arr = groups.get(gk) ?? [];
-    arr.push(p);
-    groups.set(gk, arr);
-  }
-  const offsets = new Map<string, { ox: number; oy: number }>();
-  const groupSizes = new Map<string, number>();
-  for (const [gk, members] of groups) {
-    members.sort((a, b) => a.key.localeCompare(b.key));
-    const n = members.length;
-    const phase = [...gk].reduce((s, ch) => s + ch.charCodeAt(0), 0) * 1.7;
-    members.forEach((m, i) => {
-      if (n === 1) {
-        offsets.set(m.id, { ox: 0, oy: 0 });
-      } else {
-        const r = Math.min(6 + 2.6 * Math.sqrt(n), 22);
-        const a = phase + (i * 2 * Math.PI) / n;
-        offsets.set(m.id, { ox: Math.cos(a) * r, oy: Math.sin(a) * r });
+  const D = 18;
+  const maxOff = Math.max(30 / Math.sqrt(k), 9);
+  const relaxed = pts.map((p) => ({ ...p, ox: 0, oy: 0 }));
+  for (let iter = 0; iter < 40; iter++) {
+    for (let i = 0; i < relaxed.length; i++) {
+      for (let j = i + 1; j < relaxed.length; j++) {
+        const a = relaxed[i];
+        const b = relaxed[j];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const d = Math.hypot(dx, dy);
+        if (d >= D) continue;
+        let ux: number;
+        let uy: number;
+        if (d > 1e-6) {
+          ux = dx / d;
+          uy = dy / d;
+        } else {
+          const ang = i * 2.399963 + j * 1.618034;
+          ux = Math.cos(ang);
+          uy = Math.sin(ang);
+        }
+        const push = (D - d) / 2;
+        a.ox -= ux * push;
+        a.oy -= uy * push;
+        b.ox += ux * push;
+        b.oy += uy * push;
       }
-      groupSizes.set(m.id, n);
+    }
+    for (const p of relaxed) {
+      const len = Math.hypot(p.ox, p.oy);
+      if (len > maxOff) {
+        p.ox = (p.ox / len) * maxOff;
+        p.oy = (p.oy / len) * maxOff;
+      }
+    }
+  }
+  const offsets = new Map(relaxed.map((p) => [p.id, { ox: p.ox, oy: p.oy }]));
+
+  // Cluster nearby dots after relaxation: lone dots get a label once you
+  // zoom in, denser clusters get a count badge instead.
+  const CL = 40;
+  const clusterOf = new Map<string, number>();
+  const clusters: { size: number; count: number; cx: number; cy: number; ids: string[] }[] = [];
+  for (const p of relaxed) {
+    if (clusterOf.has(p.id)) continue;
+    const stack = [p];
+    const members: typeof relaxed = [];
+    clusterOf.set(p.id, -1);
+    while (stack.length) {
+      const cur = stack.pop()!;
+      members.push(cur);
+      for (const o of relaxed) {
+        if (clusterOf.has(o.id)) continue;
+        const d = Math.hypot(cur.x + cur.ox - o.x - o.ox, cur.y + cur.oy - o.y - o.oy);
+        if (d < CL) {
+          clusterOf.set(o.id, -1);
+          stack.push(o);
+        }
+      }
+    }
+    const idx = clusters.length;
+    const inst = members.filter((m) => !m.isUat);
+    clusters.push({
+      size: members.length,
+      count: inst.length,
+      cx: members.reduce((s, m) => s + m.px + m.ox / k, 0) / members.length,
+      cy: members.reduce((s, m) => s + m.py + m.oy / k, 0) / members.length,
+      ids: inst.map((m) => m.id),
     });
+    for (const m of members) clusterOf.set(m.id, idx);
   }
 
   const sovereignDcs = DC_PLACEMENT.filter((d) => ["dc-a", "dc-b", "dc-c"].includes(d.id));
@@ -542,7 +591,8 @@ export function MapView() {
               const [px, py] = projection([i.lon!, i.lat!]) ?? [0, 0];
               const off = offsets.get(i.id) ?? { ox: 0, oy: 0 };
               const on = hover?.id === i.id;
-              const label = (k >= 2.5 && groupSizes.get(i.id) === 1) || on;
+              const ci = clusterOf.get(i.id) ?? 0;
+              const label = on || (k >= 2.5 && clusters[ci]?.size === 1);
               return (
                 <g
                   key={i.id}
@@ -583,6 +633,37 @@ export function MapView() {
                       {i.acronym}
                     </text>
                   )}
+                </g>
+              );
+            })}
+            {clusters.map((c, ci) => {
+              if (c.count < 3) return null;
+              const insts = c.ids.map((id) => BY_ID.get(id)!).filter(Boolean);
+              const county = insts[0]?.county ?? "";
+              const acronyms = insts.map((x) => x.acronym).join(" · ");
+              return (
+                <g
+                  key={`badge-${ci}`}
+                  transform={`translate(${c.cx},${c.cy}) scale(${1 / k})`}
+                  className="cluster-badge"
+                  onMouseEnter={(e) =>
+                    showTip(
+                      {
+                        title: {
+                          ro: `${c.count} instituții · ${county}`,
+                          en: `${c.count} institutions · ${county}`,
+                        },
+                        detail: { ro: acronyms, en: acronyms },
+                      },
+                      e
+                    )
+                  }
+                  onMouseLeave={() => setTip(null)}
+                >
+                  <circle r={11} fill="#0c1526" stroke="#4f8cff" strokeWidth={1.5} opacity={0.94} />
+                  <text x={0} y={0} textAnchor="middle" dominantBaseline="central" className="cluster-count">
+                    {c.count}
+                  </text>
                 </g>
               );
             })}
@@ -760,6 +841,17 @@ export function MapView() {
           {lang === "ro" ? "Sincronizare L0 (la zoom)" : "L0 sync (when zoomed in)"}
         </span>
         <span className="sl-item">
+          <svg width="14" height="14" viewBox="0 0 14 14">
+            <circle cx="7" cy="7" r="5.5" fill="#0c1526" stroke="#4f8cff" strokeWidth="1.3" />
+            <text x="7" y="7.4" textAnchor="middle" fontSize="7.5" fill="#dbe4f3" fontWeight="700">
+              N
+            </text>
+          </svg>
+          {lang === "ro"
+            ? "N = cluster de instituții (mărește zoom-ul)"
+            : "N = institution cluster (zoom in)"}
+        </span>
+        <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
             <rect x="1.5" y="1.5" width="9" height="9" fill="#1a2c4e" stroke="#2a4d8f" />
           </svg>
@@ -786,8 +878,8 @@ export function MapView() {
         ) : (
           <span className="muted">
             {lang === "ro"
-              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; liniile arată replicarea între situri."
-              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; the lines show replication between sites."}
+              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; liniile arată replicarea între situri, iar badge-urile cu număr grupează punctele apropiate — mărește zoom-ul pentru a le vedea separat."
+              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; lines show replication between sites, count badges group nearby dots — zoom in to see them separately."}
           </span>
         )}
       </div>

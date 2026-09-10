@@ -873,26 +873,27 @@ footer code {
 }
 
 .tl-item {
+  --tl-accent: var(--border);
   display: grid;
   grid-template-columns: 110px 1fr;
   gap: 18px;
   padding: 16px 0;
-  border-left: 3px solid var(--border);
+  border-left: 3px solid var(--tl-accent);
   padding-left: 20px;
   margin-left: 6px;
   position: relative;
 }
 
 .tl-item.eu {
-  border-left-color: #7b5cff;
+  --tl-accent: #7b5cff;
 }
 
 .tl-item.current {
-  border-left-color: #4f8cff;
+  --tl-accent: #4f8cff;
 }
 
 .tl-item.proposed {
-  border-left-color: #2ecc71;
+  --tl-accent: #2ecc71;
 }
 
 .tl-item::before {
@@ -903,7 +904,7 @@ footer code {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: inherit;
+  background: var(--tl-accent);
   border: 2px solid var(--bg);
 }
 

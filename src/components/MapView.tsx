@@ -133,7 +133,7 @@ export function MapView() {
                 fill={CATEGORY_COLORS[i.category]}
                 opacity={0.85}
               >
-                <title>{`${i.acronym} – ${i.role} (${f.properties.NAME_1})`}</title>
+                <title>{`${i.acronym} — ${i.name} · ${i.role} (${f.properties.NAME_1})`}</title>
               </circle>
             );
           })
@@ -144,14 +144,15 @@ export function MapView() {
             const [x, y] = projection([i.lon!, i.lat!]) ?? [0, 0];
             const on = hover?.id === i.id || filter === i.category;
             return (
-              <g
-                key={i.id}
-                transform={`translate(${x},${y})`}
-                className="marker"
-                onMouseEnter={() => setHover(i)}
-                onMouseLeave={() => setHover(null)}
-              >
-                <circle
+                <g
+                  key={i.id}
+                  transform={`translate(${x},${y})`}
+                  className="marker"
+                  onMouseEnter={() => setHover(i)}
+                  onMouseLeave={() => setHover(null)}
+                >
+                  <title>{`${i.acronym} — ${i.name}\n${i.role}`}</title>
+                  <circle
                   r={on ? 7 : 5}
                   fill={CATEGORY_COLORS[i.category]}
                   opacity={filter && filter !== i.category ? 0.25 : 1}

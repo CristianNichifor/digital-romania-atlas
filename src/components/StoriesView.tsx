@@ -2,6 +2,7 @@ import { STORIES } from "../data/stories";
 import { FLOW_COLORS } from "../data/flows";
 import { INSTITUTIONS } from "../data/institutions";
 import { pick, useLang } from "../i18n";
+import { T } from "./T";
 
 function acronym(id: string) {
   return INSTITUTIONS.find((i) => i.id === id)?.acronym ?? id;
@@ -22,17 +23,17 @@ export function StoriesView() {
         {STORIES.map((s) => (
           <article key={s.id} className="story">
             <div className="story-head">
-              <h3>{pick(s.title, lang)}</h3>
-              <span className="persona">{pick(s.persona, lang)}</span>
+              <h3><T text={pick(s.title, lang)} /></h3>
+              <span className="persona"><T text={pick(s.persona, lang)} /></span>
             </div>
             <div className="story-cols">
               <div className="story-col today-col">
                 <h4>{lang === "ro" ? "Azi" : "Today"}</h4>
-                <p>{pick(s.today, lang)}</p>
+                <p><T text={pick(s.today, lang)} /></p>
               </div>
               <div className="story-col proposed-col">
                 <h4>{lang === "ro" ? "Cu propunerea" : "With the proposal"}</h4>
-                <p>{pick(s.proposed, lang)}</p>
+                <p><T text={pick(s.proposed, lang)} /></p>
               </div>
             </div>
             <div className="story-steps">
@@ -47,7 +48,7 @@ export function StoriesView() {
                   <span className="step-node" style={{ borderColor: FLOW_COLORS[st.kind] }}>
                     {acronym(st.to)}
                   </span>
-                  <span className="step-label">{pick(st.label, lang)}</span>
+                  <span className="step-label"><T text={pick(st.label, lang)} /></span>
                 </div>
               ))}
             </div>

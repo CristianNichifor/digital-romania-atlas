@@ -1,5 +1,6 @@
 import { CONTEXT, CRITERIA, GAINS, RISKS, VERDICT } from "../data/policy";
 import { pick, useLang } from "../i18n";
+import { T } from "./T";
 
 export function PolicyView() {
   const { lang } = useLang();
@@ -13,14 +14,18 @@ export function PolicyView() {
         </h2>
       </div>
       <p className="muted note">
-        {lang === "ro"
-          ? "Poziție de design, nu document oficial. Faptele „actuale” provin din documentația publică MAI (repo-ul GitHub) și din prezentarea MAI din iulie 2026."
-          : "A design position, not an official document. The “current” facts come from the public MAI documentation (the GitHub repo) and the MAI presentation of July 2026."}
+        <T
+          text={
+            lang === "ro"
+              ? "Poziție de design, nu document oficial. Faptele „actuale” provin din documentația publică MAI (repo-ul GitHub) și din prezentarea MAI din iulie 2026."
+              : "A design position, not an official document. The “current” facts come from the public MAI documentation (the GitHub repo) and the MAI presentation of July 2026."
+          }
+        />
       </p>
 
       <div className="callout">
-        <strong>{pick(VERDICT.heading, lang)}</strong>
-        <p>{pick(VERDICT.text, lang)}</p>
+        <strong><T text={pick(VERDICT.heading, lang)} /></strong>
+        <p><T text={pick(VERDICT.text, lang)} /></p>
       </div>
 
       <h3>{lang === "ro" ? "Ce propune arhitectura actuală" : "What the current architecture proposes"}</h3>
@@ -35,8 +40,8 @@ export function PolicyView() {
           <tbody>
             {CONTEXT.map((c, i) => (
               <tr key={i}>
-                <td>{pick(c.what, lang)}</td>
-                <td className="dim">{pick(c.source, lang)}</td>
+                <td><T text={pick(c.what, lang)} /></td>
+                <td className="dim"><T text={pick(c.source, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -48,15 +53,15 @@ export function PolicyView() {
         {RISKS.map((r, i) => (
           <section key={i} className="risk-card">
             <h4>
-              <span className="risk-num">{i + 1}</span> {pick(r.risk, lang)}
+              <span className="risk-num">{i + 1}</span> <T text={pick(r.risk, lang)} />
             </h4>
             <p className="risk-why">
               <strong>{lang === "ro" ? "Riscul: " : "Risk: "}</strong>
-              {pick(r.why, lang)}
+              <T text={pick(r.why, lang)} />
             </p>
             <p className="risk-fix">
               <strong>{lang === "ro" ? "Mai bine: " : "Better: "}</strong>
-              {pick(r.fix, lang)}
+              <T text={pick(r.fix, lang)} />
             </p>
           </section>
         ))}
@@ -75,9 +80,9 @@ export function PolicyView() {
           <tbody>
             {CRITERIA.map((c, i) => (
               <tr key={i}>
-                <td className="dim">{pick(c.criterion, lang)}</td>
-                <td>{pick(c.current, lang)}</td>
-                <td>{pick(c.ours, lang)}</td>
+                <td className="dim"><T text={pick(c.criterion, lang)} /></td>
+                <td><T text={pick(c.current, lang)} /></td>
+                <td><T text={pick(c.ours, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -88,8 +93,8 @@ export function PolicyView() {
       <div className="grid-cards">
         {GAINS.map((g, i) => (
           <div key={i} className="card">
-            <strong>{pick(g.gain, lang)}</strong>
-            <p>{pick(g.value, lang)}</p>
+            <strong><T text={pick(g.gain, lang)} /></strong>
+            <p><T text={pick(g.value, lang)} /></p>
           </div>
         ))}
       </div>

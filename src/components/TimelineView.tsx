@@ -1,5 +1,6 @@
 import { TIMELINE } from "../data/timeline";
 import { pick, useLang } from "../i18n";
+import { T } from "./T";
 
 export function TimelineView() {
   const { lang } = useLang();
@@ -17,8 +18,8 @@ export function TimelineView() {
           <div key={i} className={`tl-item ${ev.owner}`}>
             <div className="tl-date">{ev.date}</div>
             <div className="tl-body">
-              <strong>{pick(ev.title, lang)}</strong>
-              <p>{pick(ev.detail, lang)}</p>
+              <strong><T text={pick(ev.title, lang)} /></strong>
+              <p><T text={pick(ev.detail, lang)} /></p>
             </div>
           </div>
         ))}

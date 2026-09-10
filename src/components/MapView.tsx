@@ -15,6 +15,7 @@ import {
   VRANCEA_RADII_KM,
 } from "../data/resilience";
 import { pick, useLang, type Bi } from "../i18n";
+import { T } from "./T";
 
 interface Feature {
   type: string;
@@ -155,7 +156,7 @@ export function MapView() {
               onClick={() => setFilter(filter === cat ? null : (cat as Category))}
             >
               <span className="dot" style={{ background: CATEGORY_COLORS[cat as Category] }} />
-              {pick(label, lang)}
+              <T text={pick(label, lang)} />
             </button>
           ))}
         </div>
@@ -354,11 +355,11 @@ export function MapView() {
       <div className="hover-bar">
         {siteHover ? (
           <span>
-            <strong>{pick(siteHover.title, lang)}</strong> — {pick(siteHover.detail, lang)}
+            <strong><T text={pick(siteHover.title, lang)} /></strong> — <T text={pick(siteHover.detail, lang)} />
           </span>
         ) : hover ? (
           <span>
-            <strong>{hover.acronym}</strong> — {pick(hover.name, lang)} · {pick(hover.role, lang)} ·{" "}
+            <strong>{hover.acronym}</strong> — <T text={pick(hover.name, lang)} /> · <T text={pick(hover.role, lang)} /> ·{" "}
             {pick(CATEGORY_LABELS[hover.category], lang)}
             {hoverCounty
               ? lang === "ro"

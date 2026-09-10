@@ -1,5 +1,6 @@
 import { SOURCES } from "../data/sources";
 import { pick, useLang } from "../i18n";
+import { T } from "./T";
 
 export function SourcesView() {
   const { lang } = useLang();
@@ -26,9 +27,9 @@ export function SourcesView() {
       <div className="sources">
         {SOURCES.map((s, i) => (
           <div key={i} className="source-card">
-            <div className="source-kind">{pick(s.kind, lang)}</div>
-            <p>{pick(s.claim, lang)}</p>
-            {s.note && <p className="muted source-note">{pick(s.note, lang)}</p>}
+            <div className="source-kind"><T text={pick(s.kind, lang)} /></div>
+            <p><T text={pick(s.claim, lang)} /></p>
+            {s.note && <p className="muted source-note"><T text={pick(s.note, lang)} /></p>}
             {s.url && (
               <a href={s.url} target="_blank" rel="noreferrer">
                 {s.url.replace(/^https?:\/\//, "")}

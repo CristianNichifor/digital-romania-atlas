@@ -1,5 +1,6 @@
 import { COMPARISON, VERDICT_LABELS } from "../data/comparison";
 import { pick, useLang } from "../i18n";
+import { T } from "./T";
 
 const VERDICT_CLASS: Record<string, string> = {
   aligned: "v-aligned",
@@ -35,9 +36,9 @@ export function CompareView() {
           <tbody>
             {COMPARISON.map((row) => (
               <tr key={pick(row.dimension, "ro")}>
-                <td className="dim">{pick(row.dimension, lang)}</td>
-                <td>{pick(row.current, lang)}</td>
-                <td>{pick(row.proposed, lang)}</td>
+                <td className="dim"><T text={pick(row.dimension, lang)} /></td>
+                <td><T text={pick(row.current, lang)} /></td>
+                <td><T text={pick(row.proposed, lang)} /></td>
                 <td>
                   <span className={`verdict ${VERDICT_CLASS[row.verdict]}`}>
                     {pick(VERDICT_LABELS[row.verdict], lang)}

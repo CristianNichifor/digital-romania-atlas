@@ -11,6 +11,7 @@ import {
   UNDERGROUND_SITES,
 } from "../data/resilience";
 import { pick, useLang } from "../i18n";
+import { T } from "./T";
 
 export function ResilienceView() {
   const { lang } = useLang();
@@ -24,23 +25,13 @@ export function ResilienceView() {
         </h2>
       </div>
       <p className="muted note">
-        {lang === "ro" ? (
-          <>
-            Nimic nu depinde de un singur datacenter, un singur furnizor sau o singură rută de
-            rețea. Modelul <strong>3+8+1+L0</strong>: trei situri suverane semi-active, opt
-            micro-DC regionale cu producție proprie de energie, un vault subteran în salină și
-            nodurile offline din fiecare comună. Citește împreună cu clasele RPO/RTO din tab-ul{" "}
-            <em>Strategie</em> și cu ancorarea publică din tab-ul <em>Fluxuri</em>.
-          </>
-        ) : (
-          <>
-            Nothing depends on a single datacenter, vendor or network route. The{" "}
-            <strong>3+8+1+L0</strong> model: three semi-active sovereign sites, eight regional
-            micro-DCs with their own power generation, one underground salt-mine vault and the
-            offline nodes in every commune. Read together with the RPO/RTO classes in the{" "}
-            <em>Strategy</em> tab and the public anchoring in the <em>Flows</em> tab.
-          </>
-        )}
+        <T
+          text={
+            lang === "ro"
+              ? "Nimic nu depinde de un singur datacenter, un singur furnizor sau o singură rută de rețea. Modelul 3+8+1+L0: trei situri suverane semi-active, opt micro-DC regionale cu producție proprie de energie, un vault subteran în salină și nodurile offline din fiecare comună. Citește împreună cu clasele RPO/RTO din tab-ul Strategie și cu ancorarea publică din tab-ul Fluxuri."
+              : "Nothing depends on a single datacenter, vendor or network route. The 3+8+1+L0 model: three semi-active sovereign sites, eight regional micro-DCs with their own power generation, one underground salt-mine vault and the offline nodes in every commune. Read together with the RPO/RTO classes in the Strategy tab and the public anchoring in the Flows tab."
+          }
+        />
       </p>
 
       <h3>{lang === "ro" ? "Plasamentul centrelor de date (3+3 universitare)" : "Data centre placement (3+3 university)"}</h3>
@@ -59,13 +50,13 @@ export function ResilienceView() {
             {DC_PLACEMENT.map((d) => (
               <tr key={d.id}>
                 <td className="dim">
-                  {pick(d.name, lang)}
-                  <div className="sub">{pick(d.location, lang)}</div>
+                  <T text={pick(d.name, lang)} />
+                  <div className="sub"><T text={pick(d.location, lang)} /></div>
                 </td>
-                <td>{pick(d.region, lang)}</td>
-                <td>{pick(d.role, lang)}</td>
-                <td>{pick(d.seismic, lang)}</td>
-                <td>{pick(d.energy, lang)}</td>
+                <td><T text={pick(d.region, lang)} /></td>
+                <td><T text={pick(d.role, lang)} /></td>
+                <td><T text={pick(d.seismic, lang)} /></td>
+                <td><T text={pick(d.energy, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -91,10 +82,10 @@ export function ResilienceView() {
           <tbody>
             {REGIONAL_DCS.map((r, i) => (
               <tr key={i}>
-                <td className="dim">{pick(r.region, lang)}</td>
-                <td>{pick(r.city, lang)}</td>
-                <td>{pick(r.power, lang)}</td>
-                <td>{pick(r.role, lang)}</td>
+                <td className="dim"><T text={pick(r.region, lang)} /></td>
+                <td><T text={pick(r.city, lang)} /></td>
+                <td><T text={pick(r.power, lang)} /></td>
+                <td><T text={pick(r.role, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -115,10 +106,10 @@ export function ResilienceView() {
           <tbody>
             {ENERGY_AUTONOMY.map((e, i) => (
               <tr key={i}>
-                <td className="dim">{pick(e.tier, lang)}</td>
-                <td>{pick(e.site, lang)}</td>
-                <td>{pick(e.generation, lang)}</td>
-                <td>{pick(e.autonomy, lang)}</td>
+                <td className="dim"><T text={pick(e.tier, lang)} /></td>
+                <td><T text={pick(e.site, lang)} /></td>
+                <td><T text={pick(e.generation, lang)} /></td>
+                <td><T text={pick(e.autonomy, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -138,18 +129,22 @@ export function ResilienceView() {
           <tbody>
             {UNDERGROUND_SITES.map((u, i) => (
               <tr key={i}>
-                <td className="dim">{pick(u.name, lang)}</td>
-                <td>{pick(u.region, lang)}</td>
-                <td>{pick(u.suitability, lang)}</td>
+                <td className="dim"><T text={pick(u.name, lang)} /></td>
+                <td><T text={pick(u.region, lang)} /></td>
+                <td><T text={pick(u.suitability, lang)} /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <p className="muted note">
-        {lang === "ro"
-          ? "Atenție la subteran: sarea e corozivă (containere etanșe, presiune pozitivă, control al umidității), iar cutremurele de adâncime Vrancea zguduie și galeriile — de aceea vault-ul stă în Nord-Est, nu în Muntenia."
-          : "Underground caveats: salt is corrosive (sealed containers, positive pressure, humidity control), and deep Vrancea earthquakes shake galleries too — which is why the vault sits in the North-East, not in Wallachia."}
+        <T
+          text={
+            lang === "ro"
+              ? "Atenție la subteran: sarea e corozivă (containere etanșe, presiune pozitivă, control al umidității), iar cutremurele de adâncime Vrancea zguduie și galeriile — de aceea vault-ul stă în Nord-Est, nu în Muntenia."
+              : "Underground caveats: salt is corrosive (sealed containers, positive pressure, humidity control), and deep Vrancea earthquakes shake galleries too — which is why the vault sits in the North-East, not in Wallachia."
+          }
+        />
       </p>
 
       <h3>{lang === "ro" ? "Scenarii de dezastru & răspuns" : "Disaster scenarios & response"}</h3>
@@ -165,9 +160,9 @@ export function ResilienceView() {
           <tbody>
             {DISASTERS.map((d, i) => (
               <tr key={i}>
-                <td className="dim">{pick(d.scenario, lang)}</td>
-                <td>{pick(d.impact, lang)}</td>
-                <td>{pick(d.response, lang)}</td>
+                <td className="dim"><T text={pick(d.scenario, lang)} /></td>
+                <td><T text={pick(d.impact, lang)} /></td>
+                <td><T text={pick(d.response, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -187,9 +182,9 @@ export function ResilienceView() {
           <tbody>
             {HARDWARE_STACK.map((r, i) => (
               <tr key={i}>
-                <td className="dim">{pick(r.layer, lang)}</td>
-                <td>{pick(r.current, lang)}</td>
-                <td>{pick(r.target, lang)}</td>
+                <td className="dim"><T text={pick(r.layer, lang)} /></td>
+                <td><T text={pick(r.current, lang)} /></td>
+                <td><T text={pick(r.target, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -209,9 +204,9 @@ export function ResilienceView() {
           <tbody>
             {SOFTWARE_STACK.map((r, i) => (
               <tr key={i}>
-                <td className="dim">{pick(r.layer, lang)}</td>
-                <td>{pick(r.current, lang)}</td>
-                <td>{pick(r.target, lang)}</td>
+                <td className="dim"><T text={pick(r.layer, lang)} /></td>
+                <td><T text={pick(r.current, lang)} /></td>
+                <td><T text={pick(r.target, lang)} /></td>
               </tr>
             ))}
           </tbody>
@@ -226,8 +221,8 @@ export function ResilienceView() {
       <div className="grid-cards">
         {EDU_RESEARCH.map((e, i) => (
           <div key={i} className="card">
-            <strong>{pick(e.theme, lang)}</strong>
-            <p>{pick(e.what, lang)}</p>
+            <strong><T text={pick(e.theme, lang)} /></strong>
+            <p><T text={pick(e.what, lang)} /></p>
           </div>
         ))}
       </div>
@@ -237,7 +232,7 @@ export function ResilienceView() {
           <h4>{lang === "ro" ? "Reguli de backup & testare" : "Backup & testing rules"}</h4>
           <ul>
             {BACKUP_RULES.map((r, i) => (
-              <li key={i}>{pick(r, lang)}</li>
+              <li key={i}><T text={pick(r, lang)} /></li>
             ))}
           </ul>
         </section>
@@ -246,7 +241,7 @@ export function ResilienceView() {
           <ul className="cost-list">
             {RESILIENCE_COSTS.map((c, i) => (
               <li key={i}>
-                <span>{pick(c.item, lang)}</span>
+                <span><T text={pick(c.item, lang)} /></span>
                 <em>
                   {c.quantity} · {c.unitCost} = {c.total}
                 </em>

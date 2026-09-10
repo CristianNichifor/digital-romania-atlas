@@ -144,8 +144,8 @@ export const RISKS: RiskRow[] = [
       en: "Each data source connects to the wallet individually; without a national bus, every new service repeats the work and once-only stays on paper. Integration cost grows linearly with the number of services — see today's portal fragmentation.",
     },
     fix: {
-      ro: "Backbone X-Road (sau OpenADR) prin care toate sursele autentice expun datele o singură dată; orice serviciu nou e o configurare, nu un proiect",
-      en: "An X-Road (or OpenADR) backbone through which all authentic sources expose data once; every new service is configuration, not a project",
+      ro: "Backbone X-Road open source prin care toate sursele autentice expun datele o singură dată; orice serviciu nou e o configurare, nu un proiect",
+      en: "An open-source X-Road backbone through which all authentic sources expose data once; every new service is configuration, not a project",
     },
   },
   {

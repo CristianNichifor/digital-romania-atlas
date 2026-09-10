@@ -1,4 +1,5 @@
 import { useLang } from "../i18n";
+import { T } from "./T";
 
 export type ViewId =
   | "summary"
@@ -29,9 +30,13 @@ export function SummaryView({ onNavigate }: { onNavigate: (v: ViewId) => void })
           {lang === "ro" ? "România digitală în 30 de secunde" : "Digital Romania in 30 seconds"}
         </h2>
         <p className="summary-sub">
-          {lang === "ro"
-            ? "Statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister."
-            : "The state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry."}
+          <T
+            text={
+              lang === "ro"
+                ? "Statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister."
+                : "The state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry."
+            }
+          />
         </p>
       </div>
       <div className="summary-cards">
@@ -39,29 +44,22 @@ export function SummaryView({ onNavigate }: { onNavigate: (v: ViewId) => void })
           <h3>{lang === "ro" ? "Ce se întâmplă azi" : "What happens today"}</h3>
           <ul>
             <li>
-              {lang === "ro" ? (
-                <>
-                  <strong>RO Wallet (EUDI)</strong> — PID + verificarea vârstei în dec. 2026, sub
-                  MAI; atestări (mDL, cazier, stare civilă) în 2027
-                </>
-              ) : (
-                <>
-                  <strong>RO Wallet (EUDI)</strong> — PID + age verification by Dec 2026, under
-                  MAI; attestations (mDL, criminal record, civil status) in 2027
-                </>
-              )}
+              <T
+                text={
+                  lang === "ro"
+                    ? "RO Wallet (EUDI) — PID + verificarea vârstei în dec. 2026, sub MAI; atestări (mDL, cazier, stare civilă) în 2027"
+                    : "RO Wallet (EUDI) — PID + age verification by Dec 2026, under MAI; attestations (mDL, criminal record, civil status) in 2027"
+                }
+              />
             </li>
             <li>
-              {lang === "ro" ? (
-                <>
-                  <strong>Registru STS</strong> — cine poate emite și cine poate verifica
-                  (WRPRC/WRPAC)
-                </>
-              ) : (
-                <>
-                  <strong>STS registry</strong> — who may issue and who may verify (WRPRC/WRPAC)
-                </>
-              )}
+              <T
+                text={
+                  lang === "ro"
+                    ? "Registru STS — cine poate emite și cine poate verifica (WRPRC/WRPAC)"
+                    : "STS registry — who may issue and who may verify (WRPRC/WRPAC)"
+                }
+              />
             </li>
             <li>
               {lang === "ro"
@@ -74,7 +72,9 @@ export function SummaryView({ onNavigate }: { onNavigate: (v: ViewId) => void })
           <h3>{lang === "ro" ? "Ce propunem în plus" : "What we propose on top"}</h3>
           <ul>
             {GAPS.map((g) => (
-              <li key={g.ro}>{lang === "ro" ? g.ro : g.en}</li>
+              <li key={g.ro}>
+                <T text={lang === "ro" ? g.ro : g.en} />
+              </li>
             ))}
           </ul>
           <p className="muted">

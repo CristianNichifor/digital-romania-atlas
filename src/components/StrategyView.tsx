@@ -3,6 +3,7 @@ import {
   COSTS,
   CUTOVER,
   GOV_RULES,
+  IDENTITY_LIFECYCLE,
   INVENTORY,
   KPIS,
   LAYERS,
@@ -83,6 +84,48 @@ export function StrategyView() {
                   <span className={`verdict ${STATUS_CLASS[l.status]}`}>
                     {tt(STATUS_LABEL[l.status])}
                   </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>
+        {lang === "ro"
+          ? "Ciclul de viață al identității — pierderea telefonului planificată"
+          : "The identity lifecycle — losing the phone, planned for"}
+      </h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Eveniment" : "Event"}</th>
+              <th>
+                {lang === "ro" ? "Ce face cetățeanul" : "What the citizen does"}
+              </th>
+              <th>
+                {lang === "ro" ? "Ce face sistemul" : "What the system does"}
+              </th>
+              <th>{lang === "ro" ? "Țintă" : "Target"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {IDENTITY_LIFECYCLE.map((r) => (
+              <tr key={tt(r.event)}>
+                <td className="dim">
+                  <T text={tt(r.event)} />
+                </td>
+                <td>
+                  <T text={tt(r.citizen)} />
+                </td>
+                <td>
+                  <T text={tt(r.system)} />
+                </td>
+                <td>
+                  <strong>
+                    <T text={tt(r.target)} />
+                  </strong>
                 </td>
               </tr>
             ))}

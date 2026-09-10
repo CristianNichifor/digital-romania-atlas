@@ -15,40 +15,59 @@ export function StoriesView() {
       <div className="panel-head">
         <h2>
           {lang === "ro"
-            ? "Cinci povești de cetățean — azi vs. propunere"
-            : "Five citizen stories — today vs. proposal"}
+            ? "Povești de cetățean — azi vs. propunere"
+            : "Citizen stories — today vs. proposal"}
         </h2>
       </div>
       <div className="stories">
         {STORIES.map((s) => (
           <article key={s.id} className="story">
             <div className="story-head">
-              <h3><T text={pick(s.title, lang)} /></h3>
-              <span className="persona"><T text={pick(s.persona, lang)} /></span>
+              <h3>
+                <T text={pick(s.title, lang)} />
+              </h3>
+              <span className="persona">
+                <T text={pick(s.persona, lang)} />
+              </span>
             </div>
             <div className="story-cols">
               <div className="story-col today-col">
                 <h4>{lang === "ro" ? "Azi" : "Today"}</h4>
-                <p><T text={pick(s.today, lang)} /></p>
+                <p>
+                  <T text={pick(s.today, lang)} />
+                </p>
               </div>
               <div className="story-col proposed-col">
                 <h4>{lang === "ro" ? "Cu propunerea" : "With the proposal"}</h4>
-                <p><T text={pick(s.proposed, lang)} /></p>
+                <p>
+                  <T text={pick(s.proposed, lang)} />
+                </p>
               </div>
             </div>
             <div className="story-steps">
               {s.steps.map((st, i) => (
                 <div key={i} className="step">
-                  <span className="step-node" style={{ borderColor: FLOW_COLORS[st.kind] }}>
+                  <span
+                    className="step-node"
+                    style={{ borderColor: FLOW_COLORS[st.kind] }}
+                  >
                     {acronym(st.from)}
                   </span>
-                  <span className="step-arrow" style={{ color: FLOW_COLORS[st.kind] }}>
+                  <span
+                    className="step-arrow"
+                    style={{ color: FLOW_COLORS[st.kind] }}
+                  >
                     →
                   </span>
-                  <span className="step-node" style={{ borderColor: FLOW_COLORS[st.kind] }}>
+                  <span
+                    className="step-node"
+                    style={{ borderColor: FLOW_COLORS[st.kind] }}
+                  >
                     {acronym(st.to)}
                   </span>
-                  <span className="step-label"><T text={pick(st.label, lang)} /></span>
+                  <span className="step-label">
+                    <T text={pick(st.label, lang)} />
+                  </span>
                 </div>
               ))}
             </div>

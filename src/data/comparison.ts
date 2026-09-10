@@ -120,6 +120,21 @@ export const COMPARISON: ComparisonRow[] = [
     verdict: "extended",
   },
   {
+    dimension: {
+      ro: "Factor de securitate hardware",
+      en: "Hardware security factor",
+    },
+    current: {
+      ro: "Chei în Secure Element / TPM al telefonului; MDVM monitorizează dispozitivul",
+      en: "Keys in the phone's Secure Element / TPM; MDVM monitors the device",
+    },
+    proposed: {
+      ro: "+ cheie FIDO2 (CTAP2) opțională: step-up pentru LoA High și sume mari, PID pe cheie prin NFC, ancoră de recuperare în caz de telefon pierdut",
+      en: "+ optional FIDO2 (CTAP2) key: step-up for LoA High and large amounts, PID on the key over NFC, recovery anchor for a lost phone",
+    },
+    verdict: "added",
+  },
+  {
     dimension: { ro: "Incluziune", en: "Inclusion" },
     current: { ro: "Nu este abordat", en: "Not addressed" },
     proposed: {

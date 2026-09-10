@@ -37,7 +37,10 @@ export const STORIES: Story[] = [
       {
         from: "uat",
         to: "citizen",
-        label: { ro: "Emitere asistată la primărie", en: "Assisted issuance at the town hall" },
+        label: {
+          ro: "Emitere asistată la primărie",
+          en: "Assisted issuance at the town hall",
+        },
         kind: "service",
       },
       {
@@ -49,7 +52,10 @@ export const STORIES: Story[] = [
       {
         from: "citizen",
         to: "rp",
-        label: { ro: "Prezentare la instituții", en: "Presentation to institutions" },
+        label: {
+          ro: "Prezentare la instituții",
+          en: "Presentation to institutions",
+        },
         kind: "presentation",
       },
     ],
@@ -94,7 +100,10 @@ export const STORIES: Story[] = [
       {
         from: "citizen",
         to: "rp",
-        label: { ro: "Cerere de plată / QR în wallet", en: "Payment request / QR in wallet" },
+        label: {
+          ro: "Cerere de plată / QR în wallet",
+          en: "Payment request / QR in wallet",
+        },
         kind: "payment",
       },
       {
@@ -114,7 +123,10 @@ export const STORIES: Story[] = [
   {
     id: "atestat",
     persona: { ro: "Vlad, 33 ani — angajator", en: "Vlad, 33 — employer" },
-    title: { ro: "Atestatul medical pentru angajator", en: "Medical attestation for the employer" },
+    title: {
+      ro: "Atestatul medical pentru angajator",
+      en: "Medical attestation for the employer",
+    },
     today: {
       ro: "Copii după adeverințe, semnături, date medicale care circulă cine știe pe unde.",
       en: "Copies of certificates, signatures, medical data travelling who knows where.",
@@ -136,13 +148,19 @@ export const STORIES: Story[] = [
       {
         from: "xroad",
         to: "cnas",
-        label: { ro: "Date garantate la sursă", en: "Data guaranteed at source" },
+        label: {
+          ro: "Date garantate la sursă",
+          en: "Data guaranteed at source",
+        },
         kind: "backbone",
       },
       {
         from: "citizen",
         to: "rp",
-        label: { ro: "Atestare minimă livrată", en: "Minimal attestation delivered" },
+        label: {
+          ro: "Atestare minimă livrată",
+          en: "Minimal attestation delivered",
+        },
         kind: "presentation",
       },
     ],
@@ -150,7 +168,10 @@ export const STORIES: Story[] = [
   {
     id: "diaspora",
     persona: { ro: "Ioana, 27 ani — Spania", en: "Ioana, 27 — Spain" },
-    title: { ro: "Diaspora: deschide cont bancar", en: "Diaspora: opening a bank account" },
+    title: {
+      ro: "Diaspora: deschide cont bancar",
+      en: "Diaspora: opening a bank account",
+    },
     today: {
       ro: "Programare la consulat, drum de sute de km, apostile, traduceri legalizate.",
       en: "Consulate appointment, hundreds of km, apostilles, certified translations.",
@@ -163,7 +184,10 @@ export const STORIES: Story[] = [
       {
         from: "consulate",
         to: "dgep",
-        label: { ro: "Verificare identitate diaspora", en: "Diaspora identity verification" },
+        label: {
+          ro: "Verificare identitate diaspora",
+          en: "Diaspora identity verification",
+        },
         kind: "identity",
       },
       {
@@ -196,7 +220,10 @@ export const STORIES: Story[] = [
       {
         from: "citizen",
         to: "university",
-        label: { ro: "Înscriere online cu QEAA + PID", en: "Online enrolment with QEAA + PID" },
+        label: {
+          ro: "Înscriere online cu QEAA + PID",
+          en: "Online enrolment with QEAA + PID",
+        },
         kind: "presentation",
       },
       {
@@ -208,7 +235,10 @@ export const STORIES: Story[] = [
       {
         from: "xroad",
         to: "men",
-        label: { ro: "REGES / arhiva națională a diplomelor", en: "REGES / national diploma archive" },
+        label: {
+          ro: "REGES / arhiva națională a diplomelor",
+          en: "REGES / national diploma archive",
+        },
         kind: "backbone",
       },
     ],
@@ -229,19 +259,28 @@ export const STORIES: Story[] = [
       {
         from: "citizen",
         to: "rp",
-        label: { ro: "Prezintă atestarea medicală", en: "Presents the medical attestation" },
+        label: {
+          ro: "Prezintă atestarea medicală",
+          en: "Presents the medical attestation",
+        },
         kind: "presentation",
       },
       {
         from: "rp",
         to: "xroad",
-        label: { ro: "Verificare cu consimțământ", en: "Verification with consent" },
+        label: {
+          ro: "Verificare cu consimțământ",
+          en: "Verification with consent",
+        },
         kind: "backbone",
       },
       {
         from: "xroad",
         to: "cnas",
-        label: { ro: "Date garantate la sursă", en: "Data guaranteed at source" },
+        label: {
+          ro: "Date garantate la sursă",
+          en: "Data guaranteed at source",
+        },
         kind: "backbone",
       },
     ],
@@ -262,7 +301,10 @@ export const STORIES: Story[] = [
       {
         from: "citizen",
         to: "hub-mai",
-        label: { ro: "Înmatriculare online (mDL + certificat)", en: "Online registration (mDL + certificate)" },
+        label: {
+          ro: "Înmatriculare online (mDL + certificat)",
+          en: "Online registration (mDL + certificate)",
+        },
         kind: "presentation",
       },
       {
@@ -281,7 +323,10 @@ export const STORIES: Story[] = [
   },
   {
     id: "carte-funciara",
-    persona: { ro: "Dana, 45 ani — cumpără apartament", en: "Dana, 45 — buying a flat" },
+    persona: {
+      ro: "Dana, 45 ani — cumpără apartament",
+      en: "Dana, 45 — buying a flat",
+    },
     title: { ro: "Extrasul de carte funciară", en: "The land book extract" },
     today: {
       ro: "Cerere la ghișeul ANCPI, timpi de eliberare, acte care expiră înainte de semnare.",
@@ -295,13 +340,19 @@ export const STORIES: Story[] = [
       {
         from: "citizen",
         to: "rp",
-        label: { ro: "Notariat — consimțământ pentru extras", en: "Notary — consent for the extract" },
+        label: {
+          ro: "Notariat — consimțământ pentru extras",
+          en: "Notary — consent for the extract",
+        },
         kind: "presentation",
       },
       {
         from: "rp",
         to: "xroad",
-        label: { ro: "Solicitare prin backbone", en: "Request via the backbone" },
+        label: {
+          ro: "Solicitare prin backbone",
+          en: "Request via the backbone",
+        },
         kind: "backbone",
       },
       {
@@ -328,7 +379,10 @@ export const STORIES: Story[] = [
       {
         from: "civic",
         to: "transparency",
-        label: { ro: "Verifică rapoartele publice", en: "Verifies the public reports" },
+        label: {
+          ro: "Verifică rapoartele publice",
+          en: "Verifies the public reports",
+        },
         kind: "oversight",
       },
       {
@@ -340,8 +394,77 @@ export const STORIES: Story[] = [
       {
         from: "civic",
         to: "anchor",
-        label: { ro: "Verificare independentă on-chain", en: "Independent on-chain verification" },
+        label: {
+          ro: "Verificare independentă on-chain",
+          en: "Independent on-chain verification",
+        },
         kind: "anchor",
+      },
+    ],
+  },
+  {
+    id: "telefon-pierdut",
+    persona: {
+      ro: "Vlad, 34 ani — își pierde telefonul în vacanță",
+      en: "Vlad, 34 — loses his phone on holiday",
+    },
+    title: {
+      ro: "Ai pierdut telefonul — ce se întâmplă",
+      en: "You lost your phone — what happens",
+    },
+    today: {
+      ro: "Conturile online depind de parole și SMS-OTP: risc de SIM-swap, resetări de parole la fiecare serviciu, fără un comutator unic care să oprească totul.",
+      en: "Online accounts depend on passwords and SMS-OTP: SIM-swap risk, password resets per service, no single switch to stop everything.",
+    },
+    proposed: {
+      ro: "Un singur raport (hotline 24/7, portal sau ghișeu) suspendă toate credențialele în ≤ 15 minute. Pe noul telefon revii cu cheia de recuperare, fără proofing complet.",
+      en: "A single report (24/7 hotline, portal or desk) suspends all credentials within 15 minutes. On the new phone you're back with the recovery key — no full proofing.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "sts",
+        label: {
+          ro: "Raport pierdere — kill-switch unic",
+          en: "Loss report — single kill-switch",
+        },
+        kind: "lifecycle",
+      },
+      {
+        from: "sts",
+        to: "rp",
+        label: {
+          ro: "Credențiale suspendate; revocarea apare în Status Lists",
+          en: "Credentials suspended; revocation shows in the Status Lists",
+        },
+        kind: "trust",
+      },
+      {
+        from: "citizen",
+        to: "uat",
+        label: {
+          ro: "Re-înrolare asistată cu cheia de recuperare",
+          en: "Assisted re-enrolment with the recovery key",
+        },
+        kind: "identity",
+      },
+      {
+        from: "dgep",
+        to: "citizen",
+        label: {
+          ro: "Credențiale noi pe noul dispozitiv",
+          en: "Fresh credentials on the new device",
+        },
+        kind: "identity",
+      },
+      {
+        from: "citizen",
+        to: "rp",
+        label: {
+          ro: "Prezentare normală din prima zi",
+          en: "Normal presentation from day one",
+        },
+        kind: "presentation",
       },
     ],
   },

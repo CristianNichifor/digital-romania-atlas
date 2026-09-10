@@ -51,6 +51,7 @@ function parseFlows(code) {
 const instCode = readTs("src/data/institutions.ts");
 const flowsCode = readTs("src/data/flows.ts");
 const storiesCode = readTs("src/data/stories.ts");
+const journeysCode = readTs("src/data/journeys.ts");
 const euSystemsCode = readTs("src/data/euSystems.ts");
 const sourcesCode = readTs("src/data/sources.ts");
 const hrCode = readTs("src/data/hr.ts");
@@ -84,6 +85,19 @@ if (inst) {
   }
 }
 
+const journeySteps = [
+  ...journeysCode.matchAll(
+    /from:\s*"([a-z0-9-]+)"[\s\S]{0,500}?to:\s*"([a-z0-9-]+)"/g
+  ),
+];
+if (inst) {
+  for (const [, from, to] of journeySteps) {
+    if (!inst.ids.includes(from))
+      errors.push(`journey step: unknown from "${from}"`);
+    if (!inst.ids.includes(to)) errors.push(`journey step: unknown to "${to}"`);
+  }
+}
+
 const euSystems = [...euSystemsCode.matchAll(/\bkey:\s*"([a-z0-9-]+)"/g)].map(
   (m) => m[1]
 );
@@ -114,6 +128,7 @@ for (const [file, code] of [
   ["src/data/institutions.ts", instCode],
   ["src/data/flows.ts", flowsCode],
   ["src/data/stories.ts", storiesCode],
+  ["src/data/journeys.ts", journeysCode],
   ["src/data/euSystems.ts", euSystemsCode],
   ["src/data/sources.ts", sourcesCode],
   ["src/data/hr.ts", hrCode],
@@ -144,5 +159,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Data OK: ${inst.ids.length} institutions, ${flows.length} flows, ${storySteps.length} story steps, ${euSystems.length} EU systems across ${euRows} dimensions, ${payRows} HR pay bands.`
+  `Data OK: ${inst.ids.length} institutions, ${flows.length} flows, ${storySteps.length} story steps, ${journeySteps.length} journey steps, ${euSystems.length} EU systems across ${euRows} dimensions, ${payRows} HR pay bands.`
 );

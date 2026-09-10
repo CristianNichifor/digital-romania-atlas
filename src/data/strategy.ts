@@ -84,6 +84,76 @@ export const LAYERS: Layer[] = [
   },
 ];
 
+export interface LifecycleRow {
+  event: Bi;
+  citizen: Bi;
+  system: Bi;
+  target: Bi;
+}
+
+export const IDENTITY_LIFECYCLE: LifecycleRow[] = [
+  {
+    event: { ro: "Înrolare", en: "Enrollment" },
+    citizen: {
+      ro: "Ghișeu asistat (primărie/poștă) sau video la distanță; probarea identității la sursă",
+      en: "Assisted desk (town hall/post office) or remote video; identity proved at the source",
+    },
+    system: {
+      ro: "DGEP emite PID (OpenID4VCI); chei generate pe dispozitiv (Secure Element); PID înregistrat în registrele STS",
+      en: "DGEP issues the PID (OpenID4VCI); keys generated on device (Secure Element); PID registered in the STS registries",
+    },
+    target: { ro: "≤ 15 min la ghișeu", en: "≤ 15 min at the desk" },
+  },
+  {
+    event: { ro: "Utilizare zilnică", en: "Daily use" },
+    citizen: {
+      ro: "Deblocare biometrică + aprobare per prezentare; divulgare selectivă",
+      en: "Biometric unlock + approval per presentation; selective disclosure",
+    },
+    system: {
+      ro: "Prezentare semnată (OpenID4VP · SD-JWT), legată de nonce-ul sesiunii; verificare în Status List",
+      en: "Signed presentation (OpenID4VP · SD-JWT) bound to the session nonce; Status List check",
+    },
+    target: { ro: "fără parolă, fără OTP", en: "no password, no OTP" },
+  },
+  {
+    event: { ro: "Pierdere / furt", en: "Loss / theft" },
+    citizen: {
+      ro: "Un singur raport pe orice canal (hotline, portal, ghișeu) — kill-switch unic",
+      en: "A single report on any channel (hotline, portal, desk) — one kill-switch",
+    },
+    system: {
+      ro: "Toate credențialele suspendate deodată; revocarea vizibilă în Status Lists la următoarea verificare",
+      en: "All credentials suspended at once; revocation visible in the Status Lists at the next check",
+    },
+    target: { ro: "revocare ≤ 15 min", en: "revocation ≤ 15 min" },
+  },
+  {
+    event: { ro: "Înlocuire", en: "Replacement" },
+    citizen: {
+      ro: "Recuperare cu cheia pre-înrolată sau, fără ea, proofing complet la ghișeu (planul B)",
+      en: "Recovery with the pre-enrolled key or, without it, full proofing at the desk (plan B)",
+    },
+    system: {
+      ro: "Credențiale noi emise pe noul dispozitiv; cele vechi rămân revocate definitiv",
+      en: "Fresh credentials issued to the new device; the old ones stay revoked for good",
+    },
+    target: { ro: "≤ 48h asistat", en: "≤ 48h assisted" },
+  },
+  {
+    event: { ro: "Fereastra offline", en: "Offline window" },
+    citizen: {
+      ro: "PID-ul funcționează offline (ISO 18013-5), deci o revocare întârzie până la următoarea sincronizare a verificatorului",
+      en: "The PID works offline (ISO 18013-5), so a revocation is only seen at the verifier's next sync",
+    },
+    system: {
+      ro: "Fereastra maximă de sincronizare e publicată și limitată prin design (verificatori: actualizare status la fiecare pornire + plafon)",
+      en: "The maximum sync window is published and capped by design (verifiers refresh status on start + a hard ceiling)",
+    },
+    target: { ro: "≤ 24h publicat", en: "≤ 24h published" },
+  },
+];
+
 export interface CostRow {
   item: Bi;
   estimate: string;

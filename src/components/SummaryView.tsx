@@ -9,25 +9,41 @@ export type ViewId =
   | "compare"
   | "policy"
   | "timeline"
+  | "journeys"
   | "strategy"
   | "resilience"
   | "sources";
 
 const GAPS: { ro: string; en: string }[] = [
-  { ro: "Schimb de date între instituții", en: "Inter-institution data exchange" },
+  {
+    ro: "Schimb de date între instituții",
+    en: "Inter-institution data exchange",
+  },
   { ro: "Plăți instant în wallet", en: "Instant payments in the wallet" },
   { ro: "Cutia poștală digitală", en: "The digital postbox" },
-  { ro: "Reziliență geografică & offline", en: "Geo-redundancy & offline operation" },
-  { ro: "Transparență verificabilă public", en: "Publicly verifiable transparency" },
+  {
+    ro: "Reziliență geografică & offline",
+    en: "Geo-redundancy & offline operation",
+  },
+  {
+    ro: "Transparență verificabilă public",
+    en: "Publicly verifiable transparency",
+  },
 ];
 
-export function SummaryView({ onNavigate }: { onNavigate: (v: ViewId) => void }) {
+export function SummaryView({
+  onNavigate,
+}: {
+  onNavigate: (v: ViewId) => void;
+}) {
   const { lang } = useLang();
   return (
     <div className="panel summary">
       <div className="summary-hero">
         <h2>
-          {lang === "ro" ? "România digitală în 30 de secunde" : "Digital Romania in 30 seconds"}
+          {lang === "ro"
+            ? "România digitală în 30 de secunde"
+            : "Digital Romania in 30 seconds"}
         </h2>
         <p className="summary-sub">
           <T
@@ -69,7 +85,9 @@ export function SummaryView({ onNavigate }: { onNavigate: (v: ViewId) => void })
           </ul>
         </section>
         <section className="summary-card proposal">
-          <h3>{lang === "ro" ? "Ce propunem în plus" : "What we propose on top"}</h3>
+          <h3>
+            {lang === "ro" ? "Ce propunem în plus" : "What we propose on top"}
+          </h3>
           <ul>
             {GAPS.map((g) => (
               <li key={g.ro}>
@@ -106,10 +124,14 @@ export function SummaryView({ onNavigate }: { onNavigate: (v: ViewId) => void })
       </div>
       <div className="summary-cta">
         <button className="cta" onClick={() => onNavigate("stories")}>
-          {lang === "ro" ? "Vezi poveștile cetățenilor →" : "See the citizens' stories →"}
+          {lang === "ro"
+            ? "Vezi poveștile cetățenilor →"
+            : "See the citizens' stories →"}
         </button>
         <button className="cta secondary" onClick={() => onNavigate("compare")}>
-          {lang === "ro" ? "Vezi comparația completă" : "See the full comparison"}
+          {lang === "ro"
+            ? "Vezi comparația completă"
+            : "See the full comparison"}
         </button>
         <button className="cta secondary" onClick={() => onNavigate("flows")}>
           {lang === "ro" ? "Explorează fluxurile" : "Explore the flows"}

@@ -221,6 +221,20 @@ export const DISASTERS: DisasterRow[] = [
       en: "Registries on WORM LTO tape, air-gapped (3-2-1-1-0); the underground vault keeps the second copy; M-of-N HSM quorum; annual real failover drills",
     },
   },
+  {
+    scenario: {
+      ro: "Telefon pierdut / furat (incident de identitate)",
+      en: "Lost / stolen phone (identity incident)",
+    },
+    impact: {
+      ro: "Toate credențialele de pe dispozitiv (PID + atestări) pot fi folosite de deținător până la revocare; fără SMS-OTP nu există risc SIM-swap, dar fereastra offline rămâne",
+      en: "All credentials on the device (PID + attestations) could be used by the holder until revocation; no SMS-OTP means no SIM-swap risk, but the offline window remains",
+    },
+    response: {
+      ro: "Kill-switch unic (hotline/portal/ghișeu) suspendă tot deodată — țintă ≤ 15 min; revocarea apare în Status Lists la următoarea verificare (fereastra offline publicată, ≤ 24h); re-înrolare cu cheia de recuperare sau proofing asistat (≤ 48h); deblocarea biometrică a telefonului limitează fereastra înainte de raportare",
+      en: "A single kill-switch (hotline/portal/desk) suspends everything at once — target ≤ 15 min; the revocation shows in the Status Lists at the next check (published offline window, ≤ 24h); re-enrolment with the recovery key or assisted proofing (≤ 48h); the phone's biometric lock shrinks the pre-report window",
+    },
+  },
 ];
 
 export interface SovereigntyRow {

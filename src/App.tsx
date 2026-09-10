@@ -4,6 +4,7 @@ import { FlowGraph } from "./components/FlowGraph";
 import { CompareView } from "./components/CompareView";
 import { PolicyView } from "./components/PolicyView";
 import { TimelineView } from "./components/TimelineView";
+import { JourneysView } from "./components/JourneysView";
 import { StrategyView } from "./components/StrategyView";
 import { ResilienceView } from "./components/ResilienceView";
 import { SummaryView, type ViewId } from "./components/SummaryView";
@@ -22,6 +23,7 @@ const VIEWS: { id: ViewId; ro: string; en: string }[] = [
   { id: "compare", ro: "Comparație", en: "Comparison" },
   { id: "policy", ro: "Analiză", en: "Policy" },
   { id: "timeline", ro: "Calendar", en: "Calendar" },
+  { id: "journeys", ro: "Pași cetățean", en: "Citizen journeys" },
   { id: "strategy", ro: "Strategie", en: "Strategy" },
   { id: "resilience", ro: "Reziliență", en: "Resilience" },
   { id: "sources", ro: "Surse", en: "Sources" },
@@ -86,6 +88,7 @@ export default function App() {
             {view === "compare" && <CompareView />}
             {view === "policy" && <PolicyView />}
             {view === "timeline" && <TimelineView />}
+            {view === "journeys" && <JourneysView />}
             {view === "strategy" && <StrategyView />}
             {view === "resilience" && <ResilienceView />}
             {view === "sources" && <SourcesView />}

@@ -59,8 +59,8 @@ export const DC_PLACEMENT: DcRow[] = [
     location: { ro: "Iași / regiunea Moldovei", en: "Iași / Moldova region" },
     region: { ro: "Moldova", en: "Moldova" },
     role: {
-      ro: "Disaster recovery pasiv — replică asincronă, cutie de viteze offline",
-      en: "Passive disaster recovery — async replica, offline vault",
+      ro: "Semi-activ — replici citite continuu, failover în minute; cutie de viteze offline",
+      en: "Semi-active — continuously read replicas, failover in minutes; offline vault",
     },
     seismic: {
       ro: "Risc redus; la distanță maximă de Vrancea în interiorul țării",
@@ -131,8 +131,8 @@ export const DISASTERS: DisasterRow[] = [
       en: "DC-B degraded or lost; regional fibre and power cut; Bucharest without services",
     },
     response: {
-      ro: "DC-A + DC-C preiau în RTO ≤ 30 min; DC mobile (containere) dislocate în 72h; L0 funcționează offline local",
-      en: "DC-A + DC-C take over within RTO ≤ 30 min; container DCs deployed in 72h; L0 keeps running offline locally",
+      ro: "DC-A + DC-C preiau în RTO ≤ 30 min; DC-urile regionale preiau serviciile locale; DC mobile (containere) dislocate în 72h; L0 funcționează offline; vault-ul subteran păstrează arhivele",
+      en: "DC-A + DC-C take over within RTO ≤ 30 min; regional DCs take over local services; container DCs deployed in 72h; L0 keeps running offline; the underground vault keeps the archives",
     },
   },
   {
@@ -145,8 +145,8 @@ export const DISASTERS: DisasterRow[] = [
       en: "Land links cut; sites in floodable areas affected; unstable power",
     },
     response: {
-      ro: "Siturile sunt plasate deasupra zonelor inundabile (bazin 100 de ani); rutare prin inelul național de fibră + microunde STS",
-      en: "Sites placed above 100-year flood basins; routing via the national fibre ring + STS microwave",
+      ro: "Siturile sunt plasate deasupra zonelor inundabile (bazin 100 de ani); fiecare sit are generație proprie; rutare prin inelul național de fibră + microunde STS",
+      en: "Sites placed above 100-year flood basins; every site has its own generation; routing via the national fibre ring + STS microwave",
     },
   },
   {
@@ -159,8 +159,8 @@ export const DISASTERS: DisasterRow[] = [
       en: "Prolonged regional outage; pressure on the national grid",
     },
     response: {
-      ro: "Generatoare proprii + BESS (8–24h); contracte pe termen lung cu nucleare (Cernavodă) și hidro (Porțile de Fier); UPS + flywheel pentru tranziție fără întrerupere",
-      en: "Own generators + BESS (8–24h); long-term contracts with nuclear (Cernavodă) and hydro (Iron Gates); UPS + flywheel for seamless cutover",
+      ro: "Fiecare sit își produce propria energie (gaz/biogaz + solar + BESS 8–24h); contracte pe termen lung cu nucleare (Cernavodă) și hidro (Porțile de Fier) ca alimentare de bază; UPS + flywheel pentru tranziție fără întrerupere",
+      en: "Every site generates its own power (gas/biogas + solar + 8–24h BESS); long-term nuclear (Cernavodă) and hydro (Iron Gates) contracts as base feed; UPS + flywheel for seamless cutover",
     },
   },
   {
@@ -187,8 +187,8 @@ export const DISASTERS: DisasterRow[] = [
       en: "DCs targeted simultaneously; ransom; data destruction",
     },
     response: {
-      ro: "Registre pe LTO tape WORM, air-gapped (3-2-1-1-0); cutia de viteze offline din DC-C; HSMs în cuorum M-din-N; exerciții anuale de failover real",
-      en: "Registries on WORM LTO tape, air-gapped (3-2-1-1-0); offline vault in DC-C; M-of-N HSM quorum; annual real failover drills",
+      ro: "Registre pe LTO tape WORM, air-gapped (3-2-1-1-0); vault-ul subteran păstrează a doua copie; HSMs în cuorum M-din-N; exerciții anuale de failover real",
+      en: "Registries on WORM LTO tape, air-gapped (3-2-1-1-0); the underground vault keeps the second copy; M-of-N HSM quorum; annual real failover drills",
     },
   },
 ];
@@ -393,15 +393,33 @@ export interface ResilCostRow {
 
 export const RESILIENCE_COSTS: ResilCostRow[] = [
   {
+    item: { ro: "8 micro-DC regionale (kit standardizat, container)", en: "8 regional micro-DCs (standardised container kit)" },
+    quantity: "8",
+    unitCost: "0,5–1,5M €",
+    total: "4–12M €",
+  },
+  {
+    item: { ro: "BESS + solar + genset per sit regional", en: "BESS + solar + genset per regional site" },
+    quantity: "8 situri",
+    unitCost: "0,3–0,5M €",
+    total: "2,4–4M €",
+  },
+  {
+    item: { ro: "Vault subteran în salină (adaptare, containere etanșe)", en: "Underground salt-mine vault (retrofit, sealed containers)" },
+    quantity: "1–2",
+    unitCost: "2–4M €",
+    total: "2–8M €",
+  },
+  {
+    item: { ro: "UPS + solar pentru nodurile L0 (UAT/școli)", en: "UPS + solar for the L0 nodes (UATs/schools)" },
+    quantity: "~3.200",
+    unitCost: "300–500 €",
+    total: "1–1,6M €",
+  },
+  {
     item: { ro: "DC mobile în containere (deploy 72h)", en: "Containerised mobile DCs (72h deployment)" },
     quantity: "2",
     unitCost: "0,75–1,5M €",
-    total: "1,5–3M €",
-  },
-  {
-    item: { ro: "BESS + generatoare + flywheel per sit", en: "BESS + generators + flywheel per site" },
-    quantity: "3 situri",
-    unitCost: "0,5–1M €",
     total: "1,5–3M €",
   },
   {
@@ -433,6 +451,239 @@ export const RESILIENCE_COSTS: ResilCostRow[] = [
     quantity: "anual",
     unitCost: "0,1M €",
     total: "0,1M €/an",
+  },
+];
+
+export interface RegionalDcRow {
+  region: Bi;
+  city: Bi;
+  power: Bi;
+  role: Bi;
+  lon: number;
+  lat: number;
+}
+
+export const REGIONAL_DCS: RegionalDcRow[] = [
+  {
+    region: { ro: "Nord-Vest", en: "North-West" },
+    city: { ro: "Oradea", en: "Oradea" },
+    power: {
+      ro: "Solar 200–500 kWp + BESS 0,5–1 MWh + genset gaz",
+      en: "200–500 kWp solar + 0.5–1 MWh BESS + gas genset",
+    },
+    role: {
+      ro: "Servicii locale, oglindă L3, capacitate de citire regională",
+      en: "Local services, L3 mirror, regional read capacity",
+    },
+    lon: 21.92,
+    lat: 47.05,
+  },
+  {
+    region: { ro: "Centru", en: "Centre" },
+    city: { ro: "Sibiu", en: "Sibiu" },
+    power: {
+      ro: "Solar + BESS 0,5–1 MWh + genset gaz; răcire liberă",
+      en: "Solar + 0.5–1 MWh BESS + gas genset; free cooling",
+    },
+    role: {
+      ro: "Servicii locale, oglindă L3",
+      en: "Local services, L3 mirror",
+    },
+    lon: 24.15,
+    lat: 45.79,
+  },
+  {
+    region: { ro: "Nord-Est", en: "North-East" },
+    city: { ro: "Suceava (lângă salina Cacica)", en: "Suceava (near Cacica salt mine)" },
+    power: {
+      ro: "Solar + BESS + genset; acces la coridorul hidro nordic",
+      en: "Solar + BESS + genset; access to the northern hydro corridor",
+    },
+    role: {
+      ro: "Servicii locale + traseu de rezervă către vault-ul subteran",
+      en: "Local services + backup route to the underground vault",
+    },
+    lon: 26.26,
+    lat: 47.65,
+  },
+  {
+    region: { ro: "Sud-Est", en: "South-East" },
+    city: { ro: "Constanța", en: "Constanța" },
+    power: {
+      ro: "Solar (insolație mare) + BESS + genset; legătură la stațiile de racord subacvatice",
+      en: "Solar (high insolation) + BESS + genset; link to the subsea landing stations",
+    },
+    role: {
+      ro: "Servicii locale + rutare internațională de rezervă",
+      en: "Local services + backup international routing",
+    },
+    lon: 28.65,
+    lat: 44.17,
+  },
+  {
+    region: { ro: "Sud-Muntenia", en: "South-Wallachia" },
+    city: { ro: "Pitești", en: "Pitești" },
+    power: {
+      ro: "Solar + BESS + genset; legătură la nucleara Cernavodă",
+      en: "Solar + BESS + genset; link to the Cernavodă nuclear line",
+    },
+    role: {
+      ro: "Servicii locale, preluare rapidă pentru București în scenariu Vrancea",
+      en: "Local services, fast take-over for Bucharest in a Vrancea scenario",
+    },
+    lon: 24.87,
+    lat: 44.86,
+  },
+  {
+    region: { ro: "București-Ilfov", en: "Bucharest-Ilfov" },
+    city: { ro: "acoperit de DC-B", en: "covered by DC-B" },
+    power: {
+      ro: "—",
+      en: "—",
+    },
+    role: {
+      ro: "Regiunea e deservită direct de situl suveran secundar",
+      en: "The region is served directly by the secondary sovereign site",
+    },
+    lon: 26.1,
+    lat: 44.43,
+  },
+  {
+    region: { ro: "Sud-Vest Oltenia", en: "South-West Oltenia" },
+    city: { ro: "Craiova", en: "Craiova" },
+    power: {
+      ro: "Solar + BESS + genset; apropiere de Porțile de Fier",
+      en: "Solar + BESS + genset; close to the Iron Gates",
+    },
+    role: {
+      ro: "Servicii locale, oglindă L3",
+      en: "Local services, L3 mirror",
+    },
+    lon: 23.8,
+    lat: 44.32,
+  },
+  {
+    region: { ro: "Vest", en: "West" },
+    city: { ro: "Timișoara", en: "Timișoara" },
+    power: {
+      ro: "Solar + BESS + genset; rutare vestică terestră către UE",
+      en: "Solar + BESS + genset; overland western routing towards the EU",
+    },
+    role: {
+      ro: "Servicii locale + coridor vestic de rezervă (HU/AT)",
+      en: "Local services + western backup corridor (HU/AT)",
+    },
+    lon: 21.23,
+    lat: 45.75,
+  },
+];
+
+export interface UndergroundRow {
+  name: Bi;
+  region: Bi;
+  suitability: Bi;
+  lon: number;
+  lat: number;
+}
+
+export const UNDERGROUND_SITES: UndergroundRow[] = [
+  {
+    name: { ro: "Salina Cacica (Suceava)", en: "Cacica salt mine (Suceava)" },
+    region: { ro: "Nord-Est", en: "North-East" },
+    suitability: {
+      ro: "Prima alegere: departe de Vrancea, temperatură stabilă, ecranare naturală EMP/incendiu",
+      en: "Top pick: far from Vrancea, stable temperature, natural EMP/fire shielding",
+    },
+    lon: 25.99,
+    lat: 47.63,
+  },
+  {
+    name: { ro: "Salina Târgu Ocna (Bacău)", en: "Târgu Ocna salt mine (Bacău)" },
+    region: { ro: "Nord-Est", en: "North-East" },
+    suitability: {
+      ro: "Alternativă: aceleași avantaje; galerii deja echipate parțial",
+      en: "Alternative: same advantages; galleries partly equipped already",
+    },
+    lon: 26.62,
+    lat: 46.28,
+  },
+  {
+    name: { ro: "Salina Ocna Mureș (Alba)", en: "Ocna Mureș salt mine (Alba)" },
+    region: { ro: "Centru", en: "Centre" },
+    suitability: {
+      ro: "Risc seismic redus; bună pentru a doua copie WORM",
+      en: "Low seismic risk; good for the second WORM copy",
+    },
+    lon: 23.86,
+    lat: 46.39,
+  },
+  {
+    name: { ro: "Slănic Prahova", en: "Slănic Prahova" },
+    region: { ro: "Muntenia", en: "Wallachia" },
+    suitability: {
+      ro: "De evitat pentru rol critic: în raza Vrancea; cutremurele de adâncime nu ocolesc galeriile",
+      en: "Avoid for a critical role: within the Vrancea radius; deep quakes do not spare the galleries",
+    },
+    lon: 25.94,
+    lat: 45.23,
+  },
+];
+
+export interface EnergyRow {
+  tier: Bi;
+  site: Bi;
+  generation: Bi;
+  autonomy: Bi;
+}
+
+export const ENERGY_AUTONOMY: EnergyRow[] = [
+  {
+    tier: { ro: "T1 · nucleu", en: "T1 · core" },
+    site: { ro: "3 situri suverane", en: "3 sovereign sites" },
+    generation: {
+      ro: "Rețea dublă + turbine gaz proprii + BESS 4–8 MWh + flywheel",
+      en: "Dual grid + own gas turbines + 4–8 MWh BESS + flywheel",
+    },
+    autonomy: {
+      ro: "4–8h pe baterii; nelimitat cu gaz propriu",
+      en: "4–8h on batteries; unlimited with own gas",
+    },
+  },
+  {
+    tier: { ro: "T2 · regional", en: "T2 · regional" },
+    site: { ro: "8 micro-DC regionale", en: "8 regional micro-DCs" },
+    generation: {
+      ro: "Solar 200–500 kWp + BESS 0,5–1 MWh + genset gaz/biogaz",
+      en: "200–500 kWp solar + 0.5–1 MWh BESS + gas/biogas genset",
+    },
+    autonomy: {
+      ro: "8–24h pe baterii, extins de solar; nelimitat cu genset",
+      en: "8–24h on batteries, extended by solar; unlimited with the genset",
+    },
+  },
+  {
+    tier: { ro: "T3 · subteran", en: "T3 · underground" },
+    site: { ro: "1–2 saline (vault + DC supraviețuitor)", en: "1–2 salt mines (vault + survivor DC)" },
+    generation: {
+      ro: "Rețeaua minei + genset + baterii; containere etanșe, presiune pozitivă (sarea e corozivă)",
+      en: "Mine grid + genset + batteries; sealed containers, positive pressure (salt is corrosive)",
+    },
+    autonomy: {
+      ro: "Zile — proiectat să funcționeze izolat",
+      en: "Days — designed to run isolated",
+    },
+  },
+  {
+    tier: { ro: "L0 · margine", en: "L0 · edge" },
+    site: { ro: "~3.200 UAT + școli", en: "~3,200 UATs + schools" },
+    generation: {
+      ro: "UPS 2 kWh + panou solar 5 kW per nod",
+      en: "2 kWh UPS + 5 kW solar panel per node",
+    },
+    autonomy: {
+      ro: "2–8h + offline-first prin design",
+      en: "2–8h + offline-first by design",
+    },
   },
 ];
 

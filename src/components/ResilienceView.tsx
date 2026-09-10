@@ -3,9 +3,12 @@ import {
   DC_PLACEMENT,
   DISASTERS,
   EDU_RESEARCH,
+  ENERGY_AUTONOMY,
   HARDWARE_STACK,
+  REGIONAL_DCS,
   RESILIENCE_COSTS,
   SOFTWARE_STACK,
+  UNDERGROUND_SITES,
 } from "../data/resilience";
 import { pick, useLang } from "../i18n";
 
@@ -24,21 +27,23 @@ export function ResilienceView() {
         {lang === "ro" ? (
           <>
             Nimic nu depinde de un singur datacenter, un singur furnizor sau o singură rută de
-            rețea. Modelul <strong>3+3</strong>: trei situri suverane + trei centre universitare
-            federate. Citește împreună cu clasele RPO/RTO din tab-ul <em>Strategie</em> și cu
-            ancorarea publică din tab-ul <em>Fluxuri</em>.
+            rețea. Modelul <strong>3+8+1+L0</strong>: trei situri suverane semi-active, opt
+            micro-DC regionale cu producție proprie de energie, un vault subteran în salină și
+            nodurile offline din fiecare comună. Citește împreună cu clasele RPO/RTO din tab-ul{" "}
+            <em>Strategie</em> și cu ancorarea publică din tab-ul <em>Fluxuri</em>.
           </>
         ) : (
           <>
             Nothing depends on a single datacenter, vendor or network route. The{" "}
-            <strong>3+3</strong> model: three sovereign sites + three federated university centres.
-            Read together with the RPO/RTO classes in the <em>Strategy</em> tab and the public
-            anchoring in the <em>Flows</em> tab.
+            <strong>3+8+1+L0</strong> model: three semi-active sovereign sites, eight regional
+            micro-DCs with their own power generation, one underground salt-mine vault and the
+            offline nodes in every commune. Read together with the RPO/RTO classes in the{" "}
+            <em>Strategy</em> tab and the public anchoring in the <em>Flows</em> tab.
           </>
         )}
       </p>
 
-      <h3>{lang === "ro" ? "Plasamentul centrelor de date (3+3)" : "Data centre placement (3+3)"}</h3>
+      <h3>{lang === "ro" ? "Plasamentul centrelor de date (3+3 universitare)" : "Data centre placement (3+3 university)"}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -68,8 +73,83 @@ export function ResilienceView() {
       </div>
       <p className="muted note">
         {lang === "ro"
-          ? "Pe hartă: inelele zonei seismice Vrancea (50/100/200 km) și pătratele galbene = siturile DC suverane."
-          : "On the map: the Vrancea seismic-zone rings (50/100/200 km) and the yellow squares = the sovereign DC sites."}
+          ? "Pe hartă: inelele zonei seismice Vrancea (50/100/200 km), pătratele galbene = siturile DC suverane, pătratele albastre = micro-DC-urile regionale, triunghiurile mov = siturile subterane."
+          : "On the map: the Vrancea seismic-zone rings (50/100/200 km), yellow squares = the sovereign DC sites, cyan squares = the regional micro-DCs, purple triangles = the underground sites."}
+      </p>
+
+      <h3>{lang === "ro" ? "Micro-DC regionale (câte unul per regiune de dezvoltare)" : "Regional micro-DCs (one per development region)"}</h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Regiune" : "Region"}</th>
+              <th>{lang === "ro" ? "Locație" : "Location"}</th>
+              <th>{lang === "ro" ? "Energie proprie" : "Own power"}</th>
+              <th>{lang === "ro" ? "Rol" : "Role"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {REGIONAL_DCS.map((r, i) => (
+              <tr key={i}>
+                <td className="dim">{pick(r.region, lang)}</td>
+                <td>{pick(r.city, lang)}</td>
+                <td>{pick(r.power, lang)}</td>
+                <td>{pick(r.role, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>{lang === "ro" ? "Autonomie energetică pe niveluri" : "Energy autonomy by tier"}</h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Nivel" : "Tier"}</th>
+              <th>{lang === "ro" ? "Situri" : "Sites"}</th>
+              <th>{lang === "ro" ? "Producție proprie" : "Own generation"}</th>
+              <th>{lang === "ro" ? "Autonomie" : "Autonomy"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ENERGY_AUTONOMY.map((e, i) => (
+              <tr key={i}>
+                <td className="dim">{pick(e.tier, lang)}</td>
+                <td>{pick(e.site, lang)}</td>
+                <td>{pick(e.generation, lang)}</td>
+                <td>{pick(e.autonomy, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>{lang === "ro" ? "Candidați subterani (saline & galerii)" : "Underground candidates (salt mines & galleries)"}</h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Sit" : "Site"}</th>
+              <th>{lang === "ro" ? "Regiune" : "Region"}</th>
+              <th>{lang === "ro" ? "Evaluare" : "Assessment"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {UNDERGROUND_SITES.map((u, i) => (
+              <tr key={i}>
+                <td className="dim">{pick(u.name, lang)}</td>
+                <td>{pick(u.region, lang)}</td>
+                <td>{pick(u.suitability, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="muted note">
+        {lang === "ro"
+          ? "Atenție la subteran: sarea e corozivă (containere etanșe, presiune pozitivă, control al umidității), iar cutremurele de adâncime Vrancea zguduie și galeriile — de aceea vault-ul stă în Nord-Est, nu în Muntenia."
+          : "Underground caveats: salt is corrosive (sealed containers, positive pressure, humidity control), and deep Vrancea earthquakes shake galleries too — which is why the vault sits in the North-East, not in Wallachia."}
       </p>
 
       <h3>{lang === "ro" ? "Scenarii de dezastru & răspuns" : "Disaster scenarios & response"}</h3>

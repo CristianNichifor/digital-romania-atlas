@@ -6,6 +6,7 @@ export type ViewId =
   | "map"
   | "flows"
   | "compare"
+  | "policy"
   | "timeline"
   | "strategy"
   | "resilience"

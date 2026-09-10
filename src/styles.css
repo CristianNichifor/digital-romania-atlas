@@ -202,6 +202,83 @@ main {
   margin: 10px 0;
 }
 
+.callout {
+  background: #0c1526;
+  border: 1px solid #4f8cff;
+  border-left: 4px solid #4f8cff;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 10px 0 18px;
+}
+
+.callout strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.callout p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.risk-card {
+  background: #0c1526;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.risk-card h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.risk-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #4f8cff22;
+  border: 1px solid #4f8cff;
+  color: #4f8cff;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.risk-card p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.risk-card p:last-child {
+  margin-bottom: 0;
+}
+
+.risk-why strong {
+  color: #ff6b6b;
+}
+
+.risk-fix strong {
+  color: #2ac7a3;
+}
+
 .grid-cards .card {
   background: #0c1526;
   border: 1px solid var(--border);

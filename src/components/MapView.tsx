@@ -7,8 +7,14 @@ import {
   type Category,
   type Institution,
 } from "../data/institutions";
-import { DC_PLACEMENT, VRANCEA_EPICENTRE, VRANCEA_RADII_KM, type DcRow } from "../data/resilience";
-import { pick, useLang } from "../i18n";
+import {
+  DC_PLACEMENT,
+  REGIONAL_DCS,
+  UNDERGROUND_SITES,
+  VRANCEA_EPICENTRE,
+  VRANCEA_RADII_KM,
+} from "../data/resilience";
+import { pick, useLang, type Bi } from "../i18n";
 
 interface Feature {
   type: string;
@@ -32,7 +38,7 @@ export function MapView() {
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
-  const [dcHover, setDcHover] = useState<DcRow | null>(null);
+  const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(null);
   const [filter, setFilter] = useState<Category | null>(null);
   const [zoom, setZoom] = useState({ x: 0, y: 0, k: 1 });
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -126,6 +132,10 @@ export function MapView() {
   );
 
   const sovereignDcs = DC_PLACEMENT.filter((d) => ["dc-a", "dc-b", "dc-c"].includes(d.id));
+  const regionalDcs = REGIONAL_DCS.filter(
+    (r) => !/covered by DC-B|acoperit de DC-B/.test(pick(r.city, "en"))
+  );
+  const underground = UNDERGROUND_SITES;
   const [vx, vy] = projection([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat]) ?? [0, 0];
 
   return (
@@ -272,8 +282,13 @@ export function MapView() {
                   key={d.id}
                   transform={`translate(${x},${y})`}
                   className="dc-marker"
-                  onMouseEnter={() => setDcHover(d)}
-                  onMouseLeave={() => setDcHover(null)}
+                  onMouseEnter={() =>
+                    setSiteHover({
+                      title: d.name,
+                      detail: { ro: `${d.role.ro} · ${d.seismic.ro}`, en: `${d.role.en} · ${d.seismic.en}` },
+                    })
+                  }
+                  onMouseLeave={() => setSiteHover(null)}
                 >
                   <rect
                     x={-5.5}
@@ -291,14 +306,55 @@ export function MapView() {
                 </g>
               );
             })}
+            {regionalDcs.map((r) => {
+              const [x, y] = projection([r.lon, r.lat]) ?? [0, 0];
+              return (
+                <g
+                  key={`r-${pick(r.region, "ro")}`}
+                  transform={`translate(${x},${y})`}
+                  className="dc-marker regional"
+                  onMouseEnter={() =>
+                    setSiteHover({
+                      title: { ro: `Micro-DC ${r.region.ro}`, en: `${r.region.en} micro-DC` },
+                      detail: r.power,
+                    })
+                  }
+                  onMouseLeave={() => setSiteHover(null)}
+                >
+                  <rect
+                    x={-4}
+                    y={-4}
+                    width={8}
+                    height={8}
+                    transform="rotate(45)"
+                    fill="#53c1e8"
+                    stroke="#0e1729"
+                    strokeWidth={1.5}
+                  />
+                </g>
+              );
+            })}
+            {underground.map((u) => {
+              const [x, y] = projection([u.lon, u.lat]) ?? [0, 0];
+              return (
+                <g
+                  key={`u-${pick(u.name, "ro")}`}
+                  transform={`translate(${x},${y})`}
+                  className="dc-marker underground"
+                  onMouseEnter={() => setSiteHover({ title: u.name, detail: u.suitability })}
+                  onMouseLeave={() => setSiteHover(null)}
+                >
+                  <path d="M0,-5 L4.5,4 L-4.5,4 Z" fill="#a479e2" stroke="#0e1729" strokeWidth={1.5} />
+                </g>
+              );
+            })}
           </g>
         </svg>
       </div>
       <div className="hover-bar">
-        {dcHover ? (
+        {siteHover ? (
           <span>
-            <strong>{pick(dcHover.name, lang)}</strong> — {pick(dcHover.role, lang)} ·{" "}
-            {pick(dcHover.seismic, lang)}
+            <strong>{pick(siteHover.title, lang)}</strong> — {pick(siteHover.detail, lang)}
           </span>
         ) : hover ? (
           <span>
@@ -313,8 +369,8 @@ export function MapView() {
         ) : (
           <span className="muted">
             {lang === "ro"
-              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare — derularea paginii nu e blocată. Punctele mici = primării (UAT); pătratele galbene = DC suverane; inelele roșii = zona seismică Vrancea (50/100/200 km)."
-              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan — page scrolling is never trapped. Small dots = town halls (UAT); yellow squares = sovereign DCs; red rings = the Vrancea seismic zone (50/100/200 km)."}
+              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare — derularea paginii nu e blocată. Punctele mici = primării (UAT); pătrate galbene = DC suverane; pătrate albastre = micro-DC regionale; triunghiuri mov = situri subterane; inelele roșii = zona seismică Vrancea (50/100/200 km)."
+              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan — page scrolling is never trapped. Small dots = town halls (UAT); yellow squares = sovereign DCs; cyan squares = regional micro-DCs; purple triangles = underground sites; red rings = the Vrancea seismic zone (50/100/200 km)."}
           </span>
         )}
       </div>

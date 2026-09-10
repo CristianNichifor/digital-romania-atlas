@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MapView } from "./components/MapView";
 import { FlowGraph } from "./components/FlowGraph";
 import { CompareView } from "./components/CompareView";
+import { PolicyView } from "./components/PolicyView";
 import { TimelineView } from "./components/TimelineView";
 import { StrategyView } from "./components/StrategyView";
 import { ResilienceView } from "./components/ResilienceView";
@@ -16,6 +17,7 @@ const VIEWS: { id: ViewId; ro: string; en: string }[] = [
   { id: "map", ro: "Harta României", en: "Map of Romania" },
   { id: "flows", ro: "Fluxuri de date", en: "Data flows" },
   { id: "compare", ro: "Comparație", en: "Comparison" },
+  { id: "policy", ro: "Analiză", en: "Policy" },
   { id: "timeline", ro: "Calendar", en: "Calendar" },
   { id: "strategy", ro: "Strategie", en: "Strategy" },
   { id: "resilience", ro: "Reziliență", en: "Resilience" },
@@ -76,6 +78,7 @@ export default function App() {
           {view === "map" && <MapView />}
           {view === "flows" && <FlowGraph />}
           {view === "compare" && <CompareView />}
+          {view === "policy" && <PolicyView />}
           {view === "timeline" && <TimelineView />}
           {view === "strategy" && <StrategyView />}
           {view === "resilience" && <ResilienceView />}

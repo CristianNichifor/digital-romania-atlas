@@ -7,15 +7,27 @@ data-flow graphs between all parties, a side-by-side feature comparison, and a t
 **Live intent:** make the national EUDI Wallet plans (and the gaps) legible to developers,
 journalists, and decision makers.
 
+**Live demo:** https://cristiannichifor.github.io/digital-romania-atlas/ (RO/EN toggle in the
+header)
+
+![Summary](docs/screenshots/shot-summary.png)
+
+![Data flows](docs/screenshots/shot-flows.png)
+
+![Strategy](docs/screenshots/shot-strategy.png)
+
 ## What it shows
 
 | View | Content |
 |---|---|
+| **Rezumat** | "Romania digitală în 30 de secunde": what happens today, the 5 additions we propose, why it matters. |
+| **Povești** | Five citizen stories with personas — rural pensioner, proof of age, local tax, medical attestation, diaspora bank account — each showing today vs. proposal with the involved flow steps. |
 | **Harta României** | County map with institutions as colored points (category-filterable). Small dots in every county = town halls (UAT) as assisted-enrollment / offline fallback points in the proposal. |
-| **Fluxuri de date** | Two toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). Filter by flow type. |
-| **Comparație** | 12-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
+| **Fluxuri de date** | Three toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). *"Diferența"* dims the documented flows and highlights only what the proposal adds. Filter by flow type. |
+| **Comparație** | 13-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
 | **Calendar** | EU obligations, the national plan, and our proposed additions side by side. |
-| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the four pillars (redundancy, open source, security, scalability), 5-year cost estimates, and the 12 outward-facing portals. |
+| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the five pillars (redundancy, open source, security, scalability, transparency anchors), 5-year cost estimates, and the 12 outward-facing portals. |
+| **Surse** | Provenance for every claim: MAI docs pinned at a specific commit, the MAI presentation, EU regulations, standards, and the sovereign-OS article. |
 
 ## Data sources
 
@@ -54,6 +66,9 @@ Everything is plain typed data — edit without touching components:
 - `src/data/comparison.ts` — the comparison table
 - `src/data/timeline.ts` — the calendar
 - `src/data/strategy.ts` — layers, pillars, costs, portals (Strategie tab)
+- `src/data/stories.ts` — the five citizen stories
+- `src/data/sources.ts` — provenance links for every claim
+- `src/i18n.tsx` — RO/EN language context; every data field is `{ ro, en }`
 - `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București)
 
 County GeoJSON source: [GabrielRondelli/geojson](https://github.com/GabrielRondelli/geojson)

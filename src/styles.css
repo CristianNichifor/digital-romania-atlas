@@ -2,9 +2,10 @@
   --bg: #05070d;
   --panel: #0a1120;
   --border: #1c2a45;
-  --text: #dbe4f3;
-  --muted: #7d8aa0;
+  --text: #e3ebf8;
+  --muted: #98a6c0;
   --accent: #4f8cff;
+  --line: 1.65;
 }
 
 * {
@@ -15,7 +16,13 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
+    Arial, sans-serif;
+  font-size: 15px;
+  line-height: var(--line);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .app {
@@ -29,7 +36,7 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 14px 28px;
+  padding: 16px 32px;
   border-bottom: 1px solid var(--border);
   background: var(--panel);
   flex-wrap: wrap;
@@ -56,13 +63,14 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: 21px;
+  letter-spacing: -0.01em;
 }
 
 header p {
-  margin: 2px 0 0;
+  margin: 3px 0 0;
   color: var(--muted);
-  font-size: 12.5px;
+  font-size: 13px;
 }
 
 nav {
@@ -78,7 +86,7 @@ nav button {
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13.5px;
+  font-size: 14px;
 }
 
 nav button.active {
@@ -89,14 +97,14 @@ nav button.active {
 
 main {
   flex: 1;
-  padding: 22px 28px;
+  padding: 28px 32px;
 }
 
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 18px;
+  padding: 24px;
 }
 
 .panel-head {
@@ -105,12 +113,13 @@ main {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .panel-head h2 {
   margin: 0;
-  font-size: 17px;
+  font-size: 18px;
+  letter-spacing: -0.01em;
 }
 
 .legend {
@@ -133,7 +142,7 @@ main {
 
 .legend-caption {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 12.5px;
   min-width: 70px;
 }
 
@@ -157,8 +166,8 @@ main {
 }
 
 .strategy h3 {
-  margin: 26px 0 10px;
-  font-size: 15.5px;
+  margin: 30px 0 12px;
+  font-size: 16.5px;
   color: #e8edf4;
 }
 
@@ -173,35 +182,35 @@ main {
 .pillars {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .pillar {
   background: #0c1526;
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 12px 16px;
+  padding: 16px 18px;
   min-width: 0;
 }
 
 .pillar h4 {
-  margin: 0 0 8px;
-  font-size: 14px;
+  margin: 0 0 10px;
+  font-size: 14.5px;
 }
 
 .pillar ul {
   margin: 0;
-  padding-left: 18px;
+  padding-left: 20px;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 10px;
-  margin: 10px 0;
+  gap: 12px;
+  margin: 12px 0;
 }
 
 .callout {
@@ -209,50 +218,49 @@ main {
   border: 1px solid #4f8cff;
   border-left: 4px solid #4f8cff;
   border-radius: 10px;
-  padding: 14px 18px;
-  margin: 10px 0 18px;
+  padding: 18px 22px;
+  margin: 12px 0 22px;
 }
 
 .callout strong {
   display: block;
-  font-size: 15px;
-  margin-bottom: 6px;
+  font-size: 15.5px;
+  margin-bottom: 8px;
 }
 
 .callout p {
   margin: 0;
   color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .risk-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-  gap: 12px;
-  margin: 10px 0;
+  gap: 14px;
+  margin: 12px 0;
 }
 
 .risk-card {
   background: #0c1526;
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 14px 16px;
+  padding: 16px 18px;
   min-width: 0;
 }
 
 .risk-card h4 {
-  margin: 0 0 8px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 14.5px;
 }
 
 .risk-num {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  vertical-align: middle;
+  margin-right: 8px;
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -264,9 +272,9 @@ main {
 }
 
 .risk-card p {
-  margin: 0 0 8px;
-  font-size: 13px;
-  line-height: 1.55;
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.65;
   color: var(--muted);
 }
 
@@ -320,26 +328,26 @@ main {
   background: #0c1526;
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 15px 17px;
   min-width: 0;
 }
 
 .grid-cards .card strong {
-  font-size: 13.5px;
+  font-size: 14px;
 }
 
 .grid-cards .card p {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .sub {
   display: block;
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: var(--muted);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .cost-list {
@@ -352,11 +360,11 @@ main {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 5px 0;
+  padding: 8px 0;
   border-bottom: 1px dashed var(--border);
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.45;
+  line-height: 1.6;
 }
 
 .cost-list li:last-child {
@@ -372,7 +380,7 @@ main {
 .portals {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .portal-card {
@@ -380,17 +388,18 @@ main {
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 15px 17px;
 }
 
 .portal-card strong {
-  font-size: 13.5px;
+  font-size: 14px;
 }
 
 .portal-card p {
-  margin: 5px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
-  font-size: 12.5px;
+  font-size: 13.5px;
+  line-height: 1.65;
 }
 
 .note a {
@@ -405,8 +414,8 @@ main {
   color: var(--muted);
   border: 1px solid;
   border-radius: 999px;
-  padding: 3px 10px;
-  font-size: 11.5px;
+  padding: 4px 11px;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -518,8 +527,8 @@ main {
 
 .hover-bar {
   min-height: 22px;
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 12px;
+  font-size: 13.5px;
   color: var(--text);
 }
 
@@ -529,6 +538,7 @@ main {
 
 .mode-toggle {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -539,7 +549,7 @@ main {
   padding: 7px 14px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
 .mode-toggle button.active {
@@ -551,7 +561,7 @@ main {
 .compare-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13.5px;
+  font-size: 14px;
 }
 
 .compare-table th {
@@ -559,15 +569,16 @@ main {
   color: var(--muted);
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  padding: 10px 12px;
+  letter-spacing: 0.5px;
+  padding: 12px 14px;
   border-bottom: 1px solid var(--border);
 }
 
 .compare-table td {
-  padding: 11px 12px;
+  padding: 14px;
   border-bottom: 1px solid #131f36;
   vertical-align: top;
+  line-height: 1.6;
 }
 
 .compare-table .dim {
@@ -576,8 +587,8 @@ main {
 }
 
 .verdict {
-  font-size: 11.5px;
-  padding: 3px 9px;
+  font-size: 12px;
+  padding: 4px 10px;
   border-radius: 999px;
   white-space: nowrap;
 }
@@ -598,8 +609,9 @@ main {
 }
 
 .note {
-  font-size: 12px;
-  margin-top: 14px;
+  font-size: 12.5px;
+  margin-top: 18px;
+  line-height: 1.6;
 }
 
 .note code,
@@ -619,10 +631,10 @@ footer code {
 .tl-item {
   display: grid;
   grid-template-columns: 110px 1fr;
-  gap: 16px;
-  padding: 14px 0;
+  gap: 18px;
+  padding: 16px 0;
   border-left: 3px solid var(--border);
-  padding-left: 18px;
+  padding-left: 20px;
   margin-left: 6px;
   position: relative;
 }
@@ -654,25 +666,26 @@ footer code {
 .tl-date {
   font-weight: 700;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 13.5px;
   padding-top: 2px;
 }
 
 .tl-body strong {
-  font-size: 14.5px;
+  font-size: 15px;
 }
 
 .tl-body p {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 footer {
-  padding: 14px 28px;
+  padding: 18px 32px;
   border-top: 1px solid var(--border);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 12.5px;
   background: var(--panel);
 }
 
@@ -709,11 +722,11 @@ footer {
   }
 
   header h1 {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   header p {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .logo {
@@ -729,29 +742,29 @@ footer {
   }
 
   nav button {
-    padding: 6px 12px;
-    font-size: 12.5px;
+    padding: 7px 13px;
+    font-size: 13px;
     white-space: nowrap;
   }
 
   main {
-    padding: 12px;
+    padding: 16px;
   }
 
   .panel {
-    padding: 12px;
+    padding: 16px;
   }
 
   .panel-head h2 {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .summary-hero h2 {
-    font-size: 19px;
+    font-size: 21px;
   }
 
   .summary-sub {
-    font-size: 13px;
+    font-size: 14.5px;
   }
 
   .summary-cards,
@@ -777,7 +790,7 @@ footer {
   }
 
   .hover-bar {
-    font-size: 12px;
+    font-size: 12.5px;
   }
 
   .map-svg {
@@ -795,16 +808,16 @@ footer {
   }
 
   .compare-table {
-    font-size: 12.5px;
+    font-size: 13px;
   }
 
   .compare-table td {
-    padding: 8px;
+    padding: 10px;
   }
 
   footer {
-    padding: 10px 14px;
-    font-size: 11px;
+    padding: 14px 16px;
+    font-size: 12px;
   }
 }
 
@@ -815,27 +828,28 @@ footer {
 }
 
 .summary-hero h2 {
-  font-size: 24px;
-  margin: 0 0 8px;
+  font-size: 26px;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
 }
 
 .summary-sub {
   color: var(--muted);
-  font-size: 14.5px;
+  font-size: 15.5px;
   max-width: 860px;
-  line-height: 1.55;
+  line-height: 1.7;
 }
 
 .summary-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 12px;
-  margin-top: 18px;
+  gap: 14px;
+  margin-top: 22px;
 }
 
 .summary-card {
   border-radius: 12px;
-  padding: 16px;
+  padding: 18px;
   border: 1px solid var(--border);
   min-width: 0;
 }
@@ -853,25 +867,26 @@ footer {
 }
 
 .summary-card h3 {
-  margin: 0 0 10px;
-  font-size: 15px;
+  margin: 0 0 12px;
+  font-size: 15.5px;
 }
 
 .summary-card ul {
   margin: 0;
-  padding-left: 18px;
-  font-size: 13.5px;
-  line-height: 1.55;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.65;
   color: #c9d5ea;
 }
 
 .summary-card li {
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
 .summary-card p {
-  margin: 10px 0 0;
-  font-size: 12.5px;
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .summary-cta {
@@ -885,9 +900,9 @@ footer {
   background: rgba(46, 204, 113, 0.14);
   color: #7ee2a8;
   border: 1px solid #2ecc71;
-  padding: 10px 18px;
+  padding: 11px 20px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 14.5px;
   cursor: pointer;
 }
 
@@ -902,9 +917,10 @@ footer {
   border: 1px solid rgba(46, 204, 113, 0.5);
   color: #d9f3e3;
   border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 13px;
-  margin-bottom: 10px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .stories {
@@ -917,7 +933,7 @@ footer {
   background: #0c1526;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 16px;
+  padding: 20px;
 }
 
 .story-head {
@@ -930,26 +946,26 @@ footer {
 
 .story-head h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .persona {
   color: var(--muted);
-  font-size: 12.5px;
+  font-size: 13px;
 }
 
 .story-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 14px;
+  margin-top: 14px;
 }
 
 .story-col {
   border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 13.5px;
-  line-height: 1.55;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .today-col {
@@ -985,7 +1001,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12.5px;
+  font-size: 13px;
   flex-wrap: wrap;
 }
 
@@ -1008,8 +1024,8 @@ footer {
 .sources {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-  gap: 10px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .source-card {
@@ -1017,7 +1033,7 @@ footer {
   min-width: 0;
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 15px 17px;
 }
 
 .source-kind {
@@ -1025,22 +1041,22 @@ footer {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #ffb020;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .source-card p {
-  margin: 0 0 6px;
-  font-size: 13px;
-  line-height: 1.5;
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  line-height: 1.65;
 }
 
 .source-note {
-  font-size: 11.5px !important;
+  font-size: 12px !important;
 }
 
 .source-card a {
   color: #9db9f5;
-  font-size: 12px;
+  font-size: 12.5px;
   word-break: break-all;
 }
 

@@ -281,6 +281,180 @@ export const PORTALS: Portal[] = [
       en: "Post office / town hall bookings for assisted issuance — the physical safety net",
     },
   },
+  {
+    id: "p13",
+    name: {
+      ro: "Portal educațional (REGES/universități)",
+      en: "Education portal (REGES/universities)",
+    },
+    what: {
+      ro: "Admitere și înscrieri cu QEAA diplome, verificare la sursă, dosarul electronic al studentului",
+      en: "Admission and enrolment with diploma QEAAs, source verification, the student's e-record",
+    },
+  },
+  {
+    id: "p14",
+    name: { ro: "Portal civic (ONG/CivicTech)", en: "Civic portal (NGO/CivicTech)" },
+    what: {
+      ro: "Acces structurat la date publice, rapoarte și ancore pentru verificare independentă",
+      en: "Structured access to public data, reports and anchors for independent verification",
+    },
+  },
+];
+
+export interface TierRow {
+  tier: string;
+  name: Bi;
+  examples: Bi;
+  target: string;
+  mechanism: Bi;
+}
+
+export const REDUNDANCY_TIERS: TierRow[] = [
+  {
+    tier: "T0",
+    name: { ro: "Continuitate identitate", en: "Identity continuity" },
+    examples: {
+      ro: "Prezentări de PID / atestări",
+      en: "PID / attestation presentations",
+    },
+    target: { ro: "100% offline", en: "100% offline" } as unknown as string,
+    mechanism: {
+      ro: "Date și chei pe dispozitiv; ISO 18013-5; verificare locală fără rețea",
+      en: "Data and keys on device; ISO 18013-5; local verification with no network",
+    },
+  },
+  {
+    tier: "T1",
+    name: { ro: "Emisie & ciclu de viață", en: "Issuance & lifecycle" },
+    examples: {
+      ro: "Emisie PID/EAA, revocare, registru STS",
+      en: "PID/EAA issuance, revocation, STS registry",
+    },
+    target: { ro: "RPO ≤ 5 min · RTO ≤ 30 min", en: "RPO ≤ 5 min · RTO ≤ 30 min" } as unknown as string,
+    mechanism: {
+      ro: "2+1 situri: două DC active (zone seismice diferite) + un DR pasiv; replicare sincronă/asincronă; HSM cuorum M-din-N pe ≥2 situri",
+      en: "2+1 sites: two active DCs (different seismic zones) + one passive DR; sync/async replication; M-of-N HSM quorum across ≥2 sites",
+    },
+  },
+  {
+    tier: "T2",
+    name: { ro: "Conveniență", en: "Convenience" },
+    examples: {
+      ro: "Analytics, dashboard-uri, rapoarte",
+      en: "Analytics, dashboards, reports",
+    },
+    target: { ro: "RTO ≤ 4h", en: "RTO ≤ 4h" } as unknown as string,
+    mechanism: {
+      ro: "Backup zilnic cross-sit, restore testat lunar, acceptare degradare temporară",
+      en: "Daily cross-site backup, monthly tested restore, temporary degradation accepted",
+    },
+  },
+];
+
+export interface MachineRow {
+  item: Bi;
+  quantity: string;
+  unitCost: string;
+  total: string;
+}
+
+export const MACHINES: MachineRow[] = [
+  {
+    item: {
+      ro: "Servere enterprise (gateway, backbone, registre)",
+      en: "Enterprise servers (gateway, backbone, registries)",
+    },
+    quantity: "600–1.000",
+    unitCost: "10–15k €",
+    total: "6–15M €",
+  },
+  {
+    item: {
+      ro: "HSM calificate (cuorum, ≥2 situri)",
+      en: "Qualified HSMs (quorum, ≥2 sites)",
+    },
+    quantity: "6–12",
+    unitCost: "25–50k €",
+    total: "0,5–1M €",
+  },
+  {
+    item: {
+      ro: "Noduri inferență AI (asistent L0, GPU)",
+      en: "AI inference nodes (L0 assistant, GPU)",
+    },
+    quantity: "2–4",
+    unitCost: "250–500k €",
+    total: "1–2M €",
+  },
+  {
+    item: {
+      ro: "Mini-servere locale UAT (hub L0 per primărie)",
+      en: "Local UAT mini-servers (L0 hub per town hall)",
+    },
+    quantity: "~3.200",
+    unitCost: "1–1,5k € (sau PC-uri reutilizate)",
+    total: "3–5M €",
+  },
+  {
+    item: {
+      ro: "Echipamente rețea & stocare (2+1 situri)",
+      en: "Network & storage gear (2+1 sites)",
+    },
+    quantity: "—",
+    unitCost: "—",
+    total: "8–15M €",
+  },
+  {
+    item: {
+      ro: "Total mașini & echipamente",
+      en: "Total machines & equipment",
+    },
+    quantity: "—",
+    unitCost: "—",
+    total: "18–38M €",
+  },
+];
+
+export interface SavingRow {
+  item: Bi;
+  estimate: string;
+  basis: Bi;
+}
+
+export const SAVINGS: SavingRow[] = [
+  {
+    item: { ro: "Licențe OS & office", en: "OS & office licences" },
+    estimate: "30–60M €/an",
+    basis: {
+      ro: "250–400k stații × 150–250 €/an (Windows + O365 + AV). Precedente: Jandarmeria Franceză, Schleswig-Holstein (amortizare <1 an).",
+      en: "250–400k workstations × €150–250/yr (Windows + O365 + AV). Precedents: French Gendarmerie, Schleswig-Holstein (payback <1 year).",
+    },
+  },
+  {
+    item: { ro: "Timpul cetățenilor", en: "Citizens' time" },
+    estimate: "~200–400M €/an",
+    basis: {
+      ro: "19M adulți × 2–5 ore/an economisite (drumuri, cozi) × ~10 €/oră — doar fracțiunea monetizabilă.",
+      en: "19M adults × 2–5 hours/year saved (trips, queues) × ~€10/hour — only the monetisable fraction.",
+    },
+  },
+  {
+    item: { ro: "Integritatea achizițiilor", en: "Procurement integrity" },
+    estimate: "~50–200M €/an",
+    basis: {
+      ro: "0,5–1% din achizițiile publice (~20–25 mld €/an) prin transparență și monitorizare — estimare prudentă, bazată pe studiile de corupție în achiziții.",
+      en: "0.5–1% of public procurement (~€20–25B/yr) via transparency and monitoring — a prudent estimate based on procurement-corruption studies.",
+    },
+  },
+  {
+    item: { ro: "Eficienta energetică DC", en: "DC energy efficiency" },
+    estimate: "2–5M €/an",
+    basis: {
+      ro: "Consolidarea în 2+1 situri moderne (PUE ≤1,3) vs. serverele dispersate actuale; economie din virtualizare.",
+      en: "Consolidation into 2+1 modern sites (PUE ≤1.3) vs. today's scattered servers; savings from virtualisation.",
+    },
+  },
 ];
 
 export interface BulletGroup {
@@ -426,6 +600,34 @@ export const PILLARS: BulletGroup[] = [
       {
         ro: "Ce NU face blockchain-ul aici: disponibilitate (CDN/DC), confidențialitate (SD-JWT), scalare (gateway), identitate (OpenID4VC + status lists)",
         en: "What blockchain does NOT do here: availability (CDN/DC), confidentiality (SD-JWT), scaling (gateway), identity (OpenID4VC + status lists)",
+      },
+    ],
+  },
+  {
+    title: {
+      ro: "Rețele educaționale & civice",
+      en: "Educational & civic networks",
+    },
+    items: [
+      {
+        ro: "Educație: universitățile și școlile devin emitenți QEAA; admiterea și înscrierile se verifică la sursă (MEN/REGES); dosarul electronic al elevului/studentului merge peste backbone",
+        en: "Education: universities and schools become QEAA issuers; admission and enrolment verified at source (MEN/REGES); the student's e-record rides the backbone",
+      },
+      {
+        ro: "Civic: ONG-urile și CivicTech primesc acces structurat la date publice, rapoarte și ancore — rol constituțional de verificare, nu spectator",
+        en: "Civic: NGOs and CivicTech get structured access to public data, reports and anchors — a constitutional verification role, not a spectator",
+      },
+      {
+        ro: "Adoptăm standardele comunității: CivicTech România Digital Services Playbook + Open Source Guidelines (i18n obligatoriu, cod în engleză, teste nelipsite, licență, diacritice)",
+        en: "We adopt the community standards: CivicTech România Digital Services Playbook + Open Source Guidelines (mandatory i18n, code in English, tests required, licence, diacritics)",
+      },
+      {
+        ro: "Portal educațional (admitere, diplome) și portal civic (date publice, verificare) intră în setul de portaluri naționale",
+        en: "An education portal (admission, diplomas) and a civic portal (public data, verification) join the national portal set",
+      },
+      {
+        ro: "Guvernanța ecosistemului include un loc permanent pentru societatea civilă și mediul academic în comitetul tehnic",
+        en: "Ecosystem governance reserves permanent seats for civil society and academia on the technical committee",
       },
     ],
   },

@@ -180,4 +180,169 @@ export const STORIES: Story[] = [
       },
     ],
   },
+  {
+    id: "facultate",
+    persona: { ro: "Ștefan, 18 ani — liceu", en: "Ștefan, 18 — high school" },
+    title: { ro: "Înscrierea la facultate", en: "University enrolment" },
+    today: {
+      ro: "Dosar cu copii legalizate după diplomă și buletin, trimis prin poștă sau depus fizic, la fiecare facultate în parte.",
+      en: "A folder of certified copies of the diploma and ID, sent by post or filed in person, for each faculty separately.",
+    },
+    proposed: {
+      ro: "Facultatea primește QEAA-ul diplomei și PID-ul direct, digital; datele se verifică la sursă (MEN/REGES). Zero hârtie, zero legalizări.",
+      en: "The faculty receives the diploma QEAA and the PID digitally; data is verified at the source (MEN/REGES). Zero paper, zero certifications.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "university",
+        label: { ro: "Înscriere online cu QEAA + PID", en: "Online enrolment with QEAA + PID" },
+        kind: "presentation",
+      },
+      {
+        from: "university",
+        to: "xroad",
+        label: { ro: "Verificare la sursă", en: "Source verification" },
+        kind: "backbone",
+      },
+      {
+        from: "xroad",
+        to: "men",
+        label: { ro: "REGES / arhiva națională a diplomelor", en: "REGES / national diploma archive" },
+        kind: "backbone",
+      },
+    ],
+  },
+  {
+    id: "medical",
+    persona: { ro: "Ana, 40 ani — angajată", en: "Ana, 40 — employee" },
+    title: { ro: "Concediul medical", en: "Sick leave" },
+    today: {
+      ro: "Adeverințe pe hârtie între medic, angajator și CNAS; dosarul medical circulă prin copii fizice.",
+      en: "Paper certificates between doctor, employer and CNAS; the medical file travels as physical copies.",
+    },
+    proposed: {
+      ro: "Medicul emite atestarea electronică; angajatorul primește strictul necesar; dosarul medical nu părăsește CNAS.",
+      en: "The doctor issues the electronic attestation; the employer receives the strict minimum; the medical file never leaves CNAS.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "rp",
+        label: { ro: "Prezintă atestarea medicală", en: "Presents the medical attestation" },
+        kind: "presentation",
+      },
+      {
+        from: "rp",
+        to: "xroad",
+        label: { ro: "Verificare cu consimțământ", en: "Verification with consent" },
+        kind: "backbone",
+      },
+      {
+        from: "xroad",
+        to: "cnas",
+        label: { ro: "Date garantate la sursă", en: "Data guaranteed at source" },
+        kind: "backbone",
+      },
+    ],
+  },
+  {
+    id: "masina",
+    persona: { ro: "Radu, 35 ani", en: "Radu, 35" },
+    title: { ro: "Cumpărarea unei mașini", en: "Buying a car" },
+    today: {
+      ro: "Drum la ghișee: contract, taxe, înmatriculare, cozi la mai multe instituții.",
+      en: "A trip to the counters: contract, taxes, registration, queues at several institutions.",
+    },
+    proposed: {
+      ro: "Certificatul de înmatriculare e în wallet, taxa se plătește instant din aplicație, înmatricularea se face online; chitanța ajunge în Cutia Digitală.",
+      en: "The registration certificate lives in the wallet, the tax is paid instantly from the app, registration happens online; the receipt lands in the Digital Postbox.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "hub-mai",
+        label: { ro: "Înmatriculare online (mDL + certificat)", en: "Online registration (mDL + certificate)" },
+        kind: "presentation",
+      },
+      {
+        from: "citizen",
+        to: "rp",
+        label: { ro: "Taxe plătite instant", en: "Taxes paid instantly" },
+        kind: "payment",
+      },
+      {
+        from: "rp",
+        to: "transfond",
+        label: { ro: "SEPA Instant", en: "SEPA Instant" },
+        kind: "payment",
+      },
+    ],
+  },
+  {
+    id: "carte-funciara",
+    persona: { ro: "Dana, 45 ani — cumpără apartament", en: "Dana, 45 — buying a flat" },
+    title: { ro: "Extrasul de carte funciară", en: "The land book extract" },
+    today: {
+      ro: "Cerere la ghișeul ANCPI, timpi de eliberare, acte care expiră înainte de semnare.",
+      en: "A request at the ANCPI counter, waiting times, documents expiring before the signing.",
+    },
+    proposed: {
+      ro: "Notarul solicită extrasul prin backbone cu consimțământul tău; documentul ajunge digital, proaspăt, garantat la sursă.",
+      en: "The notary requests the extract via the backbone with your consent; the document arrives digitally, fresh, guaranteed at source.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "rp",
+        label: { ro: "Notariat — consimțământ pentru extras", en: "Notary — consent for the extract" },
+        kind: "presentation",
+      },
+      {
+        from: "rp",
+        to: "xroad",
+        label: { ro: "Solicitare prin backbone", en: "Request via the backbone" },
+        kind: "backbone",
+      },
+      {
+        from: "xroad",
+        to: "ancpi",
+        label: { ro: "Carte funciară la sursă", en: "Land book at the source" },
+        kind: "backbone",
+      },
+    ],
+  },
+  {
+    id: "civic-verify",
+    persona: { ro: "Corina, activist civic", en: "Corina, civic activist" },
+    title: { ro: "ONG-ul verifică statul", en: "The NGO verifies the state" },
+    today: {
+      ro: "Cereri în baza Legii 544, rapoarte PDF neuniforme, răspunsuri în 30 de zile.",
+      en: "FOIA requests, non-uniform PDF reports, replies within 30 days.",
+    },
+    proposed: {
+      ro: "Portalul de transparență publică totul, iar ancorele criptografice fac imposibilă rescrierea istoriei. Verificarea durează minute, nu luni.",
+      en: "The transparency portal publishes everything, and the cryptographic anchors make rewriting history impossible. Verification takes minutes, not months.",
+    },
+    steps: [
+      {
+        from: "civic",
+        to: "transparency",
+        label: { ro: "Verifică rapoartele publice", en: "Verifies the public reports" },
+        kind: "oversight",
+      },
+      {
+        from: "transparency",
+        to: "anchor",
+        label: { ro: "Rapoarte ancorate", en: "Anchored reports" },
+        kind: "anchor",
+      },
+      {
+        from: "civic",
+        to: "anchor",
+        label: { ro: "Verificare independentă on-chain", en: "Independent on-chain verification" },
+        kind: "anchor",
+      },
+    ],
+  },
 ];

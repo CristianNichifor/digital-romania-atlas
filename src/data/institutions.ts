@@ -502,4 +502,52 @@ export const INSTITUTIONS: Institution[] = [
     lon: 26.075,
     scope: "proposed",
   },
+  {
+    id: "ancpi",
+    name: { ro: "ANCPI", en: "ANCPI (cadastre & land registry)" },
+    acronym: "ANCPI",
+    role: {
+      ro: "Sursă autentică – carte funciară, cadastru",
+      en: "Authentic source – land book, cadastre",
+    },
+    category: "source",
+    county: "Bucuresti",
+    lat: 44.402,
+    lon: 26.118,
+    scope: "proposed",
+  },
+  {
+    id: "university",
+    name: {
+      ro: "Universități / școli",
+      en: "Universities / schools",
+    },
+    acronym: "EDU",
+    role: {
+      ro: "Emit QEAA diplome; verifică admiterea prin backbone",
+      en: "Issue diploma QEAAs; verify admission via the backbone",
+    },
+    category: "source",
+    county: "Cluj",
+    lat: 46.7712,
+    lon: 23.6236,
+    scope: "proposed",
+  },
+  {
+    id: "civic",
+    name: {
+      ro: "ONG-uri / CivicTech",
+      en: "NGOs / CivicTech",
+    },
+    acronym: "CIVIC",
+    role: {
+      ro: "Verifică public statul prin portal și ancore — verify, don't trust",
+      en: "Publicly verify the state via the portal and anchors — verify, don't trust",
+    },
+    category: "oversight",
+    county: "Cluj",
+    lat: 46.7782,
+    lon: 23.6157,
+    scope: "proposed",
+  },
 ];

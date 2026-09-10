@@ -21,12 +21,12 @@ header)
 | View | Content |
 |---|---|
 | **Rezumat** | "Romania digitală în 30 de secunde": what happens today, the 5 additions we propose, why it matters. |
-| **Povești** | Five citizen stories with personas — rural pensioner, proof of age, local tax, medical attestation, diaspora bank account — each showing today vs. proposal with the involved flow steps. |
+| **Povești** | Ten citizen stories with personas — rural pensioner, proof of age, local tax, medical attestation, diaspora bank account, university enrolment, sick leave, car purchase, land book extract, civic verification — each showing today vs. proposal with the involved flow steps. |
 | **Harta României** | County map with institutions as colored points (category-filterable). Small dots in every county = town halls (UAT) as assisted-enrollment / offline fallback points in the proposal. |
 | **Fluxuri de date** | Three toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). *"Diferența"* dims the documented flows and highlights only what the proposal adds. Filter by flow type. |
 | **Comparație** | 13-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
 | **Calendar** | EU obligations, the national plan, and our proposed additions side by side. |
-| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the five pillars (redundancy, open source, security, scalability, transparency anchors), 5-year cost estimates, and the 12 outward-facing portals. |
+| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the six pillars (redundancy, open source, security, scalability, transparency anchors, educational & civic networks), redundancy tiers per service class, 5-year cost estimates, machines & equipment required, estimated savings, and the 14 outward-facing portals. |
 | **Surse** | Provenance for every claim: MAI docs pinned at a specific commit, the MAI presentation, EU regulations, standards, and the sovereign-OS article. |
 
 ## Data sources
@@ -72,7 +72,17 @@ Everything is plain typed data — edit without touching components:
 - `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București)
 
 County GeoJSON source: [GabrielRondelli/geojson](https://github.com/GabrielRondelli/geojson)
-(GADM-derived, `romania-counties.geojson`).
+(GADM-derived, `romania-counties.geojson`); community alternative:
+[civicnet/geojson-romania](https://github.com/civicnet/geojson-romania).
+
+## Civic standards
+
+The project follows the [CivicTech România Digital Services Playbook](https://civictechro.github.io/playbook/)
+and [Open Source Guidelines](https://civictechro.github.io/guidelines/): code in English,
+Romanian content with diacritics, mandatory i18n (`{ ro, en }` on every data field),
+`npm test` (data integrity) required in CI, licence files, and the community
+[Code of Conduct](https://github.com/civicnet/code-of-conduct) (see `CODE_OF_CONDUCT.md` and
+`CONTRIBUTING.md`).
 
 ## Known limitations
 

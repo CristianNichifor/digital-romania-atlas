@@ -1,4 +1,4 @@
-import { COSTS, LAYERS, PILLARS, PORTALS } from "../data/strategy";
+import { COSTS, LAYERS, MACHINES, PILLARS, PORTALS, REDUNDANCY_TIERS, SAVINGS } from "../data/strategy";
 import { pick, useLang } from "../i18n";
 
 const STATUS_LABEL: Record<string, { ro: string; en: string }> = {
@@ -26,36 +26,38 @@ export function StrategyView() {
       </div>
 
       <h3>{lang === "ro" ? "Arhitectura pe 7 straturi" : "The 7-layer architecture"}</h3>
-      <table className="compare-table layer-table">
-        <thead>
-          <tr>
-            <th>{lang === "ro" ? "Strat" : "Layer"}</th>
-            <th>{lang === "ro" ? "Conținut" : "Contents"}</th>
-            <th>{lang === "ro" ? "Responsabil" : "Owner"}</th>
-            <th>{lang === "ro" ? "Stare" : "Status"}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {LAYERS.map((l) => (
-            <tr key={l.id}>
-              <td className="dim">
-                {l.id}
-                <br />
-                <span className="layer-name">{pick(l.name, lang)}</span>
-              </td>
-              <td>{pick(l.what, lang)}</td>
-              <td>{pick(l.owner, lang)}</td>
-              <td>
-                <span className={`verdict ${STATUS_CLASS[l.status]}`}>
-                  {pick(STATUS_LABEL[l.status], lang)}
-                </span>
-              </td>
+      <div className="table-scroll">
+        <table className="compare-table layer-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Strat" : "Layer"}</th>
+              <th>{lang === "ro" ? "Conținut" : "Contents"}</th>
+              <th>{lang === "ro" ? "Responsabil" : "Owner"}</th>
+              <th>{lang === "ro" ? "Stare" : "Status"}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {LAYERS.map((l) => (
+              <tr key={l.id}>
+                <td className="dim">
+                  {l.id}
+                  <br />
+                  <span className="layer-name">{pick(l.name, lang)}</span>
+                </td>
+                <td>{pick(l.what, lang)}</td>
+                <td>{pick(l.owner, lang)}</td>
+                <td>
+                  <span className={`verdict ${STATUS_CLASS[l.status]}`}>
+                    {pick(STATUS_LABEL[l.status], lang)}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <h3>{lang === "ro" ? "Cei cinci piloni" : "The five pillars"}</h3>
+      <h3>{lang === "ro" ? "Cei șase piloni" : "The six pillars"}</h3>
       <div className="pillars">
         {PILLARS.map((p) => (
           <section key={pick(p.title, "ro")} className="pillar">
@@ -71,34 +73,120 @@ export function StrategyView() {
 
       <h3>
         {lang === "ro"
-          ? "Resurse & costuri (estimare pe 5 ani)"
-          : "Resources & costs (5-year estimate)"}
+          ? "Redundanță pe clase de serviciu"
+          : "Redundancy by service class"}
       </h3>
-      <table className="compare-table">
-        <thead>
-          <tr>
-            <th>{lang === "ro" ? "Element" : "Item"}</th>
-            <th>{lang === "ro" ? "Estimare" : "Estimate"}</th>
-            <th>{lang === "ro" ? "Notă" : "Note"}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {COSTS.map((c) => (
-            <tr key={c.estimate}>
-              <td className="dim">{pick(c.item, lang)}</td>
-              <td>
-                <strong>{c.estimate}</strong>
-              </td>
-              <td>{pick(c.notes, lang)}</td>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Clasă" : "Class"}</th>
+              <th>{lang === "ro" ? "Exemple" : "Examples"}</th>
+              <th>{lang === "ro" ? "Țintă" : "Target"}</th>
+              <th>{lang === "ro" ? "Mecanism" : "Mechanism"}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {REDUNDANCY_TIERS.map((t) => (
+              <tr key={t.tier}>
+                <td className="dim">
+                  {t.tier} — {pick(t.name, lang)}
+                </td>
+                <td>{pick(t.examples, lang)}</td>
+                <td>
+                  <strong>{String(t.target)}</strong>
+                </td>
+                <td>{pick(t.mechanism, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <h3>
         {lang === "ro"
-          ? "Portalurile orientate către exterior (12)"
-          : "The outward-facing portals (12)"}
+          ? "Resurse & costuri (estimare pe 5 ani)"
+          : "Resources & costs (5-year estimate)"}
+      </h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Element" : "Item"}</th>
+              <th>{lang === "ro" ? "Estimare" : "Estimate"}</th>
+              <th>{lang === "ro" ? "Notă" : "Note"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {COSTS.map((c) => (
+              <tr key={pick(c.item, "ro")}>
+                <td className="dim">{pick(c.item, lang)}</td>
+                <td>
+                  <strong>{c.estimate}</strong>
+                </td>
+                <td>{pick(c.notes, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>
+        {lang === "ro" ? "Mașini & echipamente necesare" : "Machines & equipment required"}
+      </h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Element" : "Item"}</th>
+              <th>{lang === "ro" ? "Cantitate" : "Quantity"}</th>
+              <th>{lang === "ro" ? "Cost unitar" : "Unit cost"}</th>
+              <th>{lang === "ro" ? "Total" : "Total"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {MACHINES.map((m) => (
+              <tr key={pick(m.item, "ro")}>
+                <td className="dim">{pick(m.item, lang)}</td>
+                <td>{m.quantity}</td>
+                <td>{m.unitCost}</td>
+                <td>
+                  <strong>{m.total}</strong>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>{lang === "ro" ? "Economii estimate" : "Estimated savings"}</h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Categorie" : "Category"}</th>
+              <th>{lang === "ro" ? "Valoare" : "Value"}</th>
+              <th>{lang === "ro" ? "Bază de calcul" : "Basis"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {SAVINGS.map((s) => (
+              <tr key={pick(s.item, "ro")}>
+                <td className="dim">{pick(s.item, lang)}</td>
+                <td>
+                  <strong>{s.estimate}</strong>
+                </td>
+                <td>{pick(s.basis, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>
+        {lang === "ro"
+          ? "Portalurile orientate către exterior (14)"
+          : "The outward-facing portals (14)"}
       </h3>
       <div className="portals">
         {PORTALS.map((p) => (

@@ -18,34 +18,36 @@ export function CompareView() {
             : "Comparison: published documentation vs. our proposal"}
         </h2>
       </div>
-      <table className="compare-table">
-        <thead>
-          <tr>
-            <th>{lang === "ro" ? "Dimensiune" : "Dimension"}</th>
-            <th>
-              {lang === "ro"
-                ? "Propunerea actuală (RO Wallet docs + MAI)"
-                : "Current proposal (RO Wallet docs + MAI)"}
-            </th>
-            <th>{lang === "ro" ? "Propunerea noastră" : "Our proposal"}</th>
-            <th>{lang === "ro" ? "Statut" : "Status"}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {COMPARISON.map((row) => (
-            <tr key={pick(row.dimension, "ro")}>
-              <td className="dim">{pick(row.dimension, lang)}</td>
-              <td>{pick(row.current, lang)}</td>
-              <td>{pick(row.proposed, lang)}</td>
-              <td>
-                <span className={`verdict ${VERDICT_CLASS[row.verdict]}`}>
-                  {pick(VERDICT_LABELS[row.verdict], lang)}
-                </span>
-              </td>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Dimensiune" : "Dimension"}</th>
+              <th>
+                {lang === "ro"
+                  ? "Propunerea actuală (RO Wallet docs + MAI)"
+                  : "Current proposal (RO Wallet docs + MAI)"}
+              </th>
+              <th>{lang === "ro" ? "Propunerea noastră" : "Our proposal"}</th>
+              <th>{lang === "ro" ? "Statut" : "Status"}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {COMPARISON.map((row) => (
+              <tr key={pick(row.dimension, "ro")}>
+                <td className="dim">{pick(row.dimension, lang)}</td>
+                <td>{pick(row.current, lang)}</td>
+                <td>{pick(row.proposed, lang)}</td>
+                <td>
+                  <span className={`verdict ${VERDICT_CLASS[row.verdict]}`}>
+                    {pick(VERDICT_LABELS[row.verdict], lang)}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p className="muted note">
         {lang === "ro" ? (
           <>

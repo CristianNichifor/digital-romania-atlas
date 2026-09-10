@@ -151,4 +151,36 @@ export const SOURCES: Source[] = [
     kind: { ro: "Repo public", en: "Public repo" },
     url: "https://github.com/GabrielRondelli/geojson",
   },
+  {
+    claim: {
+      ro: "CivicTech România — Digital Services Playbook (standarde adoptate pentru acest proiect)",
+      en: "CivicTech România — Digital Services Playbook (standards adopted by this project)",
+    },
+    kind: { ro: "Comunitate civică", en: "Civic community" },
+    url: "https://civictechro.github.io/playbook/",
+  },
+  {
+    claim: {
+      ro: "CivicTech România — Open Source Guidelines (reguli de repo: i18n, cod în engleză, teste)",
+      en: "CivicTech România — Open Source Guidelines (repo rules: i18n, English code, tests)",
+    },
+    kind: { ro: "Comunitate civică", en: "Civic community" },
+    url: "https://civictechro.github.io/guidelines/",
+  },
+  {
+    claim: {
+      ro: "CivicTech România — Cod de Conduită (adoptat de acest proiect)",
+      en: "CivicTech România — Code of Conduct (adopted by this project)",
+    },
+    kind: { ro: "Comunitate civică", en: "Civic community" },
+    url: "https://github.com/civicnet/code-of-conduct",
+  },
+  {
+    claim: {
+      ro: "civicnet/geojson-romania — alternativă comunitară pentru harta județelor",
+      en: "civicnet/geojson-romania — community alternative for the county map",
+    },
+    kind: { ro: "Repo public", en: "Public repo" },
+    url: "https://github.com/civicnet/geojson-romania",
+  },
 ];

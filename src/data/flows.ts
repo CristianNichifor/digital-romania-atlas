@@ -637,4 +637,52 @@ export const FLOWS: Flow[] = [
     tech: { ro: "OpenID4VP", en: "OpenID4VP" },
     status: "proposed",
   },
+  {
+    id: "p-resilience-roedu",
+    from: "university",
+    to: "hub-l0",
+    kind: "backbone",
+    label: {
+      ro: "RoEduNet/RoNREN: a doua coloană națională de fibră",
+      en: "RoEduNet/RoNREN: second national fibre spine",
+    },
+    tech: { ro: "fibră existentă + GÉANT", en: "existing fibre + GÉANT" },
+    status: "proposed",
+  },
+  {
+    id: "p-resilience-mirror",
+    from: "university",
+    to: "xroad",
+    kind: "backbone",
+    label: {
+      ro: "DC universitare federate: oglinzi L3 + capacitate DR",
+      en: "Federated university DCs: L3 mirrors + DR capacity",
+    },
+    tech: { ro: "UBB · UPB · UAIC", en: "UBB · UPB · UAIC" },
+    status: "proposed",
+  },
+  {
+    id: "p-resilience-drill",
+    from: "dnsc",
+    to: "university",
+    kind: "security",
+    label: {
+      ro: "Exerciții cibernetice anuale cu echipe roșii studențești",
+      en: "Annual cyber drills with student red teams",
+    },
+    tech: { ro: "failover real, nu demonstrativ", en: "real failover, not a showcase" },
+    status: "proposed",
+  },
+  {
+    id: "p-resilience-repo",
+    from: "university",
+    to: "anchor",
+    kind: "anchor",
+    label: {
+      ro: "Datele de cercetare ancorate public (integritate)",
+      en: "Research datasets publicly anchored (integrity)",
+    },
+    tech: { ro: "hash on-chain, date off-chain", en: "hash on-chain, data off-chain" },
+    status: "proposed",
+  },
 ];

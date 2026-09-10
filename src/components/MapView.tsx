@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as d3 from "d3";
 import {
   CATEGORY_COLORS,
@@ -7,6 +7,7 @@ import {
   type Category,
   type Institution,
 } from "../data/institutions";
+import { DC_PLACEMENT, VRANCEA_EPICENTRE, VRANCEA_RADII_KM, type DcRow } from "../data/resilience";
 import { pick, useLang } from "../i18n";
 
 interface Feature {
@@ -31,7 +32,11 @@ export function MapView() {
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
+  const [dcHover, setDcHover] = useState<DcRow | null>(null);
   const [filter, setFilter] = useState<Category | null>(null);
+  const [zoom, setZoom] = useState({ x: 0, y: 0, k: 1 });
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/ro-counties.geojson`)
@@ -39,6 +44,45 @@ export function MapView() {
       .then(setGeo)
       .catch((e) => console.error(e));
   }, []);
+
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const behavior = d3
+      .zoom<SVGSVGElement, unknown>()
+      .scaleExtent([1, 12])
+      .translateExtent([
+        [-W, -H],
+        [W * 2, H * 2],
+      ])
+      .touchable(() => false)
+      .filter((event) => {
+        if (event.type === "wheel") return event.ctrlKey || event.metaKey;
+        return !event.button;
+      })
+      .on("zoom", (event) =>
+        setZoom({ x: event.transform.x, y: event.transform.y, k: event.transform.k })
+      );
+    d3.select(svg).call(behavior);
+    zoomRef.current = behavior;
+    return () => {
+      d3.select(svg).on(".zoom", null);
+    };
+  }, [geo]);
+
+  const zoomBy = (factor: number) => {
+    const svg = svgRef.current;
+    const z = zoomRef.current;
+    if (!svg || !z) return;
+    d3.select(svg).transition().duration(200).call(z.scaleBy, factor);
+  };
+
+  const resetZoom = () => {
+    const svg = svgRef.current;
+    const z = zoomRef.current;
+    if (!svg || !z) return;
+    d3.select(svg).transition().duration(200).call(z.transform, d3.zoomIdentity);
+  };
 
   const projection = useMemo(() => {
     if (!geo) return null;
@@ -81,6 +125,9 @@ export function MapView() {
     (i) => i.county && i.county !== "*" && i.lat != null && i.lon != null
   );
 
+  const sovereignDcs = DC_PLACEMENT.filter((d) => ["dc-a", "dc-b", "dc-c"].includes(d.id));
+  const [vx, vy] = projection([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat]) ?? [0, 0];
+
   return (
     <div className="panel">
       <div className="panel-head">
@@ -103,97 +150,157 @@ export function MapView() {
           ))}
         </div>
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="map-svg">
-        {geo.features.map((f, idx) => {
-          const p = path(f as unknown as GeoJSON.Feature) ?? "";
-          const count = counts.get(norm(f.properties.NAME_1)) ?? 0;
-          const intensity = count / maxCount;
-          return (
-            <path
-              key={idx}
-              d={p}
-              className="county"
-              fill={
-                count
-                  ? d3.interpolateRgb("#0e1729", "#2a4d8f")(0.25 + intensity * 0.75)
-                  : "#0a1120"
-              }
-              stroke="#233452"
-            >
-              <title>
-                {f.properties.NAME_1}
-                {count
-                  ? lang === "ro"
-                    ? ` · ${count} instituție/instituții`
-                    : ` · ${count} institution(s)`
-                  : ""}
-              </title>
-            </path>
-          );
-        })}
-        {geo.features.map((f, idx) => {
-          const centroid = path.centroid(f as unknown as GeoJSON.Feature);
-          return (
-            <text key={`c-${idx}`} x={centroid[0]} y={centroid[1]} className="county-label">
-              {f.properties.NAME_1}
-            </text>
-          );
-        })}
-        {INSTITUTIONS.filter((i) => i.county === "*" && (!filter || filter === "service")).map((i) =>
-          geo.features.map((f, fi) => {
-            const [x, y] = path.centroid(f as unknown as GeoJSON.Feature);
-            return (
-              <circle
-                key={`${i.id}-${fi}`}
-                cx={x}
-                cy={y}
-                r={3}
-                fill={CATEGORY_COLORS[i.category]}
-                opacity={0.85}
-                onMouseEnter={() => {
-                  setHover(i);
-                  setHoverCounty(f.properties.NAME_1);
-                }}
-                onMouseLeave={() => {
-                  setHover(null);
-                  setHoverCounty(null);
-                }}
-              />
-            );
-          })
-        )}
-        {markers
-          .filter((i) => visible(i))
-          .map((i) => {
-            const [x, y] = projection([i.lon!, i.lat!]) ?? [0, 0];
-            const on = hover?.id === i.id || filter === i.category;
-            return (
-              <g
-                key={i.id}
-                transform={`translate(${x},${y})`}
-                className="marker"
-                onMouseEnter={() => {
-                  setHover(i);
-                  setHoverCounty(null);
-                }}
-                onMouseLeave={() => setHover(null)}
-              >
-                <circle
-                  r={on ? 7 : 5}
-                  fill={CATEGORY_COLORS[i.category]}
-                  opacity={filter && filter !== i.category ? 0.25 : 1}
-                />
-                {(on || filter === i.category) && (
-                  <text x={9} y={4} className="marker-label">
-                    {i.acronym}
+      <div className="map-wrap">
+        <div className="map-controls">
+          <button onClick={() => zoomBy(1.5)} title="Zoom in" aria-label="Zoom in">
+            +
+          </button>
+          <button onClick={() => zoomBy(1 / 1.5)} title="Zoom out" aria-label="Zoom out">
+            −
+          </button>
+          <button onClick={resetZoom} title="Reset" aria-label="Reset zoom">
+            ⟲
+          </button>
+        </div>
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="map-svg">
+          <g transform={`translate(${zoom.x},${zoom.y}) scale(${zoom.k})`}>
+            {geo.features.map((f, idx) => {
+              const p = path(f as unknown as GeoJSON.Feature) ?? "";
+              const count = counts.get(norm(f.properties.NAME_1)) ?? 0;
+              const intensity = count / maxCount;
+              return (
+                <path
+                  key={idx}
+                  d={p}
+                  className="county"
+                  fill={
+                    count
+                      ? d3.interpolateRgb("#0e1729", "#2a4d8f")(0.25 + intensity * 0.75)
+                      : "#0a1120"
+                  }
+                  stroke="#233452"
+                >
+                  <title>
+                    {f.properties.NAME_1}
+                    {count
+                      ? lang === "ro"
+                        ? ` · ${count} instituție/instituții`
+                        : ` · ${count} institution(s)`
+                      : ""}
+                  </title>
+                </path>
+              );
+            })}
+            {VRANCEA_RADII_KM.map((km) => {
+              const ring = d3
+                .geoCircle()
+                .center([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat])
+                .radius(km / 6371);
+              const d = path(ring() as unknown as GeoJSON.GeoJSON) ?? "";
+              return <path key={km} d={d} className="vrancea-ring" />;
+            })}
+            <g className="vrancea-epicentre" transform={`translate(${vx},${vy})`}>
+              <circle r={3.5} fill="#e5484d" />
+              <text x={0} y={-8} textAnchor="middle" className="vrancea-label">
+                Vrancea
+              </text>
+            </g>
+            {geo.features.map((f, idx) => {
+              const centroid = path.centroid(f as unknown as GeoJSON.Feature);
+              return (
+                <text key={`c-${idx}`} x={centroid[0]} y={centroid[1]} className="county-label">
+                  {f.properties.NAME_1}
+                </text>
+              );
+            })}
+            {INSTITUTIONS.filter((i) => i.county === "*" && (!filter || filter === "service")).map((i) =>
+              geo.features.map((f, fi) => {
+                const [x, y] = path.centroid(f as unknown as GeoJSON.Feature);
+                return (
+                  <circle
+                    key={`${i.id}-${fi}`}
+                    cx={x}
+                    cy={y}
+                    r={4}
+                    fill={CATEGORY_COLORS[i.category]}
+                    opacity={0.85}
+                    onMouseEnter={() => {
+                      setHover(i);
+                      setHoverCounty(f.properties.NAME_1);
+                    }}
+                    onMouseLeave={() => {
+                      setHover(null);
+                      setHoverCounty(null);
+                    }}
+                  />
+                );
+              })
+            )}
+            {markers
+              .filter((i) => visible(i))
+              .map((i) => {
+                const [x, y] = projection([i.lon!, i.lat!]) ?? [0, 0];
+                const on = hover?.id === i.id || filter === i.category;
+                return (
+                  <g
+                    key={i.id}
+                    transform={`translate(${x},${y})`}
+                    className="marker"
+                    onMouseEnter={() => {
+                      setHover(i);
+                      setHoverCounty(null);
+                    }}
+                    onMouseLeave={() => setHover(null)}
+                  >
+                    <circle
+                      r={on ? 8 : 6}
+                      fill={CATEGORY_COLORS[i.category]}
+                      opacity={filter && filter !== i.category ? 0.25 : 1}
+                    />
+                    {(zoom.k >= 3 || on || filter === i.category) && (
+                      <text x={10} y={4} className="marker-label">
+                        {i.acronym}
+                      </text>
+                    )}
+                  </g>
+                );
+              })}
+            {sovereignDcs.map((d) => {
+              const [x, y] = projection([d.lon, d.lat]) ?? [0, 0];
+              return (
+                <g
+                  key={d.id}
+                  transform={`translate(${x},${y})`}
+                  className="dc-marker"
+                  onMouseEnter={() => setDcHover(d)}
+                  onMouseLeave={() => setDcHover(null)}
+                >
+                  <rect
+                    x={-5.5}
+                    y={-5.5}
+                    width={11}
+                    height={11}
+                    transform="rotate(45)"
+                    fill="#ffd166"
+                    stroke="#0e1729"
+                    strokeWidth={1.5}
+                  />
+                  <text x={0} y={-10} textAnchor="middle" className="dc-label">
+                    {d.id.toUpperCase()}
                   </text>
-                )}
-              </g>
-            );
-          })}
-      </svg>
+                </g>
+              );
+            })}
+          </g>
+        </svg>
+      </div>
       <div className="hover-bar">
-        {hover ? (
+        {dcHover ? (
+          <span>
+            <strong>{pick(dcHover.name, lang)}</strong> — {pick(dcHover.role, lang)} ·{" "}
+            {pick(dcHover.seismic, lang)}
+          </span>
+        ) : hover ? (
           <span>
             <strong>{hover.acronym}</strong> — {pick(hover.name, lang)} · {pick(hover.role, lang)} ·{" "}
             {pick(CATEGORY_LABELS[hover.category], lang)}
@@ -206,8 +313,8 @@ export function MapView() {
         ) : (
           <span className="muted">
             {lang === "ro"
-              ? "Trece cu mouse-ul peste un punct. Punctele mici din fiecare județ = primării (UAT) în propunere: emitere asistată și fallback fizic peste tot."
-              : "Hover a point. The small dots in each county = town halls (UAT) in the proposal: assisted issuance and physical fallback everywhere."}
+              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare — derularea paginii nu e blocată. Punctele mici = primării (UAT); pătratele galbene = DC suverane; inelele roșii = zona seismică Vrancea (50/100/200 km)."
+              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan — page scrolling is never trapped. Small dots = town halls (UAT); yellow squares = sovereign DCs; red rings = the Vrancea seismic zone (50/100/200 km)."}
           </span>
         )}
       </div>

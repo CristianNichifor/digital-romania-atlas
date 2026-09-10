@@ -26,8 +26,9 @@ header)
 | **Fluxuri de date** | Three toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). *"Diferența"* dims the documented flows and highlights only what the proposal adds. Filter by flow type. |
 | **Comparație** | 13-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
 | **Calendar** | EU obligations, the national plan, and our proposed additions side by side. |
-| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the six pillars (redundancy, open source, security, scalability, transparency anchors, educational & civic networks), redundancy tiers per service class, 5-year cost estimates, machines & equipment required, estimated savings, and the 14 outward-facing portals. |
-| **Surse** | Provenance for every claim: MAI docs pinned at a specific commit, the MAI presentation, EU regulations, standards, and the sovereign-OS article. |
+| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the six pillars (redundancy, open source, security, scalability, transparency anchors, educational & civic networks), redundancy tiers per service class, 5-year cost estimates, machines & equipment required, estimated savings, the 14 outward-facing portals, and the rationalisation of today's real state portals (inventory, consolidation map, governance rules, cutover phases). |
+| **Reziliență** | The 3+3 data-centre model (three sovereign sites + three federated university DCs placed across seismic regions), Vrancea/flood/outage/cable/cyber disaster scenarios and responses, hardware independence (OCP, open ISA, OpenBMC), software independence (Linux, K8s, Postgres, artefact mirrors), the RoEduNet/academia integration, backup rules (3-2-1-1-0) and resilience costs. |
+| **Surse** | Provenance for every claim: MAI docs pinned at a specific commit, the MAI presentation, EU regulations, standards, the sovereign-OS article, and the verified state portals behind the rationalisation inventory. |
 
 ## Data sources
 
@@ -66,6 +67,7 @@ Everything is plain typed data — edit without touching components:
 - `src/data/comparison.ts` — the comparison table
 - `src/data/timeline.ts` — the calendar
 - `src/data/strategy.ts` — layers, pillars, costs, portals (Strategie tab)
+- `src/data/resilience.ts` — DC placement, disaster scenarios, hardware/software sovereignty, academia, costs (Reziliență tab)
 - `src/data/stories.ts` — the five citizen stories
 - `src/data/sources.ts` — provenance links for every claim
 - `src/i18n.tsx` — RO/EN language context; every data field is `{ ro, en }`

@@ -1,6 +1,15 @@
 import { useLang } from "../i18n";
 
-export type ViewId = "summary" | "stories" | "map" | "flows" | "compare" | "timeline" | "strategy" | "sources";
+export type ViewId =
+  | "summary"
+  | "stories"
+  | "map"
+  | "flows"
+  | "compare"
+  | "timeline"
+  | "strategy"
+  | "resilience"
+  | "sources";
 
 const GAPS: { ro: string; en: string }[] = [
   { ro: "Schimb de date între instituții", en: "Inter-institution data exchange" },

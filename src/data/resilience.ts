@@ -16,7 +16,10 @@ export const DC_PLACEMENT: DcRow[] = [
   {
     id: "dc-a",
     name: { ro: "DC-A · Cluj", en: "DC-A · Cluj" },
-    location: { ro: "Cluj-Napoca / regiunea Cluj", en: "Cluj-Napoca / Cluj region" },
+    location: {
+      ro: "Cluj-Napoca / regiunea Cluj",
+      en: "Cluj-Napoca / Cluj region",
+    },
     region: { ro: "Transilvania", en: "Transylvania" },
     role: {
       ro: "Sit suveran primar — emitere PID/EAA, registru STS (instanță primară)",
@@ -36,7 +39,10 @@ export const DC_PLACEMENT: DcRow[] = [
   {
     id: "dc-b",
     name: { ro: "DC-B · București", en: "DC-B · Bucharest" },
-    location: { ro: "București / zona metropolitană", en: "Bucharest / metro area" },
+    location: {
+      ro: "București / zona metropolitană",
+      en: "Bucharest / metro area",
+    },
     region: { ro: "Muntenia", en: "Wallachia" },
     role: {
       ro: "Sit suveran secundar — continuitate operațională & proximitate instituțională",
@@ -76,42 +82,63 @@ export const DC_PLACEMENT: DcRow[] = [
   {
     id: "dc-u1",
     name: { ro: "DC-U1 · UBB Cluj", en: "DC-U1 · UBB Cluj" },
-    location: { ro: "Universitatea Babeș-Bolyai", en: "Babeș-Bolyai University" },
+    location: {
+      ro: "Universitatea Babeș-Bolyai",
+      en: "Babeș-Bolyai University",
+    },
     region: { ro: "Federație universitară", en: "University federation" },
     role: {
       ro: "Oglindă L3 + capacitate DR (RoEduNet)",
       en: "L3 mirror + DR capacity (RoEduNet)",
     },
     seismic: { ro: "Risc redus", en: "Low risk" },
-    energy: { ro: "Infrastructură universitară existentă", en: "Existing university infrastructure" },
+    energy: {
+      ro: "Infrastructură universitară existentă",
+      en: "Existing university infrastructure",
+    },
     lon: 23.58,
     lat: 46.77,
   },
   {
     id: "dc-u2",
     name: { ro: "DC-U2 · UPB București", en: "DC-U2 · UPB Bucharest" },
-    location: { ro: "Universitatea Politehnica București", en: "Politehnica University Bucharest" },
+    location: {
+      ro: "Universitatea Politehnica București",
+      en: "Politehnica University Bucharest",
+    },
     region: { ro: "Federație universitară", en: "University federation" },
     role: {
       ro: "Oglindă L3 + laborator de exerciții cibernetice",
       en: "L3 mirror + cyber-drill laboratory",
     },
-    seismic: { ro: "Raza Vrancea — rol de oglindă, nu critic unic", en: "Vrancea radius — mirror role, not sole critical" },
-    energy: { ro: "Infrastructură universitară existentă", en: "Existing university infrastructure" },
+    seismic: {
+      ro: "Raza Vrancea — rol de oglindă, nu critic unic",
+      en: "Vrancea radius — mirror role, not sole critical",
+    },
+    energy: {
+      ro: "Infrastructură universitară existentă",
+      en: "Existing university infrastructure",
+    },
     lon: 26.05,
     lat: 44.43,
   },
   {
     id: "dc-u3",
     name: { ro: "DC-U3 · UAIC Iași", en: "DC-U3 · UAIC Iași" },
-    location: { ro: "Universitatea Alexandru Ioan Cuza", en: "Alexandru Ioan Cuza University" },
+    location: {
+      ro: "Universitatea Alexandru Ioan Cuza",
+      en: "Alexandru Ioan Cuza University",
+    },
     region: { ro: "Federație universitară", en: "University federation" },
     role: {
       ro: "Oglindă L3 + cale transfrontalieră RENAM (Moldova)",
       en: "L3 mirror + RENAM (Moldova) cross-border path",
     },
     seismic: { ro: "Risc redus", en: "Low risk" },
-    energy: { ro: "Infrastructură universitară existentă", en: "Existing university infrastructure" },
+    energy: {
+      ro: "Infrastructură universitară existentă",
+      en: "Existing university infrastructure",
+    },
     lon: 27.57,
     lat: 47.17,
   },
@@ -125,7 +152,10 @@ export interface DisasterRow {
 
 export const DISASTERS: DisasterRow[] = [
   {
-    scenario: { ro: "Cutremur Vrancea (scenariu 1977)", en: "Vrancea earthquake (1977 scenario)" },
+    scenario: {
+      ro: "Cutremur Vrancea (scenariu 1977)",
+      en: "Vrancea earthquake (1977 scenario)",
+    },
     impact: {
       ro: "DC-B degradat sau pierdut; fibră și energie regională întrerupte; București fără servicii",
       en: "DC-B degraded or lost; regional fibre and power cut; Bucharest without services",
@@ -212,7 +242,10 @@ export const HARDWARE_STACK: SovereigntyRow[] = [
     },
   },
   {
-    layer: { ro: "Arhitectura de procesor (ISA)", en: "Processor architecture (ISA)" },
+    layer: {
+      ro: "Arhitectura de procesor (ISA)",
+      en: "Processor architecture (ISA)",
+    },
     current: {
       ro: "Dependență exclusivă x86/ARM (licențe străine)",
       en: "Exclusive x86/ARM dependence (foreign licences)",
@@ -303,7 +336,10 @@ export const SOFTWARE_STACK: SovereigntyRow[] = [
     },
   },
   {
-    layer: { ro: "Lanț de aprovizionare software", en: "Software supply chain" },
+    layer: {
+      ro: "Lanț de aprovizionare software",
+      en: "Software supply chain",
+    },
     current: {
       ro: "Dependență de registre străine (npm/PyPI/crates) fără oglindă națională",
       en: "Dependence on foreign registries (npm/PyPI/crates) with no national mirror",
@@ -336,7 +372,10 @@ export const EDU_RESEARCH: EduRow[] = [
     },
   },
   {
-    theme: { ro: "Depozit național de cercetare", en: "National research repository" },
+    theme: {
+      ro: "Depozit național de cercetare",
+      en: "National research repository",
+    },
     what: {
       ro: "Repository open science suveran (alternativă Zenodo), cu ancore publice de integritate pe datele publicate",
       en: "A sovereign open-science repository (Zenodo alternative) with public integrity anchors on published data",
@@ -357,7 +396,10 @@ export const EDU_RESEARCH: EduRow[] = [
     },
   },
   {
-    theme: { ro: "Școli & administrație locală", en: "Schools & local administration" },
+    theme: {
+      ro: "Școli & administrație locală",
+      en: "Schools & local administration",
+    },
     what: {
       ro: "SIIIR pe backbone; fiecare școală/universitate primește un nod L0 offline — administrația continuă fără internet",
       en: "SIIIR on the backbone; every school/university gets an offline L0 node — administration keeps running without internet",
@@ -393,37 +435,55 @@ export interface ResilCostRow {
 
 export const RESILIENCE_COSTS: ResilCostRow[] = [
   {
-    item: { ro: "8 micro-DC regionale (kit standardizat, container)", en: "8 regional micro-DCs (standardised container kit)" },
+    item: {
+      ro: "8 micro-DC regionale (kit standardizat, container)",
+      en: "8 regional micro-DCs (standardised container kit)",
+    },
     quantity: "8",
     unitCost: "0,5–1,5M €",
     total: "4–12M €",
   },
   {
-    item: { ro: "BESS + solar + genset per sit regional", en: "BESS + solar + genset per regional site" },
+    item: {
+      ro: "BESS + solar + genset per sit regional",
+      en: "BESS + solar + genset per regional site",
+    },
     quantity: "8 situri",
     unitCost: "0,3–0,5M €",
     total: "2,4–4M €",
   },
   {
-    item: { ro: "Vault subteran în salină (adaptare, containere etanșe)", en: "Underground salt-mine vault (retrofit, sealed containers)" },
+    item: {
+      ro: "Vault subteran în salină (adaptare, containere etanșe)",
+      en: "Underground salt-mine vault (retrofit, sealed containers)",
+    },
     quantity: "1–2",
     unitCost: "2–4M €",
     total: "2–8M €",
   },
   {
-    item: { ro: "UPS + solar pentru nodurile L0 (UAT/școli)", en: "UPS + solar for the L0 nodes (UATs/schools)" },
-    quantity: "~3.200",
+    item: {
+      ro: "UPS + solar pentru nodurile L0 (unități locale/școli)",
+      en: "UPS + solar for the L0 nodes (local units/schools)",
+    },
+    quantity: "≈682",
     unitCost: "300–500 €",
-    total: "1–1,6M €",
+    total: "0,2–0,4M €",
   },
   {
-    item: { ro: "DC mobile în containere (deploy 72h)", en: "Containerised mobile DCs (72h deployment)" },
+    item: {
+      ro: "DC mobile în containere (deploy 72h)",
+      en: "Containerised mobile DCs (72h deployment)",
+    },
     quantity: "2",
     unitCost: "0,75–1,5M €",
     total: "1,5–3M €",
   },
   {
-    item: { ro: "Stoc național de piese de schimb (10%)", en: "National spares stockpile (10%)" },
+    item: {
+      ro: "Stoc național de piese de schimb (10%)",
+      en: "National spares stockpile (10%)",
+    },
     quantity: "—",
     unitCost: "—",
     total: "2–4M €",
@@ -438,7 +498,10 @@ export const RESILIENCE_COSTS: ResilCostRow[] = [
     total: "1–1,5M €",
   },
   {
-    item: { ro: "Oglindă națională de artefacte + SBOM", en: "National artefact mirror + SBOM" },
+    item: {
+      ro: "Oglindă națională de artefacte + SBOM",
+      en: "National artefact mirror + SBOM",
+    },
     quantity: "1",
     unitCost: "0,2–0,3M €",
     total: "0,2–0,3M €",
@@ -494,7 +557,10 @@ export const REGIONAL_DCS: RegionalDcRow[] = [
   },
   {
     region: { ro: "Nord-Est", en: "North-East" },
-    city: { ro: "Suceava (lângă salina Cacica)", en: "Suceava (near Cacica salt mine)" },
+    city: {
+      ro: "Suceava (lângă salina Cacica)",
+      en: "Suceava (near Cacica salt mine)",
+    },
     power: {
       ro: "Solar + BESS + genset; acces la coridorul hidro nordic",
       en: "Solar + BESS + genset; access to the northern hydro corridor",
@@ -598,7 +664,10 @@ export const UNDERGROUND_SITES: UndergroundRow[] = [
     lat: 47.63,
   },
   {
-    name: { ro: "Salina Târgu Ocna (Bacău)", en: "Târgu Ocna salt mine (Bacău)" },
+    name: {
+      ro: "Salina Târgu Ocna (Bacău)",
+      en: "Târgu Ocna salt mine (Bacău)",
+    },
     region: { ro: "Nord-Est", en: "North-East" },
     suitability: {
       ro: "Alternativă: aceleași avantaje; galerii deja echipate parțial",
@@ -663,7 +732,10 @@ export const ENERGY_AUTONOMY: EnergyRow[] = [
   },
   {
     tier: { ro: "T3 · subteran", en: "T3 · underground" },
-    site: { ro: "1–2 saline (vault + DC supraviețuitor)", en: "1–2 salt mines (vault + survivor DC)" },
+    site: {
+      ro: "1–2 saline (vault + DC supraviețuitor)",
+      en: "1–2 salt mines (vault + survivor DC)",
+    },
     generation: {
       ro: "Rețeaua minei + genset + baterii; containere etanșe, presiune pozitivă (sarea e corozivă)",
       en: "Mine grid + genset + batteries; sealed containers, positive pressure (salt is corrosive)",
@@ -675,7 +747,10 @@ export const ENERGY_AUTONOMY: EnergyRow[] = [
   },
   {
     tier: { ro: "L0 · margine", en: "L0 · edge" },
-    site: { ro: "~3.200 UAT + școli", en: "~3,200 UATs + schools" },
+    site: {
+      ro: "≈682 unități locale (după reforma administrativă) + școli",
+      en: "≈682 local units (after the administrative reform) + schools",
+    },
     generation: {
       ro: "UPS 2 kWh + panou solar 5 kW per nod",
       en: "2 kWh UPS + 5 kW solar panel per node",

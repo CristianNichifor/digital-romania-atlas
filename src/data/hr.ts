@@ -97,15 +97,15 @@ export const HR_TEAMS: HrTeam[] = [
   {
     key: "field",
     team: { ro: "L0 & suport de teren", en: "L0 & field support" },
-    layer: { ro: "UAT-uri (3.200)", en: "UATs (3,200)" },
+    layer: { ro: "Unități locale (≈682)", en: "Local units (≈682)" },
     fte: "20–35",
     roles: {
       ro: "1–2 tehnicieni per județ (42), helpdesk central ×8–12, traineri ×2–3",
       en: "1–2 technicians per county (42), central helpdesk ×8–12, trainers ×2–3",
     },
     notes: {
-      ro: "Înrolare în valuri: 8 săptămâni per primărie, migrare chat-first, plasa de siguranță fizică.",
-      en: "Wave-based enrolment: 8 weeks per town hall, chat-first migration, the physical safety net.",
+      ro: "Înrolare în valuri: 8 săptămâni per unitate administrativă, migrare chat-first, plasa de siguranță fizică.",
+      en: "Wave-based enrolment: 8 weeks per administrative unit, chat-first migration, the physical safety net.",
     },
   },
   {
@@ -311,11 +311,14 @@ export const HR_INSTITUTIONS: HrInstitution[] = [
   },
   {
     key: "uat",
-    institution: { ro: "UAT-uri (≈3.200)", en: "UATs (≈3,200)" },
-    fte: "1–2 per primărie (valuri)",
+    institution: {
+      ro: "Unități locale (≈682 după reforma administrativă)",
+      en: "Local units (≈682 after the administrative reform)",
+    },
+    fte: "1 per unitate (valuri)",
     focus: {
-      ro: "Hub L0 local, suport asistat, emitere asistată la poștă/primărie",
-      en: "Local L0 hub, assisted support, assisted issuance at post/town hall",
+      ro: "Hub L0 local, suport asistat, emitere asistată la poștă/sediul unității",
+      en: "Local L0 hub, assisted support, assisted issuance at post/unit office",
     },
     pay: {
       ro: "Grila locală + formare plătită; jumătate de normă inițial, apoi full",

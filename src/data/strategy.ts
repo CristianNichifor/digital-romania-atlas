@@ -115,10 +115,10 @@ export const COSTS: CostRow[] = [
   },
   {
     item: { ro: "Rollout endpoint L0", en: "L0 endpoint rollout" },
-    estimate: "20–40M €",
+    estimate: "8–15M €",
     notes: {
-      ro: "servicii și training; licențe ≈ 0",
-      en: "services and training; licences ≈ 0",
+      ro: "≈682 unități după reforma administrativă (de la ~3.200); servicii și training; licențe ≈ 0",
+      en: "≈682 units after the administrative reform (from ~3,200); services and training; licences ≈ 0",
     },
   },
   {
@@ -162,6 +162,39 @@ export const COSTS: CostRow[] = [
     notes: {
       ro: "eliminarea a 250–400k licențe Windows/O365; precedent: Jandarmeria Franceză, Schleswig-Holstein",
       en: "removing 250–400k Windows/O365 licences; precedent: French Gendarmerie, Schleswig-Holstein",
+    },
+  },
+  {
+    item: {
+      ro: "Verificare: capex dacă DC-urile se construiesc de la zero (greenfield)",
+      en: "Check: capex if the DCs are built from scratch (greenfield)",
+    },
+    estimate: "200–350M €",
+    notes: {
+      ro: "vs. 80–150M € presupunând reutilizarea infrastructurii STS/MAI/ADR — scenariul nostru presupune reutilizare",
+      en: "vs. €80–150M assuming reuse of STS/MAI/ADR infrastructure — our scenario assumes reuse",
+    },
+  },
+  {
+    item: {
+      ro: "Verificare: opex anual dacă DC-urile sunt în proprietate",
+      en: "Check: annual opex if the DCs are owned",
+    },
+    estimate: "60–90M €/an",
+    notes: {
+      ro: "energie (3 situri active), personal 24/7, licențe — vs. 25–45M €/an cu colocație/reutilizare",
+      en: "power (3 active sites), 24/7 staffing, licences — vs. €25–45M/year with colocation/reuse",
+    },
+  },
+  {
+    item: {
+      ro: "Costuri soft de obicei omise",
+      en: "Soft costs usually omitted",
+    },
+    estimate: "+10–20% din total",
+    notes: {
+      ro: "training pentru ~100k funcționari, certificare eIDAS/Common Criteria (RWSCD), managementul schimbării, inflație pe 5 ani",
+      en: "training ~100k civil servants, eIDAS/Common Criteria certification (RWSCD), change management, 5-year inflation",
     },
   },
 ];
@@ -395,12 +428,12 @@ export const MACHINES: MachineRow[] = [
   },
   {
     item: {
-      ro: "Mini-servere locale UAT (hub L0 per primărie)",
-      en: "Local UAT mini-servers (L0 hub per town hall)",
+      ro: "Mini-servere locale (hub L0 per unitate administrativă)",
+      en: "Local mini-servers (L0 hub per administrative unit)",
     },
-    quantity: "~3.200",
+    quantity: "≈682",
     unitCost: "1–1,5k € (sau PC-uri reutilizate)",
-    total: "3–5M €",
+    total: "0,7–1M €",
   },
   {
     item: {
@@ -599,8 +632,8 @@ export const INVENTORY: InventoryRow[] = [
   {
     sector: { ro: "Local", en: "Local" },
     services: {
-      ro: "~3.200 site-uri UAT cu formulare proprii",
-      en: "~3,200 UAT websites with bespoke forms",
+      ro: "~3.200 de site-uri UAT cu formulare proprii (≈682 unități după reforma administrativă)",
+      en: "~3,200 UAT websites with bespoke forms (≈682 units after the administrative reform)",
     },
     operator: { ro: "fiecare primărie", en: "each town hall" },
     note: { ro: "zero standard", en: "zero standard" },
@@ -727,8 +760,8 @@ export const CONSOLIDATION: ConsolidationRow[] = [
   {
     action: { ro: "UAT-uri", en: "UATs" },
     systems: {
-      ro: "~3.200 site-uri bespoke → o platformă unică cu șabloane (instanță per UAT pe hub-ul L0)",
-      en: "~3,200 bespoke sites → one templated platform (instance per UAT on the L0 hub)",
+      ro: "~3.200 de site-uri bespoke → o platformă unică cu șabloane; după reforma administrativă rămân ≈682 de unități (instanță per unitate pe hub-ul L0)",
+      en: "~3,200 bespoke sites → one templated platform; after the administrative reform ≈682 units remain (instance per unit on the L0 hub)",
     },
     destination: { ro: "Portal p12 + L0", en: "Portal p12 + L0" },
   },
@@ -908,8 +941,8 @@ export const PILLARS: BulletGroup[] = [
         en: "Attestations are KB; status lists MB; logs GB–TB/year (<100 TB total)",
       },
       {
-        ro: "Ce nu scalează e integrarea: ~3.200 UAT-uri și zeci de registre — conectori standard, înrolare în valuri",
-        en: "What doesn't scale is integration: ~3,200 UATs and dozens of registries — standard connectors, wave-based enrollment",
+        ro: "Ce nu scalează e integrarea: ≈682 de unități locale după reforma administrativă (de la ~3.200) și zeci de registre — conectori standard, înrolare în valuri",
+        en: "What doesn't scale is integration: ≈682 local units after the administrative reform (from ~3,200) and dozens of registries — standard connectors, wave-based enrollment",
       },
       {
         ro: "Rollout L0 ca în propunerea endpoint: instalare USB, cod de înrolare, migrare chat-first, 8 săptămâni per primărie",

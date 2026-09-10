@@ -622,7 +622,10 @@ export const FLOWS: Flow[] = [
       ro: "Platformă cu șabloane pe hub-ul L0 (instanță per UAT)",
       en: "Templated platform on the L0 hub (instance per UAT)",
     },
-    tech: { ro: "înlocuiește ~3.200 site-uri", en: "replaces ~3,200 sites" },
+    tech: {
+      ro: "înlocuiește ~3.200 de site-uri (≈682 unități după reforma administrativă)",
+      en: "replaces ~3,200 sites (≈682 units after the administrative reform)",
+    },
     status: "proposed",
   },
   {
@@ -670,7 +673,10 @@ export const FLOWS: Flow[] = [
       ro: "Exerciții cibernetice anuale cu echipe roșii studențești",
       en: "Annual cyber drills with student red teams",
     },
-    tech: { ro: "failover real, nu demonstrativ", en: "real failover, not a showcase" },
+    tech: {
+      ro: "failover real, nu demonstrativ",
+      en: "real failover, not a showcase",
+    },
     status: "proposed",
   },
   {
@@ -682,7 +688,10 @@ export const FLOWS: Flow[] = [
       ro: "Datele de cercetare ancorate public (integritate)",
       en: "Research datasets publicly anchored (integrity)",
     },
-    tech: { ro: "hash on-chain, date off-chain", en: "hash on-chain, data off-chain" },
+    tech: {
+      ro: "hash on-chain, date off-chain",
+      en: "hash on-chain, data off-chain",
+    },
     status: "proposed",
   },
 ];

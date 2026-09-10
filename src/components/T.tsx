@@ -22,6 +22,9 @@ function classify(token: string): Part {
     if (!lower.startsWith(term.toLowerCase())) continue;
     const next = token[term.length];
     if (next !== undefined && /[A-Za-z0-9\u00C0-\u024F]/.test(next)) continue;
+    const rest = token.slice(term.length);
+    const suffix = /^(-[A-Za-z0-9]+)/.exec(rest);
+    if (suffix) return { t: token.slice(0, term.length) + suffix[1], term };
     return { t: token.slice(0, term.length), term };
   }
   return token;

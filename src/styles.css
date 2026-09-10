@@ -520,7 +520,54 @@ main {
   stroke: #e5484d;
   stroke-dasharray: 6 5;
   opacity: 0.55;
-  pointer-events: none;
+  pointer-events: stroke;
+}
+
+.res-link {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.res-link:hover {
+  opacity: 1;
+}
+
+.res-link.fiber {
+  stroke: #4f8cff;
+  stroke-width: 1.5;
+  stroke-dasharray: 0.04 0.06;
+  opacity: 0.75;
+  animation: link-flow 4s linear infinite;
+}
+
+.res-link.uplink {
+  stroke: #53c1e8;
+  stroke-width: 1.1;
+  stroke-dasharray: 0.03 0.045;
+  opacity: 0.5;
+}
+
+.res-link.vault {
+  stroke: #a479e2;
+  stroke-width: 1.1;
+  stroke-dasharray: 0.015 0.03;
+  opacity: 0.55;
+}
+
+.res-link.l0 {
+  stroke: #33517e;
+  stroke-width: 0.8;
+  stroke-dasharray: 0.02 0.035;
+  opacity: 0.45;
+}
+
+@keyframes link-flow {
+  to {
+    stroke-dashoffset: -0.1;
+  }
 }
 
 .vrancea-epicentre,

@@ -34,6 +34,17 @@ function norm(s: string) {
   return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+function distKm(a: [number, number], b: [number, number]) {
+  const R = 6371;
+  const dLat = ((b[1] - a[1]) * Math.PI) / 180;
+  const dLon = ((b[0] - a[0]) * Math.PI) / 180;
+  const la1 = (a[1] * Math.PI) / 180;
+  const la2 = (b[1] * Math.PI) / 180;
+  const h =
+    Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
 interface TipContent {
   title: Bi;
   detail: Bi;
@@ -202,6 +213,131 @@ export function MapView() {
   const underground = UNDERGROUND_SITES;
   const [vx, vy] = projection([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat]) ?? [0, 0];
 
+  // Replication links: sovereign fibre mesh, regional uplinks, vault copies
+  // and (zoomed in) the L0 nodes synchronising with their nearest DC.
+  type Link = {
+    id: string;
+    kind: "fiber" | "uplink" | "vault" | "l0";
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    tip: TipContent;
+  };
+  const allDcs = [
+    ...sovereignDcs.map((d) => ({ id: d.id, name: d.name, lon: d.lon, lat: d.lat })),
+    ...regionalDcs.map((r) => ({
+      id: `r-${pick(r.region, "ro")}`,
+      name: { ro: `Micro-DC ${r.region.ro}`, en: `${r.region.en} micro-DC` },
+      lon: r.lon,
+      lat: r.lat,
+    })),
+  ];
+  const nearest = (lon: number, lat: number, pool: typeof allDcs) =>
+    pool.reduce((best, d) =>
+      distKm([lon, lat], [d.lon, d.lat]) < distKm([lon, lat], [best.lon, best.lat]) ? d : best
+    );
+  const links: Link[] = [];
+  for (let i = 0; i < sovereignDcs.length; i++) {
+    for (let j = i + 1; j < sovereignDcs.length; j++) {
+      const a = sovereignDcs[i];
+      const b = sovereignDcs[j];
+      const [x1, y1] = projection([a.lon, a.lat]) ?? [0, 0];
+      const [x2, y2] = projection([b.lon, b.lat]) ?? [0, 0];
+      links.push({
+        id: `fiber-${a.id}-${b.id}`,
+        kind: "fiber",
+        x1,
+        y1,
+        x2,
+        y2,
+        tip: {
+          title: {
+            ro: `Inel de fibră · ${a.name.ro} ⇄ ${b.name.ro}`,
+            en: `Fibre ring · ${a.name.en} ⇄ ${b.name.en}`,
+          },
+          detail: {
+            ro: "Replicare sincronă T1 (RPO ≤ 5 min, RTO ≤ 30 min)",
+            en: "Synchronous T1 replication (RPO ≤ 5 min, RTO ≤ 30 min)",
+          },
+        },
+      });
+    }
+  }
+  for (const r of regionalDcs) {
+    const t = nearest(r.lon, r.lat, sovereignDcs);
+    const [x1, y1] = projection([r.lon, r.lat]) ?? [0, 0];
+    const [x2, y2] = projection([t.lon, t.lat]) ?? [0, 0];
+    links.push({
+      id: `uplink-${pick(r.region, "ro")}`,
+      kind: "uplink",
+      x1,
+      y1,
+      x2,
+      y2,
+      tip: {
+        title: {
+          ro: `${r.region.ro} → ${t.name.ro}`,
+          en: `${r.region.en} → ${t.name.en}`,
+        },
+        detail: {
+          ro: "Servicii locale + oglindă L3 a registrelor",
+          en: "Local services + L3 mirror of the registries",
+        },
+      },
+    });
+  }
+  for (const u of underground) {
+    const t = nearest(u.lon, u.lat, allDcs);
+    const [x1, y1] = projection([u.lon, u.lat]) ?? [0, 0];
+    const [x2, y2] = projection([t.lon, t.lat]) ?? [0, 0];
+    links.push({
+      id: `vault-${pick(u.name, "ro")}`,
+      kind: "vault",
+      x1,
+      y1,
+      x2,
+      y2,
+      tip: {
+        title: {
+          ro: `${u.name.ro} → ${t.name.ro}`,
+          en: `${u.name.en} → ${t.name.en}`,
+        },
+        detail: {
+          ro: "Copie WORM LTO air-gapped (a doua copie 3-2-1-1-0)",
+          en: "Air-gapped WORM LTO copy (the second 3-2-1-1-0 copy)",
+        },
+      },
+    });
+  }
+  if (uatVisible && k >= 4) {
+    geo.features.forEach((f, fi) => {
+      const c = d3.geoCentroid(f as unknown as GeoJSON.Feature);
+      if (!isFinite(c[0]) || !isFinite(c[1])) return;
+      const t = nearest(c[0], c[1], allDcs);
+      const [x1, y1] = projection(c) ?? [0, 0];
+      const [x2, y2] = projection([t.lon, t.lat]) ?? [0, 0];
+      links.push({
+        id: `l0-${fi}`,
+        kind: "l0",
+        x1,
+        y1,
+        x2,
+        y2,
+        tip: {
+          title: {
+            ro: `${f.properties.NAME_1} → ${t.name.ro}`,
+            en: `${f.properties.NAME_1} → ${t.name.en}`,
+          },
+          detail: {
+            ro: "Nod L0 offline-first: sincronizare când există legătură",
+            en: "Offline-first L0 node: syncs when a link is available",
+          },
+        },
+      });
+    });
+  }
+
   const tipClampX = (x: number) => {
     const w = wrapRef.current?.clientWidth ?? 900;
     return Math.max(4, Math.min(x, w - 250));
@@ -285,6 +421,17 @@ export function MapView() {
                 />
               );
             })}
+            {links.map((l) => (
+              <path
+                key={l.id}
+                d={`M${l.x1},${l.y1}L${l.x2},${l.y2}`}
+                className={`res-link ${l.kind}`}
+                pathLength={1}
+                pointerEvents="stroke"
+                onMouseEnter={(e) => showTip(l.tip, e)}
+                onMouseLeave={() => setTip(null)}
+              />
+            ))}
             {VRANCEA_RADII_KM.map((km) => {
               const ring = d3
                 .geoCircle()
@@ -587,6 +734,32 @@ export function MapView() {
             : "Vrancea seismic zone (50/100/200 km)"}
         </span>
         <span className="sl-item">
+          <svg width="18" height="12" viewBox="0 0 18 12">
+            <line x1="1" y1="6" x2="17" y2="6" stroke="#4f8cff" strokeWidth="1.5" strokeDasharray="3 3" />
+          </svg>
+          {lang === "ro"
+            ? "Inel de fibră între DC-urile suverane"
+            : "Fibre ring between the sovereign DCs"}
+        </span>
+        <span className="sl-item">
+          <svg width="18" height="12" viewBox="0 0 18 12">
+            <line x1="1" y1="6" x2="17" y2="6" stroke="#53c1e8" strokeWidth="1.2" strokeDasharray="2.5 3" />
+          </svg>
+          {lang === "ro" ? "Uplink regional (oglindă L3)" : "Regional uplink (L3 mirror)"}
+        </span>
+        <span className="sl-item">
+          <svg width="18" height="12" viewBox="0 0 18 12">
+            <line x1="1" y1="6" x2="17" y2="6" stroke="#a479e2" strokeWidth="1.2" strokeDasharray="1.2 2.4" />
+          </svg>
+          {lang === "ro" ? "Copie de arhivă către salină" : "Archive copy to the salt mine"}
+        </span>
+        <span className="sl-item">
+          <svg width="18" height="12" viewBox="0 0 18 12">
+            <line x1="1" y1="6" x2="17" y2="6" stroke="#33517e" strokeWidth="1" strokeDasharray="1.5 2.5" />
+          </svg>
+          {lang === "ro" ? "Sincronizare L0 (la zoom)" : "L0 sync (when zoomed in)"}
+        </span>
+        <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
             <rect x="1.5" y="1.5" width="9" height="9" fill="#1a2c4e" stroke="#2a4d8f" />
           </svg>
@@ -613,8 +786,8 @@ export function MapView() {
         ) : (
           <span className="muted">
             {lang === "ro"
-              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; punctele suprapuse se despart automat când mărești zoom-ul."
-              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; overlapping dots spread apart as you zoom in."}
+              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; liniile arată replicarea între situri."
+              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; the lines show replication between sites."}
           </span>
         )}
       </div>

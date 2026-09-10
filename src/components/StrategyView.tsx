@@ -1,9 +1,10 @@
 import { COSTS, LAYERS, PILLARS, PORTALS } from "../data/strategy";
+import { pick, useLang } from "../i18n";
 
-const STATUS_LABEL: Record<string, string> = {
-  "in-flight": "În curs",
-  proposal: "Propunere",
-  partial: "Parțial",
+const STATUS_LABEL: Record<string, { ro: string; en: string }> = {
+  "in-flight": { ro: "În curs", en: "In flight" },
+  proposal: { ro: "Propunere", en: "Proposal" },
+  partial: { ro: "Parțial", en: "Partial" },
 };
 
 const STATUS_CLASS: Record<string, string> = {
@@ -13,20 +14,25 @@ const STATUS_CLASS: Record<string, string> = {
 };
 
 export function StrategyView() {
+  const { lang } = useLang();
   return (
     <div className="panel strategy">
       <div className="panel-head">
-        <h2>Strategia completă — de la stația de lucru la plăți</h2>
+        <h2>
+          {lang === "ro"
+            ? "Strategia completă — de la stația de lucru la plăți"
+            : "The full strategy — from the workstation to payments"}
+        </h2>
       </div>
 
-      <h3>Arhitectura pe 7 straturi</h3>
+      <h3>{lang === "ro" ? "Arhitectura pe 7 straturi" : "The 7-layer architecture"}</h3>
       <table className="compare-table layer-table">
         <thead>
           <tr>
-            <th>Strat</th>
-            <th>Conținut</th>
-            <th>Responsabil</th>
-            <th>Stare</th>
+            <th>{lang === "ro" ? "Strat" : "Layer"}</th>
+            <th>{lang === "ro" ? "Conținut" : "Contents"}</th>
+            <th>{lang === "ro" ? "Responsabil" : "Owner"}</th>
+            <th>{lang === "ro" ? "Stare" : "Status"}</th>
           </tr>
         </thead>
         <tbody>
@@ -35,13 +41,13 @@ export function StrategyView() {
               <td className="dim">
                 {l.id}
                 <br />
-                <span className="layer-name">{l.name}</span>
+                <span className="layer-name">{pick(l.name, lang)}</span>
               </td>
-              <td>{l.what}</td>
-              <td>{l.owner}</td>
+              <td>{pick(l.what, lang)}</td>
+              <td>{pick(l.owner, lang)}</td>
               <td>
                 <span className={`verdict ${STATUS_CLASS[l.status]}`}>
-                  {STATUS_LABEL[l.status]}
+                  {pick(STATUS_LABEL[l.status], lang)}
                 </span>
               </td>
             </tr>
@@ -49,62 +55,94 @@ export function StrategyView() {
         </tbody>
       </table>
 
-      <h3>Cei patru piloni</h3>
+      <h3>{lang === "ro" ? "Cei cinci piloni" : "The five pillars"}</h3>
       <div className="pillars">
         {PILLARS.map((p) => (
-          <section key={p.title} className="pillar">
-            <h4>{p.title}</h4>
+          <section key={pick(p.title, "ro")} className="pillar">
+            <h4>{pick(p.title, lang)}</h4>
             <ul>
               {p.items.map((it, i) => (
-                <li key={i}>{it}</li>
+                <li key={i}>{pick(it, lang)}</li>
               ))}
             </ul>
           </section>
         ))}
       </div>
 
-      <h3>Resurse & costuri (estimare pe 5 ani)</h3>
+      <h3>
+        {lang === "ro"
+          ? "Resurse & costuri (estimare pe 5 ani)"
+          : "Resources & costs (5-year estimate)"}
+      </h3>
       <table className="compare-table">
         <thead>
           <tr>
-            <th>Element</th>
-            <th>Estimare</th>
-            <th>Notă</th>
+            <th>{lang === "ro" ? "Element" : "Item"}</th>
+            <th>{lang === "ro" ? "Estimare" : "Estimate"}</th>
+            <th>{lang === "ro" ? "Notă" : "Note"}</th>
           </tr>
         </thead>
         <tbody>
           {COSTS.map((c) => (
-            <tr key={c.item}>
-              <td className="dim">{c.item}</td>
+            <tr key={c.estimate}>
+              <td className="dim">{pick(c.item, lang)}</td>
               <td>
                 <strong>{c.estimate}</strong>
               </td>
-              <td>{c.notes}</td>
+              <td>{pick(c.notes, lang)}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <h3>Portalurile orientate către exterior (12)</h3>
+      <h3>
+        {lang === "ro"
+          ? "Portalurile orientate către exterior (12)"
+          : "The outward-facing portals (12)"}
+      </h3>
       <div className="portals">
         {PORTALS.map((p) => (
           <div key={p.id} className="portal-card">
-            <strong>{p.name}</strong>
-            <p>{p.what}</p>
+            <strong>{pick(p.name, lang)}</strong>
+            <p>{pick(p.what, lang)}</p>
           </div>
         ))}
       </div>
 
       <p className="muted note">
-        Sinteza include propunerea de „sistem de operare suveran” pentru administrația publică
-        (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —{" "}
-        <a href="https://danieltamas.com/blog/arhitectura-suverana" target="_blank" rel="noreferrer">
-          danieltamas.com/blog/arhitectura-suverana
-        </a>
-        ) ca straturi L0–L1: partea „instituțională” a aceleiași doctrine — nimic nu depinde de un
-        singur furnizor, un singur DC sau un singur minister, iar cetățeanul și funcționarul
-        continuă să lucreze când rețeaua cade. Cifrele sunt estimări de design, nu documente
-        oficiale.
+        {lang === "ro" ? (
+          <>
+            Sinteza include propunerea de „sistem de operare suveran” pentru administrația publică
+            (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —{" "}
+            <a
+              href="https://danieltamas.com/blog/arhitectura-suverana"
+              target="_blank"
+              rel="noreferrer"
+            >
+              danieltamas.com/blog/arhitectura-suverana
+            </a>
+            ) ca straturi L0–L1: partea „instituțională” a aceleiași doctrine — nimic nu depinde
+            de un singur furnizor, un singur DC sau un singur minister, iar cetățeanul și
+            funcționarul continuă să lucreze când rețeaua cade. Cifrele sunt estimări de design,
+            nu documente oficiale.
+          </>
+        ) : (
+          <>
+            The synthesis includes the “sovereign operating system” proposal for public
+            administration (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —{" "}
+            <a
+              href="https://danieltamas.com/blog/arhitectura-suverana"
+              target="_blank"
+              rel="noreferrer"
+            >
+              danieltamas.com/blog/arhitectura-suverana
+            </a>
+            ) as layers L0–L1: the “institutional” half of the same doctrine — nothing depends on
+            a single vendor, a single DC or a single ministry, and the citizen and the clerk both
+            keep working when the network dies. Figures are design estimates, not official
+            documents.
+          </>
+        )}
       </p>
     </div>
   );

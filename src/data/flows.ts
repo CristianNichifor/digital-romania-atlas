@@ -1,3 +1,5 @@
+import type { Bi } from "../i18n";
+
 export type FlowKind =
   | "identity"
   | "presentation"
@@ -18,8 +20,8 @@ export interface Flow {
   from: string;
   to: string;
   kind: FlowKind;
-  label: string;
-  tech?: string;
+  label: Bi;
+  tech?: Bi;
   status: "current" | "proposed";
 }
 
@@ -39,20 +41,20 @@ export const FLOW_COLORS: Record<FlowKind, string> = {
   anchor: "#22d3ee",
 };
 
-export const FLOW_LABELS: Record<FlowKind, string> = {
-  identity: "Identitate",
-  presentation: "Prezentare",
-  attestation: "Atestare",
-  backbone: "Backbone date",
-  payment: "Plăți",
-  lifecycle: "Ciclu de viață",
-  security: "Securitate",
-  notification: "Notificări",
-  trust: "Încredere",
-  oversight: "Supraveghere",
-  governance: "Guvernanță",
-  service: "Servicii",
-  anchor: "Ancoră publică",
+export const FLOW_LABELS: Record<FlowKind, Bi> = {
+  identity: { ro: "Identitate", en: "Identity" },
+  presentation: { ro: "Prezentare", en: "Presentation" },
+  attestation: { ro: "Atestare", en: "Attestation" },
+  backbone: { ro: "Backbone date", en: "Data backbone" },
+  payment: { ro: "Plăți", en: "Payments" },
+  lifecycle: { ro: "Ciclu de viață", en: "Lifecycle" },
+  security: { ro: "Securitate", en: "Security" },
+  notification: { ro: "Notificări", en: "Notifications" },
+  trust: { ro: "Încredere", en: "Trust" },
+  oversight: { ro: "Supraveghere", en: "Oversight" },
+  governance: { ro: "Guvernanță", en: "Governance" },
+  service: { ro: "Servicii", en: "Services" },
+  anchor: { ro: "Ancoră publică", en: "Public anchor" },
 };
 
 export const FLOWS: Flow[] = [
@@ -61,8 +63,11 @@ export const FLOWS: Flow[] = [
     from: "dgep",
     to: "citizen",
     kind: "identity",
-    label: "Emite PID (nume, CNP, cetățenie, foto)",
-    tech: "OpenID4VCI · LoA High",
+    label: {
+      ro: "Emite PID (nume, CNP, cetățenie, foto)",
+      en: "Issues PID (name, CNP, citizenship, photo)",
+    },
+    tech: { ro: "OpenID4VCI · LoA High", en: "OpenID4VCI · LoA High" },
     status: "current",
   },
   {
@@ -70,8 +75,14 @@ export const FLOWS: Flow[] = [
     from: "citizen",
     to: "rp",
     kind: "presentation",
-    label: "Prezintă PID / atribute (divulgare selectivă)",
-    tech: "OpenID4VP · SD-JWT / ISO 18013-5",
+    label: {
+      ro: "Prezintă PID / atribute (divulgare selectivă)",
+      en: "Presents PID / attributes (selective disclosure)",
+    },
+    tech: {
+      ro: "OpenID4VP · SD-JWT / ISO 18013-5",
+      en: "OpenID4VP · SD-JWT / ISO 18013-5",
+    },
     status: "current",
   },
   {
@@ -79,8 +90,14 @@ export const FLOWS: Flow[] = [
     from: "rp",
     to: "dgep",
     kind: "identity",
-    label: "Verifică valabilitate PID",
-    tech: "Token Status List (privacy-preserving)",
+    label: {
+      ro: "Verifică valabilitate PID",
+      en: "Verifies PID validity",
+    },
+    tech: {
+      ro: "Token Status List (privacy-preserving)",
+      en: "Token Status List (privacy-preserving)",
+    },
     status: "current",
   },
   {
@@ -88,8 +105,11 @@ export const FLOWS: Flow[] = [
     from: "citizen",
     to: "wb",
     kind: "lifecycle",
-    label: "Activare WI, atestări WIA, revocare",
-    tech: "Wallet Backend API",
+    label: {
+      ro: "Activare WI, atestări WIA, revocare",
+      en: "WI activation, WIA attestations, revocation",
+    },
+    tech: { ro: "Wallet Backend API", en: "Wallet Backend API" },
     status: "current",
   },
   {
@@ -97,8 +117,11 @@ export const FLOWS: Flow[] = [
     from: "wb",
     to: "dgep",
     kind: "lifecycle",
-    label: "Publică WIA status lists",
-    tech: "Status List Service",
+    label: {
+      ro: "Publică WIA status lists",
+      en: "Publishes WIA status lists",
+    },
+    tech: { ro: "Status List Service", en: "Status List Service" },
     status: "current",
   },
   {
@@ -106,8 +129,11 @@ export const FLOWS: Flow[] = [
     from: "mdvm",
     to: "citizen",
     kind: "security",
-    label: "Token vulnerabilitate dispozitiv → restricționează WI",
-    tech: "MDVM API",
+    label: {
+      ro: "Token vulnerabilitate dispozitiv → restricționează WI",
+      en: "Device vulnerability token → restricts WI",
+    },
+    tech: { ro: "MDVM API", en: "MDVM API" },
     status: "current",
   },
   {
@@ -115,8 +141,11 @@ export const FLOWS: Flow[] = [
     from: "mpp",
     to: "citizen",
     kind: "notification",
-    label: "Notificări push către wallet",
-    tech: "APNs / FCM",
+    label: {
+      ro: "Notificări push către wallet",
+      en: "Push notifications to the wallet",
+    },
+    tech: { ro: "APNs / FCM", en: "APNs / FCM" },
     status: "current",
   },
   {
@@ -124,8 +153,14 @@ export const FLOWS: Flow[] = [
     from: "mpp",
     to: "mdvm",
     kind: "security",
-    label: "Atestări de platformă",
-    tech: "Play Integrity / App Attest",
+    label: {
+      ro: "Atestări de platformă",
+      en: "Platform attestations",
+    },
+    tech: {
+      ro: "Play Integrity / App Attest",
+      en: "Play Integrity / App Attest",
+    },
     status: "current",
   },
   {
@@ -133,8 +168,11 @@ export const FLOWS: Flow[] = [
     from: "rwsca",
     to: "citizen",
     kind: "security",
-    label: "Operații criptografice remote (chei critice)",
-    tech: "RWSCA API + HSM",
+    label: {
+      ro: "Operații criptografice remote (chei critice)",
+      en: "Remote cryptographic operations (critical keys)",
+    },
+    tech: { ro: "RWSCA API + HSM", en: "RWSCA API + HSM" },
     status: "current",
   },
   {
@@ -142,8 +180,11 @@ export const FLOWS: Flow[] = [
     from: "qtsp",
     to: "citizen",
     kind: "identity",
-    label: "QES gratuit (wallet-centric)",
-    tech: "Planificat – etapa 2",
+    label: {
+      ro: "QES gratuit (wallet-centric)",
+      en: "Free QES (wallet-centric)",
+    },
+    tech: { ro: "Planificat – etapa 2", en: "Planned – phase 2" },
     status: "current",
   },
   {
@@ -151,8 +192,11 @@ export const FLOWS: Flow[] = [
     from: "rnep",
     to: "dgep",
     kind: "identity",
-    label: "Date de identitate garantate la sursă",
-    tech: "Registru intern",
+    label: {
+      ro: "Date de identitate garantate la sursă",
+      en: "Identity data guaranteed at source",
+    },
+    tech: { ro: "Registru intern", en: "Internal registry" },
     status: "current",
   },
   {
@@ -160,8 +204,11 @@ export const FLOWS: Flow[] = [
     from: "citizen",
     to: "hub-mai",
     kind: "presentation",
-    label: "Servicii MAI consumă atribute",
-    tech: "HUB MAI ca relying party",
+    label: {
+      ro: "Servicii MAI consumă atribute",
+      en: "MAI services consume attributes",
+    },
+    tech: { ro: "HUB MAI ca relying party", en: "HUB MAI as relying party" },
     status: "current",
   },
   {
@@ -169,8 +216,11 @@ export const FLOWS: Flow[] = [
     from: "sts",
     to: "rp",
     kind: "trust",
-    label: "Certificat de acces WRPAC (înregistrare RP)",
-    tech: "Registru național",
+    label: {
+      ro: "Certificat de acces WRPAC (înregistrare RP)",
+      en: "WRPAC access certificate (RP registration)",
+    },
+    tech: { ro: "Registru național", en: "National registry" },
     status: "current",
   },
   {
@@ -178,8 +228,11 @@ export const FLOWS: Flow[] = [
     from: "sts",
     to: "dgcti",
     kind: "trust",
-    label: "Certificat de înregistrare WRPRC (furnizor wallet)",
-    tech: "Registru național",
+    label: {
+      ro: "Certificat de înregistrare WRPRC (furnizor wallet)",
+      en: "WRPRC registration certificate (wallet provider)",
+    },
+    tech: { ro: "Registru național", en: "National registry" },
     status: "current",
   },
   {
@@ -187,8 +240,11 @@ export const FLOWS: Flow[] = [
     from: "medat",
     to: "dgcti",
     kind: "governance",
-    label: "Guvernanță ecosistem, monitorizare",
-    tech: "Comisia RO EUDIW",
+    label: {
+      ro: "Guvernanță ecosistem, monitorizare",
+      en: "Ecosystem governance, monitoring",
+    },
+    tech: { ro: "Comisia RO EUDIW", en: "RO EUDIW Commission" },
     status: "current",
   },
   {
@@ -196,8 +252,11 @@ export const FLOWS: Flow[] = [
     from: "adr",
     to: "qtsp",
     kind: "oversight",
-    label: "Supraveghere QTSP, Liste de Încredere",
-    tech: "eIDAS",
+    label: {
+      ro: "Supraveghere QTSP, Liste de Încredere",
+      en: "QTSP supervision, Trust Lists",
+    },
+    tech: { ro: "eIDAS", en: "eIDAS" },
     status: "current",
   },
   {
@@ -205,8 +264,11 @@ export const FLOWS: Flow[] = [
     from: "dgpi",
     to: "dgcti",
     kind: "oversight",
-    label: "Supervizare securitate cibernetică (internă MAI)",
-    tech: "—",
+    label: {
+      ro: "Supervizare securitate cibernetică (internă MAI)",
+      en: "Cybersecurity supervision (internal to MAI)",
+    },
+    tech: { ro: "—", en: "—" },
     status: "current",
   },
   {
@@ -214,8 +276,14 @@ export const FLOWS: Flow[] = [
     from: "rp",
     to: "xroad",
     kind: "backbone",
-    label: "Interogări de atribute cu consimțământ, scop delimitat",
-    tech: "X-Road REST · jurnale semnate",
+    label: {
+      ro: "Interogări de atribute cu consimțământ, scop delimitat",
+      en: "Consent-based attribute queries, bounded purpose",
+    },
+    tech: {
+      ro: "X-Road REST · jurnale semnate",
+      en: "X-Road REST · signed logs",
+    },
     status: "proposed",
   },
   {
@@ -223,8 +291,11 @@ export const FLOWS: Flow[] = [
     from: "xroad",
     to: "cnas",
     kind: "backbone",
-    label: "Schimb securizat cu registrele sursă",
-    tech: "X-Road / GovStack",
+    label: {
+      ro: "Schimb securizat cu registrele sursă",
+      en: "Secure exchange with source registries",
+    },
+    tech: { ro: "X-Road / GovStack", en: "X-Road / GovStack" },
     status: "proposed",
   },
   {
@@ -232,8 +303,11 @@ export const FLOWS: Flow[] = [
     from: "xroad",
     to: "anaf",
     kind: "backbone",
-    label: "Schimb securizat cu registrele sursă",
-    tech: "X-Road / GovStack",
+    label: {
+      ro: "Schimb securizat cu registrele sursă",
+      en: "Secure exchange with source registries",
+    },
+    tech: { ro: "X-Road / GovStack", en: "X-Road / GovStack" },
     status: "proposed",
   },
   {
@@ -241,8 +315,11 @@ export const FLOWS: Flow[] = [
     from: "xroad",
     to: "onrc",
     kind: "backbone",
-    label: "Schimb securizat cu registrele sursă",
-    tech: "X-Road / GovStack",
+    label: {
+      ro: "Schimb securizat cu registrele sursă",
+      en: "Secure exchange with source registries",
+    },
+    tech: { ro: "X-Road / GovStack", en: "X-Road / GovStack" },
     status: "proposed",
   },
   {
@@ -250,8 +327,11 @@ export const FLOWS: Flow[] = [
     from: "xroad",
     to: "men",
     kind: "backbone",
-    label: "Schimb securizat cu registrele sursă",
-    tech: "X-Road / GovStack",
+    label: {
+      ro: "Schimb securizat cu registrele sursă",
+      en: "Secure exchange with source registries",
+    },
+    tech: { ro: "X-Road / GovStack", en: "X-Road / GovStack" },
     status: "proposed",
   },
   {
@@ -259,8 +339,14 @@ export const FLOWS: Flow[] = [
     from: "citizen",
     to: "rp",
     kind: "payment",
-    label: "Cerere de plată / QR în wallet",
-    tech: "SEPA Request-to-Pay · EPC QR",
+    label: {
+      ro: "Cerere de plată / QR în wallet",
+      en: "Payment request / QR in wallet",
+    },
+    tech: {
+      ro: "SEPA Request-to-Pay · EPC QR",
+      en: "SEPA Request-to-Pay · EPC QR",
+    },
     status: "proposed",
   },
   {
@@ -268,8 +354,14 @@ export const FLOWS: Flow[] = [
     from: "rp",
     to: "transfond",
     kind: "payment",
-    label: "Execută plată instant",
-    tech: "SEPA Instant / TIPS / Alia",
+    label: {
+      ro: "Execută plată instant",
+      en: "Executes instant payment",
+    },
+    tech: {
+      ro: "SEPA Instant / TIPS / Alia",
+      en: "SEPA Instant / TIPS / Alia",
+    },
     status: "proposed",
   },
   {
@@ -277,8 +369,11 @@ export const FLOWS: Flow[] = [
     from: "bnr",
     to: "transfond",
     kind: "oversight",
-    label: "Supraveghere sisteme de plăți",
-    tech: "—",
+    label: {
+      ro: "Supraveghere sisteme de plăți",
+      en: "Payment systems oversight",
+    },
+    tech: { ro: "—", en: "—" },
     status: "proposed",
   },
   {
@@ -286,8 +381,11 @@ export const FLOWS: Flow[] = [
     from: "xroad",
     to: "postbox",
     kind: "service",
-    label: "Livrare documente cu valoare legală",
-    tech: "Cutia Digitală",
+    label: {
+      ro: "Livrare documente cu valoare legală",
+      en: "Delivery of legally binding documents",
+    },
+    tech: { ro: "Cutia Digitală", en: "Digital Postbox" },
     status: "proposed",
   },
   {
@@ -295,8 +393,14 @@ export const FLOWS: Flow[] = [
     from: "postbox",
     to: "citizen",
     kind: "service",
-    label: "Notificări prin canale de încredere (anti-phishing)",
-    tech: "Push / email / SMS verificat",
+    label: {
+      ro: "Notificări prin canale de încredere (anti-phishing)",
+      en: "Notifications via trusted channels (anti-phishing)",
+    },
+    tech: {
+      ro: "Push / email / SMS verificat",
+      en: "Push / verified email / SMS",
+    },
     status: "proposed",
   },
   {
@@ -304,8 +408,11 @@ export const FLOWS: Flow[] = [
     from: "consulate",
     to: "dgep",
     kind: "identity",
-    label: "Verificare identitate diaspora",
-    tech: "OpenID4VCI la distanță",
+    label: {
+      ro: "Verificare identitate diaspora",
+      en: "Diaspora identity verification",
+    },
+    tech: { ro: "OpenID4VCI la distanță", en: "Remote OpenID4VCI" },
     status: "proposed",
   },
   {
@@ -313,8 +420,11 @@ export const FLOWS: Flow[] = [
     from: "uat",
     to: "citizen",
     kind: "service",
-    label: "Emitere asistată, ghișeu fizic, fallback offline",
-    tech: "ISO 18013-5",
+    label: {
+      ro: "Emitere asistată, ghișeu fizic, fallback offline",
+      en: "Assisted issuance, physical desk, offline fallback",
+    },
+    tech: { ro: "ISO 18013-5", en: "ISO 18013-5" },
     status: "proposed",
   },
   {
@@ -322,8 +432,11 @@ export const FLOWS: Flow[] = [
     from: "dnsc",
     to: "xroad",
     kind: "oversight",
-    label: "Monitorizare incidente, SOC național",
-    tech: "—",
+    label: {
+      ro: "Monitorizare incidente, SOC național",
+      en: "Incident monitoring, national SOC",
+    },
+    tech: { ro: "—", en: "—" },
     status: "proposed",
   },
   {
@@ -331,8 +444,11 @@ export const FLOWS: Flow[] = [
     from: "anspdcp",
     to: "xroad",
     kind: "oversight",
-    label: "Supraveghere protecția datelor, DPIA",
-    tech: "—",
+    label: {
+      ro: "Supraveghere protecția datelor, DPIA",
+      en: "Data protection supervision, DPIA",
+    },
+    tech: { ro: "—", en: "—" },
     status: "proposed",
   },
   {
@@ -340,8 +456,14 @@ export const FLOWS: Flow[] = [
     from: "sts",
     to: "anchor",
     kind: "anchor",
-    label: "Ancorează starea registrului WRPRC/WRPAC + minutele ceremoniilor de chei",
-    tech: "root hash-uri · lanț permisiv + EBSI",
+    label: {
+      ro: "Ancorează starea registrului WRPRC/WRPAC + minutele ceremoniilor de chei",
+      en: "Anchors WRPRC/WRPAC registry state + key ceremony minutes",
+    },
+    tech: {
+      ro: "root hash-uri · lanț permisiv + EBSI",
+      en: "root hashes · permissionless chain + EBSI",
+    },
     status: "proposed",
   },
   {
@@ -349,8 +471,14 @@ export const FLOWS: Flow[] = [
     from: "dgcti",
     to: "anchor",
     kind: "anchor",
-    label: "Ancorează hash-urile fiecărui build al wallet-ului (SBOM/SLSA)",
-    tech: "build-uri reproducibile",
+    label: {
+      ro: "Ancorează hash-urile fiecărui build al wallet-ului (SBOM/SLSA)",
+      en: "Anchors every wallet build hash (SBOM/SLSA)",
+    },
+    tech: {
+      ro: "build-uri reproducibile",
+      en: "reproducible builds",
+    },
     status: "proposed",
   },
   {
@@ -358,8 +486,11 @@ export const FLOWS: Flow[] = [
     from: "hub-l0",
     to: "anchor",
     kind: "anchor",
-    label: "Ancorează hash-urile imaginilor OSTree",
-    tech: "commit OSTree",
+    label: {
+      ro: "Ancorează hash-urile imaginilor OSTree",
+      en: "Anchors OSTree image hashes",
+    },
+    tech: { ro: "commit OSTree", en: "OSTree commit" },
     status: "proposed",
   },
   {
@@ -367,8 +498,11 @@ export const FLOWS: Flow[] = [
     from: "transparency",
     to: "anchor",
     kind: "anchor",
-    label: "Ancorează rapoarte SLA, incidente, achiziții",
-    tech: "minute ancorate",
+    label: {
+      ro: "Ancorează rapoarte SLA, incidente, achiziții",
+      en: "Anchors SLA, incident, procurement reports",
+    },
+    tech: { ro: "minute ancorate", en: "anchored minutes" },
     status: "proposed",
   },
   {
@@ -376,8 +510,11 @@ export const FLOWS: Flow[] = [
     from: "citizen",
     to: "transparency",
     kind: "service",
-    label: "Verifică public orice artefact — verify, don't trust",
-    tech: "portal public",
+    label: {
+      ro: "Verifică public orice artefact — verify, don't trust",
+      en: "Publicly verifies any artifact — verify, don't trust",
+    },
+    tech: { ro: "portal public", en: "public portal" },
     status: "proposed",
   },
 ];

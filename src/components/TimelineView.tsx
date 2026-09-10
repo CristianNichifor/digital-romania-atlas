@@ -1,18 +1,24 @@
 import { TIMELINE } from "../data/timeline";
+import { pick, useLang } from "../i18n";
 
 export function TimelineView() {
+  const { lang } = useLang();
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>Calendar: obligații UE vs. planul național vs. propunerea noastră</h2>
+        <h2>
+          {lang === "ro"
+            ? "Calendar: obligații UE vs. planul național vs. propunerea noastră"
+            : "Calendar: EU obligations vs. national plan vs. our proposal"}
+        </h2>
       </div>
       <div className="timeline">
         {TIMELINE.map((ev, i) => (
           <div key={i} className={`tl-item ${ev.owner}`}>
             <div className="tl-date">{ev.date}</div>
             <div className="tl-body">
-              <strong>{ev.title}</strong>
-              <p>{ev.detail}</p>
+              <strong>{pick(ev.title, lang)}</strong>
+              <p>{pick(ev.detail, lang)}</p>
             </div>
           </div>
         ))}
@@ -20,15 +26,15 @@ export function TimelineView() {
       <div className="legend">
         <span className="legend-chip" style={{ borderColor: "#7b5cff" }}>
           <span className="dot" style={{ background: "#7b5cff" }} />
-          Obligații UE
+          {lang === "ro" ? "Obligații UE" : "EU obligations"}
         </span>
         <span className="legend-chip" style={{ borderColor: "#4f8cff" }}>
           <span className="dot" style={{ background: "#4f8cff" }} />
-          Plan național / MAI
+          {lang === "ro" ? "Plan național / MAI" : "National plan / MAI"}
         </span>
         <span className="legend-chip" style={{ borderColor: "#2ecc71" }}>
           <span className="dot" style={{ background: "#2ecc71" }} />
-          Propunerea noastră
+          {lang === "ro" ? "Propunerea noastră" : "Our proposal"}
         </span>
       </div>
     </div>

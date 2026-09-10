@@ -7,6 +7,7 @@ import {
   type Category,
   type Institution,
 } from "../data/institutions";
+import { pick, useLang } from "../i18n";
 
 interface Feature {
   type: string;
@@ -26,6 +27,7 @@ function norm(s: string) {
 }
 
 export function MapView() {
+  const { lang } = useLang();
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
@@ -65,17 +67,28 @@ export function MapView() {
     (i.county && i.county !== "*" && (!filter || i.category === filter)) ||
     i.county === "*";
 
-  if (!geo || !projection) return <div className="loading">Se încarcă harta…</div>;
+  if (!geo || !projection)
+    return (
+      <div className="loading">
+        {lang === "ro" ? "Se încarcă harta…" : "Loading the map…"}
+      </div>
+    );
 
   const path = d3.geoPath(projection);
   const maxCount = Math.max(...counts.values(), 1);
 
-  const markers = INSTITUTIONS.filter((i) => i.county && i.county !== "*" && i.lat != null && i.lon != null);
+  const markers = INSTITUTIONS.filter(
+    (i) => i.county && i.county !== "*" && i.lat != null && i.lon != null
+  );
 
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>Harta instituțională a României digitale</h2>
+        <h2>
+          {lang === "ro"
+            ? "Harta instituțională a României digitale"
+            : "Institutional map of digital Romania"}
+        </h2>
         <div className="legend">
           {Object.entries(CATEGORY_LABELS).map(([cat, label]) => (
             <button
@@ -85,7 +98,7 @@ export function MapView() {
               onClick={() => setFilter(filter === cat ? null : (cat as Category))}
             >
               <span className="dot" style={{ background: CATEGORY_COLORS[cat as Category] }} />
-              {label}
+              {pick(label, lang)}
             </button>
           ))}
         </div>
@@ -109,7 +122,11 @@ export function MapView() {
             >
               <title>
                 {f.properties.NAME_1}
-                {count ? ` · ${count} instituție/instituții` : ""}
+                {count
+                  ? lang === "ro"
+                    ? ` · ${count} instituție/instituții`
+                    : ` · ${count} institution(s)`
+                  : ""}
               </title>
             </path>
           );
@@ -151,17 +168,17 @@ export function MapView() {
             const [x, y] = projection([i.lon!, i.lat!]) ?? [0, 0];
             const on = hover?.id === i.id || filter === i.category;
             return (
-                <g
-                  key={i.id}
-                  transform={`translate(${x},${y})`}
-                  className="marker"
-                  onMouseEnter={() => {
-                    setHover(i);
-                    setHoverCounty(null);
-                  }}
-                  onMouseLeave={() => setHover(null)}
-                >
-                  <circle
+              <g
+                key={i.id}
+                transform={`translate(${x},${y})`}
+                className="marker"
+                onMouseEnter={() => {
+                  setHover(i);
+                  setHoverCounty(null);
+                }}
+                onMouseLeave={() => setHover(null)}
+              >
+                <circle
                   r={on ? 7 : 5}
                   fill={CATEGORY_COLORS[i.category]}
                   opacity={filter && filter !== i.category ? 0.25 : 1}
@@ -178,14 +195,19 @@ export function MapView() {
       <div className="hover-bar">
         {hover ? (
           <span>
-            <strong>{hover.acronym}</strong> — {hover.name} · {hover.role} ·{" "}
-            {CATEGORY_LABELS[hover.category]}
-            {hoverCounty ? ` · județul ${hoverCounty}` : ""}
+            <strong>{hover.acronym}</strong> — {pick(hover.name, lang)} · {pick(hover.role, lang)} ·{" "}
+            {pick(CATEGORY_LABELS[hover.category], lang)}
+            {hoverCounty
+              ? lang === "ro"
+                ? ` · județul ${hoverCounty}`
+                : ` · county of ${hoverCounty}`
+              : ""}
           </span>
         ) : (
           <span className="muted">
-            Trece cu mouse-ul peste un punct. Punctele mici din fiecare județ = primării (UAT) în
-            propunere: emitere asistată și fallback fizic peste tot.
+            {lang === "ro"
+              ? "Trece cu mouse-ul peste un punct. Punctele mici din fiecare județ = primării (UAT) în propunere: emitere asistată și fallback fizic peste tot."
+              : "Hover a point. The small dots in each county = town halls (UAT) in the proposal: assisted issuance and physical fallback everywhere."}
           </span>
         )}
       </div>

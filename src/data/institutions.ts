@@ -1,3 +1,5 @@
+import type { Bi } from "../i18n";
+
 export type Category =
   | "user"
   | "identity"
@@ -16,9 +18,9 @@ export type Scope = "current" | "proposed" | "both";
 
 export interface Institution {
   id: string;
-  name: string;
+  name: Bi;
   acronym: string;
-  role: string;
+  role: Bi;
   category: Category;
   county: string | "*" | "";
   lat?: number;
@@ -41,36 +43,42 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   external: "#6b7a90",
 };
 
-export const CATEGORY_LABELS: Record<Category, string> = {
-  user: "Cetățean / Wallet",
-  identity: "Identitate",
-  source: "Sursă autentică",
-  trust: "Încredere / PKI",
-  infra: "Infrastructură wallet",
-  oversight: "Supraveghere",
-  governance: "Guvernanță",
-  service: "Servicii",
-  backbone: "Backbone de date",
-  payment: "Plăți",
-  anchor: "Ancoră publică",
-  external: "Extern (hărți/consulate)",
+export const CATEGORY_LABELS: Record<Category, Bi> = {
+  user: { ro: "Cetățean / Wallet", en: "Citizen / Wallet" },
+  identity: { ro: "Identitate", en: "Identity" },
+  source: { ro: "Sursă autentică", en: "Authentic source" },
+  trust: { ro: "Încredere / PKI", en: "Trust / PKI" },
+  infra: { ro: "Infrastructură wallet", en: "Wallet infrastructure" },
+  oversight: { ro: "Supraveghere", en: "Oversight" },
+  governance: { ro: "Guvernanță", en: "Governance" },
+  service: { ro: "Servicii", en: "Services" },
+  backbone: { ro: "Backbone de date", en: "Data backbone" },
+  payment: { ro: "Plăți", en: "Payments" },
+  anchor: { ro: "Ancoră publică", en: "Public anchor" },
+  external: { ro: "Extern (hărți/consulate)", en: "External (maps/consulates)" },
 };
 
 export const INSTITUTIONS: Institution[] = [
   {
     id: "citizen",
-    name: "Cetățean + RO Wallet",
+    name: { ro: "Cetățean + RO Wallet", en: "Citizen + RO Wallet" },
     acronym: "WI",
-    role: "User / Wallet Instance pe dispozitiv",
+    role: {
+      ro: "User / Wallet Instance pe dispozitiv",
+      en: "User / Wallet Instance on device",
+    },
     category: "user",
     county: "",
     scope: "both",
   },
   {
     id: "dgcti",
-    name: "MAI – DGCTI",
+    name: { ro: "MAI – DGCTI", en: "MAI – DGCTI" },
     acronym: "DGCTI",
-    role: "Wallet Provider (soluția tehnică, ciclu de viață)",
+    role: {
+      ro: "Wallet Provider (soluția tehnică, ciclu de viață)",
+      en: "Wallet Provider (technical solution, lifecycle)",
+    },
     category: "identity",
     county: "Bucuresti",
     lat: 44.444,
@@ -79,9 +87,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "dgep",
-    name: "MAI – DGEP",
+    name: { ro: "MAI – DGEP", en: "MAI – DGEP" },
     acronym: "DGEP",
-    role: "PID Provider (verifică identitatea, emite PID)",
+    role: {
+      ro: "PID Provider (verifică identitatea, emite PID)",
+      en: "PID Provider (verifies identity, issues PID)",
+    },
     category: "identity",
     county: "Bucuresti",
     lat: 44.432,
@@ -90,9 +101,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "rnep",
-    name: "Registrul Național de Evidență a Persoanelor",
+    name: {
+      ro: "Registrul Național de Evidență a Persoanelor",
+      en: "National Population Registry (RNEP)",
+    },
     acronym: "RNEP",
-    role: "Sursă autentică – identitate, adresă, stare civilă",
+    role: {
+      ro: "Sursă autentică – identitate, adresă, stare civilă",
+      en: "Authentic source – identity, address, civil status",
+    },
     category: "source",
     county: "Bucuresti",
     lat: 44.421,
@@ -101,9 +118,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "hub-mai",
-    name: "HUB MAI",
+    name: { ro: "HUB MAI", en: "HUB MAI" },
     acronym: "HUBMAI",
-    role: "Servicii electronice MAI – relying party",
+    role: {
+      ro: "Servicii electronice MAI – relying party",
+      en: "MAI e-services – relying party",
+    },
     category: "service",
     county: "Bucuresti",
     lat: 44.435,
@@ -112,9 +132,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "sts",
-    name: "Serviciul de Telecomunicații Speciale",
+    name: {
+      ro: "Serviciul de Telecomunicații Speciale",
+      en: "Special Telecommunications Service (STS)",
+    },
     acronym: "STS",
-    role: "Registru național furnizori/RP, WRPRC/WRPAC, scheme de atestare",
+    role: {
+      ro: "Registru național furnizori/RP, WRPRC/WRPAC, scheme de atestare",
+      en: "National registry of providers/RPs, WRPRC/WRPAC, attestation schemes",
+    },
     category: "trust",
     county: "Bucuresti",
     lat: 44.428,
@@ -123,9 +149,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "medat",
-    name: "Ministerul Economiei și Digitalizării",
+    name: {
+      ro: "Ministerul Economiei și Digitalizării",
+      en: "Ministry of Economy and Digitalisation (MEDAT)",
+    },
     acronym: "MEDAT",
-    role: "Guvernanță ecosistem, punct unic de contact cu CE",
+    role: {
+      ro: "Guvernanță ecosistem, punct unic de contact cu CE",
+      en: "Ecosystem governance, single point of contact with the EC",
+    },
     category: "governance",
     county: "Bucuresti",
     lat: 44.44,
@@ -134,9 +166,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "adr",
-    name: "Autoritatea pentru Digitalizarea României",
+    name: {
+      ro: "Autoritatea pentru Digitalizarea României",
+      en: "Authority for the Digitalisation of Romania (ADR)",
+    },
     acronym: "ADR",
-    role: "Supraveghere QTSP, Liste de Încredere",
+    role: {
+      ro: "Supraveghere QTSP, Liste de Încredere",
+      en: "QTSP supervision, Trust Lists",
+    },
     category: "oversight",
     county: "Bucuresti",
     lat: 44.415,
@@ -145,9 +183,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "dgpi",
-    name: "MAI – DGPI",
+    name: { ro: "MAI – DGPI", en: "MAI – DGPI" },
     acronym: "DGPI",
-    role: "Supervizare securitate cibernetică wallet (intern MAI)",
+    role: {
+      ro: "Supervizare securitate cibernetică wallet (intern MAI)",
+      en: "Wallet cybersecurity supervision (internal to MAI)",
+    },
     category: "oversight",
     county: "Bucuresti",
     lat: 44.448,
@@ -156,9 +197,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "wb",
-    name: "Wallet Provider Backend",
+    name: { ro: "Wallet Provider Backend", en: "Wallet Provider Backend" },
     acronym: "WB",
-    role: "Revocare WI, atestări WIA, status lists, HSM",
+    role: {
+      ro: "Revocare WI, atestări WIA, status lists, HSM",
+      en: "WI revocation, WIA attestations, status lists, HSM",
+    },
     category: "infra",
     county: "Bucuresti",
     lat: 44.405,
@@ -167,9 +211,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "mdvm",
-    name: "Mobile Device Vulnerability Mgmt",
+    name: {
+      ro: "Mobile Device Vulnerability Mgmt",
+      en: "Mobile Device Vulnerability Mgmt",
+    },
     acronym: "MDVM",
-    role: "Atestări platformă, clase de dispozitive, tokenuri vulnerabilitate",
+    role: {
+      ro: "Atestări platformă, clase de dispozitive, tokenuri vulnerabilitate",
+      en: "Platform attestations, device classes, vulnerability tokens",
+    },
     category: "infra",
     county: "Bucuresti",
     lat: 44.397,
@@ -178,9 +228,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "rwsca",
-    name: "Remote WSCA / WSCD (HSM)",
+    name: { ro: "Remote WSCA / WSCD (HSM)", en: "Remote WSCA / WSCD (HSM)" },
     acronym: "RWSCA",
-    role: "Chei critice ale wallet-ului în HSM remote",
+    role: {
+      ro: "Chei critice ale wallet-ului în HSM remote",
+      en: "Critical wallet keys in remote HSM",
+    },
     category: "infra",
     county: "Bucuresti",
     lat: 44.411,
@@ -189,18 +242,27 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "mpp",
-    name: "Mobile Platform Providers",
+    name: { ro: "Mobile Platform Providers", en: "Mobile Platform Providers" },
     acronym: "MPP",
-    role: "Apple / Google – push și atestări de platformă",
+    role: {
+      ro: "Apple / Google – push și atestări de platformă",
+      en: "Apple / Google – push and platform attestations",
+    },
     category: "external",
     county: "",
     scope: "both",
   },
   {
     id: "qtsp",
-    name: "QTSP (furnizori calificați)",
+    name: {
+      ro: "QTSP (furnizori calificați)",
+      en: "QTSPs (qualified trust providers)",
+    },
     acronym: "QTSP",
-    role: "QES gratuit pentru uz non-profesional + servicii comerciale",
+    role: {
+      ro: "QES gratuit pentru uz non-profesional + servicii comerciale",
+      en: "Free QES for non-professional use + commercial services",
+    },
     category: "trust",
     county: "Bucuresti",
     lat: 44.452,
@@ -209,9 +271,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "rp",
-    name: "Relying Parties",
+    name: { ro: "Relying Parties", en: "Relying Parties" },
     acronym: "RP",
-    role: "Bănci, telecom, utilități, asigurători, instituții",
+    role: {
+      ro: "Bănci, telecom, utilități, asigurători, instituții",
+      en: "Banks, telecoms, utilities, insurers, institutions",
+    },
     category: "service",
     county: "Bucuresti",
     lat: 44.438,
@@ -220,9 +285,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "xroad",
-    name: "Backbone național de date (X-Road)",
+    name: {
+      ro: "Backbone național de date (X-Road)",
+      en: "National data backbone (X-Road)",
+    },
     acronym: "XROAD",
-    role: "Schimb securizat de date între registre, cu consimțământ",
+    role: {
+      ro: "Schimb securizat de date între registre, cu consimțământ",
+      en: "Secure inter-registry data exchange, consent-based",
+    },
     category: "backbone",
     county: "Bucuresti",
     lat: 44.4268,
@@ -231,9 +302,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "cnas",
-    name: "CNAS",
+    name: { ro: "CNAS", en: "CNAS (health insurance)" },
     acronym: "CNAS",
-    role: "Sursă autentică sănătate – atestări medicale",
+    role: {
+      ro: "Sursă autentică sănătate – atestări medicale",
+      en: "Health authentic source – medical attestations",
+    },
     category: "source",
     county: "Bucuresti",
     lat: 44.412,
@@ -242,9 +316,9 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "anaf",
-    name: "ANAF",
+    name: { ro: "ANAF", en: "ANAF (tax agency)" },
     acronym: "ANAF",
-    role: "Sursă autentică fiscală",
+    role: { ro: "Sursă autentică fiscală", en: "Tax authentic source" },
     category: "source",
     county: "Bucuresti",
     lat: 44.456,
@@ -253,9 +327,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "onrc",
-    name: "ONRC",
+    name: { ro: "ONRC", en: "ONRC (trade registry)" },
     acronym: "ONRC",
-    role: "Sursă autentică firme",
+    role: {
+      ro: "Sursă autentică firme",
+      en: "Companies registry authentic source",
+    },
     category: "source",
     county: "Bucuresti",
     lat: 44.415,
@@ -264,9 +341,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "men",
-    name: "Ministerul Educației",
+    name: {
+      ro: "Ministerul Educației",
+      en: "Ministry of Education (MEN)",
+    },
     acronym: "MEN",
-    role: "Sursă autentică studii – QEAA diplome",
+    role: {
+      ro: "Sursă autentică studii – QEAA diplome",
+      en: "Education authentic source – diploma QEAA",
+    },
     category: "source",
     county: "Bucuresti",
     lat: 44.438,
@@ -275,9 +358,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "postbox",
-    name: "Cutia Digitală",
+    name: { ro: "Cutia Digitală", en: "Digital Postbox" },
     acronym: "POSTBOX",
-    role: "Cutie poștală legală a cetățeanului",
+    role: {
+      ro: "Cutie poștală legală a cetățeanului",
+      en: "The citizen's legal mailbox",
+    },
     category: "service",
     county: "Bucuresti",
     lat: 44.452,
@@ -286,9 +372,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "bnr",
-    name: "BNR",
+    name: { ro: "BNR", en: "National Bank of Romania (BNR)" },
     acronym: "BNR",
-    role: "Supraveghere sisteme de plăți",
+    role: {
+      ro: "Supraveghere sisteme de plăți",
+      en: "Payment systems oversight",
+    },
     category: "oversight",
     county: "Bucuresti",
     lat: 44.4335,
@@ -297,9 +386,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "transfond",
-    name: "TRANSFOND / PSP",
+    name: { ro: "TRANSFOND / PSP", en: "TRANSFOND / PSPs" },
     acronym: "PSP",
-    role: "SEPA Instant, Alia, Request-to-Pay",
+    role: {
+      ro: "SEPA Instant, Alia, Request-to-Pay",
+      en: "SEPA Instant, Alia, Request-to-Pay",
+    },
     category: "payment",
     county: "Bucuresti",
     lat: 44.419,
@@ -308,9 +400,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "dnsc",
-    name: "DNSC",
+    name: { ro: "DNSC", en: "DNSC (national CERT)" },
     acronym: "DNSC",
-    role: "CERT național, SOC, coordonare incidente",
+    role: {
+      ro: "CERT național, SOC, coordonare incidente",
+      en: "National CERT, SOC, incident coordination",
+    },
     category: "oversight",
     county: "Bucuresti",
     lat: 44.401,
@@ -319,9 +414,12 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "anspdcp",
-    name: "ANSPDCP",
+    name: { ro: "ANSPDCP", en: "ANSPDCP (data protection)" },
     acronym: "DPA",
-    role: "Supraveghere protecția datelor, DPIA",
+    role: {
+      ro: "Supraveghere protecția datelor, DPIA",
+      en: "Data protection supervision, DPIA",
+    },
     category: "oversight",
     county: "Bucuresti",
     lat: 44.46,
@@ -330,36 +428,57 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "uat",
-    name: "Primării / consilii județene",
+    name: {
+      ro: "Primării / consilii județene",
+      en: "Town halls / county councils",
+    },
     acronym: "UAT",
-    role: "Emitere asistată, ghișeu fizic, fallback offline",
+    role: {
+      ro: "Emitere asistată, ghișeu fizic, fallback offline",
+      en: "Assisted issuance, physical desk, offline fallback",
+    },
     category: "service",
     county: "*",
     scope: "proposed",
   },
   {
     id: "consulate",
-    name: "Consulate",
+    name: { ro: "Consulate", en: "Consulates" },
     acronym: "CONS",
-    role: "Onboarding diaspora, verificare identitate la distanță",
+    role: {
+      ro: "Onboarding diaspora, verificare identitate la distanță",
+      en: "Diaspora onboarding, remote identity verification",
+    },
     category: "external",
     county: "",
     scope: "proposed",
   },
   {
     id: "anchor",
-    name: "Ancoră publică de transparență (lanț permisiv + EBSI)",
+    name: {
+      ro: "Ancoră publică de transparență (lanț permisiv + EBSI)",
+      en: "Public transparency anchor (permissionless chain + EBSI)",
+    },
     acronym: "ANCORĂ",
-    role: "Doar hash-uri de artefacte nep-personale: registru, build-uri, ceremonii, SLA",
+    role: {
+      ro: "Doar hash-uri de artefacte nep-personale: registru, build-uri, ceremonii, SLA",
+      en: "Only hashes of non-personal artifacts: registry, builds, ceremonies, SLAs",
+    },
     category: "anchor",
     county: "",
     scope: "proposed",
   },
   {
     id: "hub-l0",
-    name: "Hub suveran L0 (endpoint-uri)",
+    name: {
+      ro: "Hub suveran L0 (endpoint-uri)",
+      en: "Sovereign L0 hub (endpoints)",
+    },
     acronym: "HUBL0",
-    role: "OSTree, FreeIPA, Matrix, WireGuard — infrastructura stațiilor de lucru",
+    role: {
+      ro: "OSTree, FreeIPA, Matrix, WireGuard – infrastructura stațiilor de lucru",
+      en: "OSTree, FreeIPA, Matrix, WireGuard – workstation infrastructure",
+    },
     category: "infra",
     county: "Bucuresti",
     lat: 44.391,
@@ -368,9 +487,15 @@ export const INSTITUTIONS: Institution[] = [
   },
   {
     id: "transparency",
-    name: "Portal de transparență",
+    name: {
+      ro: "Portal de transparență",
+      en: "Transparency portal",
+    },
     acronym: "TRANSP",
-    role: "Rapoarte publice: audituri, uptime, ceremonii de chei, achiziții",
+    role: {
+      ro: "Rapoarte publice: audituri, uptime, ceremonii de chei, achiziții",
+      en: "Public reports: audits, uptime, key ceremonies, procurement",
+    },
     category: "service",
     county: "Bucuresti",
     lat: 44.466,

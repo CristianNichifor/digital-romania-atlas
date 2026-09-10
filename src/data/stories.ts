@@ -468,4 +468,121 @@ export const STORIES: Story[] = [
       },
     ],
   },
+  {
+    id: "vot-parlament",
+    persona: { ro: "Deputata Ioana, 47 ani", en: "MP Ioana, 47" },
+    title: {
+      ro: "Deputatul votează — vot ancorat",
+      en: "The MP votes — anchored vote",
+    },
+    today: {
+      ro: "Vot nominal pe hârtie sau tablete proprietare, numărare manuală, fără posibilitatea ca cetățeanul să verifice independent istoricul de vot.",
+      en: "Roll-call votes on paper or proprietary tablets, manual tallies, no way for a citizen to independently verify the voting record.",
+    },
+    proposed: {
+      ro: "Fiecare vot e semnat QES și ancorat: un istoric imposibil de modificat în liniște, verificabil de oricine — iar pentru voturile secrete, criptarea buletinului garantează că nimeni nu află cum a votat.",
+      en: "Every vote is QES-signed and anchored: a history that cannot be silently edited, verifiable by anyone — and for secret votes, encrypted ballots guarantee nobody learns how someone voted.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "parlament",
+        label: {
+          ro: "Autentificare PID + FIDO2 la votare",
+          en: "PID + FIDO2 authentication at voting",
+        },
+        kind: "identity",
+      },
+      {
+        from: "parlament",
+        to: "sts",
+        label: {
+          ro: "Verificarea mandatului activ",
+          en: "Active mandate check",
+        },
+        kind: "trust",
+      },
+      {
+        from: "citizen",
+        to: "parlament",
+        label: { ro: "Vot semnat QES", en: "QES-signed vote" },
+        kind: "lifecycle",
+      },
+      {
+        from: "parlament",
+        to: "anchor",
+        label: {
+          ro: "Lanț de voturi ancorat public",
+          en: "Publicly anchored vote chain",
+        },
+        kind: "anchor",
+      },
+      {
+        from: "civic",
+        to: "anchor",
+        label: {
+          ro: "Verificare independentă a istoricului",
+          en: "Independent verification of the record",
+        },
+        kind: "oversight",
+      },
+    ],
+  },
+  {
+    id: "admin-firma",
+    persona: {
+      ro: "Cristian, 41 ani — administrator",
+      en: "Cristian, 41 — administrator",
+    },
+    title: {
+      ro: "Administratorul semnează pentru firmă",
+      en: "The administrator signs for the company",
+    },
+    today: {
+      ro: "Mandat dovedit cu certificat constatator ONRC, semnături olografe, ștampilă, cozi la registru pentru fiecare act.",
+      en: "The mandate is proved with an ONRC certificate, wet signatures, stamps, registry queues for every document.",
+    },
+    proposed: {
+      ro: "Mandatul e atestare în wallet, direct de la ONRC. Semnezi „ca firma” cu propriul QES; delegările pentru angajați se fac din wallet, cu revocare instantă.",
+      en: "The mandate is an attestation in the wallet, straight from ONRC. You sign “as the company” with your own QES; employee delegations happen in the wallet, with instant revocation.",
+    },
+    steps: [
+      {
+        from: "onrc",
+        to: "citizen",
+        label: {
+          ro: "Atestare de mandat în wallet",
+          en: "Mandate attestation in the wallet",
+        },
+        kind: "identity",
+      },
+      {
+        from: "citizen",
+        to: "rp",
+        label: {
+          ro: "Semnează „ca firma”: PID + mandat",
+          en: "Signs “as the company”: PID + mandate",
+        },
+        kind: "presentation",
+      },
+      {
+        from: "rp",
+        to: "onrc",
+        label: {
+          ro: "Verificarea lanțului de mandat",
+          en: "Mandate chain verification",
+        },
+        kind: "backbone",
+      },
+      {
+        from: "companie",
+        to: "rp",
+        label: {
+          ro: "Firma acționează automat prin sigiliu electronic",
+          en: "The company acts automatically via its electronic seal",
+        },
+        kind: "service",
+      },
+    ],
+  },
 ];

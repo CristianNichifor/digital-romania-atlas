@@ -7,6 +7,12 @@ function acronym(id: string): string {
   return INSTITUTIONS.find((i) => i.id === id)?.acronym ?? id;
 }
 
+function tipFor(id: string, lang: "ro" | "en"): string {
+  const inst = INSTITUTIONS.find((i) => i.id === id);
+  if (!inst) return id;
+  return `${pick(inst.name, lang)} — ${pick(inst.role, lang)}`;
+}
+
 function StepRow({ step, index }: { step: JourneyStep; index: number }) {
   const { lang } = useLang();
   const variant = step.variant ?? "standard";
@@ -15,9 +21,13 @@ function StepRow({ step, index }: { step: JourneyStep; index: number }) {
       <span className="journey-num">{index + 1}</span>
       <div className="journey-step-body">
         <div className="journey-step-actors">
-          <span className="step-node">{acronym(step.from)}</span>
+          <span className="step-node" data-tip={tipFor(step.from, lang)}>
+            {acronym(step.from)}
+          </span>
           <span className="step-arrow">→</span>
-          <span className="step-node">{acronym(step.to)}</span>
+          <span className="step-node" data-tip={tipFor(step.to, lang)}>
+            {acronym(step.to)}
+          </span>
           {variant !== "standard" && (
             <span className={`journey-badge v-${variant}`}>
               <T text={pick(VARIANT_LABEL[variant], lang)} />

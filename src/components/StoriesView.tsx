@@ -8,6 +8,12 @@ function acronym(id: string) {
   return INSTITUTIONS.find((i) => i.id === id)?.acronym ?? id;
 }
 
+function tipFor(id: string, lang: "ro" | "en"): string {
+  const inst = INSTITUTIONS.find((i) => i.id === id);
+  if (!inst) return id;
+  return `${pick(inst.name, lang)} — ${pick(inst.role, lang)}`;
+}
+
 export function StoriesView() {
   const { lang } = useLang();
   return (
@@ -49,6 +55,7 @@ export function StoriesView() {
                 <div key={i} className="step">
                   <span
                     className="step-node"
+                    data-tip={tipFor(st.from, lang)}
                     style={{ borderColor: FLOW_COLORS[st.kind] }}
                   >
                     {acronym(st.from)}
@@ -61,6 +68,7 @@ export function StoriesView() {
                   </span>
                   <span
                     className="step-node"
+                    data-tip={tipFor(st.to, lang)}
                     style={{ borderColor: FLOW_COLORS[st.kind] }}
                   >
                     {acronym(st.to)}

@@ -55,7 +55,10 @@ export const CATEGORY_LABELS: Record<Category, Bi> = {
   backbone: { ro: "Backbone de date", en: "Data backbone" },
   payment: { ro: "Plăți", en: "Payments" },
   anchor: { ro: "Ancoră publică", en: "Public anchor" },
-  external: { ro: "Extern (hărți/consulate)", en: "External (maps/consulates)" },
+  external: {
+    ro: "Extern (hărți/consulate)",
+    en: "External (maps/consulates)",
+  },
 };
 
 export const INSTITUTIONS: Institution[] = [
@@ -338,6 +341,32 @@ export const INSTITUTIONS: Institution[] = [
     lat: 44.415,
     lon: 26.148,
     scope: "proposed",
+  },
+  {
+    id: "parlament",
+    name: { ro: "Parlamentul României", en: "Romanian Parliament" },
+    acronym: "PARL",
+    role: {
+      ro: "Camera Deputaților / Senat — vot electronic verificabil",
+      en: "Chamber of Deputies / Senate — verifiable electronic voting",
+    },
+    category: "governance",
+    county: "Bucuresti",
+    lat: 44.427,
+    lon: 26.087,
+    scope: "both",
+  },
+  {
+    id: "companie",
+    name: { ro: "Companie (persoană juridică)", en: "Company (legal person)" },
+    acronym: "FIRMA",
+    role: {
+      ro: "Semnat prin administratori cu mandat; acționează automat prin sigiliu electronic",
+      en: "Signed via administrators with a mandate; acts automatically via its electronic seal",
+    },
+    category: "service",
+    county: "",
+    scope: "both",
   },
   {
     id: "men",

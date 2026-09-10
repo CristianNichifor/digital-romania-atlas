@@ -261,6 +261,238 @@ export const JOURNEYS: Journey[] = [
       },
     ],
   },
+  {
+    id: "vote-open",
+    title: {
+      ro: "Votul deschis în Parlament",
+      en: "The open vote in Parliament",
+    },
+    intro: {
+      ro: "Votul nominal: semnătură calificată pe fiecare vot, lanț ancorat public — nimeni nu poate schimba un vot în liniște, oricine poate verifica.",
+      en: "The roll-call vote: a qualified signature on every vote, the chain publicly anchored — nobody can change a vote silently, anyone can verify.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "parlament",
+        label: {
+          ro: "Deputatul se autentifică cu PID (LoA High); pasul FIDO2 e obligatoriu pentru vot",
+          en: "The MP authenticates with the PID (LoA High); the FIDO2 step is mandatory for voting",
+        },
+        tech: { ro: "OpenID4VP · CTAP2", en: "OpenID4VP · CTAP2" },
+      },
+      {
+        from: "parlament",
+        to: "sts",
+        label: {
+          ro: "Sistemul verifică mandatul activ în registrul STS — un deputat revocat nu mai poate vota",
+          en: "The system checks the active mandate in the STS registry — a recalled MP can no longer vote",
+        },
+        tech: { ro: "Token Status List", en: "Token Status List" },
+      },
+      {
+        from: "citizen",
+        to: "parlament",
+        label: {
+          ro: "Votul = payload structurat (proiect, amendament, da/nu/abținere) semnat cu QES",
+          en: "The vote = a structured payload (bill, amendment, yes/no/abstain) signed with QES",
+        },
+        tech: { ro: "QES · eIDAS art. 25", en: "QES · eIDAS art. 25" },
+      },
+      {
+        from: "parlament",
+        to: "anchor",
+        label: {
+          ro: "Fiecare vot intră în registrul parlamentar; lanțul de hash-uri e ancorat public (WORM + ledger)",
+          en: "Every vote lands in the parliamentary registry; the hash chain is anchored publicly (WORM + ledger)",
+        },
+        tech: { ro: "Ancore de transparență", en: "Transparency anchors" },
+      },
+      {
+        from: "civic",
+        to: "anchor",
+        label: {
+          ro: "Cetățenii și ONG-urile verifică independent istoricul de vot al fiecărui parlamentar",
+          en: "Citizens and NGOs independently verify every MP's voting record",
+        },
+        tech: { ro: "Verificare publică", en: "Public verification" },
+      },
+    ],
+  },
+  {
+    id: "vote-secret",
+    title: {
+      ro: "Votul secret în Parlament",
+      en: "The secret vote in Parliament",
+    },
+    intro: {
+      ro: "Cazul greu, făcut cinstit: buletinul criptat, eligibilitate anonimă, numărătoare verificabilă — iar lanțul ancorează doar urne și totaluri, niciodată voturi.",
+      en: "The hard case, done honestly: encrypted ballots, anonymous eligibility, a verifiable tally — and the chain anchors only ballot boxes and totals, never votes.",
+    },
+    steps: [
+      {
+        from: "parlament",
+        to: "citizen",
+        label: {
+          ro: "Secretariatul emite o „credențială de vot” anonimizată, valabilă doar pentru această sesiune",
+          en: "The secretariat issues an anonymised “voting credential”, valid only for this session",
+        },
+        tech: {
+          ro: "Anonymous credentials (BBS+)",
+          en: "Anonymous credentials (BBS+)",
+        },
+      },
+      {
+        from: "citizen",
+        to: "parlament",
+        label: {
+          ro: "Deputatul dovedește eligibilitatea FĂRĂ să se dezvăluie: „sunt un deputat în mandat”, nu „sunt X”",
+          en: "The MP proves eligibility WITHOUT revealing themselves: “I hold a current mandate”, not “I am X”",
+        },
+        tech: {
+          ro: "ZK proof pe credențială",
+          en: "ZK proof over the credential",
+        },
+      },
+      {
+        from: "citizen",
+        to: "parlament",
+        label: {
+          ro: "Votul e criptat pentru urna electronică și trimis printr-un mixnet — fără chitanță (ca să nu poată fi vândut)",
+          en: "The vote is encrypted to the ballot box and sent through a mixnet — no receipt (so it can't be sold)",
+        },
+        tech: {
+          ro: "ElGamal · mixnet · receipt-free",
+          en: "ElGamal · mixnet · receipt-free",
+        },
+      },
+      {
+        from: "parlament",
+        to: "anchor",
+        label: {
+          ro: "Urna ancorează public hash-ul fiecărui buletin primit — integritate globală, buletinele rămân criptate",
+          en: "The ballot box anchors the hash of every received ballot — global integrity, ballots stay encrypted",
+        },
+        tech: { ro: "Merkle commitments", en: "Merkle commitments" },
+      },
+      {
+        from: "parlament",
+        to: "sts",
+        label: {
+          ro: "Numărătoare homomorfă; decriptarea totalului doar prin cuorumul M-din-N al grupurilor parlamentare",
+          en: "Homomorphic tally; the total is decrypted only by the M-of-N quorum of parliamentary groups",
+        },
+        tech: {
+          ro: "Cuorum HSM · ZK decryption",
+          en: "HSM quorum · ZK decryption",
+        },
+      },
+      {
+        from: "civic",
+        to: "anchor",
+        label: {
+          ro: "Verificare end-to-end: „buletinul meu a intrat, numărătoarea e corectă” — dar nimeni nu vede cum a votat cineva",
+          en: "End-to-end verification: “my ballot was included, the tally is right” — but nobody sees how anyone voted",
+        },
+        tech: { ro: "E2E-V", en: "E2E-V" },
+      },
+    ],
+  },
+  {
+    id: "mandat",
+    title: {
+      ro: "Administratorul de companie",
+      en: "The company administrator",
+    },
+    intro: {
+      ro: "Reprezentarea persoanei: semnezi cu propriul QES, iar mandatul leagă actul de firmă — sursa e ONRC, nu o hârtie din sertar.",
+      en: "Person representation: you sign with your own QES and the mandate binds the act to the company — the source is ONRC, not a paper in a drawer.",
+    },
+    steps: [
+      {
+        from: "onrc",
+        to: "companie",
+        label: {
+          ro: "ONRC înregistrează cine e administrator și ce puteri are — sursa autentică a mandatului statutar",
+          en: "ONRC registers who is the administrator and with what powers — the authentic source of the statutory mandate",
+        },
+        tech: { ro: "RECOM · registru", en: "RECOM · registry" },
+      },
+      {
+        from: "onrc",
+        to: "citizen",
+        label: {
+          ro: "Wallet-ul primește atestarea de mandat: „administrator al XYZ SRL, puteri X, până la Y”",
+          en: "The wallet receives the mandate attestation: “administrator of XYZ SRL, powers X, until Y”",
+        },
+        tech: { ro: "QEAA · OpenID4VCI", en: "QEAA · OpenID4VCI" },
+      },
+      {
+        from: "citizen",
+        to: "rp",
+        label: {
+          ro: "La semnare alegi „semnez ca”: tu însuți, sau firma — prezentarea include PID + mandatul",
+          en: "When signing you choose “sign as”: yourself, or the company — the presentation carries the PID + the mandate",
+        },
+        tech: { ro: "OpenID4VP · QES", en: "OpenID4VP · QES" },
+      },
+      {
+        from: "rp",
+        to: "onrc",
+        label: {
+          ro: "Partenerul (bancă, autoritate) verifică lanțul mandatului până la ONRC și statusul curent",
+          en: "The counterparty (bank, authority) verifies the mandate chain up to ONRC and its current status",
+        },
+        tech: { ro: "Backbone · Status List", en: "Backbone · Status List" },
+      },
+      {
+        from: "companie",
+        to: "rp",
+        label: {
+          ro: "Firma însăși (facturi automate, depuneri în masă) nu folosește o persoană: folosește sigiliul electronic calificat",
+          en: "The company itself (automated invoices, bulk filings) uses no person: it uses its qualified electronic seal",
+        },
+        tech: { ro: "QSealC · eIDAS art. 35", en: "QSealC · eIDAS art. 35" },
+      },
+    ],
+  },
+  {
+    id: "delegare",
+    title: { ro: "Delegarea unei puteri", en: "Delegating a power" },
+    intro: {
+      ro: "Administratorul nu poate semna tot: delegarea în lanț, cu puteri limitate, termen și revocare imediată — tot din wallet.",
+      en: "The administrator can't sign everything: chained delegation, with limited powers, an expiry and instant revocation — all from the wallet.",
+    },
+    steps: [
+      {
+        from: "citizen",
+        to: "companie",
+        label: {
+          ro: "Administratorul emite angajatului o delegare semnată QES: ce poate semna, până când, în ce plafon",
+          en: "The administrator issues the employee a QES-signed delegation: what they may sign, until when, up to what limit",
+        },
+        tech: { ro: "QEAA delegare", en: "Delegation QEAA" },
+      },
+      {
+        from: "companie",
+        to: "rp",
+        label: {
+          ro: "Angajatul semnează „în numele firmei”; partenerul verifică lanțul: ONRC → administrator → delegare",
+          en: "The employee signs “on behalf of the company”; the counterparty verifies the chain: ONRC → administrator → delegation",
+        },
+        tech: { ro: "Lanț de mandat", en: "Mandate chain" },
+      },
+      {
+        from: "citizen",
+        to: "onrc",
+        label: {
+          ro: "Revocare instantă: administratorul retrage delegarea, ONRC actualizează mandatul statutar — efect imediat peste tot",
+          en: "Instant revocation: the administrator withdraws the delegation, ONRC updates the statutory mandate — immediate effect everywhere",
+        },
+        tech: { ro: "Status List", en: "Status List" },
+      },
+    ],
+  },
 ];
 
 export const VARIANT_LABEL: Record<JourneyVariant, Bi> = {

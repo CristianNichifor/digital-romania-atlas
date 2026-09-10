@@ -50,11 +50,15 @@ function hide(): void {
 
 export function initAcroTips(): () => void {
   const over = (e: Event) => {
-    const el = (e.target as HTMLElement | null)?.closest?.(".acro");
+    const el = (e.target as HTMLElement | null)?.closest?.(
+      ".acro, .step-node[data-tip]"
+    );
     if (el) show(el as HTMLElement);
   };
   const out = (e: Event) => {
-    const el = (e.target as HTMLElement | null)?.closest?.(".acro");
+    const el = (e.target as HTMLElement | null)?.closest?.(
+      ".acro, .step-node[data-tip]"
+    );
     if (el) hide();
   };
   const reposition = () => {

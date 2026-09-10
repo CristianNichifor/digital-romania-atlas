@@ -1,6 +1,7 @@
 import {
   CONSOLIDATION,
   COSTS,
+  CUTOVER,
   GOV_RULES,
   INVENTORY,
   KPIS,
@@ -268,6 +269,26 @@ export function StrategyView() {
                 <td className="dim">{pick(r.action, lang)}</td>
                 <td>{pick(r.systems, lang)}</td>
                 <td>{pick(r.destination, lang)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Fază" : "Phase"}</th>
+              <th>{lang === "ro" ? "Perioadă" : "Period"}</th>
+              <th>{lang === "ro" ? "Acțiuni" : "Actions"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {CUTOVER.map((c) => (
+              <tr key={pick(c.phase, "ro")}>
+                <td className="dim">{pick(c.phase, lang)}</td>
+                <td>{pick(c.period, lang)}</td>
+                <td>{pick(c.actions, lang)}</td>
               </tr>
             ))}
           </tbody>

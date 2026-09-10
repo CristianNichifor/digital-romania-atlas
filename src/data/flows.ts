@@ -589,4 +589,52 @@ export const FLOWS: Flow[] = [
     tech: { ro: "verificare on-chain", en: "on-chain verification" },
     status: "proposed",
   },
+  {
+    id: "p-consolidate-spv",
+    from: "anaf",
+    to: "postbox",
+    kind: "notification",
+    label: {
+      ro: "Corespondența SPV se unifică în Cutia Digitală",
+      en: "SPV correspondence merges into the Digital Postbox",
+    },
+    tech: { ro: "canal de încredere unic", en: "single trusted channel" },
+    status: "proposed",
+  },
+  {
+    id: "p-consolidate-hubmai",
+    from: "hub-mai",
+    to: "postbox",
+    kind: "notification",
+    label: {
+      ro: "Notificările HUB MAI migrează în Cutia Digitală",
+      en: "HUB MAI notifications migrate into the Digital Postbox",
+    },
+    tech: { ro: "canal de încredere unic", en: "single trusted channel" },
+    status: "proposed",
+  },
+  {
+    id: "p-consolidate-uat",
+    from: "hub-l0",
+    to: "uat",
+    kind: "service",
+    label: {
+      ro: "Platformă cu șabloane pe hub-ul L0 (instanță per UAT)",
+      en: "Templated platform on the L0 hub (instance per UAT)",
+    },
+    tech: { ro: "înlocuiește ~3.200 site-uri", en: "replaces ~3,200 sites" },
+    status: "proposed",
+  },
+  {
+    id: "p-consolidate-recom",
+    from: "citizen",
+    to: "onrc",
+    kind: "identity",
+    label: {
+      ro: "RECOM: autentificare cu wallet (fără cont separat)",
+      en: "RECOM: wallet authentication (no separate account)",
+    },
+    tech: { ro: "OpenID4VP", en: "OpenID4VP" },
+    status: "proposed",
+  },
 ];

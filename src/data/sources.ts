@@ -177,10 +177,114 @@ export const SOURCES: Source[] = [
   },
   {
     claim: {
-      ro: "civicnet/geojson-romania — alternativă comunitară pentru harta județelor",
-      en: "civicnet/geojson-romania — community alternative for the county map",
+      ro: "HUB MAI — catalogul serviciilor MAI: programări carte de identitate, ePașaport, permise, înmatriculări, cazier judiciar online, apostile, eSAR",
+      en: "HUB MAI — the MAI services catalogue: ID appointments, ePassport, licences, registrations, online criminal record, apostilles, eSAR",
     },
-    kind: { ro: "Repo public", en: "Public repo" },
-    url: "https://github.com/civicnet/geojson-romania",
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://hub.mai.gov.ro/",
+    note: {
+      ro: "Verificat la 10 sep. 2026 — sursa tabelului de inventar; exemplu de „wrap & unify” la scară de minister",
+      en: "Checked on 10 Sep 2026 — source of the inventory table; a working “wrap & unify” at ministry scale",
+    },
+  },
+  {
+    claim: {
+      ro: "Ghiseul.ro — portalul național de plăți (motor SNEP)",
+      en: "Ghiseul.ro — the national payments portal (SNEP engine)",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.ghiseul.ro/",
+  },
+  {
+    claim: {
+      ro: "Spațiul Privat Virtual (ANAF) — corespondență și declarații fiscale",
+      en: "Private Virtual Space (ANAF) — tax correspondence and filings",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://pfinternet.anaf.ro/",
+  },
+  {
+    claim: {
+      ro: "e-Factura — sistemul național de facturare electronică",
+      en: "e-Factura — the national e-invoicing system",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.efactura.ro/",
+  },
+  {
+    claim: {
+      ro: "CEAS / PIAS — serviciile electronice CNAS",
+      en: "CEAS / PIAS — CNAS electronic services",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://ceas.cnas.ro/",
+  },
+  {
+    claim: {
+      ro: "DES — Dosarul Electronic de Sănătate / e-rețetă",
+      en: "DES — the Electronic Health File / e-prescription",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://des-cnas.ro/",
+  },
+  {
+    claim: {
+      ro: "RECOM — ONRC: înregistrare și informații despre firme",
+      en: "RECOM — ONRC: company registration and information",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://portal.onrc.ro/",
+  },
+  {
+    claim: {
+      ro: "e-licitație.ro (SEAP) — sistemul electronic de achiziții publice",
+      en: "e-licitatie.ro (SEAP) — the electronic public procurement system",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.e-licitatie.ro/",
+  },
+  {
+    claim: {
+      ro: "ANCPI — servicii cadastru și carte funciară (e-Terra)",
+      en: "ANCPI — cadastre and land book services (e-Terra)",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.ancpi.ro/",
+  },
+  {
+    claim: {
+      ro: "portal.just.ro — dosarul electronic al instanțelor",
+      en: "portal.just.ro — the courts' electronic case file",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://portal.just.ro/",
+  },
+  {
+    claim: {
+      ro: "ROeID — identitatea electronică notificată eIDAS (nivel mediu)",
+      en: "ROeID — the notified eIDAS electronic identity (medium level)",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.roeid.ro/",
+  },
+  {
+    claim: {
+      ro: "CNPP — portalul public al Casei Naționale de Pensii",
+      en: "CNPP — the National Pensions House public portal",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://www.cnpp.ro/",
+  },
+  {
+    claim: {
+      ro: "e-guvernare.ro — portalul istoric de e-guvernare",
+      en: "e-guvernare.ro — the historical e-government portal",
+    },
+    kind: { ro: "Site oficial", en: "Official website" },
+    url: "https://e-guvernare.ro/",
+    note: {
+      ro: "Verificat la 10 sep. 2026: conținut indisponibil — motivul propunerii de dezafectare",
+      en: "Checked on 10 Sep 2026: no usable content — the reason for the decommissioning proposal",
+    },
   },
 ];

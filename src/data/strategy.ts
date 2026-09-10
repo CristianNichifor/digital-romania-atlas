@@ -719,6 +719,39 @@ export const CONSOLIDATION: ConsolidationRow[] = [
   },
 ];
 
+export interface CutoverPhase {
+  phase: Bi;
+  period: Bi;
+  actions: Bi;
+}
+
+export const CUTOVER: CutoverPhase[] = [
+  {
+    phase: { ro: "Faza 1", en: "Phase 1" },
+    period: { ro: "2026–2027", en: "2026–2027" },
+    actions: {
+      ro: "RO Wallet live (PID + vârstă); conectori pentru Ghiseul.ro, SPV și HUB MAI; eIdentity devine read-only",
+      en: "RO Wallet live (PID + age); connectors for Ghiseul.ro, SPV and HUB MAI; eIdentity goes read-only",
+    },
+  },
+  {
+    phase: { ro: "Faza 2", en: "Phase 2" },
+    period: { ro: "2027–2028", en: "2027–2028" },
+    actions: {
+      ro: "Front-door-urile unificate (Portal cetățean, Cutia Digitală, cont fiscal unic, Sănătatea mea); auth wallet la RECOM; portalurile legacy intră read-only",
+      en: "Unified front doors (Citizen Portal, Digital Postbox, single tax account, My Health); wallet auth on RECOM; legacy portals go read-only",
+    },
+  },
+  {
+    phase: { ro: "Faza 3", en: "Phase 3" },
+    period: { ro: "2028–2030", en: "2028–2030" },
+    actions: {
+      ro: "Dezafectare (eIdentity, programări duplicate, e-guvernare.ro); platforma UAT cu șabloane la nivel național; verificarea KPI-urilor",
+      en: "Decommissioning (eIdentity, duplicate appointments, e-guvernare.ro); UAT templated platform nationwide; KPI checkpoints",
+    },
+  },
+];
+
 export const GOV_RULES: Bi[] = [
   {
     ro: "Regula identității: un singur login de stat (wallet); login-urile vechi sunt backstop max. 2 ani.",

@@ -83,19 +83,7 @@ export const TIMELINE: TimelineEvent[] = [
     owner: "current",
   },
   {
-    date: "dec. 2027",
-    title: {
-      ro: "Acceptare obligatorie",
-      en: "Mandatory acceptance",
-    },
-    detail: {
-      ro: "Financiar, telecom, utilități, asigurări – trebuie să accepte EUDI Wallet.",
-      en: "Finance, telecoms, utilities, insurers must accept the EUDI Wallet.",
-    },
-    owner: "eu",
-  },
-  {
-    date: "2027",
+    date: "iun. 2027",
     title: {
       ro: "(Propunere) Backbone X-Road + Cutia Digitală",
       en: "(Proposal) X-Road backbone + Digital Postbox",
@@ -105,6 +93,18 @@ export const TIMELINE: TimelineEvent[] = [
       en: "Data exchange between all registries; the citizen's legal mailbox.",
     },
     owner: "proposed",
+  },
+  {
+    date: "noi. 2027",
+    title: {
+      ro: "Acceptare obligatorie",
+      en: "Mandatory acceptance",
+    },
+    detail: {
+      ro: "eIDAS art. 5b: platformele online foarte mari (24 de luni, din 2026) și serviciile cu autentificare strictă — finanțe, telecom, energie, utilități, asigurări (36 de luni) — trebuie să accepte portofelul EUDI.",
+      en: "eIDAS art. 5b: very large online platforms (24 months, from 2026) and services with strong authentication — finance, telecoms, energy, utilities, insurance (36 months) — must accept the EUDI wallet.",
+    },
+    owner: "eu",
   },
   {
     date: "2028",
@@ -125,8 +125,8 @@ export const TIMELINE: TimelineEvent[] = [
       en: "(Proposal) Digital euro + post-quantum",
     },
     detail: {
-      ro: "Interoperare cu euro digitalul, migrare PQ, mesh transfrontalier EU.",
-      en: "Digital euro interoperability, PQ migration, EU cross-border mesh.",
+      ro: "Interoperare cu euro digitalul, migrare PQ (complet pentru secrete long-lived până în 2030), mesh transfrontalier EU.",
+      en: "Digital euro interoperability, PQ migration (complete for long-lived secrets by 2030), EU cross-border mesh.",
     },
     owner: "proposed",
   },

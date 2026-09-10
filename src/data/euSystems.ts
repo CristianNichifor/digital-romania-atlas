@@ -54,11 +54,19 @@ export const EU_SYSTEMS: EuSystem[] = [
 export interface EuMatrixRow {
   dimension: Bi;
   cells: Record<string, Bi>;
+  eval: "better" | "same" | "worse";
 }
+
+export const EU_EVAL_LABELS: Record<EuMatrixRow["eval"], Bi> = {
+  better: { ro: "Mai bine", en: "Better" },
+  same: { ro: "La fel", en: "Same" },
+  worse: { ro: "Mai slab", en: "Worse" },
+};
 
 export const EU_MATRIX: EuMatrixRow[] = [
   {
     dimension: { ro: "Scop principal", en: "Main purpose" },
+    eval: "better",
     cells: {
       xroad: {
         ro: "Schimb de date între instituții, federat, fără depozit central",
@@ -96,6 +104,7 @@ export const EU_MATRIX: EuMatrixRow[] = [
   },
   {
     dimension: { ro: "Arhitectură", en: "Architecture" },
+    eval: "better",
     cells: {
       xroad: {
         ro: "Federată, peer-to-peer (security servers), niciun depozit central",
@@ -132,10 +141,8 @@ export const EU_MATRIX: EuMatrixRow[] = [
     },
   },
   {
-    dimension: {
-      ro: "Identitate (nivel de asigurare)",
-      en: "Identity (assurance level)",
-    },
+    dimension: { ro: "Identitate (nivel de asigurare)", en: "Identity (assurance level)" },
+    eval: "same",
     cells: {
       xroad: {
         ro: "Fără identitate pentru cetățean; depinde de eID-ul național",
@@ -172,10 +179,8 @@ export const EU_MATRIX: EuMatrixRow[] = [
     },
   },
   {
-    dimension: {
-      ro: "Schimb de date instituțional",
-      en: "Institutional data exchange",
-    },
+    dimension: { ro: "Schimb de date instituțional", en: "Institutional data exchange" },
+    eval: "same",
     cells: {
       xroad: {
         ro: "Modelul de referință: ≈2.900 de instituții conectate în Estonia, milioane de interogări zilnice",
@@ -213,6 +218,7 @@ export const EU_MATRIX: EuMatrixRow[] = [
   },
   {
     dimension: { ro: "Plăți publice", en: "Public payments" },
+    eval: "better",
     cells: {
       xroad: { ro: "Nu", en: "No" },
       digid: { ro: "Nu (iDEAL separat)", en: "No (iDEAL is separate)" },
@@ -244,6 +250,7 @@ export const EU_MATRIX: EuMatrixRow[] = [
   },
   {
     dimension: { ro: "Funcționare offline", en: "Offline operation" },
+    eval: "better",
     cells: {
       xroad: {
         ro: "Depinde de rețea; funcționează fără cloud public",
@@ -272,6 +279,7 @@ export const EU_MATRIX: EuMatrixRow[] = [
   },
   {
     dimension: { ro: "Reziliență / DR", en: "Resilience / DR" },
+    eval: "better",
     cells: {
       xroad: {
         ro: "HA per nod; fiecare stat își operează infrastructura",
@@ -308,10 +316,8 @@ export const EU_MATRIX: EuMatrixRow[] = [
     },
   },
   {
-    dimension: {
-      ro: "Confidențialitate / anti-corelare",
-      en: "Privacy / anti-correlation",
-    },
+    dimension: { ro: "Confidențialitate / anti-corelare", en: "Privacy / anti-correlation" },
+    eval: "better",
     cells: {
       xroad: {
         ro: "Jurnale de audit; temei legal obligatoriu per interogare",
@@ -349,6 +355,7 @@ export const EU_MATRIX: EuMatrixRow[] = [
   },
   {
     dimension: { ro: "Open source", en: "Open source" },
+    eval: "better",
     cells: {
       xroad: { ro: "Da, licență MIT (NIIS)", en: "Yes, MIT licence (NIIS)" },
       digid: { ro: "Nu", en: "No" },
@@ -373,10 +380,8 @@ export const EU_MATRIX: EuMatrixRow[] = [
     },
   },
   {
-    dimension: {
-      ro: "Semnătură calificată (QES)",
-      en: "Qualified signature (QES)",
-    },
+    dimension: { ro: "Semnătură calificată (QES)", en: "Qualified signature (QES)" },
+    eval: "same",
     cells: {
       xroad: { ro: "Nu (în afara scopului)", en: "No (out of scope)" },
       digid: { ro: "Nu nativ", en: "Not native" },
@@ -407,10 +412,8 @@ export const EU_MATRIX: EuMatrixRow[] = [
     },
   },
   {
-    dimension: {
-      ro: "Incluziune (fără smartphone)",
-      en: "Inclusion (no smartphone)",
-    },
+    dimension: { ro: "Incluziune (fără smartphone)", en: "Inclusion (no smartphone)" },
+    eval: "same",
     cells: {
       xroad: {
         ro: "N/A pentru cetățeni",
@@ -447,10 +450,8 @@ export const EU_MATRIX: EuMatrixRow[] = [
     },
   },
   {
-    dimension: {
-      ro: "Maturitate & adopție",
-      en: "Maturity & adoption",
-    },
+    dimension: { ro: "Maturitate & adopție", en: "Maturity & adoption" },
+    eval: "worse",
     cells: {
       xroad: {
         ro: "În producție din 2001; folosit și de Finlanda, Islanda ș.a.",

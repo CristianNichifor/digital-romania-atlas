@@ -1,5 +1,5 @@
 import { COMPARISON, VERDICT_LABELS } from "../data/comparison";
-import { EU_MATRIX, EU_SYSTEMS } from "../data/euSystems";
+import { EU_EVAL_LABELS, EU_MATRIX, EU_SYSTEMS } from "../data/euSystems";
 import { pick, useLang } from "../i18n";
 import { T } from "./T";
 
@@ -93,6 +93,9 @@ export function CompareView() {
                     <div className="eu-country">{pick(s.country, lang)}</div>
                   </th>
                 ))}
+                <th className="eu-eval-head">
+                  {lang === "ro" ? "Evaluare (noi vs. restul)" : "Verdict (us vs. rest)"}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -104,6 +107,11 @@ export function CompareView() {
                       <T text={pick(row.cells[s.key], lang)} />
                     </td>
                   ))}
+                  <td className="eu-eval-cell">
+                    <span className={`verdict v-${row.eval}`}>
+                      {pick(EU_EVAL_LABELS[row.eval], lang)}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -138,12 +146,14 @@ export function CompareView() {
           {lang === "ro" ? (
             <>
               Cifrele de adopție sunt aproximative (≈) și pot fi depășite de acumularea recentă;
-              sursele complete pentru fiecare sistem sunt în tabul Surse.
+              sursele complete pentru fiecare sistem sunt în tabul Surse. Coloana „Evaluare” compară
+              propunerea noastră cu ce e mai bun în restul tabelului, dimensiune cu dimensiune.
             </>
           ) : (
             <>
               Adoption figures are approximate (≈) and may already be exceeded by recent growth;
-              full sources for each system are in the Sources tab.
+              full sources for each system are in the Sources tab. The “Verdict” column rates our
+              proposal against the best of the rest, dimension by dimension.
             </>
           )}
         </p>

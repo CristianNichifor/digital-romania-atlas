@@ -15,6 +15,7 @@ journalists, and decision makers.
 | **Fluxuri de date** | Two toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, and independent oversight. Filter by flow type. |
 | **Comparație** | 12-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
 | **Calendar** | EU obligations, the national plan, and our proposed additions side by side. |
+| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the four pillars (redundancy, open source, security, scalability), 5-year cost estimates, and the 12 outward-facing portals. |
 
 ## Data sources
 
@@ -52,6 +53,7 @@ Everything is plain typed data — edit without touching components:
   label, protocol, status
 - `src/data/comparison.ts` — the comparison table
 - `src/data/timeline.ts` — the calendar
+- `src/data/strategy.ts` — layers, pillars, costs, portals (Strategie tab)
 - `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București)
 
 County GeoJSON source: [GabrielRondelli/geojson](https://github.com/GabrielRondelli/geojson)

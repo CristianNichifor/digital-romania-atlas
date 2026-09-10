@@ -3,14 +3,16 @@ import { MapView } from "./components/MapView";
 import { FlowGraph } from "./components/FlowGraph";
 import { CompareView } from "./components/CompareView";
 import { TimelineView } from "./components/TimelineView";
+import { StrategyView } from "./components/StrategyView";
 
-type View = "map" | "flows" | "compare" | "timeline";
+type View = "map" | "flows" | "compare" | "timeline" | "strategy";
 
 const VIEWS: { id: View; label: string }[] = [
   { id: "map", label: "Harta României" },
   { id: "flows", label: "Fluxuri de date" },
   { id: "compare", label: "Comparație" },
   { id: "timeline", label: "Calendar" },
+  { id: "strategy", label: "Strategie" },
 ];
 
 export default function App() {
@@ -46,6 +48,7 @@ export default function App() {
         {view === "flows" && <FlowGraph />}
         {view === "compare" && <CompareView />}
         {view === "timeline" && <TimelineView />}
+        {view === "strategy" && <StrategyView />}
       </main>
       <footer>
         <p>

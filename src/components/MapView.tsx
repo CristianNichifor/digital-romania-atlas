@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import * as d3 from "d3";
 import {
   CATEGORY_COLORS,
@@ -34,6 +34,13 @@ function norm(s: string) {
   return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+interface TipContent {
+  title: Bi;
+  detail: Bi;
+}
+
+const TIP_CELL = 12;
+
 export function MapView() {
   const { lang } = useLang();
   const [geo, setGeo] = useState<GeoCollection | null>(null);
@@ -42,7 +49,10 @@ export function MapView() {
   const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(null);
   const [filter, setFilter] = useState<Category | null>(null);
   const [zoom, setZoom] = useState({ x: 0, y: 0, k: 1 });
+  const [tip, setTip] = useState<TipContent | null>(null);
+  const [tipPos, setTipPos] = useState({ x: 0, y: 0 });
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
   useEffect(() => {
@@ -57,7 +67,7 @@ export function MapView() {
     if (!svg) return;
     const behavior = d3
       .zoom<SVGSVGElement, unknown>()
-      .scaleExtent([1, 12])
+      .scaleExtent([1, 20])
       .translateExtent([
         [-W, -H],
         [W * 2, H * 2],
@@ -127,10 +137,63 @@ export function MapView() {
 
   const path = d3.geoPath(projection);
   const maxCount = Math.max(...counts.values(), 1);
+  const k = zoom.k;
+
+  const moveTip = (e: ReactMouseEvent) => {
+    const r = wrapRef.current?.getBoundingClientRect();
+    if (!r) return;
+    setTipPos({ x: e.clientX - r.left, y: e.clientY - r.top });
+  };
+
+  const showTip = (content: TipContent, e: ReactMouseEvent) => {
+    setTip(content);
+    moveTip(e);
+  };
 
   const markers = INSTITUTIONS.filter(
     (i) => i.county && i.county !== "*" && i.lat != null && i.lon != null
   );
+  const visibleMarkers = markers.filter((i) => visible(i));
+  const uat = INSTITUTIONS.find((i) => i.county === "*");
+  const uatVisible = !!uat && (!filter || filter === "service");
+
+  // Collision spreading: group points that land in the same screen cell and
+  // fan them out so they stay distinguishable at any zoom level.
+  const pts: { id: string; key: string; x: number; y: number }[] = [];
+  for (const i of visibleMarkers) {
+    const [px, py] = projection([i.lon!, i.lat!]) ?? [0, 0];
+    pts.push({ id: i.id, key: i.id, x: zoom.x + px * k, y: zoom.y + py * k });
+  }
+  if (uatVisible) {
+    geo.features.forEach((f, fi) => {
+      const [cx, cy] = path.centroid(f as unknown as GeoJSON.Feature);
+      pts.push({ id: `uat-${fi}`, key: `uat-${fi}`, x: zoom.x + cx * k, y: zoom.y + cy * k });
+    });
+  }
+  const groups = new Map<string, typeof pts>();
+  for (const p of pts) {
+    const gk = `${Math.floor(p.x / TIP_CELL)}:${Math.floor(p.y / TIP_CELL)}`;
+    const arr = groups.get(gk) ?? [];
+    arr.push(p);
+    groups.set(gk, arr);
+  }
+  const offsets = new Map<string, { ox: number; oy: number }>();
+  const groupSizes = new Map<string, number>();
+  for (const [gk, members] of groups) {
+    members.sort((a, b) => a.key.localeCompare(b.key));
+    const n = members.length;
+    const phase = [...gk].reduce((s, ch) => s + ch.charCodeAt(0), 0) * 1.7;
+    members.forEach((m, i) => {
+      if (n === 1) {
+        offsets.set(m.id, { ox: 0, oy: 0 });
+      } else {
+        const r = Math.min(6 + 2.6 * Math.sqrt(n), 22);
+        const a = phase + (i * 2 * Math.PI) / n;
+        offsets.set(m.id, { ox: Math.cos(a) * r, oy: Math.sin(a) * r });
+      }
+      groupSizes.set(m.id, n);
+    });
+  }
 
   const sovereignDcs = DC_PLACEMENT.filter((d) => ["dc-a", "dc-b", "dc-c"].includes(d.id));
   const regionalDcs = REGIONAL_DCS.filter(
@@ -138,6 +201,11 @@ export function MapView() {
   );
   const underground = UNDERGROUND_SITES;
   const [vx, vy] = projection([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat]) ?? [0, 0];
+
+  const tipClampX = (x: number) => {
+    const w = wrapRef.current?.clientWidth ?? 900;
+    return Math.max(4, Math.min(x, w - 250));
+  };
 
   return (
     <div className="panel">
@@ -161,7 +229,14 @@ export function MapView() {
           ))}
         </div>
       </div>
-      <div className="map-wrap">
+      <div
+        className="map-wrap"
+        ref={wrapRef}
+        onMouseMove={(e) => {
+          if (tip) moveTip(e);
+        }}
+        onMouseLeave={() => setTip(null)}
+      >
         <div className="map-controls">
           <button onClick={() => zoomBy(1.5)} title="Zoom in" aria-label="Zoom in">
             +
@@ -190,16 +265,24 @@ export function MapView() {
                       : "#0a1120"
                   }
                   stroke="#233452"
-                >
-                  <title>
-                    {f.properties.NAME_1}
-                    {count
-                      ? lang === "ro"
-                        ? ` · ${count} instituție/instituții`
-                        : ` · ${count} institution(s)`
-                      : ""}
-                  </title>
-                </path>
+                  strokeWidth={0.6 / k}
+                  onMouseEnter={(e) =>
+                    showTip(
+                      {
+                        title: {
+                          ro: f.properties.NAME_1,
+                          en: f.properties.NAME_1,
+                        },
+                        detail: {
+                          ro: count ? `${count} instituție/instituții` : "Fără instituții centralizate",
+                          en: count ? `${count} institution(s)` : "No central institutions",
+                        },
+                      },
+                      e
+                    )
+                  }
+                  onMouseLeave={() => setTip(null)}
+                />
               );
             })}
             {VRANCEA_RADII_KM.map((km) => {
@@ -208,88 +291,173 @@ export function MapView() {
                 .center([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat])
                 .radius(km / 6371);
               const d = path(ring() as unknown as GeoJSON.GeoJSON) ?? "";
-              return <path key={km} d={d} className="vrancea-ring" />;
+              return (
+                <path
+                  key={km}
+                  d={d}
+                  className="vrancea-ring"
+                  strokeWidth={1.2 / k}
+                  strokeDasharray={`${6 / k} ${5 / k}`}
+                  onMouseEnter={(e) =>
+                    showTip(
+                      {
+                        title: {
+                          ro: "Zona seismică Vrancea",
+                          en: "Vrancea seismic zone",
+                        },
+                        detail: {
+                          ro: `Rază de ${km} km față de epicentru`,
+                          en: `${km} km radius from the epicentre`,
+                        },
+                      },
+                      e
+                    )
+                  }
+                  onMouseLeave={() => setTip(null)}
+                />
+              );
             })}
-            <g className="vrancea-epicentre" transform={`translate(${vx},${vy})`}>
-              <circle r={3.5} fill="#e5484d" />
-              <text x={0} y={-8} textAnchor="middle" className="vrancea-label">
+            <g
+              className="vrancea-epicentre"
+              transform={`translate(${vx},${vy}) scale(${1 / k})`}
+              onMouseEnter={(e) =>
+                showTip(
+                  {
+                    title: {
+                      ro: "Epicentrul seismic Vrancea",
+                      en: "Vrancea seismic epicentre",
+                    },
+                    detail: {
+                      ro: "Inel interior 50 km · mediu 100 km · exterior 200 km",
+                      en: "Inner ring 50 km · middle 100 km · outer 200 km",
+                    },
+                  },
+                  e
+                )
+              }
+              onMouseLeave={() => setTip(null)}
+            >
+              <circle r={4} fill="#e5484d" stroke="#05070d" strokeWidth={1} />
+              <text x={0} y={-10} textAnchor="middle" className="vrancea-label">
                 Vrancea
               </text>
             </g>
             {geo.features.map((f, idx) => {
               const centroid = path.centroid(f as unknown as GeoJSON.Feature);
               return (
-                <text key={`c-${idx}`} x={centroid[0]} y={centroid[1]} className="county-label">
-                  {f.properties.NAME_1}
-                </text>
+                <g key={`c-${idx}`} transform={`translate(${centroid[0]},${centroid[1]}) scale(${1 / k})`}>
+                  <text x={0} y={0} className="county-label">
+                    {f.properties.NAME_1}
+                  </text>
+                </g>
               );
             })}
-            {INSTITUTIONS.filter((i) => i.county === "*" && (!filter || filter === "service")).map((i) =>
+            {uatVisible &&
               geo.features.map((f, fi) => {
-                const [x, y] = path.centroid(f as unknown as GeoJSON.Feature);
+                const [cx, cy] = path.centroid(f as unknown as GeoJSON.Feature);
+                const off = offsets.get(`uat-${fi}`) ?? { ox: 0, oy: 0 };
                 return (
-                  <circle
-                    key={`${i.id}-${fi}`}
-                    cx={x}
-                    cy={y}
-                    r={4}
-                    fill={CATEGORY_COLORS[i.category]}
-                    opacity={0.85}
-                    onMouseEnter={() => {
-                      setHover(i);
+                  <g
+                    key={`uat-${fi}`}
+                    transform={`translate(${cx + off.ox / k},${cy + off.oy / k}) scale(${1 / k})`}
+                    className="marker"
+                    onMouseEnter={(e) => {
+                      setHover(uat!);
                       setHoverCounty(f.properties.NAME_1);
+                      showTip(
+                        {
+                          title: uat!.name,
+                          detail: {
+                            ro: `${uat!.role.ro} · județul ${f.properties.NAME_1}`,
+                            en: `${uat!.role.en} · ${f.properties.NAME_1} county`,
+                          },
+                        },
+                        e
+                      );
                     }}
                     onMouseLeave={() => {
                       setHover(null);
                       setHoverCounty(null);
+                      setTip(null);
                     }}
-                  />
-                );
-              })
-            )}
-            {markers
-              .filter((i) => visible(i))
-              .map((i) => {
-                const [x, y] = projection([i.lon!, i.lat!]) ?? [0, 0];
-                const on = hover?.id === i.id || filter === i.category;
-                return (
-                  <g
-                    key={i.id}
-                    transform={`translate(${x},${y})`}
-                    className="marker"
-                    onMouseEnter={() => {
-                      setHover(i);
-                      setHoverCounty(null);
-                    }}
-                    onMouseLeave={() => setHover(null)}
                   >
                     <circle
-                      r={on ? 8 : 6}
-                      fill={CATEGORY_COLORS[i.category]}
-                      opacity={filter && filter !== i.category ? 0.25 : 1}
+                      r={4}
+                      fill={CATEGORY_COLORS[uat!.category]}
+                      opacity={0.85}
+                      stroke="#05070d"
+                      strokeWidth={0.8}
                     />
-                    {(zoom.k >= 3 || on || filter === i.category) && (
-                      <text x={10} y={4} className="marker-label">
-                        {i.acronym}
-                      </text>
-                    )}
                   </g>
                 );
               })}
+            {visibleMarkers.map((i) => {
+              const [px, py] = projection([i.lon!, i.lat!]) ?? [0, 0];
+              const off = offsets.get(i.id) ?? { ox: 0, oy: 0 };
+              const on = hover?.id === i.id;
+              const label = (k >= 2.5 && groupSizes.get(i.id) === 1) || on;
+              return (
+                <g
+                  key={i.id}
+                  transform={`translate(${px + off.ox / k},${py + off.oy / k}) scale(${1 / k})`}
+                  className="marker"
+                  onMouseEnter={(e) => {
+                    setHover(i);
+                    setHoverCounty(null);
+                    showTip(
+                      {
+                        title: { ro: `${i.acronym} — ${i.name.ro}`, en: `${i.acronym} — ${i.name.en}` },
+                        detail: {
+                          ro: `${i.role.ro} · ${CATEGORY_LABELS[i.category].ro}${
+                            i.county ? ` · județul ${i.county}` : ""
+                          }`,
+                          en: `${i.role.en} · ${CATEGORY_LABELS[i.category].en}${
+                            i.county ? ` · ${i.county} county` : ""
+                          }`,
+                        },
+                      },
+                      e
+                    );
+                  }}
+                  onMouseLeave={() => {
+                    setHover(null);
+                    setTip(null);
+                  }}
+                >
+                  <circle
+                    r={on ? 7.5 : 5.5}
+                    fill={CATEGORY_COLORS[i.category]}
+                    opacity={filter && filter !== i.category ? 0.25 : 1}
+                    stroke="#05070d"
+                    strokeWidth={1}
+                  />
+                  {label && (
+                    <text x={9} y={3.5} className="marker-label">
+                      {i.acronym}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
             {sovereignDcs.map((d) => {
               const [x, y] = projection([d.lon, d.lat]) ?? [0, 0];
               return (
                 <g
                   key={d.id}
-                  transform={`translate(${x},${y})`}
+                  transform={`translate(${x},${y}) scale(${1 / k})`}
                   className="dc-marker"
-                  onMouseEnter={() =>
-                    setSiteHover({
+                  onMouseEnter={(e) => {
+                    const content = {
                       title: d.name,
                       detail: { ro: `${d.role.ro} · ${d.seismic.ro}`, en: `${d.role.en} · ${d.seismic.en}` },
-                    })
-                  }
-                  onMouseLeave={() => setSiteHover(null)}
+                    };
+                    setSiteHover(content);
+                    showTip(content, e);
+                  }}
+                  onMouseLeave={() => {
+                    setSiteHover(null);
+                    setTip(null);
+                  }}
                 >
                   <rect
                     x={-5.5}
@@ -312,15 +480,20 @@ export function MapView() {
               return (
                 <g
                   key={`r-${pick(r.region, "ro")}`}
-                  transform={`translate(${x},${y})`}
+                  transform={`translate(${x},${y}) scale(${1 / k})`}
                   className="dc-marker regional"
-                  onMouseEnter={() =>
-                    setSiteHover({
+                  onMouseEnter={(e) => {
+                    const content = {
                       title: { ro: `Micro-DC ${r.region.ro}`, en: `${r.region.en} micro-DC` },
                       detail: r.power,
-                    })
-                  }
-                  onMouseLeave={() => setSiteHover(null)}
+                    };
+                    setSiteHover(content);
+                    showTip(content, e);
+                  }}
+                  onMouseLeave={() => {
+                    setSiteHover(null);
+                    setTip(null);
+                  }}
                 >
                   <rect
                     x={-4}
@@ -340,10 +513,17 @@ export function MapView() {
               return (
                 <g
                   key={`u-${pick(u.name, "ro")}`}
-                  transform={`translate(${x},${y})`}
+                  transform={`translate(${x},${y}) scale(${1 / k})`}
                   className="dc-marker underground"
-                  onMouseEnter={() => setSiteHover({ title: u.name, detail: u.suitability })}
-                  onMouseLeave={() => setSiteHover(null)}
+                  onMouseEnter={(e) => {
+                    const content = { title: u.name, detail: u.suitability };
+                    setSiteHover(content);
+                    showTip(content, e);
+                  }}
+                  onMouseLeave={() => {
+                    setSiteHover(null);
+                    setTip(null);
+                  }}
                 >
                   <path d="M0,-5 L4.5,4 L-4.5,4 Z" fill="#a479e2" stroke="#0e1729" strokeWidth={1.5} />
                 </g>
@@ -351,6 +531,69 @@ export function MapView() {
             })}
           </g>
         </svg>
+        {tip && (
+          <div
+            className="map-tip"
+            style={{ left: tipClampX(tipPos.x + 14), top: Math.max(tipPos.y - 58, 4) }}
+          >
+            <strong>
+              <T text={pick(tip.title, lang)} />
+            </strong>
+            <div>
+              <T text={pick(tip.detail, lang)} />
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="symbol-legend">
+        <span className="sl-item">
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <circle cx="6" cy="6" r="4.5" fill="#4f8cff" stroke="#05070d" />
+          </svg>
+          {lang === "ro" ? "Instituții (culoarea = categoria)" : "Institutions (colour = category)"}
+        </span>
+        <span className="sl-item">
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <circle cx="6" cy="6" r="3" fill="#53c1e8" stroke="#05070d" />
+          </svg>
+          {lang === "ro"
+            ? "Prezență națională (UAT) în fiecare județ"
+            : "National presence (UAT) in every county"}
+        </span>
+        <span className="sl-item">
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <rect x="2.6" y="2.6" width="6.8" height="6.8" transform="rotate(45 6 6)" fill="#ffd166" stroke="#0e1729" />
+          </svg>
+          {lang === "ro" ? "DC suverană" : "Sovereign DC"}
+        </span>
+        <span className="sl-item">
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <rect x="3.2" y="3.2" width="5.6" height="5.6" transform="rotate(45 6 6)" fill="#53c1e8" stroke="#0e1729" />
+          </svg>
+          {lang === "ro" ? "Micro-DC regional" : "Regional micro-DC"}
+        </span>
+        <span className="sl-item">
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <path d="M6,1.5 L10.5,10 L1.5,10 Z" fill="#a479e2" stroke="#0e1729" />
+          </svg>
+          {lang === "ro" ? "Sit subteran (candidat)" : "Underground site (candidate)"}
+        </span>
+        <span className="sl-item">
+          <svg width="14" height="12" viewBox="0 0 14 12">
+            <circle cx="7" cy="6" r="4.5" fill="none" stroke="#e5484d" strokeDasharray="2.5 2" />
+          </svg>
+          {lang === "ro"
+            ? "Zona seismică Vrancea (50/100/200 km)"
+            : "Vrancea seismic zone (50/100/200 km)"}
+        </span>
+        <span className="sl-item">
+          <svg width="12" height="12" viewBox="0 0 12 12">
+            <rect x="1.5" y="1.5" width="9" height="9" fill="#1a2c4e" stroke="#2a4d8f" />
+          </svg>
+          {lang === "ro"
+            ? "Nuanța județului = densitatea instituțiilor"
+            : "County shade = institution density"}
+        </span>
       </div>
       <div className="hover-bar">
         {siteHover ? (
@@ -370,8 +613,8 @@ export function MapView() {
         ) : (
           <span className="muted">
             {lang === "ro"
-              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare — derularea paginii nu e blocată. Punctele mici = primării (UAT); pătrate galbene = DC suverane; pătrate albastre = micro-DC regionale; triunghiuri mov = situri subterane; inelele roșii = zona seismică Vrancea (50/100/200 km)."
-              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan — page scrolling is never trapped. Small dots = town halls (UAT); yellow squares = sovereign DCs; cyan squares = regional micro-DCs; purple triangles = underground sites; red rings = the Vrancea seismic zone (50/100/200 km)."}
+              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; punctele suprapuse se despart automat când mărești zoom-ul."
+              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; overlapping dots spread apart as you zoom in."}
           </span>
         )}
       </div>

@@ -445,6 +445,49 @@ main {
   position: relative;
 }
 
+.map-tip {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  background: #0c1526;
+  color: var(--text);
+  border: 1px solid #233452;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  max-width: 236px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.map-tip strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+  color: #e8edf4;
+}
+
+.map-tip div {
+  color: var(--muted);
+}
+
+.symbol-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.sl-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .map-controls {
   position: absolute;
   top: 10px;

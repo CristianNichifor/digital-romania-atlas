@@ -431,6 +431,7 @@ export interface ResilCostRow {
   quantity: string;
   unitCost: string;
   total: string;
+  dynamic?: "uat-ups";
 }
 
 export const RESILIENCE_COSTS: ResilCostRow[] = [
@@ -466,9 +467,10 @@ export const RESILIENCE_COSTS: ResilCostRow[] = [
       ro: "UPS + solar pentru nodurile L0 (unități locale/școli)",
       en: "UPS + solar for the L0 nodes (local units/schools)",
     },
-    quantity: "≈682",
+    quantity: "≈{units}",
     unitCost: "300–500 €",
-    total: "0,2–0,4M €",
+    total: "—",
+    dynamic: "uat-ups",
   },
   {
     item: {
@@ -748,8 +750,8 @@ export const ENERGY_AUTONOMY: EnergyRow[] = [
   {
     tier: { ro: "L0 · margine", en: "L0 · edge" },
     site: {
-      ro: "≈682 unități locale (după reforma administrativă) + școli",
-      en: "≈682 local units (after the administrative reform) + schools",
+      ro: "≈{units} unități locale (după reforma administrativă) + școli",
+      en: "≈{units} local units (after the administrative reform) + schools",
     },
     generation: {
       ro: "UPS 2 kWh + panou solar 5 kW per nod",

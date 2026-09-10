@@ -10,11 +10,14 @@ import {
   SOFTWARE_STACK,
   UNDERGROUND_SITES,
 } from "../data/resilience";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, type Bi } from "../i18n";
+import { UatPlanNote, uatUpsTotal, useUatPlan } from "../lib/uatPlan";
 import { T } from "./T";
 
 export function ResilienceView() {
   const { lang } = useLang();
+  const { plan, fill, fmtUnits } = useUatPlan();
+  const tt = (b: Bi) => fill(pick(b, lang));
   return (
     <div className="panel resilience">
       <div className="panel-head">
@@ -34,7 +37,11 @@ export function ResilienceView() {
         />
       </p>
 
-      <h3>{lang === "ro" ? "Plasamentul centrelor de date (3+3 universitare)" : "Data centre placement (3+3 university)"}</h3>
+      <h3>
+        {lang === "ro"
+          ? "Plasamentul centrelor de date (3+3 universitare)"
+          : "Data centre placement (3+3 university)"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -50,13 +57,23 @@ export function ResilienceView() {
             {DC_PLACEMENT.map((d) => (
               <tr key={d.id}>
                 <td className="dim">
-                  <T text={pick(d.name, lang)} />
-                  <div className="sub"><T text={pick(d.location, lang)} /></div>
+                  <T text={tt(d.name)} />
+                  <div className="sub">
+                    <T text={tt(d.location)} />
+                  </div>
                 </td>
-                <td><T text={pick(d.region, lang)} /></td>
-                <td><T text={pick(d.role, lang)} /></td>
-                <td><T text={pick(d.seismic, lang)} /></td>
-                <td><T text={pick(d.energy, lang)} /></td>
+                <td>
+                  <T text={tt(d.region)} />
+                </td>
+                <td>
+                  <T text={tt(d.role)} />
+                </td>
+                <td>
+                  <T text={tt(d.seismic)} />
+                </td>
+                <td>
+                  <T text={tt(d.energy)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -68,7 +85,11 @@ export function ResilienceView() {
           : "On the map: the Vrancea seismic-zone rings (50/100/200 km), yellow squares = the sovereign DC sites, cyan squares = the regional micro-DCs, purple triangles = the underground sites."}
       </p>
 
-      <h3>{lang === "ro" ? "Micro-DC regionale (câte unul per regiune de dezvoltare)" : "Regional micro-DCs (one per development region)"}</h3>
+      <h3>
+        {lang === "ro"
+          ? "Micro-DC regionale (câte unul per regiune de dezvoltare)"
+          : "Regional micro-DCs (one per development region)"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -82,17 +103,29 @@ export function ResilienceView() {
           <tbody>
             {REGIONAL_DCS.map((r, i) => (
               <tr key={i}>
-                <td className="dim"><T text={pick(r.region, lang)} /></td>
-                <td><T text={pick(r.city, lang)} /></td>
-                <td><T text={pick(r.power, lang)} /></td>
-                <td><T text={pick(r.role, lang)} /></td>
+                <td className="dim">
+                  <T text={tt(r.region)} />
+                </td>
+                <td>
+                  <T text={tt(r.city)} />
+                </td>
+                <td>
+                  <T text={tt(r.power)} />
+                </td>
+                <td>
+                  <T text={tt(r.role)} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <h3>{lang === "ro" ? "Autonomie energetică pe niveluri" : "Energy autonomy by tier"}</h3>
+      <h3>
+        {lang === "ro"
+          ? "Autonomie energetică pe niveluri"
+          : "Energy autonomy by tier"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -106,17 +139,29 @@ export function ResilienceView() {
           <tbody>
             {ENERGY_AUTONOMY.map((e, i) => (
               <tr key={i}>
-                <td className="dim"><T text={pick(e.tier, lang)} /></td>
-                <td><T text={pick(e.site, lang)} /></td>
-                <td><T text={pick(e.generation, lang)} /></td>
-                <td><T text={pick(e.autonomy, lang)} /></td>
+                <td className="dim">
+                  <T text={tt(e.tier)} />
+                </td>
+                <td>
+                  <T text={tt(e.site)} />
+                </td>
+                <td>
+                  <T text={tt(e.generation)} />
+                </td>
+                <td>
+                  <T text={tt(e.autonomy)} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <h3>{lang === "ro" ? "Candidați subterani (saline & galerii)" : "Underground candidates (salt mines & galleries)"}</h3>
+      <h3>
+        {lang === "ro"
+          ? "Candidați subterani (saline & galerii)"
+          : "Underground candidates (salt mines & galleries)"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -129,9 +174,15 @@ export function ResilienceView() {
           <tbody>
             {UNDERGROUND_SITES.map((u, i) => (
               <tr key={i}>
-                <td className="dim"><T text={pick(u.name, lang)} /></td>
-                <td><T text={pick(u.region, lang)} /></td>
-                <td><T text={pick(u.suitability, lang)} /></td>
+                <td className="dim">
+                  <T text={tt(u.name)} />
+                </td>
+                <td>
+                  <T text={tt(u.region)} />
+                </td>
+                <td>
+                  <T text={tt(u.suitability)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -147,7 +198,11 @@ export function ResilienceView() {
         />
       </p>
 
-      <h3>{lang === "ro" ? "Scenarii de dezastru & răspuns" : "Disaster scenarios & response"}</h3>
+      <h3>
+        {lang === "ro"
+          ? "Scenarii de dezastru & răspuns"
+          : "Disaster scenarios & response"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -160,16 +215,24 @@ export function ResilienceView() {
           <tbody>
             {DISASTERS.map((d, i) => (
               <tr key={i}>
-                <td className="dim"><T text={pick(d.scenario, lang)} /></td>
-                <td><T text={pick(d.impact, lang)} /></td>
-                <td><T text={pick(d.response, lang)} /></td>
+                <td className="dim">
+                  <T text={tt(d.scenario)} />
+                </td>
+                <td>
+                  <T text={tt(d.impact)} />
+                </td>
+                <td>
+                  <T text={tt(d.response)} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <h3>{lang === "ro" ? "Independența hardware" : "Hardware independence"}</h3>
+      <h3>
+        {lang === "ro" ? "Independența hardware" : "Hardware independence"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -182,16 +245,24 @@ export function ResilienceView() {
           <tbody>
             {HARDWARE_STACK.map((r, i) => (
               <tr key={i}>
-                <td className="dim"><T text={pick(r.layer, lang)} /></td>
-                <td><T text={pick(r.current, lang)} /></td>
-                <td><T text={pick(r.target, lang)} /></td>
+                <td className="dim">
+                  <T text={tt(r.layer)} />
+                </td>
+                <td>
+                  <T text={tt(r.current)} />
+                </td>
+                <td>
+                  <T text={tt(r.target)} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <h3>{lang === "ro" ? "Independența software" : "Software independence"}</h3>
+      <h3>
+        {lang === "ro" ? "Independența software" : "Software independence"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -204,9 +275,15 @@ export function ResilienceView() {
           <tbody>
             {SOFTWARE_STACK.map((r, i) => (
               <tr key={i}>
-                <td className="dim"><T text={pick(r.layer, lang)} /></td>
-                <td><T text={pick(r.current, lang)} /></td>
-                <td><T text={pick(r.target, lang)} /></td>
+                <td className="dim">
+                  <T text={tt(r.layer)} />
+                </td>
+                <td>
+                  <T text={tt(r.current)} />
+                </td>
+                <td>
+                  <T text={tt(r.target)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -221,29 +298,50 @@ export function ResilienceView() {
       <div className="grid-cards">
         {EDU_RESEARCH.map((e, i) => (
           <div key={i} className="card">
-            <strong><T text={pick(e.theme, lang)} /></strong>
-            <p><T text={pick(e.what, lang)} /></p>
+            <strong>
+              <T text={tt(e.theme)} />
+            </strong>
+            <p>
+              <T text={tt(e.what)} />
+            </p>
           </div>
         ))}
       </div>
 
+      <UatPlanNote />
       <div className="pillars" style={{ marginTop: 12 }}>
         <section className="pillar">
-          <h4>{lang === "ro" ? "Reguli de backup & testare" : "Backup & testing rules"}</h4>
+          <h4>
+            {lang === "ro"
+              ? "Reguli de backup & testare"
+              : "Backup & testing rules"}
+          </h4>
           <ul>
             {BACKUP_RULES.map((r, i) => (
-              <li key={i}><T text={pick(r, lang)} /></li>
+              <li key={i}>
+                <T text={tt(r)} />
+              </li>
             ))}
           </ul>
         </section>
         <section className="pillar">
-          <h4>{lang === "ro" ? "Costuri de reziliență (estimare)" : "Resilience costs (estimate)"}</h4>
+          <h4>
+            {lang === "ro"
+              ? "Costuri de reziliență (estimare)"
+              : "Resilience costs (estimate)"}
+          </h4>
           <ul className="cost-list">
             {RESILIENCE_COSTS.map((c, i) => (
               <li key={i}>
-                <span><T text={pick(c.item, lang)} /></span>
+                <span>
+                  <T text={tt(c.item)} />
+                </span>
                 <em>
-                  {c.quantity} · {c.unitCost} = {c.total}
+                  {c.dynamic === "uat-ups"
+                    ? `≈${fmtUnits(plan.units)}`
+                    : c.quantity}{" "}
+                  · {c.unitCost} ={" "}
+                  {c.dynamic === "uat-ups" ? uatUpsTotal(plan) : c.total}
                 </em>
               </li>
             ))}

@@ -97,7 +97,7 @@ export const HR_TEAMS: HrTeam[] = [
   {
     key: "field",
     team: { ro: "L0 & suport de teren", en: "L0 & field support" },
-    layer: { ro: "Unități locale (≈682)", en: "Local units (≈682)" },
+    layer: { ro: "Unități locale (≈{units})", en: "Local units (≈{units})" },
     fte: "20–35",
     roles: {
       ro: "1–2 tehnicieni per județ (42), helpdesk central ×8–12, traineri ×2–3",
@@ -312,8 +312,8 @@ export const HR_INSTITUTIONS: HrInstitution[] = [
   {
     key: "uat",
     institution: {
-      ro: "Unități locale (≈682 după reforma administrativă)",
-      en: "Local units (≈682 after the administrative reform)",
+      ro: "Unități locale (≈{units} după reforma administrativă)",
+      en: "Local units (≈{units} after the administrative reform)",
     },
     fte: "1 per unitate (valuri)",
     focus: {

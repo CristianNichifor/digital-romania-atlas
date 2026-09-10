@@ -9,6 +9,7 @@ import {
 } from "../data/institutions";
 import { FLOWS, FLOW_COLORS, FLOW_LABELS, type FlowKind } from "../data/flows";
 import { pick, useLang } from "../i18n";
+import { useUatPlan } from "../lib/uatPlan";
 
 type Mode = "current" | "proposed" | "diff";
 
@@ -29,13 +30,26 @@ const W = 960;
 const H = 720;
 
 const MODE_LABELS: { id: Mode; ro: string; en: string }[] = [
-  { id: "current", ro: "Propunerea actuală (doc GitHub MAI)", en: "Current proposal (MAI GitHub docs)" },
-  { id: "proposed", ro: "Propunerea noastră (extinsă)", en: "Our proposal (extended)" },
-  { id: "diff", ro: "Diferența (doar ce adăugăm)", en: "Diff (only what we add)" },
+  {
+    id: "current",
+    ro: "Propunerea actuală (doc GitHub MAI)",
+    en: "Current proposal (MAI GitHub docs)",
+  },
+  {
+    id: "proposed",
+    ro: "Propunerea noastră (extinsă)",
+    en: "Our proposal (extended)",
+  },
+  {
+    id: "diff",
+    ro: "Diferența (doar ce adăugăm)",
+    en: "Diff (only what we add)",
+  },
 ];
 
 export function FlowGraph() {
   const { lang } = useLang();
+  const { fill } = useUatPlan();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [mode, setMode] = useState<Mode>("proposed");
   const [kindFilter, setKindFilter] = useState<FlowKind | null>(null);
@@ -70,8 +84,8 @@ export function FlowGraph() {
       source: f.from,
       target: f.to,
       kind: f.kind,
-      label: pick(f.label, lang),
-      tech: f.tech ? pick(f.tech, lang) : undefined,
+      label: fill(pick(f.label, lang)),
+      tech: f.tech ? fill(pick(f.tech, lang)) : undefined,
       status: f.status,
     }));
 
@@ -111,7 +125,9 @@ export function FlowGraph() {
         if (mode === "diff") return d.status === "proposed" ? 0.9 : 0.1;
         return d.status === "proposed" ? 0.85 : 0.55;
       })
-      .attr("stroke-width", (d) => (d.kind === "payment" || d.kind === "backbone" ? 2.4 : 1.6))
+      .attr("stroke-width", (d) =>
+        d.kind === "payment" || d.kind === "backbone" ? 2.4 : 1.6
+      )
       .attr("stroke-dasharray", (d) =>
         d.kind === "oversight" || d.kind === "governance" ? "5,4" : null
       )
@@ -165,7 +181,9 @@ export function FlowGraph() {
       .on("mouseenter", (ev, d) => {
         const sel = d3.select(ev.currentTarget as SVGGElement);
         const inst = INSTITUTIONS.find((i) => i.id === d.id);
-        sel.select("circle").attr("r", (n) => ((n as GNode).category === "user" ? 17 : 12));
+        sel
+          .select("circle")
+          .attr("r", (n) => ((n as GNode).category === "user" ? 17 : 12));
         sel
           .append("text")
           .attr("class", "graph-name")
@@ -178,7 +196,9 @@ export function FlowGraph() {
           .attr("x", 16)
           .attr("y", 30)
           .text(
-            inst ? `${pick(inst.role, lang)} · ${pick(CATEGORY_LABELS[inst.category], lang)}` : ""
+            inst
+              ? `${pick(inst.role, lang)} · ${pick(CATEGORY_LABELS[inst.category], lang)}`
+              : ""
           );
         setHoverInst(inst ?? null);
         setHoverFlow(null);
@@ -186,7 +206,9 @@ export function FlowGraph() {
       .on("mouseleave", (ev) => {
         const sel = d3.select(ev.currentTarget as SVGGElement);
         sel.selectAll("text.graph-name, text.graph-role").remove();
-        sel.select("circle").attr("r", (n) => ((n as GNode).category === "user" ? 14 : 9));
+        sel
+          .select("circle")
+          .attr("r", (n) => ((n as GNode).category === "user" ? 14 : 9));
         setHoverInst(null);
       });
 
@@ -197,7 +219,9 @@ export function FlowGraph() {
         d3
           .forceLink<GNode, GLink>(links)
           .id((d) => d.id)
-          .distance((d) => (d.kind === "oversight" || d.kind === "governance" ? 150 : 90))
+          .distance((d) =>
+            d.kind === "oversight" || d.kind === "governance" ? 150 : 90
+          )
       )
       .force("charge", d3.forceManyBody().strength(-380))
       .force("center", d3.forceCenter(W / 2, H / 2))
@@ -215,17 +239,22 @@ export function FlowGraph() {
     return () => {
       sim.stop();
     };
-  }, [mode, kindFilter, catFilter, lang]);
+  }, [mode, kindFilter, catFilter, lang, fill]);
 
   const newCount = useMemo(
-    () => (mode === "diff" ? FLOWS.filter((f) => f.status === "proposed").length : 0),
+    () =>
+      mode === "diff" ? FLOWS.filter((f) => f.status === "proposed").length : 0,
     [mode]
   );
 
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>{lang === "ro" ? "Fluxuri de date între părți" : "Data flows between parties"}</h2>
+        <h2>
+          {lang === "ro"
+            ? "Fluxuri de date între părți"
+            : "Data flows between parties"}
+        </h2>
         <div className="mode-toggle">
           {MODE_LABELS.map((m) => (
             <button
@@ -242,44 +271,60 @@ export function FlowGraph() {
         <div className="diff-banner">
           {lang === "ro" ? (
             <>
-              <strong>{newCount} fluxuri noi</strong> adăugate de propunere (evidențiate). Ce e
-              estompat există deja în ecosistemul documentat.
+              <strong>{newCount} fluxuri noi</strong> adăugate de propunere
+              (evidențiate). Ce e estompat există deja în ecosistemul
+              documentat.
             </>
           ) : (
             <>
-              <strong>{newCount} new flows</strong> added by the proposal (highlighted). The dimmed
-              ones already exist in the documented ecosystem.
+              <strong>{newCount} new flows</strong> added by the proposal
+              (highlighted). The dimmed ones already exist in the documented
+              ecosystem.
             </>
           )}
         </div>
       )}
       <div className="legend-row">
-        <span className="legend-caption">{lang === "ro" ? "Fluxuri:" : "Flows:"}</span>
+        <span className="legend-caption">
+          {lang === "ro" ? "Fluxuri:" : "Flows:"}
+        </span>
         <div className="legend">
           {Object.entries(FLOW_LABELS).map(([k, label]) => (
             <button
               key={k}
               className={`legend-chip ${kindFilter === k ? "active" : ""}`}
               style={{ borderColor: FLOW_COLORS[k as FlowKind] }}
-              onClick={() => setKindFilter(kindFilter === k ? null : (k as FlowKind))}
+              onClick={() =>
+                setKindFilter(kindFilter === k ? null : (k as FlowKind))
+              }
             >
-              <span className="dot" style={{ background: FLOW_COLORS[k as FlowKind] }} />
+              <span
+                className="dot"
+                style={{ background: FLOW_COLORS[k as FlowKind] }}
+              />
               {pick(label, lang)}
             </button>
           ))}
         </div>
       </div>
       <div className="legend-row">
-        <span className="legend-caption">{lang === "ro" ? "Instituții:" : "Institutions:"}</span>
+        <span className="legend-caption">
+          {lang === "ro" ? "Instituții:" : "Institutions:"}
+        </span>
         <div className="legend">
           {Object.entries(CATEGORY_LABELS).map(([cat, label]) => (
             <button
               key={cat}
               className={`legend-chip ${catFilter === cat ? "active" : ""}`}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
-              onClick={() => setCatFilter(catFilter === cat ? null : (cat as Category))}
+              onClick={() =>
+                setCatFilter(catFilter === cat ? null : (cat as Category))
+              }
             >
-              <span className="dot" style={{ background: CATEGORY_COLORS[cat as Category] }} />
+              <span
+                className="dot"
+                style={{ background: CATEGORY_COLORS[cat as Category] }}
+              />
               {pick(label, lang)}
             </button>
           ))}
@@ -293,8 +338,8 @@ export function FlowGraph() {
           </span>
         ) : hoverInst ? (
           <span>
-            <strong>{hoverInst.acronym}</strong> — {pick(hoverInst.name, lang)} ·{" "}
-            <em>{pick(hoverInst.role, lang)}</em> ·{" "}
+            <strong>{hoverInst.acronym}</strong> — {pick(hoverInst.name, lang)}{" "}
+            · <em>{pick(hoverInst.role, lang)}</em> ·{" "}
             {pick(CATEGORY_LABELS[hoverInst.category], lang)}
           </span>
         ) : (

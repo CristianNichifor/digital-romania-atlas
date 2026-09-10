@@ -13,8 +13,14 @@ import {
   SAVINGS,
 } from "../data/strategy";
 import { HR_INSTITUTIONS, HR_PAYROLL, HR_TEAMS, PAY_ROWS } from "../data/hr";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, type Bi } from "../i18n";
 import { T } from "./T";
+import {
+  UatPlanNote,
+  uatMiniTotal,
+  uatRollout,
+  useUatPlan,
+} from "../lib/uatPlan";
 
 const STATUS_LABEL: Record<string, { ro: string; en: string }> = {
   "in-flight": { ro: "În curs", en: "In flight" },
@@ -30,6 +36,8 @@ const STATUS_CLASS: Record<string, string> = {
 
 export function StrategyView() {
   const { lang } = useLang();
+  const { plan, fill, fmtUnits } = useUatPlan();
+  const tt = (b: Bi) => fill(pick(b, lang));
   return (
     <div className="panel strategy">
       <div className="panel-head">
@@ -62,18 +70,18 @@ export function StrategyView() {
                   {l.id}
                   <br />
                   <span className="layer-name">
-                    <T text={pick(l.name, lang)} />
+                    <T text={tt(l.name)} />
                   </span>
                 </td>
                 <td>
-                  <T text={pick(l.what, lang)} />
+                  <T text={tt(l.what)} />
                 </td>
                 <td>
-                  <T text={pick(l.owner, lang)} />
+                  <T text={tt(l.owner)} />
                 </td>
                 <td>
                   <span className={`verdict ${STATUS_CLASS[l.status]}`}>
-                    {pick(STATUS_LABEL[l.status], lang)}
+                    {tt(STATUS_LABEL[l.status])}
                   </span>
                 </td>
               </tr>
@@ -85,14 +93,14 @@ export function StrategyView() {
       <h3>{lang === "ro" ? "Cei șase piloni" : "The six pillars"}</h3>
       <div className="pillars">
         {PILLARS.map((p) => (
-          <section key={pick(p.title, "ro")} className="pillar">
+          <section key={tt(p.title)} className="pillar">
             <h4>
-              <T text={pick(p.title, lang)} />
+              <T text={tt(p.title)} />
             </h4>
             <ul>
               {p.items.map((it, i) => (
                 <li key={i}>
-                  <T text={pick(it, lang)} />
+                  <T text={tt(it)} />
                 </li>
               ))}
             </ul>
@@ -119,16 +127,16 @@ export function StrategyView() {
             {REDUNDANCY_TIERS.map((t) => (
               <tr key={t.tier}>
                 <td className="dim">
-                  {t.tier} — <T text={pick(t.name, lang)} />
+                  {t.tier} — <T text={tt(t.name)} />
                 </td>
                 <td>
-                  <T text={pick(t.examples, lang)} />
+                  <T text={tt(t.examples)} />
                 </td>
                 <td>
                   <strong>{String(t.target)}</strong>
                 </td>
                 <td>
-                  <T text={pick(t.mechanism, lang)} />
+                  <T text={tt(t.mechanism)} />
                 </td>
               </tr>
             ))}
@@ -141,6 +149,7 @@ export function StrategyView() {
           ? "Resurse & costuri (estimare pe 5 ani)"
           : "Resources & costs (5-year estimate)"}
       </h3>
+      <UatPlanNote />
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
@@ -152,15 +161,19 @@ export function StrategyView() {
           </thead>
           <tbody>
             {COSTS.map((c) => (
-              <tr key={pick(c.item, "ro")}>
+              <tr key={tt(c.item)}>
                 <td className="dim">
-                  <T text={pick(c.item, lang)} />
+                  <T text={tt(c.item)} />
                 </td>
                 <td>
-                  <strong>{c.estimate}</strong>
+                  <strong>
+                    {c.dynamic === "uat-rollout"
+                      ? uatRollout(plan)
+                      : c.estimate}
+                  </strong>
                 </td>
                 <td>
-                  <T text={pick(c.notes, lang)} />
+                  <T text={tt(c.notes)} />
                 </td>
               </tr>
             ))}
@@ -185,14 +198,20 @@ export function StrategyView() {
           </thead>
           <tbody>
             {MACHINES.map((m) => (
-              <tr key={pick(m.item, "ro")}>
+              <tr key={tt(m.item)}>
                 <td className="dim">
-                  <T text={pick(m.item, lang)} />
+                  <T text={tt(m.item)} />
                 </td>
-                <td>{m.quantity}</td>
+                <td>
+                  {m.dynamic === "uat-mini"
+                    ? `≈${fmtUnits(plan.units)}`
+                    : m.quantity}
+                </td>
                 <td>{m.unitCost}</td>
                 <td>
-                  <strong>{m.total}</strong>
+                  <strong>
+                    {m.dynamic === "uat-mini" ? uatMiniTotal(plan) : m.total}
+                  </strong>
                 </td>
               </tr>
             ))}
@@ -229,19 +248,19 @@ export function StrategyView() {
             {HR_TEAMS.map((t) => (
               <tr key={t.key}>
                 <td className="dim">
-                  <T text={pick(t.team, lang)} />
+                  <T text={tt(t.team)} />
                 </td>
                 <td>
-                  <T text={pick(t.layer, lang)} />
+                  <T text={tt(t.layer)} />
                 </td>
                 <td>
                   <strong>{t.fte}</strong>
                 </td>
                 <td>
-                  <T text={pick(t.roles, lang)} />
+                  <T text={tt(t.roles)} />
                 </td>
                 <td>
-                  <T text={pick(t.notes, lang)} />
+                  <T text={tt(t.notes)} />
                 </td>
               </tr>
             ))}
@@ -268,16 +287,16 @@ export function StrategyView() {
             {HR_INSTITUTIONS.map((h) => (
               <tr key={h.key}>
                 <td className="dim">
-                  <T text={pick(h.institution, lang)} />
+                  <T text={tt(h.institution)} />
                 </td>
                 <td>
                   <strong>{h.fte}</strong>
                 </td>
                 <td>
-                  <T text={pick(h.focus, lang)} />
+                  <T text={tt(h.focus)} />
                 </td>
                 <td>
-                  <T text={pick(h.pay, lang)} />
+                  <T text={tt(h.pay)} />
                 </td>
               </tr>
             ))}
@@ -320,7 +339,7 @@ export function StrategyView() {
             {PAY_ROWS.map((p) => (
               <tr key={p.key}>
                 <td className="dim">
-                  <T text={pick(p.role, lang)} />
+                  <T text={tt(p.role)} />
                 </td>
                 <td>
                   <strong>{p.roBand}</strong> /an
@@ -334,7 +353,7 @@ export function StrategyView() {
         </table>
       </div>
       <p className="muted note">
-        <T text={pick(HR_PAYROLL, lang)} />
+        <T text={tt(HR_PAYROLL)} />
       </p>
 
       <h3>{lang === "ro" ? "Economii estimate" : "Estimated savings"}</h3>
@@ -349,15 +368,15 @@ export function StrategyView() {
           </thead>
           <tbody>
             {SAVINGS.map((s) => (
-              <tr key={pick(s.item, "ro")}>
+              <tr key={tt(s.item)}>
                 <td className="dim">
-                  <T text={pick(s.item, lang)} />
+                  <T text={tt(s.item)} />
                 </td>
                 <td>
                   <strong>{s.estimate}</strong>
                 </td>
                 <td>
-                  <T text={pick(s.basis, lang)} />
+                  <T text={tt(s.basis)} />
                 </td>
               </tr>
             ))}
@@ -374,10 +393,10 @@ export function StrategyView() {
         {PORTALS.map((p) => (
           <div key={p.id} className="portal-card">
             <strong>
-              <T text={pick(p.name, lang)} />
+              <T text={tt(p.name)} />
             </strong>
             <p>
-              <T text={pick(p.what, lang)} />
+              <T text={tt(p.what)} />
             </p>
           </div>
         ))}
@@ -411,18 +430,18 @@ export function StrategyView() {
           </thead>
           <tbody>
             {INVENTORY.map((r) => (
-              <tr key={pick(r.sector, "ro")}>
+              <tr key={tt(r.sector)}>
                 <td className="dim">
-                  <T text={pick(r.sector, lang)} />
+                  <T text={tt(r.sector)} />
                 </td>
                 <td>
-                  <T text={pick(r.services, lang)} />
+                  <T text={tt(r.services)} />
                 </td>
                 <td>
-                  <T text={pick(r.operator, lang)} />
+                  <T text={tt(r.operator)} />
                 </td>
                 <td>
-                  <T text={pick(r.note, lang)} />
+                  <T text={tt(r.note)} />
                 </td>
               </tr>
             ))}
@@ -440,15 +459,15 @@ export function StrategyView() {
           </thead>
           <tbody>
             {CONSOLIDATION.map((r) => (
-              <tr key={pick(r.action, "ro")}>
+              <tr key={tt(r.action)}>
                 <td className="dim">
-                  <T text={pick(r.action, lang)} />
+                  <T text={tt(r.action)} />
                 </td>
                 <td>
-                  <T text={pick(r.systems, lang)} />
+                  <T text={tt(r.systems)} />
                 </td>
                 <td>
-                  <T text={pick(r.destination, lang)} />
+                  <T text={tt(r.destination)} />
                 </td>
               </tr>
             ))}
@@ -466,15 +485,15 @@ export function StrategyView() {
           </thead>
           <tbody>
             {CUTOVER.map((c) => (
-              <tr key={pick(c.phase, "ro")}>
+              <tr key={tt(c.phase)}>
                 <td className="dim">
-                  <T text={pick(c.phase, lang)} />
+                  <T text={tt(c.phase)} />
                 </td>
                 <td>
-                  <T text={pick(c.period, lang)} />
+                  <T text={tt(c.period)} />
                 </td>
                 <td>
-                  <T text={pick(c.actions, lang)} />
+                  <T text={tt(c.actions)} />
                 </td>
               </tr>
             ))}
@@ -491,7 +510,7 @@ export function StrategyView() {
           <ul>
             {GOV_RULES.map((r, i) => (
               <li key={i}>
-                <T text={pick(r, lang)} />
+                <T text={tt(r)} />
               </li>
             ))}
           </ul>
@@ -501,7 +520,7 @@ export function StrategyView() {
           <ul>
             {KPIS.map((k, i) => (
               <li key={i}>
-                <T text={pick(k, lang)} />
+                <T text={tt(k)} />
               </li>
             ))}
           </ul>

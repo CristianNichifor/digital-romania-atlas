@@ -40,8 +40,14 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
-    Arial, sans-serif;
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   font-size: 15px;
   line-height: var(--line);
   -webkit-font-smoothing: antialiased;
@@ -861,6 +867,11 @@ footer code {
   padding: 1px 6px;
   border-radius: 4px;
   font-size: 11.5px;
+}
+
+.uat-note.live {
+  border-left: 3px solid #2ecc71;
+  padding-left: 10px;
 }
 
 .timeline {

@@ -88,6 +88,7 @@ export interface CostRow {
   item: Bi;
   estimate: string;
   notes: Bi;
+  dynamic?: "uat-rollout";
 }
 
 export const COSTS: CostRow[] = [
@@ -115,10 +116,11 @@ export const COSTS: CostRow[] = [
   },
   {
     item: { ro: "Rollout endpoint L0", en: "L0 endpoint rollout" },
-    estimate: "8–15M €",
+    estimate: "—",
+    dynamic: "uat-rollout",
     notes: {
-      ro: "≈682 unități după reforma administrativă (de la ~3.200); servicii și training; licențe ≈ 0",
-      en: "≈682 units after the administrative reform (from ~3,200); services and training; licences ≈ 0",
+      ro: "≈{units} unități după reforma administrativă (de la ≈{baseline}); servicii și training; licențe ≈ 0",
+      en: "≈{units} units after the administrative reform (from ≈{baseline}); services and training; licences ≈ 0",
     },
   },
   {
@@ -396,6 +398,7 @@ export interface MachineRow {
   quantity: string;
   unitCost: string;
   total: string;
+  dynamic?: "uat-mini";
 }
 
 export const MACHINES: MachineRow[] = [
@@ -431,9 +434,10 @@ export const MACHINES: MachineRow[] = [
       ro: "Mini-servere locale (hub L0 per unitate administrativă)",
       en: "Local mini-servers (L0 hub per administrative unit)",
     },
-    quantity: "≈682",
+    quantity: "≈{units}",
     unitCost: "1–1,5k € (sau PC-uri reutilizate)",
-    total: "0,7–1M €",
+    total: "—",
+    dynamic: "uat-mini",
   },
   {
     item: {
@@ -632,8 +636,8 @@ export const INVENTORY: InventoryRow[] = [
   {
     sector: { ro: "Local", en: "Local" },
     services: {
-      ro: "~3.200 de site-uri UAT cu formulare proprii (≈682 unități după reforma administrativă)",
-      en: "~3,200 UAT websites with bespoke forms (≈682 units after the administrative reform)",
+      ro: "≈{baseline} de site-uri UAT cu formulare proprii (≈{units} unități după reforma administrativă)",
+      en: "≈{baseline} UAT websites with bespoke forms (≈{units} units after the administrative reform)",
     },
     operator: { ro: "fiecare primărie", en: "each town hall" },
     note: { ro: "zero standard", en: "zero standard" },
@@ -760,8 +764,8 @@ export const CONSOLIDATION: ConsolidationRow[] = [
   {
     action: { ro: "UAT-uri", en: "UATs" },
     systems: {
-      ro: "~3.200 de site-uri bespoke → o platformă unică cu șabloane; după reforma administrativă rămân ≈682 de unități (instanță per unitate pe hub-ul L0)",
-      en: "~3,200 bespoke sites → one templated platform; after the administrative reform ≈682 units remain (instance per unit on the L0 hub)",
+      ro: "≈{baseline} de site-uri bespoke → o platformă unică cu șabloane; după reforma administrativă rămân ≈{units} de unități (instanță per unitate pe hub-ul L0)",
+      en: "≈{baseline} bespoke sites → one templated platform; after the administrative reform ≈{units} units remain (instance per unit on the L0 hub)",
     },
     destination: { ro: "Portal p12 + L0", en: "Portal p12 + L0" },
   },
@@ -941,8 +945,8 @@ export const PILLARS: BulletGroup[] = [
         en: "Attestations are KB; status lists MB; logs GB–TB/year (<100 TB total)",
       },
       {
-        ro: "Ce nu scalează e integrarea: ≈682 de unități locale după reforma administrativă (de la ~3.200) și zeci de registre — conectori standard, înrolare în valuri",
-        en: "What doesn't scale is integration: ≈682 local units after the administrative reform (from ~3,200) and dozens of registries — standard connectors, wave-based enrollment",
+        ro: "Ce nu scalează e integrarea: ≈{units} de unități locale după reforma administrativă (de la ≈{baseline}) și zeci de registre — conectori standard, înrolare în valuri",
+        en: "What doesn't scale is integration: ≈{units} local units after the administrative reform (from ≈{baseline}) and dozens of registries — standard connectors, wave-based enrollment",
       },
       {
         ro: "Rollout L0 ca în propunerea endpoint: instalare USB, cod de înrolare, migrare chat-first, 8 săptămâni per primărie",

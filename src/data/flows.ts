@@ -623,8 +623,8 @@ export const FLOWS: Flow[] = [
       en: "Templated platform on the L0 hub (instance per UAT)",
     },
     tech: {
-      ro: "înlocuiește ~3.200 de site-uri (≈682 unități după reforma administrativă)",
-      en: "replaces ~3,200 sites (≈682 units after the administrative reform)",
+      ro: "înlocuiește ≈{baseline} de site-uri (≈{units} unități după reforma administrativă)",
+      en: "replaces ≈{baseline} sites (≈{units} units after the administrative reform)",
     },
     status: "proposed",
   },

@@ -10,6 +10,7 @@ import { SummaryView, type ViewId } from "./components/SummaryView";
 import { StoriesView } from "./components/StoriesView";
 import { SourcesView } from "./components/SourcesView";
 import { LangContext, type Lang } from "./i18n";
+import { UatPlanProvider } from "./lib/uatPlan";
 
 const VIEWS: { id: ViewId; ro: string; en: string }[] = [
   { id: "summary", ro: "Rezumat", en: "Summary" },
@@ -40,70 +41,76 @@ export default function App() {
 
   return (
     <LangContext.Provider value={{ lang, setLang }}>
-      <div className="app">
-        <header>
-          <div className="title">
-            <span className="logo">DR</span>
-            <div>
-              <h1>Digital Romania Atlas</h1>
-              <p>
-                {lang === "ro"
-                  ? "Ecosistemul RO EUDI Wallet vs. propunerea de backbone digital — instituții, fluxuri, comparație"
-                  : "The RO EUDI Wallet ecosystem vs. the digital backbone proposal — institutions, flows, comparison"}
-              </p>
+      <UatPlanProvider>
+        <div className="app">
+          <header>
+            <div className="title">
+              <span className="logo">DR</span>
+              <div>
+                <h1>Digital Romania Atlas</h1>
+                <p>
+                  {lang === "ro"
+                    ? "Ecosistemul RO EUDI Wallet vs. propunerea de backbone digital — instituții, fluxuri, comparație"
+                    : "The RO EUDI Wallet ecosystem vs. the digital backbone proposal — institutions, flows, comparison"}
+                </p>
+              </div>
             </div>
-          </div>
-          <nav>
-            {VIEWS.map((v) => (
+            <nav>
+              {VIEWS.map((v) => (
+                <button
+                  key={v.id}
+                  className={view === v.id ? "active" : ""}
+                  onClick={() => setView(v.id)}
+                >
+                  {lang === "ro" ? v.ro : v.en}
+                </button>
+              ))}
               <button
-                key={v.id}
-                className={view === v.id ? "active" : ""}
-                onClick={() => setView(v.id)}
+                className="lang-toggle"
+                onClick={() => setLang(lang === "ro" ? "en" : "ro")}
+                title={lang === "ro" ? "Switch to English" : "Comută în română"}
               >
-                {lang === "ro" ? v.ro : v.en}
+                {lang === "ro" ? "EN" : "RO"}
               </button>
-            ))}
-            <button
-              className="lang-toggle"
-              onClick={() => setLang(lang === "ro" ? "en" : "ro")}
-              title={lang === "ro" ? "Switch to English" : "Comută în română"}
-            >
-              {lang === "ro" ? "EN" : "RO"}
-            </button>
-          </nav>
-        </header>
-        <main>
-          {view === "summary" && <SummaryView onNavigate={setView} />}
-          {view === "stories" && <StoriesView />}
-          {view === "map" && <MapView />}
-          {view === "flows" && <FlowGraph />}
-          {view === "compare" && <CompareView />}
-          {view === "policy" && <PolicyView />}
-          {view === "timeline" && <TimelineView />}
-          {view === "strategy" && <StrategyView />}
-          {view === "resilience" && <ResilienceView />}
-          {view === "sources" && <SourcesView />}
-        </main>
-        <footer>
-          <p>
-            {lang === "ro" ? (
-              <>
-                Demonstrație open source — datele „actuale” provin din{" "}
-                <code>Ministerul-Afacerilor-Interne/rowallet-documentation</code> (CC-BY-4.0) și din
-                prezentările publice MAI. Propunerile marcate verde sunt de design, nu documente
-                oficiale.
-              </>
-            ) : (
-              <>
-                Open source demo — the “current” data comes from{" "}
-                <code>Ministerul-Afacerilor-Interne/rowallet-documentation</code> (CC-BY-4.0) and
-                public MAI presentations. Green-marked proposals are design opinions, not official
-                documents.
-              </>
-            )}
-          </p>
-        </footer>
-      </div>
+            </nav>
+          </header>
+          <main>
+            {view === "summary" && <SummaryView onNavigate={setView} />}
+            {view === "stories" && <StoriesView />}
+            {view === "map" && <MapView />}
+            {view === "flows" && <FlowGraph />}
+            {view === "compare" && <CompareView />}
+            {view === "policy" && <PolicyView />}
+            {view === "timeline" && <TimelineView />}
+            {view === "strategy" && <StrategyView />}
+            {view === "resilience" && <ResilienceView />}
+            {view === "sources" && <SourcesView />}
+          </main>
+          <footer>
+            <p>
+              {lang === "ro" ? (
+                <>
+                  Demonstrație open source — datele „actuale” provin din{" "}
+                  <code>
+                    Ministerul-Afacerilor-Interne/rowallet-documentation
+                  </code>{" "}
+                  (CC-BY-4.0) și din prezentările publice MAI. Propunerile
+                  marcate verde sunt de design, nu documente oficiale.
+                </>
+              ) : (
+                <>
+                  Open source demo — the “current” data comes from{" "}
+                  <code>
+                    Ministerul-Afacerilor-Interne/rowallet-documentation
+                  </code>{" "}
+                  (CC-BY-4.0) and public MAI presentations. Green-marked
+                  proposals are design opinions, not official documents.
+                </>
+              )}
+            </p>
+          </footer>
+        </div>
+      </UatPlanProvider>
     </LangContext.Provider>
   );
 }

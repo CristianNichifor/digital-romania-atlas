@@ -12,6 +12,7 @@ import {
   REDUNDANCY_TIERS,
   SAVINGS,
 } from "../data/strategy";
+import { HR_INSTITUTIONS, HR_PAYROLL, HR_TEAMS, PAY_ROWS } from "../data/hr";
 import { pick, useLang } from "../i18n";
 import { T } from "./T";
 
@@ -39,7 +40,11 @@ export function StrategyView() {
         </h2>
       </div>
 
-      <h3>{lang === "ro" ? "Arhitectura pe 7 straturi" : "The 7-layer architecture"}</h3>
+      <h3>
+        {lang === "ro"
+          ? "Arhitectura pe 7 straturi"
+          : "The 7-layer architecture"}
+      </h3>
       <div className="table-scroll">
         <table className="compare-table layer-table">
           <thead>
@@ -56,10 +61,16 @@ export function StrategyView() {
                 <td className="dim">
                   {l.id}
                   <br />
-                  <span className="layer-name"><T text={pick(l.name, lang)} /></span>
+                  <span className="layer-name">
+                    <T text={pick(l.name, lang)} />
+                  </span>
                 </td>
-                <td><T text={pick(l.what, lang)} /></td>
-                <td><T text={pick(l.owner, lang)} /></td>
+                <td>
+                  <T text={pick(l.what, lang)} />
+                </td>
+                <td>
+                  <T text={pick(l.owner, lang)} />
+                </td>
                 <td>
                   <span className={`verdict ${STATUS_CLASS[l.status]}`}>
                     {pick(STATUS_LABEL[l.status], lang)}
@@ -75,10 +86,14 @@ export function StrategyView() {
       <div className="pillars">
         {PILLARS.map((p) => (
           <section key={pick(p.title, "ro")} className="pillar">
-            <h4><T text={pick(p.title, lang)} /></h4>
+            <h4>
+              <T text={pick(p.title, lang)} />
+            </h4>
             <ul>
               {p.items.map((it, i) => (
-                <li key={i}><T text={pick(it, lang)} /></li>
+                <li key={i}>
+                  <T text={pick(it, lang)} />
+                </li>
               ))}
             </ul>
           </section>
@@ -106,11 +121,15 @@ export function StrategyView() {
                 <td className="dim">
                   {t.tier} — <T text={pick(t.name, lang)} />
                 </td>
-                <td><T text={pick(t.examples, lang)} /></td>
+                <td>
+                  <T text={pick(t.examples, lang)} />
+                </td>
                 <td>
                   <strong>{String(t.target)}</strong>
                 </td>
-                <td><T text={pick(t.mechanism, lang)} /></td>
+                <td>
+                  <T text={pick(t.mechanism, lang)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -134,11 +153,15 @@ export function StrategyView() {
           <tbody>
             {COSTS.map((c) => (
               <tr key={pick(c.item, "ro")}>
-                <td className="dim"><T text={pick(c.item, lang)} /></td>
+                <td className="dim">
+                  <T text={pick(c.item, lang)} />
+                </td>
                 <td>
                   <strong>{c.estimate}</strong>
                 </td>
-                <td><T text={pick(c.notes, lang)} /></td>
+                <td>
+                  <T text={pick(c.notes, lang)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -146,7 +169,9 @@ export function StrategyView() {
       </div>
 
       <h3>
-        {lang === "ro" ? "Mașini & echipamente necesare" : "Machines & equipment required"}
+        {lang === "ro"
+          ? "Mașini & echipamente necesare"
+          : "Machines & equipment required"}
       </h3>
       <div className="table-scroll">
         <table className="compare-table">
@@ -161,7 +186,9 @@ export function StrategyView() {
           <tbody>
             {MACHINES.map((m) => (
               <tr key={pick(m.item, "ro")}>
-                <td className="dim"><T text={pick(m.item, lang)} /></td>
+                <td className="dim">
+                  <T text={pick(m.item, lang)} />
+                </td>
                 <td>{m.quantity}</td>
                 <td>{m.unitCost}</td>
                 <td>
@@ -172,6 +199,143 @@ export function StrategyView() {
           </tbody>
         </table>
       </div>
+
+      <h3>
+        {lang === "ro"
+          ? "Resurse umane — cum arată echipele"
+          : "Human resources — how the teams look"}
+      </h3>
+      <p className="muted note">
+        <T
+          text={
+            lang === "ro"
+              ? "Principiu: talent local în primul rând, top-up de 10–20% pentru competențe rare (crypto, securitate) și o agenție digitală cu grilă proprie, care scapă de plafoanele de salarizare bugetară. Fiecare echipă este mică, dedicată unui strat, cu on-call și responsabilitate de capăt la capăt."
+              : "Principle: local talent first, a 10–20% top-up for rare skills (crypto, security) and a digital agency with its own pay grid that escapes public-sector pay caps. Each team is small, dedicated to one layer, with on-call and end-to-end ownership."
+          }
+        />
+      </p>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Echipă" : "Team"}</th>
+              <th>{lang === "ro" ? "Strat" : "Layer"}</th>
+              <th>{lang === "ro" ? "FTE" : "FTE"}</th>
+              <th>{lang === "ro" ? "Roluri" : "Roles"}</th>
+              <th>{lang === "ro" ? "Notă" : "Note"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {HR_TEAMS.map((t) => (
+              <tr key={t.key}>
+                <td className="dim">
+                  <T text={pick(t.team, lang)} />
+                </td>
+                <td>
+                  <T text={pick(t.layer, lang)} />
+                </td>
+                <td>
+                  <strong>{t.fte}</strong>
+                </td>
+                <td>
+                  <T text={pick(t.roles, lang)} />
+                </td>
+                <td>
+                  <T text={pick(t.notes, lang)} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>
+        {lang === "ro"
+          ? "Resurse umane — pe instituție"
+          : "Human resources — per institution"}
+      </h3>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Instituție" : "Institution"}</th>
+              <th>{lang === "ro" ? "FTE" : "FTE"}</th>
+              <th>{lang === "ro" ? "Focus" : "Focus"}</th>
+              <th>{lang === "ro" ? "Notă salarizare" : "Pay note"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {HR_INSTITUTIONS.map((h) => (
+              <tr key={h.key}>
+                <td className="dim">
+                  <T text={pick(h.institution, lang)} />
+                </td>
+                <td>
+                  <strong>{h.fte}</strong>
+                </td>
+                <td>
+                  <T text={pick(h.focus, lang)} />
+                </td>
+                <td>
+                  <T text={pick(h.pay, lang)} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>
+        {lang === "ro"
+          ? "Niveluri salariale: piața românească vs. remote internațional"
+          : "Pay levels: Romanian market vs. international remote"}
+      </h3>
+      <p className="muted note">
+        <T
+          text={
+            lang === "ro"
+              ? "Cifre anuale brute angajator (cost total, inclusiv contribuții), în k€. Benzile RO reflectă piața privată românească din 2026; benzile EU sunt pentru aceleași roluri lucrate remote din România pentru angajatori externi — competiția directă a statului."
+              : "Annual gross-to-employer figures (total cost, contributions included), in k€. RO bands reflect the 2026 Romanian private market; EU bands are the same roles working remotely from Romania for foreign employers — the state's direct competition."
+          }
+        />
+      </p>
+      <div className="table-scroll">
+        <table className="compare-table">
+          <thead>
+            <tr>
+              <th>{lang === "ro" ? "Rol" : "Role"}</th>
+              <th>
+                {lang === "ro"
+                  ? "România (brut angajator)"
+                  : "Romania (total cost)"}
+              </th>
+              <th>
+                {lang === "ro"
+                  ? "Remote UE / internațional"
+                  : "EU / international remote"}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {PAY_ROWS.map((p) => (
+              <tr key={p.key}>
+                <td className="dim">
+                  <T text={pick(p.role, lang)} />
+                </td>
+                <td>
+                  <strong>{p.roBand}</strong> /an
+                </td>
+                <td>
+                  <strong>{p.euBand}</strong> /an
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="muted note">
+        <T text={pick(HR_PAYROLL, lang)} />
+      </p>
 
       <h3>{lang === "ro" ? "Economii estimate" : "Estimated savings"}</h3>
       <div className="table-scroll">
@@ -186,11 +350,15 @@ export function StrategyView() {
           <tbody>
             {SAVINGS.map((s) => (
               <tr key={pick(s.item, "ro")}>
-                <td className="dim"><T text={pick(s.item, lang)} /></td>
+                <td className="dim">
+                  <T text={pick(s.item, lang)} />
+                </td>
                 <td>
                   <strong>{s.estimate}</strong>
                 </td>
-                <td><T text={pick(s.basis, lang)} /></td>
+                <td>
+                  <T text={pick(s.basis, lang)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -205,8 +373,12 @@ export function StrategyView() {
       <div className="portals">
         {PORTALS.map((p) => (
           <div key={p.id} className="portal-card">
-            <strong><T text={pick(p.name, lang)} /></strong>
-            <p><T text={pick(p.what, lang)} /></p>
+            <strong>
+              <T text={pick(p.name, lang)} />
+            </strong>
+            <p>
+              <T text={pick(p.what, lang)} />
+            </p>
           </div>
         ))}
       </div>
@@ -230,7 +402,9 @@ export function StrategyView() {
           <thead>
             <tr>
               <th>{lang === "ro" ? "Sector" : "Sector"}</th>
-              <th>{lang === "ro" ? "Servicii existente" : "Existing services"}</th>
+              <th>
+                {lang === "ro" ? "Servicii existente" : "Existing services"}
+              </th>
               <th>{lang === "ro" ? "Operator" : "Operator"}</th>
               <th>{lang === "ro" ? "Notă" : "Note"}</th>
             </tr>
@@ -238,10 +412,18 @@ export function StrategyView() {
           <tbody>
             {INVENTORY.map((r) => (
               <tr key={pick(r.sector, "ro")}>
-                <td className="dim"><T text={pick(r.sector, lang)} /></td>
-                <td><T text={pick(r.services, lang)} /></td>
-                <td><T text={pick(r.operator, lang)} /></td>
-                <td><T text={pick(r.note, lang)} /></td>
+                <td className="dim">
+                  <T text={pick(r.sector, lang)} />
+                </td>
+                <td>
+                  <T text={pick(r.services, lang)} />
+                </td>
+                <td>
+                  <T text={pick(r.operator, lang)} />
+                </td>
+                <td>
+                  <T text={pick(r.note, lang)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -259,9 +441,15 @@ export function StrategyView() {
           <tbody>
             {CONSOLIDATION.map((r) => (
               <tr key={pick(r.action, "ro")}>
-                <td className="dim"><T text={pick(r.action, lang)} /></td>
-                <td><T text={pick(r.systems, lang)} /></td>
-                <td><T text={pick(r.destination, lang)} /></td>
+                <td className="dim">
+                  <T text={pick(r.action, lang)} />
+                </td>
+                <td>
+                  <T text={pick(r.systems, lang)} />
+                </td>
+                <td>
+                  <T text={pick(r.destination, lang)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -279,9 +467,15 @@ export function StrategyView() {
           <tbody>
             {CUTOVER.map((c) => (
               <tr key={pick(c.phase, "ro")}>
-                <td className="dim"><T text={pick(c.phase, lang)} /></td>
-                <td><T text={pick(c.period, lang)} /></td>
-                <td><T text={pick(c.actions, lang)} /></td>
+                <td className="dim">
+                  <T text={pick(c.phase, lang)} />
+                </td>
+                <td>
+                  <T text={pick(c.period, lang)} />
+                </td>
+                <td>
+                  <T text={pick(c.actions, lang)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -289,10 +483,16 @@ export function StrategyView() {
       </div>
       <div className="pillars" style={{ marginTop: 12 }}>
         <section className="pillar">
-          <h4>{lang === "ro" ? "Patru reguli de guvernanță" : "Four governance rules"}</h4>
+          <h4>
+            {lang === "ro"
+              ? "Patru reguli de guvernanță"
+              : "Four governance rules"}
+          </h4>
           <ul>
             {GOV_RULES.map((r, i) => (
-              <li key={i}><T text={pick(r, lang)} /></li>
+              <li key={i}>
+                <T text={pick(r, lang)} />
+              </li>
             ))}
           </ul>
         </section>
@@ -300,7 +500,9 @@ export function StrategyView() {
           <h4>{lang === "ro" ? "KPI țintă 2028" : "2028 target KPIs"}</h4>
           <ul>
             {KPIS.map((k, i) => (
-              <li key={i}><T text={pick(k, lang)} /></li>
+              <li key={i}>
+                <T text={pick(k, lang)} />
+              </li>
             ))}
           </ul>
         </section>
@@ -309,8 +511,9 @@ export function StrategyView() {
       <p className="muted note">
         {lang === "ro" ? (
           <>
-            Sinteza include propunerea de „sistem de operare suveran” pentru administrația publică
-            (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —{" "}
+            Sinteza include propunerea de „sistem de operare suveran” pentru
+            administrația publică (Fedora Silverblue, WireGuard, FreeIPA,
+            Matrix, Nextcloud, ONLYOFFICE —{" "}
             <a
               href="https://danieltamas.com/blog/arhitectura-suverana"
               target="_blank"
@@ -318,15 +521,17 @@ export function StrategyView() {
             >
               danieltamas.com/blog/arhitectura-suverana
             </a>
-            ) ca straturi L0–L1: partea „instituțională” a aceleiași doctrine — nimic nu depinde
-            de un singur furnizor, un singur DC sau un singur minister, iar cetățeanul și
-            funcționarul continuă să lucreze când rețeaua cade. Cifrele sunt estimări de design,
-            nu documente oficiale.
+            ) ca straturi L0–L1: partea „instituțională” a aceleiași doctrine —
+            nimic nu depinde de un singur furnizor, un singur DC sau un singur
+            minister, iar cetățeanul și funcționarul continuă să lucreze când
+            rețeaua cade. Cifrele sunt estimări de design, nu documente
+            oficiale.
           </>
         ) : (
           <>
-            The synthesis includes the “sovereign operating system” proposal for public
-            administration (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —{" "}
+            The synthesis includes the “sovereign operating system” proposal for
+            public administration (Fedora Silverblue, WireGuard, FreeIPA,
+            Matrix, Nextcloud, ONLYOFFICE —{" "}
             <a
               href="https://danieltamas.com/blog/arhitectura-suverana"
               target="_blank"
@@ -334,10 +539,10 @@ export function StrategyView() {
             >
               danieltamas.com/blog/arhitectura-suverana
             </a>
-            ) as layers L0–L1: the “institutional” half of the same doctrine — nothing depends on
-            a single vendor, a single DC or a single ministry, and the citizen and the clerk both
-            keep working when the network dies. Figures are design estimates, not official
-            documents.
+            ) as layers L0–L1: the “institutional” half of the same doctrine —
+            nothing depends on a single vendor, a single DC or a single
+            ministry, and the citizen and the clerk both keep working when the
+            network dies. Figures are design estimates, not official documents.
           </>
         )}
       </p>

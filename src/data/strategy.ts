@@ -133,8 +133,8 @@ export const COSTS: CostRow[] = [
     item: { ro: "Echipă centrală", en: "Core team" },
     estimate: "150–250 FTE",
     notes: {
-      ro: "SRE, securitate, inginerie, design, PM + echipe per instituție",
-      en: "SRE, security, engineering, design, PM + per-institution squads",
+      ro: "SRE, securitate, inginerie, design, PM + echipe per instituție — detaliat în secțiunea Resurse umane de mai jos",
+      en: "SRE, security, engineering, design, PM + per-institution squads — detailed in the Human resources section below",
     },
   },
   {
@@ -294,7 +294,10 @@ export const PORTALS: Portal[] = [
   },
   {
     id: "p14",
-    name: { ro: "Portal civic (ONG/CivicTech)", en: "Civic portal (NGO/CivicTech)" },
+    name: {
+      ro: "Portal civic (ONG/CivicTech)",
+      en: "Civic portal (NGO/CivicTech)",
+    },
     what: {
       ro: "Acces structurat la date publice, rapoarte și ancore pentru verificare independentă",
       en: "Structured access to public data, reports and anchors for independent verification",
@@ -331,7 +334,10 @@ export const REDUNDANCY_TIERS: TierRow[] = [
       ro: "Emisie PID/EAA, revocare, registru STS",
       en: "PID/EAA issuance, revocation, STS registry",
     },
-    target: { ro: "RPO ≤ 5 min · RTO ≤ 30 min", en: "RPO ≤ 5 min · RTO ≤ 30 min" } as unknown as string,
+    target: {
+      ro: "RPO ≤ 5 min · RTO ≤ 30 min",
+      en: "RPO ≤ 5 min · RTO ≤ 30 min",
+    } as unknown as string,
     mechanism: {
       ro: "2+1 situri: două DC active (zone seismice diferite) + un DR pasiv; replicare sincronă/asincronă; HSM cuorum M-din-N pe ≥2 situri",
       en: "2+1 sites: two active DCs (different seismic zones) + one passive DR; sync/async replication; M-of-N HSM quorum across ≥2 sites",
@@ -632,7 +638,10 @@ export const CONSOLIDATION: ConsolidationRow[] = [
     },
   },
   {
-    action: { ro: "Se unifică în Portalul cetățean", en: "Merged into the Citizen Portal" },
+    action: {
+      ro: "Se unifică în Portalul cetățean",
+      en: "Merged into the Citizen Portal",
+    },
     systems: {
       ro: "Ghiseul.ro v2 absoarbe PSCID + majoritatea tranzacțiilor",
       en: "Ghiseul.ro v2 absorbs PSCID + most transactions",
@@ -640,7 +649,10 @@ export const CONSOLIDATION: ConsolidationRow[] = [
     destination: { ro: "Portal p1", en: "Portal p1" },
   },
   {
-    action: { ro: "Se unifică în Cutia Digitală", en: "Merged into the Digital Postbox" },
+    action: {
+      ro: "Se unifică în Cutia Digitală",
+      en: "Merged into the Digital Postbox",
+    },
     systems: {
       ro: "SPV (corespondența), notificările HUB MAI",
       en: "SPV (correspondence), HUB MAI notifications",
@@ -648,7 +660,10 @@ export const CONSOLIDATION: ConsolidationRow[] = [
     destination: { ro: "Portal p2", en: "Portal p2" },
   },
   {
-    action: { ro: "Cont fiscal unic (remake)", en: "Single tax account (remake)" },
+    action: {
+      ro: "Cont fiscal unic (remake)",
+      en: "Single tax account (remake)",
+    },
     systems: {
       ro: "SPV + e-Factura + e-Transport + e-TVA + SAF-T + e-Case → o singură intrare per contribuabil",
       en: "SPV + e-Factura + e-Transport + e-TVA + SAF-T + e-Case → one entry per taxpayer",
@@ -821,7 +836,10 @@ export const PILLARS: BulletGroup[] = [
     ],
   },
   {
-    title: { ro: "Open source & colaborare", en: "Open source & collaboration" },
+    title: {
+      ro: "Open source & colaborare",
+      en: "Open source & collaboration",
+    },
     items: [
       {
         ro: "Politică „bani publici, cod public”: EUPL-1.2 obligatoriu pentru L0–L6, ancorat în Interoperable Europe Act (2024/903)",

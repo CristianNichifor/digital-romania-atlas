@@ -18,18 +18,18 @@ header)
 
 ## What it shows
 
-| View | Content |
-|---|---|
-| **Rezumat** | "Romania digitală în 30 de secunde": what happens today, the 5 additions we propose, why it matters. |
-| **Povești** | Ten citizen stories with personas — rural pensioner, proof of age, local tax, medical attestation, diaspora bank account, university enrolment, sick leave, car purchase, land book extract, civic verification — each showing today vs. proposal with the involved flow steps. |
-| **Harta României** | County map with institutions as colored points (category-filterable). Small dots in every county = town halls (UAT) as assisted-enrollment / offline fallback points in the proposal. |
-| **Fluxuri de date** | Three toggleable force-directed graphs. *"Propunerea actuală"* reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). *"Propunerea noastră"* adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). *"Diferența"* dims the documented flows and highlights only what the proposal adds. Filter by flow type. |
-| **Comparație** | 13-dimension table: published documentation vs. our proposal, with status (aligned / extended / added). |
-| **Analiză** | Policy brief: the verdict (honour the EUDI obligation, not the current architecture as end state), the 4 construction facts from the MAI presentation, the 8 risks (institutional concentration, vendor lock-in, surveillance capability, parallel identities, thin scope, unpublished resilience, per-institution integration, aggressive timeline) with fixes, the 8-criterion comparison, and the concrete gains. |
-| **Calendar** | EU obligations, the national plan, and our proposed additions side by side. |
-| **Strategie** | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the six pillars (redundancy, open source, security, scalability, transparency anchors, educational & civic networks), redundancy tiers per service class, 5-year cost estimates, machines & equipment required, estimated savings, the 14 outward-facing portals, and the rationalisation of today's real state portals (inventory, consolidation map, governance rules, cutover phases). |
-| **Reziliență** | The 3+8+1+L0 model: three semi-active sovereign sites, eight regional micro-DCs with own power generation (one per development region), an underground salt-mine vault, and offline L0 nodes; energy-autonomy math per tier; Vrancea/flood/outage/cable/cyber scenarios; hardware independence (OCP, open ISA, OpenBMC); software independence; RoEduNet/academia integration; 3-2-1-1-0 backup rules; resilience costs. |
-| **Surse** | Provenance for every claim: MAI docs pinned at a specific commit, the MAI presentation, EU regulations, standards, the sovereign-OS article, and the verified state portals behind the rationalisation inventory. |
+| View                | Content                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Rezumat**         | "Romania digitală în 30 de secunde": what happens today, the 5 additions we propose, why it matters.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Povești**         | Ten citizen stories with personas — rural pensioner, proof of age, local tax, medical attestation, diaspora bank account, university enrolment, sick leave, car purchase, land book extract, civic verification — each showing today vs. proposal with the involved flow steps.                                                                                                                                                                                                                        |
+| **Harta României**  | County map with institutions as colored points (category-filterable). Small dots in every county = town halls (UAT) as assisted-enrollment / offline fallback points in the proposal.                                                                                                                                                                                                                                                                                                                  |
+| **Fluxuri de date** | Three toggleable force-directed graphs. _"Propunerea actuală"_ reproduces only what the published MAI GitHub documentation describes (PID issuance, presentation, wallet backend, MDVM, RWSCA, push, status lists). _"Propunerea noastră"_ adds the data backbone, payments, digital postbox, diaspora, independent oversight, and public transparency anchors (permissionless chain + EBSI). _"Diferența"_ dims the documented flows and highlights only what the proposal adds. Filter by flow type. |
+| **Comparație**      | 13-dimension table: published documentation vs. our proposal, with status (aligned / extended / added).                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Analiză**         | Policy brief: the verdict (honour the EUDI obligation, not the current architecture as end state), the 4 construction facts from the MAI presentation, the 8 risks (institutional concentration, vendor lock-in, surveillance capability, parallel identities, thin scope, unpublished resilience, per-institution integration, aggressive timeline) with fixes, the 8-criterion comparison, and the concrete gains.                                                                                   |
+| **Calendar**        | EU obligations, the national plan, and our proposed additions side by side.                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Strategie**       | Full 7-layer architecture (L0 sovereign endpoints → L6 oversight), the six pillars (redundancy, open source, security, scalability, transparency anchors, educational & civic networks), redundancy tiers per service class, 5-year cost estimates, machines & equipment required, estimated savings, the 14 outward-facing portals, and the rationalisation of today's real state portals (inventory, consolidation map, governance rules, cutover phases).                                           |
+| **Reziliență**      | The 3+8+1+L0 model: three semi-active sovereign sites, eight regional micro-DCs with own power generation (one per development region), an underground salt-mine vault, and offline L0 nodes; energy-autonomy math per tier; Vrancea/flood/outage/cable/cyber scenarios; hardware independence (OCP, open ISA, OpenBMC); software independence; RoEduNet/academia integration; 3-2-1-1-0 backup rules; resilience costs.                                                                               |
+| **Surse**           | Provenance for every claim: MAI docs pinned at a specific commit, the MAI presentation, EU regulations, standards, the sovereign-OS article, and the verified state portals behind the rationalisation inventory.                                                                                                                                                                                                                                                                                      |
 
 ## Data sources
 
@@ -38,8 +38,8 @@ The "current" model is grounded in public sources:
 - [Ministerul-Afacerilor-Interne/rowallet-documentation](https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation)
   (CC-BY-4.0) — roles (PID Provider = DGEP, Wallet Provider = DGCTI), components (WB, MDVM,
   RWSCA/RWSCD, MQ, PNS), EUDI Reference Implementation, OpenID4VC/SD-JWT/ISO mdoc.
-- MAI presentation *„Portofelul European de Identitate Digitală — Rolul MAI în ecosistemul
-  național"* (July 2026): RO EUDIW Commission, STS registry (WRPRC/WRPAC), PuB-EAA portfolio,
+- MAI presentation _„Portofelul European de Identitate Digitală — Rolul MAI în ecosistemul
+  național"_ (July 2026): RO EUDIW Commission, STS registry (WRPRC/WRPAC), PuB-EAA portfolio,
   Phase 1 (Dec 2026, PID + age) / Phase 2 (2027), mandatory RP acceptance (Dec 2027).
 
 The "proposed" model encodes the design discussed in this project: X-Road-style national data
@@ -68,6 +68,7 @@ Everything is plain typed data — edit without touching components:
 - `src/data/comparison.ts` — the comparison table
 - `src/data/timeline.ts` — the calendar
 - `src/data/strategy.ts` — layers, pillars, costs, portals (Strategie tab)
+- `src/data/hr.ts` — human resources: team templates, per-institution FTE, RO vs EU pay bands (Strategie tab)
 - `src/data/resilience.ts` — DC placement, regional micro-DCs, underground sites, energy autonomy, disaster scenarios, hardware/software sovereignty, academia, costs (Reziliență tab)
 - `src/data/policy.ts` — the policy brief: verdict, current-architecture facts, the 8 risks with fixes, criteria, gains (Analiză tab)
 - `src/data/stories.ts` — the five citizen stories
@@ -107,7 +108,7 @@ See [SECURITY.md](SECURITY.md) for the reporting policy. The repository enforces
 - Coordinates for national institutions are approximate (Bucharest area) and manually spread
   for readability.
 - The MAI documentation marks several chapters (cryptography, wallet backend details, PID
-  issuance/presentation flows) as *"Planned update"* — where it is silent, the comparison marks
+  issuance/presentation flows) as _"Planned update"_ — where it is silent, the comparison marks
   our side as "added", and the absence itself is the finding.
 - Not affiliated with MAI or any institution; proposal content is design opinion, not policy.
 

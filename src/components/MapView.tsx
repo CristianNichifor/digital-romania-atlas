@@ -28,6 +28,7 @@ function norm(s: string) {
 export function MapView() {
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [hover, setHover] = useState<Institution | null>(null);
+  const [hoverCounty, setHoverCounty] = useState<string | null>(null);
   const [filter, setFilter] = useState<Category | null>(null);
 
   useEffect(() => {
@@ -132,9 +133,15 @@ export function MapView() {
                 r={3}
                 fill={CATEGORY_COLORS[i.category]}
                 opacity={0.85}
-              >
-                <title>{`${i.acronym} — ${i.name} · ${i.role} (${f.properties.NAME_1})`}</title>
-              </circle>
+                onMouseEnter={() => {
+                  setHover(i);
+                  setHoverCounty(f.properties.NAME_1);
+                }}
+                onMouseLeave={() => {
+                  setHover(null);
+                  setHoverCounty(null);
+                }}
+              />
             );
           })
         )}
@@ -148,10 +155,12 @@ export function MapView() {
                   key={i.id}
                   transform={`translate(${x},${y})`}
                   className="marker"
-                  onMouseEnter={() => setHover(i)}
+                  onMouseEnter={() => {
+                    setHover(i);
+                    setHoverCounty(null);
+                  }}
                   onMouseLeave={() => setHover(null)}
                 >
-                  <title>{`${i.acronym} — ${i.name}\n${i.role}`}</title>
                   <circle
                   r={on ? 7 : 5}
                   fill={CATEGORY_COLORS[i.category]}
@@ -171,6 +180,7 @@ export function MapView() {
           <span>
             <strong>{hover.acronym}</strong> — {hover.name} · {hover.role} ·{" "}
             {CATEGORY_LABELS[hover.category]}
+            {hoverCounty ? ` · județul ${hoverCounty}` : ""}
           </span>
         ) : (
           <span className="muted">

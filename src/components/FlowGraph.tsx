@@ -156,14 +156,14 @@ export function FlowGraph() {
         sel
           .append("text")
           .attr("class", "graph-name")
-          .attr("x", 14)
-          .attr("y", -8)
+          .attr("x", 16)
+          .attr("y", -18)
           .text(inst?.name ?? d.acronym);
         sel
           .append("text")
           .attr("class", "graph-role")
-          .attr("x", 14)
-          .attr("y", 20)
+          .attr("x", 16)
+          .attr("y", 30)
           .text(inst ? `${inst.role} · ${CATEGORY_LABELS[inst.category]}` : "");
         setHoverInst(inst ?? null);
         setHoverFlow(null);
@@ -174,11 +174,6 @@ export function FlowGraph() {
         sel.select("circle").attr("r", (n) => ((n as GNode).category === "user" ? 14 : 9));
         setHoverInst(null);
       });
-
-    node.append("title").text((d) => {
-      const inst = INSTITUTIONS.find((i) => i.id === d.id);
-      return inst ? `${inst.acronym} — ${inst.name}\n${inst.role}` : d.acronym;
-    });
 
     const sim = d3
       .forceSimulation<GNode>(nodes)

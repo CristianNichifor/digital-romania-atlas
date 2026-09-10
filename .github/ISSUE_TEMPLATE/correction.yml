@@ -1,0 +1,41 @@
+name: Correction (factual error)
+description: Report a factual error in the "current" data or a broken citation.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Corrections to sourced, factual claims are fixed fast and logged
+        publicly in ERRATA.md (see the corrections policy).
+  - type: input
+    id: where
+    attributes:
+      label: Where is the error?
+      description: View name (e.g. "Comparison") and the row/sentence, or the exact text.
+      placeholder: e.g. Strategy → "Registry integration (CNAS, ANAF ONRC MEN…)"
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: What does the atlas currently say?
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What should it say, and what is the source?
+      description: Link the document/regulation page, ideally pinned to a version or commit.
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Attribution
+      options:
+        - label: I'm happy to be credited by name in ERRATA.md (otherwise you'll be credited as "community report").
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — corrections are the cheapest way to make this credible.

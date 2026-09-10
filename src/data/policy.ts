@@ -72,7 +72,10 @@ export interface RiskRow {
 
 export const RISKS: RiskRow[] = [
   {
-    risk: { ro: "Concentrare instituțională", en: "Institutional concentration" },
+    risk: {
+      ro: "Concentrare instituțională",
+      en: "Institutional concentration",
+    },
     why: {
       ro: "Emitentul de identitate, furnizorul portofelului și supravegherea cibernetică stau în același minister; MEDAT e un organism de guvernanță intern, nu o autoritate independentă. „Grefierul se legitimează singur” — nimeni din exterior nu verifică emitentul.",
       en: "The identity issuer, the wallet provider and the cyber oversight sit in the same ministry; MEDAT is an internal governance body, not an independent authority. “The clerk verifies himself” — no one outside checks the issuer.",
@@ -83,7 +86,10 @@ export const RISKS: RiskRow[] = [
     },
   },
   {
-    risk: { ro: "Dependență de furnizor în stratul de identitate", en: "Vendor dependence in the identity layer" },
+    risk: {
+      ro: "Dependență de furnizor în stratul de identitate",
+      en: "Vendor dependence in the identity layer",
+    },
     why: {
       ro: "DGCTI externalizează stack-ul portofelului. Un furnizor străin cu cod proprietar în PID-ul național = lock-in pe 20 de ani exact în stratul cel mai sensibil.",
       en: "DGCTI outsources the wallet stack. A foreign vendor with proprietary code inside the national PID = a 20-year lock-in in exactly the most sensitive layer.",
@@ -94,7 +100,10 @@ export const RISKS: RiskRow[] = [
     },
   },
   {
-    risk: { ro: "Capacitate de supraveghere nedefinită", en: "Undefined surveillance capability" },
+    risk: {
+      ro: "Capacitate de supraveghere nedefinită",
+      en: "Undefined surveillance capability",
+    },
     why: {
       ro: "MPP (notificări push), MDVM (evenimente de ciclu de viață) și PNS pot deveni instrumente de urmărire centralizată dacă legea nu le limitează explicit. „Ceea ce se poate, se va face cândva” — arhitectura nu ar trebui să poată.",
       en: "MPP (push notifications), MDVM (lifecycle events) and PNS can become centralised tracking tools if the law does not explicitly bound them. “What can be done will one day be done” — the architecture should not be able to.",
@@ -116,7 +125,10 @@ export const RISKS: RiskRow[] = [
     },
   },
   {
-    risk: { ro: "Scop subțire: document, nu platformă", en: "Thin scope: a document, not a platform" },
+    risk: {
+      ro: "Scop subțire: document, nu platformă",
+      en: "Thin scope: a document, not a platform",
+    },
     why: {
       ro: "PID + vârstă în 2026 și un subset PuB-EAA în 2027 nu ating fricțiunea reală: dosarul fiscal, dosarul medical, taloanele, notificările. Cetățeanul primește un portofel nou și aceeași birocrație veche.",
       en: "PID + age in 2026 and a PuB-EAA subset in 2027 do not touch the real friction: the tax file, the medical file, the coupons, the notifications. The citizen gets a new wallet and the same old bureaucracy.",
@@ -138,7 +150,10 @@ export const RISKS: RiskRow[] = [
     },
   },
   {
-    risk: { ro: "Integrare per instituție, nu schimb de date", en: "Per-institution integration, not data exchange" },
+    risk: {
+      ro: "Integrare per instituție, nu schimb de date",
+      en: "Per-institution integration, not data exchange",
+    },
     why: {
       ro: "Fiecare sursă de date se conectează individual la portofel; fără un bus național, fiecare serviciu nou repetă munca, iar „once-only” rămâne pe hârtie. Costul de integrare crește liniar cu numărul de servicii — vezi fragmentarea portalurilor de azi.",
       en: "Each data source connects to the wallet individually; without a national bus, every new service repeats the work and once-only stays on paper. Integration cost grows linearly with the number of services — see today's portal fragmentation.",
@@ -149,7 +164,10 @@ export const RISKS: RiskRow[] = [
     },
   },
   {
-    risk: { ro: "Calendar agresiv cu risc de execuție", en: "Aggressive timeline with execution risk" },
+    risk: {
+      ro: "Calendar agresiv cu risc de execuție",
+      en: "Aggressive timeline with execution risk",
+    },
     why: {
       ro: "Dec. 2026 este mâine în termeni de achiziții publice, iar faza 2 din 2027 presupune în paralel mDL (DGPCI), cazier, stare civilă și vehicule. Un singur derapaj în lanțul DGCTI amână tot, iar sancțiunea EUDI se activează.",
       en: "Dec 2026 is tomorrow in public-procurement terms, and phase 2 in 2027 needs mDL (DGPCI), criminal record, civil status and vehicles in parallel. One slip in the DGCTI chain delays everything, and the EUDI sanction kicks in.",
@@ -170,7 +188,10 @@ export interface CriterionRow {
 export const CRITERIA: CriterionRow[] = [
   {
     criterion: { ro: "Conformitate EUDI", en: "EUDI compliance" },
-    current: { ro: "PID + vârstă, apoi subset PuB-EAA", en: "PID + age, then a PuB-EAA subset" },
+    current: {
+      ro: "PID + vârstă, apoi subset PuB-EAA",
+      en: "PID + age, then a PuB-EAA subset",
+    },
     ours: {
       ro: "EUDI e un subcaz: aceleași obligații, plus platforma întreagă",
       en: "EUDI is a sub-case: the same obligations, plus the whole platform",
@@ -178,27 +199,54 @@ export const CRITERIA: CriterionRow[] = [
   },
   {
     criterion: { ro: "Suveranitate", en: "Sovereignty" },
-    current: { ro: "Risc de furnizor străin în stratul de identitate", en: "Foreign-vendor risk in the identity layer" },
-    ours: { ro: "Open source, OCP, fără lock-in, ancore publice", en: "Open source, OCP, no lock-in, public anchors" },
+    current: {
+      ro: "Risc de furnizor străin în stratul de identitate",
+      en: "Foreign-vendor risk in the identity layer",
+    },
+    ours: {
+      ro: "Open source, OCP, fără lock-in, ancore publice",
+      en: "Open source, OCP, no lock-in, public anchors",
+    },
   },
   {
     criterion: { ro: "Confidențialitate", en: "Privacy" },
-    current: { ro: "Capacitate de urmărire nedefinită (MPP/MDVM/PNS)", en: "Undefined tracking capability (MPP/MDVM/PNS)" },
-    ours: { ro: "Date la sursă, consimțământ, fără colectare centrală", en: "Data at source, consent, no central collection" },
+    current: {
+      ro: "Capacitate de urmărire nedefinită (MPP/MDVM/PNS)",
+      en: "Undefined tracking capability (MPP/MDVM/PNS)",
+    },
+    ours: {
+      ro: "Date la sursă, consimțământ, fără colectare centrală",
+      en: "Data at source, consent, no central collection",
+    },
   },
   {
     criterion: { ro: "Reziliență", en: "Resilience" },
-    current: { ro: "Nepublicată; STS ca punct unic", en: "Unpublished; STS as the single point" },
-    ours: { ro: "3+8+1+L0, energie proprie, offline-first, vault subteran", en: "3+8+1+L0, own power, offline-first, underground vault" },
+    current: {
+      ro: "Nepublicată; STS ca punct unic",
+      en: "Unpublished; STS as the single point",
+    },
+    ours: {
+      ro: "3+8+1+L0, energie proprie, offline-first, vault subteran",
+      en: "3+8+1+L0, own power, offline-first, underground vault",
+    },
   },
   {
     criterion: { ro: "Interoperabilitate", en: "Interoperability" },
-    current: { ro: "Integrare per instituție", en: "Per-institution integration" },
-    ours: { ro: "Backbone + once-only; serviciu nou = configurare", en: "Backbone + once-only; a new service = configuration" },
+    current: {
+      ro: "Integrare per instituție",
+      en: "Per-institution integration",
+    },
+    ours: {
+      ro: "Backbone + once-only; serviciu nou = configurare",
+      en: "Backbone + once-only; a new service = configuration",
+    },
   },
   {
     criterion: { ro: "Viteză", en: "Speed" },
-    current: { ro: "2 ani pentru PID, faze liniare", en: "2 years for the PID, linear phases" },
+    current: {
+      ro: "2 ani pentru PID, faze liniare",
+      en: "2 years for the PID, linear phases",
+    },
     ours: {
       ro: "Reutilizează ce funcționează (HUB MAI, SNEP, RoEduNet) — module în luni",
       en: "Reuses what works (HUB MAI, SNEP, RoEduNet) — modules in months",
@@ -206,12 +254,21 @@ export const CRITERIA: CriterionRow[] = [
   },
   {
     criterion: { ro: "Cost", en: "Cost" },
-    current: { ro: "Achiziții fragmentate per instituție", en: "Fragmented per-institution procurement" },
-    ours: { ro: "~62M € / 5 ani, licențe zero, economii estimate incluse", en: "~€62M / 5 years, zero licences, estimated savings included" },
+    current: {
+      ro: "Achiziții fragmentate per instituție",
+      en: "Fragmented per-institution procurement",
+    },
+    ours: {
+      ro: "~62M € / 5 ani, licențe zero, economii estimate incluse",
+      en: "~€62M / 5 years, zero licences, estimated savings included",
+    },
   },
   {
     criterion: { ro: "Încredere", en: "Trust" },
-    current: { ro: "Supraveghere internă (DGPI) a propriului minister", en: "Internal oversight (DGPI) of the same ministry" },
+    current: {
+      ro: "Supraveghere internă (DGPI) a propriului minister",
+      en: "Internal oversight (DGPI) of the same ministry",
+    },
     ours: {
       ro: "DNSC + ANSPDCP + audit extern + ancore publice + control civic",
       en: "DNSC + ANSPDCP + external audit + public anchors + civic oversight",
@@ -226,14 +283,20 @@ export interface GainRow {
 
 export const GAINS: GainRow[] = [
   {
-    gain: { ro: "O identitate în loc de trei", en: "One identity instead of three" },
+    gain: {
+      ro: "O identitate în loc de trei",
+      en: "One identity instead of three",
+    },
     value: {
       ro: "ROeID + eIdentity + wallet → un singur login de stat până în 2028; un singur canal de notificare",
       en: "ROeID + eIdentity + wallet → one state login by 2028; one notification channel",
     },
   },
   {
-    gain: { ro: "Timp per tranzacție: zile → minute", en: "Time per transaction: days → minutes" },
+    gain: {
+      ro: "Timp per tranzacție: zile → minute",
+      en: "Time per transaction: days → minutes",
+    },
     value: {
       ro: "Once-only + backbone: actele se cer o dată și se refolosesc la sursă (principiul belgian)",
       en: "Once-only + backbone: documents are asked once and reused at the source (the Belgian principle)",
@@ -272,6 +335,74 @@ export const GAINS: GainRow[] = [
     value: {
       ro: "Universitățile rulează oglinzile și exercițiile — reziliența formează generația care o va opera",
       en: "Universities run the mirrors and the drills — resilience trains the generation that will operate it",
+    },
+  },
+];
+
+export interface CounterRow {
+  argument: Bi;
+  response: Bi;
+}
+
+export const COUNTERS: CounterRow[] = [
+  {
+    argument: {
+      ro: "Portofelul EUDI singur satisface obligația legală. Backbone-ul, plățile și cutia poștală adaugă costuri și risc de execuție la un termen deja strâns (dec. 2026).",
+      en: "The EUDI wallet alone satisfies the legal obligation. The backbone, payments and postbox add cost and execution risk to an already tight deadline (Dec 2026).",
+    },
+    response: {
+      ro: "Livrăm EUDI conform termenului, separat de rest. Piesele backbone-ului există deja (HUB MAI, SNEP/Ghiseul, RoEduNet) — le conectăm, nu le construim de la zero; fiecare modul livrează valoare independent.",
+      en: "We deliver EUDI on the deadline, separately from the rest. The backbone pieces already exist (HUB MAI, SNEP/Ghiseul, RoEduNet) — we connect them, not build them from scratch; every module delivers value independently.",
+    },
+  },
+  {
+    argument: {
+      ro: "Backbone-ul duplică infrastructura existentă: SIUI, SPV, REGES, RECOM au deja propriile canale. O nouă „autostradă” e refacerea a ceea ce funcționează.",
+      en: "The backbone duplicates existing infrastructure: SIUI, SPV, REGES, RECOM already have their own channels. A new “highway” redoes what works.",
+    },
+    response: {
+      ro: "Exact invers: „wrap, don't rewrite” — niciun sistem nu se rescrie, fiecare primește un conector și devine sursă autentică. Duplicarea de azi e interconectarea punct-la-punct (6+ frontend-uri ANAF); backbone-ul o elimină.",
+      en: "Exactly backwards: “wrap, don't rewrite” — no system is rewritten, each gets a connector and becomes an authentic source. Today's duplication is point-to-point interconnection (6+ ANAF frontends); the backbone removes it.",
+    },
+  },
+  {
+    argument: {
+      ro: "Concentrarea guvernanței în ADR/MEDAT mută doar problema de la MAI la alt minister — tot un singur punct de control.",
+      en: "Concentrating governance in ADR/MEDAT just moves the problem from MAI to another ministry — still a single point of control.",
+    },
+    response: {
+      ro: "Propunerea împarte rolurile pe instituții independente: STS rețea, BNR plăți, DNSC securitate, ANSPDCP date — plus audituri publice ancorate. Nu există un singur deținător; există mai multe, care se verifică între ele.",
+      en: "The proposal splits roles across independent institutions: STS network, BNR payments, DNSC security, ANSPDCP data — plus anchored public audits. There is no single owner; there are several, checking each other.",
+    },
+  },
+  {
+    argument: {
+      ro: "Cifrele de cost (80–150M €, 30–60M €/an) sunt estimări de design, nu bugete. O dezbatere publică nu poate lucra cu numere neauditate.",
+      en: "The cost figures (€80–150M, €30–60M/yr) are design estimates, not budgets. A public debate can't work with unaudited numbers.",
+    },
+    response: {
+      ro: "Corect — și de aceea fiecare rând are notă, metodologie publică și scară de comparație (precedente UE). Scopul e verificabilitatea, nu exactitatea: numerele sunt făcute să poată fi contestate linie cu linie.",
+      en: "Correct — which is why every row has a note, a public methodology and EU precedents for scale. The goal is verifiability, not precision: the numbers are made to be contested line by line.",
+    },
+  },
+  {
+    argument: {
+      ro: "Wallet-first presupune smartphone; pensionarii, persoanele fără dispozitiv sau diaspora fără acces rămân în urmă.",
+      en: "Wallet-first assumes a smartphone; pensioners, people without a device or diaspora without access are left behind.",
+    },
+    response: {
+      ro: "Portofelul nu înlocuiește ghișeul: asistare fizică la poștă și primării (plasa de siguranță), L0 offline-first, eliberare asistată la ghiseu. Digitalizarea e aditivă, nu exclusivă.",
+      en: "The wallet does not replace the desk: assisted issuance at post offices and town halls (the physical safety net), offline-first L0, assisted issuance at the counter. Digitalisation is additive, not exclusive.",
+    },
+  },
+  {
+    argument: {
+      ro: "Ancorarea pe blockchain e PR, nu securitate: nu protejează nicio dată, doar face zgomot tehnologic.",
+      en: "Blockchain anchoring is PR, not security: it protects no data, it's just technological noise.",
+    },
+    response: {
+      ro: "De acord că nu protejează date — nu acesta e rolul ei. Ancora publică nu permite modificări silențioase ale registrelor și rapoartelor: transformă „crede-mă pe cuvânt” în „verifică-te singur”. Transparență, nu confidențialitate.",
+      en: "Agreed it protects no data — that is not its job. A public anchor makes silent edits to registries and reports impossible: it turns “take our word for it” into “verify it yourself”. Transparency, not confidentiality.",
     },
   },
 ];

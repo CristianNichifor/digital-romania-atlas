@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this atlas or its data in a publication, please cite it as below."
+title: "Digital Romania Atlas"
+abstract: >-
+  Interactive atlas of the Romanian digital identity ecosystem (RO EUDI Wallet)
+  versus a proposed digital backbone design: institutions, data flows, comparison,
+  timeline, strategy, resilience and a live bridge to the administrative-reform
+  simulator.
+authors:
+  - family-names: Nichifor
+    given-names: Cristian
+    email: cristian@cristian-nichifor.com
+repository-code: "https://github.com/CristianNichifor/digital-romania-atlas"
+url: "https://cristiannichifor.github.io/digital-romania-atlas/"
+license: MIT
+keywords:
+  - EUDI wallet
+  - eIDAS
+  - digital public infrastructure
+  - Romania
+version: 0.2.0
+date-released: "2026-09-11"

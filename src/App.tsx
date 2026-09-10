@@ -12,6 +12,7 @@ import { SourcesView } from "./components/SourcesView";
 import { LangContext, type Lang } from "./i18n";
 import { UatPlanProvider } from "./lib/uatPlan";
 import { initAcroTips } from "./lib/acroTip";
+import { META } from "./data/meta";
 
 const VIEWS: { id: ViewId; ro: string; en: string }[] = [
   { id: "summary", ro: "Rezumat", en: "Summary" },
@@ -108,6 +109,52 @@ export default function App() {
                   </code>{" "}
                   (CC-BY-4.0) and public MAI presentations. Green-marked
                   proposals are design opinions, not official documents.
+                </>
+              )}
+            </p>
+            <p className="footer-meta">
+              {lang === "ro" ? (
+                <>
+                  Autor:{" "}
+                  <a href={`mailto:${META.author.email}`}>{META.author.name}</a>
+                  {" · "}date actualizate la {META.dataAsOf} (v{META.version})
+                  {" · "}
+                  <a
+                    href={`${META.repo}/blob/main/ERRATA.md`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    politica de corecturi
+                  </a>
+                  {" · "}găsiți o eroare?{" "}
+                  <a
+                    href={`${META.issues}/new?template=correction.yml`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    raportați-o
+                  </a>
+                </>
+              ) : (
+                <>
+                  Author:{" "}
+                  <a href={`mailto:${META.author.email}`}>{META.author.name}</a>
+                  {" · "}data as of {META.dataAsOf} (v{META.version}){" · "}
+                  <a
+                    href={`${META.repo}/blob/main/ERRATA.md`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    corrections policy
+                  </a>
+                  {" · "}found an error?{" "}
+                  <a
+                    href={`${META.issues}/new?template=correction.yml`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    report it
+                  </a>
                 </>
               )}
             </p>

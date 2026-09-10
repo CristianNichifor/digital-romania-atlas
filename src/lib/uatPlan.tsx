@@ -13,6 +13,8 @@ export interface UatPlan {
   units: number;
   baseline: number;
   live: boolean;
+  /** Set when the scenario comes from a shareable URL (?scenario=…), not storage. */
+  locked?: boolean;
   url?: string;
 }
 
@@ -54,6 +56,24 @@ function parseLive(raw: string | null): UatPlan | null {
 }
 
 function readPlan(): UatPlan {
+  // A ?scenario= URL pins the figures for a citable, deterministic page:
+  // everyone opening that link sees the same numbers, regardless of what
+  // is in their localStorage or another tab.
+  if (typeof window !== "undefined") {
+    const pinned = new URLSearchParams(window.location.search).get("scenario");
+    if (pinned) {
+      const units = Number(pinned);
+      if (Number.isFinite(units) && units > 0) {
+        return {
+          units: Math.round(units),
+          baseline: UAT_SNAPSHOT.baseline,
+          live: false,
+          locked: true,
+          url: UAT_SNAPSHOT.source,
+        };
+      }
+    }
+  }
   if (typeof localStorage !== "undefined") {
     const live = parseLive(localStorage.getItem(LIVE_KEY));
     if (live) return live;
@@ -125,10 +145,20 @@ export function UatPlanNote() {
   const { lang } = useLang();
   const { plan, fmtUnits } = useUatPlan();
   const source = UAT_SNAPSHOT.source;
+  const cls = plan.live ? " live" : plan.locked ? " locked" : "";
   return (
-    <p className={`muted note uat-note${plan.live ? " live" : ""}`}>
+    <p className={`muted note uat-note${cls}`}>
       {lang === "ro" ? (
-        plan.live ? (
+        plan.locked ? (
+          <>
+            Scenariu blocat din link: ≈{fmtUnits(plan.units)} unități (de la ≈
+            {fmtUnits(plan.baseline)}). Cifrele nu se schimbă când ajustezi{" "}
+            <a href={source} target="_blank" rel="noreferrer">
+              harta reformei
+            </a>
+            ; șterge <code>?scenario=…</code> din URL pentru modul live.
+          </>
+        ) : plan.live ? (
           <>
             Conectat la harta reformei administrative: ≈{fmtUnits(plan.units)}{" "}
             unități (de la ≈{fmtUnits(plan.baseline)}) — cifrele de pe această
@@ -150,6 +180,16 @@ export function UatPlanNote() {
             actualizează automat.
           </>
         )
+      ) : plan.locked ? (
+        <>
+          Locked scenario from the link: ≈{fmtUnits(plan.units)} units (from ≈
+          {fmtUnits(plan.baseline)}). These figures don't change as you adjust
+          the{" "}
+          <a href={source} target="_blank" rel="noreferrer">
+            reform map
+          </a>
+          ; remove <code>?scenario=…</code> from the URL for the live mode.
+        </>
       ) : plan.live ? (
         <>
           Connected to the administrative-reform map: ≈{fmtUnits(plan.units)}{" "}

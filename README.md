@@ -10,6 +10,9 @@ journalists, and decision makers.
 **Live demo:** https://cristiannichifor.github.io/digital-romania-atlas/ (RO/EN toggle in the
 header)
 
+**Author:** [Cristian Nichifor](mailto:cristian@cristian-nichifor.com) — see
+[AUTHORS.md](AUTHORS.md) and [CITATION.cff](CITATION.cff).
+
 ![Summary](docs/screenshots/shot-summary.png)
 
 ![Data flows](docs/screenshots/shot-flows.png)
@@ -46,6 +49,22 @@ The "proposed" model encodes the design discussed in this project: X-Road-style 
 backbone, SEPA Instant + Request-to-Pay in the wallet, digital postbox, geo-redundant
 active-active infrastructure, pairwise pseudonyms, open-source mandate (EUPL), and independent
 oversight (DNSC, ANSPDCP).
+
+## For public debate
+
+- **Cite with version + date.** The footer shows `v0.2.0, data as of 2026-09-11`; cite both
+  (`src/data/meta.ts`).
+- **Deterministic UAT figures.** Share a `?scenario=249` URL to pin the unit count — everyone
+  opening the link sees the same numbers (see
+  [docs/METHODOLOGY.md](docs/METHODOLOGY.md) for the three scenario modes).
+- **Corrections policy.** Factual errors are fixed fast and logged publicly in
+  [ERRATA.md](ERRATA.md); file one via the `correction` issue template. Disagreement with the
+  proposal goes to the steelman section (Analiză view) or a `design discussion` issue.
+- **Methodology.** [docs/METHODOLOGY.md](docs/METHODOLOGY.md) states what every figure claims:
+  cost numbers are design estimates (bands, with named precedents), never budgets.
+- **Press kit.** The Sources view exports the full data as JSON or CSV for journalists.
+- **Archival.** Cite by version string; the repo is archived by Software Heritage
+  (`archive.softwareheritage.org`). Release tags match the footer version.
 
 ## Run it
 

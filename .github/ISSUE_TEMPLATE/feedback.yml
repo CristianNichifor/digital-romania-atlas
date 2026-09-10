@@ -1,0 +1,27 @@
+name: Design discussion
+description: Challenge a proposal, suggest an improvement, or argue the steelman section is wrong.
+title: "Discussion: "
+labels: ["discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        "Proposed" content is design opinion, not fact. Disagreement is
+        welcome — the strongest counter-arguments belong in the Analiză view's
+        steelman section.
+  - type: textarea
+    id: point
+    attributes:
+      label: Your argument
+      description: State the strongest version of your objection, not a weak one.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or precedent
+      description: Numbers, comparable deployments, or documents that support it.
+  - type: textarea
+    id: propose
+    attributes:
+      label: What should change in the proposal?

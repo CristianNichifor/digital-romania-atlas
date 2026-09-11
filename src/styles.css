@@ -1233,12 +1233,21 @@ footer {
     width: 100%;
     flex: 1 1 100%;
     padding-bottom: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  nav::-webkit-scrollbar {
+    display: none;
   }
 
   nav button {
     padding: 7px 13px;
     font-size: 13px;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   main {
@@ -1266,6 +1275,8 @@ footer {
   .portals,
   .sources,
   .risk-grid,
+  .counter-grid,
+  .journey-grid,
   .grid-cards {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1552,6 +1563,59 @@ footer {
   color: #9db9f5;
   font-size: 12.5px;
   word-break: break-all;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 15px;
+  }
+
+  header p {
+    font-size: 11.5px;
+  }
+
+  .title {
+    gap: 10px;
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  .panel {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .panel-head h2 {
+    font-size: 15px;
+  }
+
+  footer {
+    padding: 14px 16px;
+  }
+
+  .press-kit button {
+    flex: 1 1 100%;
+  }
+
+  .journey {
+    padding: 14px;
+  }
+
+  .journey-step {
+    gap: 10px;
+  }
+
+  .story {
+    padding: 14px;
+  }
 }
 
 @media print {

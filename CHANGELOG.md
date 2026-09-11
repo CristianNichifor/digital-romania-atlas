@@ -6,6 +6,10 @@ version (shown in the page footer) so a citation stays verifiable.
 
 ## [Unreleased]
 
+- Responsive design: the header navigation becomes a single horizontally
+  scrollable row on mobile, journey/counter grids collapse to one column and
+  the press-kit buttons go full-width on small screens.
+
 ## [0.3.0] — 2026-09-11
 
 ### Added

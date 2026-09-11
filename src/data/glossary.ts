@@ -8,6 +8,83 @@ export interface GlossaryEntry {
 
 export const GLOSSARY: GlossaryEntry[] = [
   {
+    term: "FIDO2",
+    text: {
+      ro: "Fast IDentity Online 2 — standard de autentificare fără parolă, bazat pe chei criptografice de pe dispozitiv",
+      en: "Fast IDentity Online 2 — passwordless authentication built on device-held cryptographic keys",
+    },
+  },
+  {
+    term: "CTAP2",
+    text: {
+      ro: "Client to Authenticator Protocol 2 — protocolul prin care browserul/sistemul vorbește cu cheia hardware",
+      en: "Client to Authenticator Protocol 2 — how the browser/OS talks to a hardware key",
+    },
+  },
+  {
+    term: "WebAuthn",
+    text: {
+      ro: "Web Authentication — API-ul de autentificare FIDO2 din browsere",
+      en: "Web Authentication — the FIDO2 authentication API in browsers",
+    },
+  },
+  {
+    term: "BBS+",
+    text: {
+      ro: "Schemă de semnături cu atribute — permite dovedirea unei proprietăți fără dezvăluirea identității (anonymous credentials)",
+      en: "Attribute-based signature scheme — proving a property without revealing identity (anonymous credentials)",
+    },
+  },
+  {
+    term: "ZK",
+    text: {
+      ro: "Zero-Knowledge — demonstrație criptografică: dovedești că ceva e adevărat fără să arăți de ce",
+      en: "Zero-Knowledge — a cryptographic proof: you show something is true without showing why",
+    },
+  },
+  {
+    term: "E2E-V",
+    text: {
+      ro: "End-to-End Verifiable — vot electronic în care oricine poate verifica includerea buletinului și corectitudinea numărătorii, fără a afla cum a votat cineva",
+      en: "End-to-End Verifiable — e-voting where anyone can verify ballot inclusion and tally correctness without learning how anyone voted",
+    },
+  },
+  {
+    term: "mixnet",
+    text: {
+      ro: "Rețea de amestecare — rețea criptografică ce amestecă mesajele între expeditor și destinatar, rupând legătura dintre ei",
+      en: "Mix network — a cryptographic network that shuffles messages between sender and receiver, breaking the link between them",
+    },
+  },
+  {
+    term: "ElGamal",
+    text: {
+      ro: "Sistem de criptare cu cheie publică, aditiv homomorf — permite numărarea buletinelor fără a le decripta individual",
+      en: "A public-key encryption system, additively homomorphic — allows tallying ballots without decrypting each one",
+    },
+  },
+  {
+    term: "QSealC",
+    text: {
+      ro: "Qualified Electronic Seal — sigiliul electronic calificat al persoanei juridice (echivalentul QES pentru firme, eIDAS art. 35)",
+      en: "Qualified Electronic Seal — the legal person's qualified seal (the QES equivalent for companies, eIDAS art. 35)",
+    },
+  },
+  {
+    term: "Merkle",
+    text: {
+      ro: "Arbore Merkle — structură de hash-uri în care orice modificare a unei frunze schimbă rădăcina publică (verificare eficientă a integrității)",
+      en: "Merkle tree — a hash structure where any leaf change alters the public root (efficient integrity verification)",
+    },
+  },
+  {
+    term: "OpenID4VP",
+    text: {
+      ro: "OpenID for Verifiable Presentations — protocolul prin care wallet-ul prezintă credențiale unui serviciu (inclusiv prin QR cross-device)",
+      en: "OpenID for Verifiable Presentations — how the wallet presents credentials to a service (including cross-device QR)",
+    },
+  },
+  {
     term: "PID",
     text: {
       ro: "Personal Identification Data — date de identificare personală",

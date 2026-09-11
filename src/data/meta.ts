@@ -6,7 +6,7 @@
  */
 
 export const META = {
-  version: "0.2.0",
+  version: "0.3.0",
   /** When the data was last meaningfully updated. */
   dataAsOf: "2026-09-11",
   author: {

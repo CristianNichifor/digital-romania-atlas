@@ -338,8 +338,8 @@ export const JOURNEYS: Journey[] = [
           en: "The secretariat issues an anonymised “voting credential”, valid only for this session",
         },
         tech: {
-          ro: "Anonymous credentials (BBS+)",
-          en: "Anonymous credentials (BBS+)",
+          ro: "BBS+ · credențiale anonime",
+          en: "BBS+ · anonymous credentials",
         },
       },
       {

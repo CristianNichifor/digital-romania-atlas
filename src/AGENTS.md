@@ -12,4 +12,5 @@ and `npm run test:e2e`, or `npm run verify` from the repository root after npm c
 and Playwright Chromium setup. The validator is a source-text integrity check,
 not evidence that factual claims are true; source changes need cited evidence.
 Do not edit generated dist/ or tsbuildinfo. Agents never merge PRs or deploy.
-See CONTRIBUTING.md for the credential-free workflow and pending root-guide PR #4.
+See ../AGENTS.md and ../CONTRIBUTING.md for the credential-free workflow and
+the explicit root-guide overlap with pending PR #4.

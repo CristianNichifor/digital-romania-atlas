@@ -53,6 +53,8 @@ PRs target dev. Agents never merge PRs or deploy. Maintainers use
 without wt can use a separate clone and a topic branch from origin/dev.
 Include acceptance criteria, provenance and exact check results in the issue/PR.
 
-Pending AGENTS PR #4 is independent of this readiness branch; do not merge it
-as part of readiness. Source-specific guidance is in `src/AGENTS.md`, avoiding
-an add/add conflict with its root AGENTS.md and CLAUDE.md.
+The root entrypoint is `AGENTS.md` (`CLAUDE.md` links to it), with additional
+source guidance in `src/AGENTS.md`. Readiness PR #8 includes these root files
+and therefore overlaps existing AGENTS PR #4. PR #4 remains open and untouched;
+#8 is independently mergeable without it. Maintainers must reconcile the root
+file overlap if retaining both proposals; agents must not merge or close either.

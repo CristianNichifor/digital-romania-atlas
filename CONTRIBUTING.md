@@ -39,3 +39,20 @@ Cele mai importante, pentru acest repo:
 - `src/data/stories.ts` — povești de cetățean (pașii referă id-uri de instituții)
 - `src/data/comparison.ts`, `timeline.ts`, `strategy.ts`, `sources.ts` — conținut bilingv
 - `src/data/meta.ts` — versiunea, data „as of” și autorul (subsolul site-ului)
+
+## Reproducible local gate
+
+Use Node 22, `npm ci`, then `npx playwright install chromium` and `npm run verify`.
+This runs the existing data validator, TypeScript, production build and browser
+smoke (language persistence, data-flow SVG and source links). CI's `verify`
+requires all checks to succeed, without publishing credentials or private tools.
+Generated dist/, node_modules/, tsbuildinfo and browser reports are not source.
+
+PRs target dev. Agents never merge PRs or deploy. Maintainers use
+`wt new chore/my-change origin/dev` under `<repo>/.worktrees/`; contributors
+without wt can use a separate clone and a topic branch from origin/dev.
+Include acceptance criteria, provenance and exact check results in the issue/PR.
+
+Pending AGENTS PR #4 is independent of this readiness branch; do not merge it
+as part of readiness. Source-specific guidance is in `src/AGENTS.md`, avoiding
+an add/add conflict with its root AGENTS.md and CLAUDE.md.

@@ -54,10 +54,19 @@ Agents must never merge any PR, including into dev, or deploy, regardless of
 administrator credentials or GitHub permissions. Production publishing is a
 separate maintainer action; publishing credentials are not needed for development.
 
-## Existing guide proposal
+## Measured repository gates
 
-Readiness PR #8 includes this complete root entrypoint and CLAUDE.md symlink.
-It overlaps the root files proposed in [PR #4](https://github.com/CristianNichifor/digital-romania-atlas/pull/4),
-which remains open and untouched. PR #8 does not depend on merging #4. A maintainer
-must reconcile that overlap if both proposals are retained; do not restore claims
-that admin credentials prevent agent merges or require a private handbook.
+Verified against GitHub's active branch rules on 2026-10-01. Recheck the
+repository settings when changing the delivery workflow; this is a snapshot.
+
+- `dev` is the default branch and PR target. Its combined rules require one
+  approving review, dismiss stale approvals after new pushes, and block deletion
+  and force-pushes.
+- Required checks are `verify`, `Analyze (javascript-typescript)`, `npm audit`,
+  `OSV scan`, and `gitleaks`. `verify` must come from GitHub Actions.
+- `main` is production. Its update restriction allows repository administrators
+  to bypass it. Credentials may therefore permit an action that these agent
+  instructions prohibit: agents must never merge PRs or deploy.
+- `.github/workflows/deploy.yml` publishes GitHub Pages on pushes to `main`
+  and also exposes a manual `workflow_dispatch` trigger. Merging into `dev`
+  does not automatically publish the site.

@@ -54,10 +54,8 @@ without wt can use a separate clone and a topic branch from origin/dev.
 Include acceptance criteria, provenance and exact check results in the issue/PR.
 
 The root entrypoint is `AGENTS.md` (`CLAUDE.md` links to it), with additional
-source guidance in `src/AGENTS.md`. Readiness PR #8 includes these root files
-and therefore overlaps existing AGENTS PR #4. PR #4 remains open and untouched;
-#8 is independently mergeable without it. Maintainers must reconcile the root
-file overlap if retaining both proposals; agents must not merge or close either.
+source guidance in `src/AGENTS.md`. The root guide also records the measured
+branch gates and deployment triggers.
 
 For bounded implementation work, use the [Scoped contribution task form](.github/ISSUE_TEMPLATE/task.yml)
 to record the problem, scope, observable acceptance criteria and verification evidence.

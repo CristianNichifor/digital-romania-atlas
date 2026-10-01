@@ -58,3 +58,7 @@ source guidance in `src/AGENTS.md`. Readiness PR #8 includes these root files
 and therefore overlaps existing AGENTS PR #4. PR #4 remains open and untouched;
 #8 is independently mergeable without it. Maintainers must reconcile the root
 file overlap if retaining both proposals; agents must not merge or close either.
+
+For bounded implementation work, use the [Scoped contribution task form](.github/ISSUE_TEMPLATE/task.yml)
+to record the problem, scope, observable acceptance criteria and verification evidence.
+Existing issue forms remain available for their specific purposes.

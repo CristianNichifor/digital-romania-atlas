@@ -266,7 +266,7 @@ export function FlowGraph() {
         </div>
       </div>
       {mode === "diff" && (
-        <div className="diff-banner">
+        <div className="diff-banner" role="status">
           <>
             <strong>
               {t("flows.newCount").replace("{count}", String(newCount))}

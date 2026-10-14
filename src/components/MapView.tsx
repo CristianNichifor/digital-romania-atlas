@@ -372,6 +372,15 @@ export function MapView() {
     (r) => !/covered by DC-B|acoperit de DC-B/.test(pick(r.city, "en"))
   );
   const underground = UNDERGROUND_SITES;
+  // Table alternative to the data-centre layer: the same sites the map draws.
+  const dcRows: { name: Bi; role: Bi }[] = [
+    ...sovereignDcs.map((d) => ({ name: d.name, role: d.role })),
+    ...regionalDcs.map((r) => ({
+      name: bi("map.tipMicroDc", (l) => ({ region: r.region[l] })),
+      role: r.role,
+    })),
+    ...underground.map((u) => ({ name: u.name, role: u.suitability })),
+  ];
   const [vx, vy] = projection([
     VRANCEA_EPICENTRE.lon,
     VRANCEA_EPICENTRE.lat,
@@ -959,6 +968,37 @@ export function MapView() {
                   </td>
                   <td>{pick(CATEGORY_LABELS[i.category], lang)}</td>
                   <td>{i.county}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
+      <details className="map-dc-table">
+        <summary>
+          {t("map.dcTable").replace("{count}", String(dcRows.length))}
+        </summary>
+        <div className="table-scroll">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th>{t("map.dcTableSite")}</th>
+                <th>{t("map.dcTableRole")}</th>
+                <th>{t("map.dcTableStatus")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dcRows.map((row) => (
+                <tr key={pick(row.name, "ro")}>
+                  <td>{pick(row.name, lang)}</td>
+                  <td>
+                    <T text={pick(row.role, lang)} />
+                  </td>
+                  <td>
+                    <span className="legend-chip badge-proposal">
+                      {t("summary.badgeProposal")}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>

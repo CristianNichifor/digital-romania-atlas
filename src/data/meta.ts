@@ -8,7 +8,7 @@
 export const META = {
   version: "0.3.0",
   /** When the data was last meaningfully updated. */
-  dataAsOf: "2026-09-11",
+  dataAsOf: "2026-10-14",
   author: {
     name: "Cristian Nichifor",
     email: "cristian@cristian-nichifor.com",

@@ -228,6 +228,17 @@ for (const f of counties.features ?? []) {
     errors.push(`ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`);
 }
 
+// The footer's "data as of" date may not predate a source it relies on.
+const dataAsOf = readTs("src/data/meta.ts").match(/dataAsOf:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+const accessed = [...sourcesCode.matchAll(/\baccessed:\s*"([^"]*)"/g)].map((m) => m[1]);
+for (const date of accessed)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date))
+    errors.push(`src/data/sources.ts: accessed "${date}" is not an ISO date`);
+const newest = accessed.sort().at(-1);
+if (!dataAsOf) errors.push("src/data/meta.ts: dataAsOf missing or not an ISO date");
+else if (newest && dataAsOf < newest)
+  errors.push(`META.dataAsOf ${dataAsOf} is older than the newest source access ${newest}`);
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const e of errors) console.error("  - " + e);

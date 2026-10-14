@@ -209,8 +209,10 @@ for (const file of [
   "src/components/CompareView.tsx",
   "src/components/JourneysView.tsx",
   "src/components/PolicyView.tsx",
+  "src/components/ResilienceView.tsx",
   "src/components/SourcesView.tsx",
   "src/components/StoriesView.tsx",
+  "src/components/SummaryView.tsx",
   "src/components/TimelineView.tsx",
 ]) {
   if (/lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(readFileSync(resolve(root, file), "utf8")))

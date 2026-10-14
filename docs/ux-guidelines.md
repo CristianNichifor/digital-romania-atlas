@@ -108,23 +108,32 @@ design proposals. Separately, each item is labelled **current** or
 
 ## 8. Conformance checklist
 
-| Rule                                             | Test                                                |
-| ------------------------------------------------ | --------------------------------------------------- |
-| Grouped nav, stable hash routes                  | `tests/e2e/ia.spec.ts`, `tests/e2e/routing.spec.ts` |
-| Summary lead is a proposal; ro copy translated   | `tests/e2e/ia.spec.ts`, `scripts/validate-data.mjs` |
-| Logo square at 390 px                            | `tests/e2e/ia.spec.ts`                              |
-| Paired ro/en text, diacritics, unique IDs        | `scripts/validate-data.mjs`                         |
-| County names with diacritics                     | `scripts/validate-data.mjs`                         |
-| Map error + retry; labels clear; chips + caption | `tests/e2e/map.spec.ts`                             |
-| All 42 counties drawn; bilingual nav             | `tests/e2e/smoke.spec.ts`                           |
-| axe WCAG 2.1 A/AA, 11 views × 2 languages        | `tests/e2e/a11y.spec.ts`                            |
-| Language toggle name; visible focus              | `tests/e2e/a11y.spec.ts`                            |
-| Works with blocked storage                       | `tests/e2e/storage-blocked.spec.ts`                 |
-| No third-party loads; Inter self-hosted          | `tests/e2e/third-party.spec.ts`                     |
-| Privacy notice; CSP without violations           | `tests/e2e/privacy.spec.ts`                         |
-| Data date not older than sources                 | `scripts/validate-data.mjs` (ATL-11)                |
-| Provenance line per view                         | none yet (D-2)                                      |
-| 390 px no horizontal scroll, all views           | none yet (D-9)                                      |
+| Rule                                                                       | Test                                                                                                                        |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Grouped nav, stable hash routes                                            | `tests/e2e/ia.spec.ts`, `tests/e2e/routing.spec.ts`                                                                         |
+| Summary lead is a proposal; ro copy translated                             | `tests/e2e/ia.spec.ts`, `scripts/validate-data.mjs`                                                                         |
+| Logo square at 390 px                                                      | `tests/e2e/ia.spec.ts`                                                                                                      |
+| Paired ro/en text, diacritics, unique IDs                                  | `scripts/validate-data.mjs`                                                                                                 |
+| County names with diacritics                                               | `scripts/validate-data.mjs`                                                                                                 |
+| Map error + retry; labels clear; chips + caption                           | `tests/e2e/map.spec.ts`                                                                                                     |
+| All 42 counties drawn; bilingual nav                                       | `tests/e2e/smoke.spec.ts`                                                                                                   |
+| axe WCAG 2.1 A/AA, 11 views × 2 languages                                  | `tests/e2e/a11y.spec.ts`                                                                                                    |
+| Language toggle name; visible focus                                        | `tests/e2e/a11y.spec.ts`                                                                                                    |
+| Works with blocked storage                                                 | `tests/e2e/storage-blocked.spec.ts`                                                                                         |
+| No third-party loads; Inter self-hosted                                    | `tests/e2e/third-party.spec.ts`                                                                                             |
+| Privacy notice; CSP without violations                                     | `tests/e2e/privacy.spec.ts`                                                                                                 |
+| Data date not older than sources                                           | `scripts/validate-data.mjs` (ATL-11)                                                                                        |
+| Provenance line per view (D-2)                                             | `tests/e2e/provenance.spec.ts`                                                                                              |
+| 390 px no horizontal scroll, all views (D-9)                               | `tests/e2e/no-hscroll.spec.ts`                                                                                              |
+| Family bar links to the hub (D-1)                                          | `tests/e2e/family-bar.spec.ts`                                                                                              |
+| Nav targets 36 px desktop, 44 px phone; active tab in view                 | `tests/e2e/nav-targets.spec.ts`, `tests/e2e/nav-active.spec.ts`                                                             |
+| Reduced motion and forced colours (D-7, D-8)                               | `tests/e2e/motion-contrast.spec.ts`                                                                                         |
+| Summary: proposal badge, computed counts, column badges and sources        | `tests/e2e/summary-badge.spec.ts`, `tests/e2e/summary-counts.spec.ts`, `tests/e2e/summary-cards.spec.ts`                    |
+| Map: staged loading, chip shapes, labelled controls, tooltips from locales | `tests/e2e/map-slow.spec.ts`, `tests/e2e/map-chips.spec.ts`, `tests/e2e/map-controls.spec.ts`, `tests/e2e/map-tips.spec.ts` |
+| Map table alternatives and empty filter (D-6)                              | `tests/e2e/map-table.spec.ts`, `tests/e2e/map-dc-table.spec.ts`                                                             |
+| Flows: list alternative, diff banner status, empty filter (D-4, D-6)       | `tests/e2e/flows-list.spec.ts`, `tests/e2e/flows-banner.spec.ts`, `tests/e2e/flows-empty.spec.ts`                           |
+| Comparison rows cite sources (D-5)                                         | `tests/e2e/compare-sources.spec.ts`                                                                                         |
+| Checklist cites real tests and lists every spec                            | `scripts/validate-data.mjs`                                                                                                 |
 
 ## 9. Known deviations backlog
 

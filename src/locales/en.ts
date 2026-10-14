@@ -285,6 +285,7 @@ export const en: Record<MessageKey, string> = {
   "summary.gapPostbox": "The digital postbox",
   "summary.gapResilience": "Geo-redundancy & offline operation",
   "summary.gapTransparency": "Publicly verifiable transparency",
+  "summary.badgeCurrent": "Current situation",
   "summary.badgeProposal": "Proposal",
   "summary.countDimensions": "{count} dimensions compared",
   "summary.countInstitutions": "{count} institutions on the map",
@@ -305,6 +306,10 @@ export const en: Record<MessageKey, string> = {
   "summary.seeTheFullComparison": "See the full comparison",
   "summary.stsRegistryWhoMay":
     "STS registry — who may issue and who may verify (WRPRC/WRPAC)",
+  "summary.proposalDetail": "Details in",
+  "summary.todaySource":
+    "Main sources: the RO Wallet documentation (MAI) and eIDAS 2.0, Reg. (EU) 2024/1183; the full list is in",
+  "summary.todaySourceLink": "the Sources tab",
   "summary.weProposeTheState":
     "We propose: the state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry.",
   "summary.whatHappensToday": "What happens today",

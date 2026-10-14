@@ -288,6 +288,7 @@ export const ro = {
   "summary.gapPostbox": "Cutia poștală digitală",
   "summary.gapResilience": "Reziliență geografică & offline",
   "summary.gapTransparency": "Transparență verificabilă public",
+  "summary.badgeCurrent": "Situația actuală",
   "summary.badgeProposal": "Propunere",
   "summary.countDimensions": "{count} dimensiuni comparate",
   "summary.countInstitutions": "{count} instituții pe hartă",
@@ -308,6 +309,10 @@ export const ro = {
   "summary.seeTheFullComparison": "Vezi comparația completă",
   "summary.stsRegistryWhoMay":
     "Registru STS — cine poate emite și cine poate verifica (WRPRC/WRPAC)",
+  "summary.proposalDetail": "Detalii în",
+  "summary.todaySource":
+    "Surse principale: documentația RO Wallet (MAI) și eIDAS 2.0, Reg. (UE) 2024/1183; lista completă în",
+  "summary.todaySourceLink": "tabul Surse",
   "summary.weProposeTheState":
     "Propunem: statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister.",
   "summary.whatHappensToday": "Ce se întâmplă azi",

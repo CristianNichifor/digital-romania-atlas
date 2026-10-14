@@ -68,6 +68,9 @@ export function SummaryView({
       </div>
       <div className="summary-cards">
         <section className="summary-card today">
+          <span className="card-badge current">
+            {t("summary.badgeCurrent")}
+          </span>
           <h3>{t("summary.whatHappensToday")}</h3>
           <ul>
             <li>
@@ -78,8 +81,15 @@ export function SummaryView({
             </li>
             <li>{t("summary.fromDec2027Banks")}</li>
           </ul>
+          <p className="card-src muted">
+            {t("summary.todaySource")}{" "}
+            <a href="#/sources">{t("summary.todaySourceLink")}</a>
+          </p>
         </section>
         <section className="summary-card proposal">
+          <span className="card-badge proposal">
+            {t("summary.badgeProposal")}
+          </span>
           <h3>{t("summary.whatWeProposeOn")}</h3>
           <ul>
             {GAPS.map((key) => (
@@ -89,6 +99,10 @@ export function SummaryView({
             ))}
           </ul>
           <p className="muted">{t("summary.estimatedCost23")}</p>
+          <p className="card-src muted">
+            {t("summary.proposalDetail")}{" "}
+            <a href="#/compare">{t("nav.compare")}</a>
+          </p>
         </section>
         <section className="summary-card why">
           <h3>{t("summary.whyItMatters")}</h3>

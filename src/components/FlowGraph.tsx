@@ -10,6 +10,7 @@ import {
 import { FLOWS, FLOW_COLORS, FLOW_LABELS, type FlowKind } from "../data/flows";
 import { pick, useLang, useT } from "../i18n";
 import { useUatPlan } from "../lib/uatPlan";
+import { Prov } from "./Prov";
 
 type Mode = "current" | "proposed" | "diff";
 
@@ -285,6 +286,7 @@ export function FlowGraph() {
           ))}
         </div>
       </div>
+      <Prov />
       {mode === "diff" && (
         <div className="diff-banner" role="status">
           <>

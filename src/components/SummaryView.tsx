@@ -3,6 +3,7 @@ import { INSTITUTIONS } from "../data/institutions";
 import { COMPARISON } from "../data/comparison";
 import { FLOWS } from "../data/flows";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 export type ViewId =
   | "summary"
@@ -72,6 +73,7 @@ export function SummaryView({
         <p className="summary-sub">
           <T text={t("summary.weProposeTheState")} />
         </p>
+        <Prov />
       </div>
       <div className="summary-cards">
         <section className="summary-card today">

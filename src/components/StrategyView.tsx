@@ -14,7 +14,7 @@ import {
   SAVINGS,
 } from "../data/strategy";
 import { HR_INSTITUTIONS, HR_PAYROLL, HR_TEAMS, PAY_ROWS } from "../data/hr";
-import { pick, useLang, type Bi } from "../i18n";
+import { pick, useLang, type Bi, useT } from "../i18n";
 import { T } from "./T";
 import {
   UatPlanNote,
@@ -37,31 +37,24 @@ const STATUS_CLASS: Record<string, string> = {
 
 export function StrategyView() {
   const { lang } = useLang();
+  const t = useT();
   const { plan, fill, fmtUnits } = useUatPlan();
   const tt = (b: Bi) => fill(pick(b, lang));
   return (
     <div className="panel strategy">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Strategia completă — de la stația de lucru la plăți"
-            : "The full strategy — from the workstation to payments"}
-        </h2>
+        <h2>{t("strategy.theFullStrategyFrom")}</h2>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Arhitectura pe 7 straturi"
-          : "The 7-layer architecture"}
-      </h3>
+      <h3>{t("strategy.the7LayerArchitecture")}</h3>
       <div className="table-scroll">
         <table className="compare-table layer-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Strat" : "Layer"}</th>
-              <th>{lang === "ro" ? "Conținut" : "Contents"}</th>
-              <th>{lang === "ro" ? "Responsabil" : "Owner"}</th>
-              <th>{lang === "ro" ? "Stare" : "Status"}</th>
+              <th>{t("strategy.layer")}</th>
+              <th>{t("strategy.contents")}</th>
+              <th>{t("strategy.owner")}</th>
+              <th>{t("strategy.status")}</th>
             </tr>
           </thead>
           <tbody>
@@ -91,23 +84,15 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Ciclul de viață al identității — pierderea telefonului planificată"
-          : "The identity lifecycle — losing the phone, planned for"}
-      </h3>
+      <h3>{t("strategy.theIdentityLifecycleLosing")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Eveniment" : "Event"}</th>
-              <th>
-                {lang === "ro" ? "Ce face cetățeanul" : "What the citizen does"}
-              </th>
-              <th>
-                {lang === "ro" ? "Ce face sistemul" : "What the system does"}
-              </th>
-              <th>{lang === "ro" ? "Țintă" : "Target"}</th>
+              <th>{t("strategy.event")}</th>
+              <th>{t("strategy.whatTheCitizenDoes")}</th>
+              <th>{t("strategy.whatTheSystemDoes")}</th>
+              <th>{t("strategy.target")}</th>
             </tr>
           </thead>
           <tbody>
@@ -133,7 +118,7 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>{lang === "ro" ? "Cei șase piloni" : "The six pillars"}</h3>
+      <h3>{t("strategy.theSixPillars")}</h3>
       <div className="pillars">
         {PILLARS.map((p) => (
           <section key={tt(p.title)} className="pillar">
@@ -151,19 +136,15 @@ export function StrategyView() {
         ))}
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Redundanță pe clase de serviciu"
-          : "Redundancy by service class"}
-      </h3>
+      <h3>{t("strategy.redundancyByServiceClass")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Clasă" : "Class"}</th>
-              <th>{lang === "ro" ? "Exemple" : "Examples"}</th>
-              <th>{lang === "ro" ? "Țintă" : "Target"}</th>
-              <th>{lang === "ro" ? "Mecanism" : "Mechanism"}</th>
+              <th>{t("strategy.class")}</th>
+              <th>{t("strategy.examples")}</th>
+              <th>{t("strategy.target")}</th>
+              <th>{t("strategy.mechanism")}</th>
             </tr>
           </thead>
           <tbody>
@@ -187,19 +168,15 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Resurse & costuri (estimare pe 5 ani)"
-          : "Resources & costs (5-year estimate)"}
-      </h3>
+      <h3>{t("strategy.resourcesCosts5Year")}</h3>
       <UatPlanNote />
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Element" : "Item"}</th>
-              <th>{lang === "ro" ? "Estimare" : "Estimate"}</th>
-              <th>{lang === "ro" ? "Notă" : "Note"}</th>
+              <th>{t("strategy.item")}</th>
+              <th>{t("strategy.estimate")}</th>
+              <th>{t("strategy.note")}</th>
             </tr>
           </thead>
           <tbody>
@@ -224,19 +201,15 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Mașini & echipamente necesare"
-          : "Machines & equipment required"}
-      </h3>
+      <h3>{t("strategy.machinesEquipmentRequired")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Element" : "Item"}</th>
-              <th>{lang === "ro" ? "Cantitate" : "Quantity"}</th>
-              <th>{lang === "ro" ? "Cost unitar" : "Unit cost"}</th>
-              <th>{lang === "ro" ? "Total" : "Total"}</th>
+              <th>{t("strategy.item")}</th>
+              <th>{t("strategy.quantity")}</th>
+              <th>{t("strategy.unitCost")}</th>
+              <th>{t("strategy.total")}</th>
             </tr>
           </thead>
           <tbody>
@@ -262,29 +235,19 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Resurse umane — cum arată echipele"
-          : "Human resources — how the teams look"}
-      </h3>
+      <h3>{t("strategy.humanResourcesHowThe")}</h3>
       <p className="muted note">
-        <T
-          text={
-            lang === "ro"
-              ? "Principiu: talent local în primul rând, top-up de 10–20% pentru competențe rare (crypto, securitate) și o agenție digitală cu grilă proprie, care scapă de plafoanele de salarizare bugetară. Fiecare echipă este mică, dedicată unui strat, cu on-call și responsabilitate de capăt la capăt."
-              : "Principle: local talent first, a 10–20% top-up for rare skills (crypto, security) and a digital agency with its own pay grid that escapes public-sector pay caps. Each team is small, dedicated to one layer, with on-call and end-to-end ownership."
-          }
-        />
+        <T text={t("strategy.principleLocalTalentFirst")} />
       </p>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Echipă" : "Team"}</th>
-              <th>{lang === "ro" ? "Strat" : "Layer"}</th>
-              <th>{lang === "ro" ? "FTE" : "FTE"}</th>
-              <th>{lang === "ro" ? "Roluri" : "Roles"}</th>
-              <th>{lang === "ro" ? "Notă" : "Note"}</th>
+              <th>{t("strategy.team")}</th>
+              <th>{t("strategy.layer")}</th>
+              <th>{t("strategy.fte")}</th>
+              <th>{t("strategy.roles")}</th>
+              <th>{t("strategy.note")}</th>
             </tr>
           </thead>
           <tbody>
@@ -311,19 +274,15 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Resurse umane — pe instituție"
-          : "Human resources — per institution"}
-      </h3>
+      <h3>{t("strategy.humanResourcesPerInstitution")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Instituție" : "Institution"}</th>
-              <th>{lang === "ro" ? "FTE" : "FTE"}</th>
-              <th>{lang === "ro" ? "Focus" : "Focus"}</th>
-              <th>{lang === "ro" ? "Notă salarizare" : "Pay note"}</th>
+              <th>{t("strategy.institution")}</th>
+              <th>{t("strategy.fte")}</th>
+              <th>{t("strategy.focus")}</th>
+              <th>{t("strategy.payNote")}</th>
             </tr>
           </thead>
           <tbody>
@@ -347,35 +306,17 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Niveluri salariale: piața românească vs. remote internațional"
-          : "Pay levels: Romanian market vs. international remote"}
-      </h3>
+      <h3>{t("strategy.payLevelsRomanianMarket")}</h3>
       <p className="muted note">
-        <T
-          text={
-            lang === "ro"
-              ? "Cifre anuale brute angajator (cost total, inclusiv contribuții), în k€. Benzile RO reflectă piața privată românească din 2026; benzile EU sunt pentru aceleași roluri lucrate remote din România pentru angajatori externi — competiția directă a statului."
-              : "Annual gross-to-employer figures (total cost, contributions included), in k€. RO bands reflect the 2026 Romanian private market; EU bands are the same roles working remotely from Romania for foreign employers — the state's direct competition."
-          }
-        />
+        <T text={t("strategy.annualGrossToEmployer")} />
       </p>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Rol" : "Role"}</th>
-              <th>
-                {lang === "ro"
-                  ? "România (brut angajator)"
-                  : "Romania (total cost)"}
-              </th>
-              <th>
-                {lang === "ro"
-                  ? "Remote UE / internațional"
-                  : "EU / international remote"}
-              </th>
+              <th>{t("strategy.role")}</th>
+              <th>{t("strategy.romaniaTotalCost")}</th>
+              <th>{t("strategy.euInternationalRemote")}</th>
             </tr>
           </thead>
           <tbody>
@@ -399,14 +340,14 @@ export function StrategyView() {
         <T text={tt(HR_PAYROLL)} />
       </p>
 
-      <h3>{lang === "ro" ? "Economii estimate" : "Estimated savings"}</h3>
+      <h3>{t("strategy.estimatedSavings")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Categorie" : "Category"}</th>
-              <th>{lang === "ro" ? "Valoare" : "Value"}</th>
-              <th>{lang === "ro" ? "Bază de calcul" : "Basis"}</th>
+              <th>{t("strategy.category")}</th>
+              <th>{t("strategy.value")}</th>
+              <th>{t("strategy.basis")}</th>
             </tr>
           </thead>
           <tbody>
@@ -427,11 +368,7 @@ export function StrategyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Portalurile orientate către exterior (14)"
-          : "The outward-facing portals (14)"}
-      </h3>
+      <h3>{t("strategy.theOutwardFacingPortals")}</h3>
       <div className="portals">
         {PORTALS.map((p) => (
           <div key={p.id} className="portal-card">
@@ -445,30 +382,18 @@ export function StrategyView() {
         ))}
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Raționalizarea portalurilor existente"
-          : "Rationalising the existing portals"}
-      </h3>
+      <h3>{t("strategy.rationalisingTheExistingPortals")}</h3>
       <p className="muted note">
-        <T
-          text={
-            lang === "ro"
-              ? "Inventarul de azi și destinația fiecărui sistem. Principiu director: „wrap, don't rewrite” — niciun sistem legacy nu se rescrie; fiecare primește un conector și devine sursă autentică în spatele backbone-ului. HUB MAI demonstrează că modelul funcționează deja la scară de minister."
-              : "Today's inventory and each system's destination. Governing principle: “wrap, don't rewrite” — no legacy system is rewritten; each gets a connector and becomes an authentic source behind the backbone. HUB MAI proves the model already works at ministry scale."
-          }
-        />
+        <T text={t("strategy.todaySInventoryAnd")} />
       </p>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Sector" : "Sector"}</th>
-              <th>
-                {lang === "ro" ? "Servicii existente" : "Existing services"}
-              </th>
-              <th>{lang === "ro" ? "Operator" : "Operator"}</th>
-              <th>{lang === "ro" ? "Notă" : "Note"}</th>
+              <th>{t("strategy.sector")}</th>
+              <th>{t("strategy.existingServices")}</th>
+              <th>{t("strategy.operator")}</th>
+              <th>{t("strategy.note")}</th>
             </tr>
           </thead>
           <tbody>
@@ -495,9 +420,9 @@ export function StrategyView() {
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Acțiune" : "Action"}</th>
-              <th>{lang === "ro" ? "Sisteme" : "Systems"}</th>
-              <th>{lang === "ro" ? "Destinație" : "Destination"}</th>
+              <th>{t("strategy.action")}</th>
+              <th>{t("strategy.systems")}</th>
+              <th>{t("strategy.destination")}</th>
             </tr>
           </thead>
           <tbody>
@@ -521,9 +446,9 @@ export function StrategyView() {
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Fază" : "Phase"}</th>
-              <th>{lang === "ro" ? "Perioadă" : "Period"}</th>
-              <th>{lang === "ro" ? "Acțiuni" : "Actions"}</th>
+              <th>{t("strategy.phase")}</th>
+              <th>{t("strategy.period")}</th>
+              <th>{t("strategy.actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -545,11 +470,7 @@ export function StrategyView() {
       </div>
       <div className="pillars" style={{ marginTop: 12 }}>
         <section className="pillar">
-          <h4>
-            {lang === "ro"
-              ? "Patru reguli de guvernanță"
-              : "Four governance rules"}
-          </h4>
+          <h4>{t("strategy.fourGovernanceRules")}</h4>
           <ul>
             {GOV_RULES.map((r, i) => (
               <li key={i}>
@@ -559,7 +480,7 @@ export function StrategyView() {
           </ul>
         </section>
         <section className="pillar">
-          <h4>{lang === "ro" ? "KPI țintă 2028" : "2028 target KPIs"}</h4>
+          <h4>{t("strategy.2028TargetKpis")}</h4>
           <ul>
             {KPIS.map((k, i) => (
               <li key={i}>

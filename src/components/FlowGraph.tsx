@@ -8,7 +8,7 @@ import {
   type Institution,
 } from "../data/institutions";
 import { FLOWS, FLOW_COLORS, FLOW_LABELS, type FlowKind } from "../data/flows";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, useT } from "../i18n";
 import { useUatPlan } from "../lib/uatPlan";
 
 type Mode = "current" | "proposed" | "diff";
@@ -49,6 +49,7 @@ const MODE_LABELS: { id: Mode; ro: string; en: string }[] = [
 
 export function FlowGraph() {
   const { lang } = useLang();
+  const t = useT();
   const { fill } = useUatPlan();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [mode, setMode] = useState<Mode>("diff");
@@ -250,11 +251,7 @@ export function FlowGraph() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Fluxuri de date între părți"
-            : "Data flows between parties"}
-        </h2>
+        <h2>{t("flows.dataFlowsBetweenParties")}</h2>
         <div className="mode-toggle">
           {MODE_LABELS.map((m) => (
             <button
@@ -286,9 +283,7 @@ export function FlowGraph() {
         </div>
       )}
       <div className="legend-row">
-        <span className="legend-caption">
-          {lang === "ro" ? "Fluxuri:" : "Flows:"}
-        </span>
+        <span className="legend-caption">{t("flows.flows")}</span>
         <div className="legend">
           {Object.entries(FLOW_LABELS).map(([k, label]) => (
             <button
@@ -310,9 +305,7 @@ export function FlowGraph() {
         </div>
       </div>
       <div className="legend-row">
-        <span className="legend-caption">
-          {lang === "ro" ? "Instituții:" : "Institutions:"}
-        </span>
+        <span className="legend-caption">{t("flows.institutions")}</span>
         <div className="legend">
           {Object.entries(CATEGORY_LABELS).map(([cat, label]) => (
             <button
@@ -346,11 +339,7 @@ export function FlowGraph() {
             {pick(CATEGORY_LABELS[hoverInst.category], lang)}
           </span>
         ) : (
-          <span className="muted">
-            {lang === "ro"
-              ? "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră."
-              : "Hover a node for its full name and role; hover an edge for the data that flows. Drag nodes to rearrange. In “Diff” mode you see only what our proposal adds."}
-          </span>
+          <span className="muted">{t("flows.hoverANodeFor")}</span>
         )}
       </div>
     </div>

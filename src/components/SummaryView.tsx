@@ -1,4 +1,4 @@
-import { useLang } from "../i18n";
+import { useLang, useT } from "../i18n";
 import { T } from "./T";
 
 export type ViewId =
@@ -37,57 +37,30 @@ export function SummaryView({
   onNavigate: (v: ViewId) => void;
 }) {
   const { lang } = useLang();
+  const t = useT();
   return (
     <div className="panel summary">
       <div className="summary-hero">
-        <h2>
-          {lang === "ro"
-            ? "România digitală în 30 de secunde"
-            : "Digital Romania in 30 seconds"}
-        </h2>
+        <h2>{t("summary.digitalRomaniaIn30")}</h2>
         <p className="summary-sub">
-          <T
-            text={
-              lang === "ro"
-                ? "Propunem: statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister."
-                : "We propose: the state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry."
-            }
-          />
+          <T text={t("summary.weProposeTheState")} />
         </p>
       </div>
       <div className="summary-cards">
         <section className="summary-card today">
-          <h3>{lang === "ro" ? "Ce se întâmplă azi" : "What happens today"}</h3>
+          <h3>{t("summary.whatHappensToday")}</h3>
           <ul>
             <li>
-              <T
-                text={
-                  lang === "ro"
-                    ? "RO Wallet (EUDI) — PID + verificarea vârstei în dec. 2026, sub MAI; atestări (mDL, cazier, stare civilă) în 2027"
-                    : "RO Wallet (EUDI) — PID + age verification by Dec 2026, under MAI; attestations (mDL, criminal record, civil status) in 2027"
-                }
-              />
+              <T text={t("summary.roWalletEudiPid")} />
             </li>
             <li>
-              <T
-                text={
-                  lang === "ro"
-                    ? "Registru STS — cine poate emite și cine poate verifica (WRPRC/WRPAC)"
-                    : "STS registry — who may issue and who may verify (WRPRC/WRPAC)"
-                }
-              />
+              <T text={t("summary.stsRegistryWhoMay")} />
             </li>
-            <li>
-              {lang === "ro"
-                ? "De la dec. 2027, băncile, telecomul, utilitățile și asigurătorii trebuie să accepte portofelul"
-                : "From Dec 2027 banks, telecoms, utilities and insurers must accept the wallet"}
-            </li>
+            <li>{t("summary.fromDec2027Banks")}</li>
           </ul>
         </section>
         <section className="summary-card proposal">
-          <h3>
-            {lang === "ro" ? "Ce propunem în plus" : "What we propose on top"}
-          </h3>
+          <h3>{t("summary.whatWeProposeOn")}</h3>
           <ul>
             {GAPS.map((g) => (
               <li key={g.ro}>
@@ -95,46 +68,26 @@ export function SummaryView({
               </li>
             ))}
           </ul>
-          <p className="muted">
-            {lang === "ro"
-              ? "Cost estimat: ~2–3 €/cetățean/an; economii din licențe: 30–60M €/an."
-              : "Estimated cost: ~€2–3/citizen/year; licence savings: €30–60M/year."}
-          </p>
+          <p className="muted">{t("summary.estimatedCost23")}</p>
         </section>
         <section className="summary-card why">
-          <h3>{lang === "ro" ? "De ce contează" : "Why it matters"}</h3>
+          <h3>{t("summary.whyItMatters")}</h3>
           <ul>
-            <li>
-              {lang === "ro"
-                ? "Tu decizi ce date dezvălui, cui și în ce scop — fără urmărire, fără profilare"
-                : "You decide what data you reveal, to whom and for what purpose — no tracking, no profiling"}
-            </li>
-            <li>
-              {lang === "ro"
-                ? "Funcționează și când rețeaua cade: prezentări offline, ghișeu fizic ca plasă de siguranță"
-                : "It keeps working when the network dies: offline presentations, physical desks as a safety net"}
-            </li>
-            <li>
-              {lang === "ro"
-                ? "Cod deschis, verificabil: build-urile și registrul sunt ancorate public — verifici, nu crezi pe cuvânt"
-                : "Open, verifiable code: builds and the registry are publicly anchored — verify, don't trust"}
-            </li>
+            <li>{t("summary.youDecideWhatData")}</li>
+            <li>{t("summary.itKeepsWorkingWhen")}</li>
+            <li>{t("summary.openVerifiableCodeBuilds")}</li>
           </ul>
         </section>
       </div>
       <div className="summary-cta">
         <button className="cta" onClick={() => onNavigate("stories")}>
-          {lang === "ro"
-            ? "Vezi poveștile cetățenilor →"
-            : "See the citizens' stories →"}
+          {t("summary.seeTheCitizensStories")}
         </button>
         <button className="cta secondary" onClick={() => onNavigate("compare")}>
-          {lang === "ro"
-            ? "Vezi comparația completă"
-            : "See the full comparison"}
+          {t("summary.seeTheFullComparison")}
         </button>
         <button className="cta secondary" onClick={() => onNavigate("flows")}>
-          {lang === "ro" ? "Explorează fluxurile" : "Explore the flows"}
+          {t("summary.exploreTheFlows")}
         </button>
       </div>
     </div>

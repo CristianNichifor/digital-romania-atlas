@@ -282,6 +282,20 @@ Test: `scripts/validate-data.mjs` (inline-copy check over these files, key
 parity); `tests/e2e/a11y.spec.ts` and `smoke.spec.ts` render every view in
 both languages. Text moved verbatim; no new translations.
 
-Remaining: Map, Flows, Summary, Strategy and Resilience views still carry
-inline copy (Map/Flows/Summary are being edited in the theme D and E pull
-requests; move them after those land).
+Remaining: see ATL-22.
+
+### ATL-22 Remaining view copy in locale files — `done` (partial scope)
+
+- Given the Map, Flows, Summary, Strategy and Resilience views carried 122
+  inline string pairs
+- When the plain-string pairs move verbatim into the locale files
+- Then those views read them through `useT()` with ro/en key parity, and the
+  validator guards Summary and Resilience, which no longer carry inline copy.
+
+Test: `scripts/validate-data.mjs`; `tests/e2e/a11y.spec.ts`, `smoke.spec.ts`
+and `map.spec.ts` render the views in both languages.
+
+Remaining: three JSX fragments with inline markup (Flows diff banner,
+Strategy at the `lang === "ro" ? (` block, the Map hover bar's county
+suffix) still switch on `lang`; Map, Flows and Strategy are therefore not yet
+in the validator guard. Keys are derived from the English text.

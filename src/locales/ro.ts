@@ -38,6 +38,12 @@ export const ro = {
     "Demonstrație open source — datele „actuale” provin din",
   "footer.foundError": "găsiți o eroare?",
   "footer.report": "raportați-o",
+  "map.caption":
+    "DC-A (Cluj), DC-B (București) și DC-C (Iași) sunt centrele de date suverane propuse. Liniile întrerupte sunt legături de replicare propuse între situri, nu infrastructură existentă.",
+  "map.loadError":
+    "Harta nu a putut fi încărcată. Verificați conexiunea și încercați din nou.",
+  "map.retry":
+    "Reîncearcă",
   "map.attribution":
     "Limitele județelor: geoBoundaries (William & Mary geoLab), după datele Băncii Mondiale, CC BY 4.0; simplificate pentru afișare.",
   "nav.compare": "Comparație",

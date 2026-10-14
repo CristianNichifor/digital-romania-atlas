@@ -66,6 +66,8 @@ export function MapView() {
   const { lang } = useLang();
   const t = useT();
   const [geo, setGeo] = useState<GeoCollection | null>(null);
+  const [loadError, setLoadError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
   const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(
@@ -80,11 +82,18 @@ export function MapView() {
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
 
   useEffect(() => {
+    setLoadError(false);
     fetch(`${import.meta.env.BASE_URL}data/ro-counties.geojson`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
       .then(setGeo)
-      .catch((e) => console.error(e));
-  }, []);
+      .catch((e) => {
+        console.error(e);
+        setLoadError(true);
+      });
+  }, [attempt]);
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -156,6 +165,16 @@ export function MapView() {
   const visible = (i: Institution) =>
     (i.county && i.county !== "*" && (!filter || i.category === filter)) ||
     i.county === "*";
+
+  if (loadError)
+    return (
+      <div className="loading" role="alert">
+        <p>{t("map.loadError")}</p>
+        <button className="btn" onClick={() => setAttempt((a) => a + 1)}>
+          {t("map.retry")}
+        </button>
+      </div>
+    );
 
   if (!geo || !projection)
     return (
@@ -615,9 +634,6 @@ export function MapView() {
               onMouseLeave={() => setTip(null)}
             >
               <circle r={4} fill="#e5484d" stroke="#05070d" strokeWidth={1} />
-              <text x={0} y={-10} textAnchor="middle" className="vrancea-label">
-                Vrancea
-              </text>
             </g>
             {geo.features.map((f, idx) => {
               const centroid = path.centroid(f as unknown as GeoJSON.Feature);
@@ -626,7 +642,7 @@ export function MapView() {
                   key={`c-${idx}`}
                   transform={`translate(${centroid[0]},${centroid[1]}) scale(${1 / k})`}
                 >
-                  <text x={0} y={0} className="county-label">
+                  <text x={0} y={14} className="county-label">
                     {f.properties.name}
                   </text>
                 </g>
@@ -640,7 +656,7 @@ export function MapView() {
                   <g
                     key={`uat-${fi}`}
                     transform={`translate(${cx + off.ox / k},${cy + off.oy / k}) scale(${1 / k})`}
-                    className="marker"
+                    className="marker uat"
                     onMouseEnter={(e) => {
                       setHover(uat!);
                       setHoverCounty(f.properties.name);
@@ -1091,6 +1107,7 @@ export function MapView() {
           </span>
         )}
       </div>
+      <p className="muted map-caption">{t("map.caption")}</p>
       <p className="muted map-attribution">{t("map.attribution")}</p>
     </div>
   );

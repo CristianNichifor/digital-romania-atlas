@@ -39,6 +39,12 @@ export const en: Record<MessageKey, string> = {
     "Open source demo — the “current” data comes from",
   "footer.foundError": "found an error?",
   "footer.report": "report it",
+  "map.caption":
+    "DC-A (Cluj), DC-B (Bucharest) and DC-C (Iași) are the proposed sovereign data centres. Dashed lines are proposed replication links between sites, not existing infrastructure.",
+  "map.loadError":
+    "The map could not be loaded. Check your connection and try again.",
+  "map.retry":
+    "Retry",
   "map.attribution":
     "County boundaries: geoBoundaries (William & Mary geoLab), from World Bank data, CC BY 4.0; simplified for display.",
   "nav.compare": "Comparison",

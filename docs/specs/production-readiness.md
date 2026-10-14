@@ -364,6 +364,15 @@ Test: `scripts/validate-data.mjs` (cedilla check over tracked files).
 
 Test: `tests/e2e/provenance.spec.ts`.
 
+### ATL-31 Active tab stays in view on phones — `done`
+
+- Given the nav is one horizontally scrolling strip (≤ 900 px; design 05)
+- When a view opens from a deep link or a route change
+- Then its link has `aria-current="page"` and lies inside the nav's visible
+  box.
+
+Test: `tests/e2e/nav-active.spec.ts` (390 px; Reziliență, Surse, Rezumat).
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

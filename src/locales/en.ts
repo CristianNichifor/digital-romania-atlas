@@ -43,8 +43,7 @@ export const en: Record<MessageKey, string> = {
     "DC-A (Cluj), DC-B (Bucharest) and DC-C (Iași) are the proposed sovereign data centres. Dashed lines are proposed replication links between sites, not existing infrastructure.",
   "map.loadError":
     "The map could not be loaded. Check your connection and try again.",
-  "map.retry":
-    "Retry",
+  "map.retry": "Retry",
   "map.attribution":
     "County boundaries: geoBoundaries (William & Mary geoLab), from World Bank data, CC BY 4.0; simplified for display.",
   "nav.compare": "Comparison",
@@ -111,4 +110,151 @@ export const en: Record<MessageKey, string> = {
   "timeline.ourProposal": "Our proposal",
   "timeline.title":
     "Calendar: EU obligations vs. national plan vs. our proposal",
+  // Views, part 2 (ATL-22)
+  "flows.dataFlowsBetweenParties": "Data flows between parties",
+  "flows.flows": "Flows:",
+  "flows.hoverANodeFor":
+    "Hover a node for its full name and role; hover an edge for the data that flows. Drag nodes to rearrange. In “Diff” mode you see only what our proposal adds.",
+  "flows.institutions": "Institutions:",
+  "map.archiveCopyToThe": "Archive copy to the salt mine",
+  "map.countyShadeInstitutionDensity": "County shade = institution density",
+  "map.ctrlWheelToZoom":
+    "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; lines show replication between sites, count badges group nearby dots — zoom in to see them separately.",
+  "map.fibreRingBetweenThe": "Fibre ring between the sovereign DCs",
+  "map.institutionalMapOfDigital": "Institutional map of digital Romania",
+  "map.institutionsColourCategory": "Institutions (colour = category)",
+  "map.l0SyncWhenZoomed": "L0 sync (when zoomed in)",
+  "map.loadingTheMap": "Loading the map…",
+  "map.nInstitutionClusterZoom": "N = institution cluster (zoom in)",
+  "map.nationalPresenceUatIn": "National presence (UAT) in every county",
+  "map.regionalMicroDc": "Regional micro-DC",
+  "map.regionalUplinkL3Mirror": "Regional uplink (L3 mirror)",
+  "map.sovereignDc": "Sovereign DC",
+  "map.undergroundSiteCandidate": "Underground site (candidate)",
+  "map.vranceaSeismicZone50": "Vrancea seismic zone (50/100/200 km)",
+  "resilience.assessment": "Assessment",
+  "resilience.autonomy": "Autonomy",
+  "resilience.backupTestingRules": "Backup & testing rules",
+  "resilience.dataCentrePlacement3": "Data centre placement (3+3 university)",
+  "resilience.disasterScenariosResponse": "Disaster scenarios & response",
+  "resilience.energyAutonomyByTier": "Energy autonomy by tier",
+  "resilience.hardwareIndependence": "Hardware independence",
+  "resilience.impact": "Impact",
+  "resilience.layer": "Layer",
+  "resilience.location": "Location",
+  "resilience.nothingDependsOnA":
+    "Nothing depends on a single datacenter, vendor or network route. The 3+8+1+L0 model: three semi-active sovereign sites, eight regional micro-DCs with their own power generation, one underground salt-mine vault and the offline nodes in every commune. Read together with the RPO/RTO classes in the Strategy tab and the public anchoring in the Flows tab.",
+  "resilience.onTheMapThe":
+    "On the map: the Vrancea seismic-zone rings (50/100/200 km), yellow squares = the sovereign DC sites, cyan squares = the regional micro-DCs, purple triangles = the underground sites.",
+  "resilience.ownGeneration": "Own generation",
+  "resilience.ownPower": "Own power",
+  "resilience.powerCooling": "Power & cooling",
+  "resilience.region": "Region",
+  "resilience.regionalMicroDcsOne":
+    "Regional micro-DCs (one per development region)",
+  "resilience.resilienceCostsEstimate": "Resilience costs (estimate)",
+  "resilience.resilienceHardwareGeographyDisasters":
+    "Resilience: hardware, geography, disasters & the academic community",
+  "resilience.response": "Response",
+  "resilience.role": "Role",
+  "resilience.scenario": "Scenario",
+  "resilience.schoolsUniversitiesResearchInside":
+    "Schools, universities & research inside the infrastructure",
+  "resilience.seismicRisk": "Seismic risk",
+  "resilience.site": "Site",
+  "resilience.sites": "Sites",
+  "resilience.softwareIndependence": "Software independence",
+  "resilience.target": "Target",
+  "resilience.tier": "Tier",
+  "resilience.today": "Today",
+  "resilience.undergroundCandidatesSaltMines":
+    "Underground candidates (salt mines & galleries)",
+  "resilience.undergroundCaveatsSaltIs":
+    "Underground caveats: salt is corrosive (sealed containers, positive pressure, humidity control), and deep Vrancea earthquakes shake galleries too — which is why the vault sits in the North-East, not in Wallachia.",
+  "strategy.2028TargetKpis": "2028 target KPIs",
+  "strategy.action": "Action",
+  "strategy.actions": "Actions",
+  "strategy.annualGrossToEmployer":
+    "Annual gross-to-employer figures (total cost, contributions included), in k€. RO bands reflect the 2026 Romanian private market; EU bands are the same roles working remotely from Romania for foreign employers — the state's direct competition.",
+  "strategy.basis": "Basis",
+  "strategy.category": "Category",
+  "strategy.class": "Class",
+  "strategy.contents": "Contents",
+  "strategy.destination": "Destination",
+  "strategy.estimate": "Estimate",
+  "strategy.estimatedSavings": "Estimated savings",
+  "strategy.euInternationalRemote": "EU / international remote",
+  "strategy.event": "Event",
+  "strategy.examples": "Examples",
+  "strategy.existingServices": "Existing services",
+  "strategy.focus": "Focus",
+  "strategy.fourGovernanceRules": "Four governance rules",
+  "strategy.fte": "FTE",
+  "strategy.humanResourcesHowThe": "Human resources — how the teams look",
+  "strategy.humanResourcesPerInstitution": "Human resources — per institution",
+  "strategy.institution": "Institution",
+  "strategy.item": "Item",
+  "strategy.layer": "Layer",
+  "strategy.machinesEquipmentRequired": "Machines & equipment required",
+  "strategy.mechanism": "Mechanism",
+  "strategy.note": "Note",
+  "strategy.operator": "Operator",
+  "strategy.owner": "Owner",
+  "strategy.payLevelsRomanianMarket":
+    "Pay levels: Romanian market vs. international remote",
+  "strategy.payNote": "Pay note",
+  "strategy.period": "Period",
+  "strategy.phase": "Phase",
+  "strategy.principleLocalTalentFirst":
+    "Principle: local talent first, a 10–20% top-up for rare skills (crypto, security) and a digital agency with its own pay grid that escapes public-sector pay caps. Each team is small, dedicated to one layer, with on-call and end-to-end ownership.",
+  "strategy.quantity": "Quantity",
+  "strategy.rationalisingTheExistingPortals":
+    "Rationalising the existing portals",
+  "strategy.redundancyByServiceClass": "Redundancy by service class",
+  "strategy.resourcesCosts5Year": "Resources & costs (5-year estimate)",
+  "strategy.role": "Role",
+  "strategy.roles": "Roles",
+  "strategy.romaniaTotalCost": "Romania (total cost)",
+  "strategy.sector": "Sector",
+  "strategy.status": "Status",
+  "strategy.systems": "Systems",
+  "strategy.target": "Target",
+  "strategy.team": "Team",
+  "strategy.the7LayerArchitecture": "The 7-layer architecture",
+  "strategy.theFullStrategyFrom":
+    "The full strategy — from the workstation to payments",
+  "strategy.theIdentityLifecycleLosing":
+    "The identity lifecycle — losing the phone, planned for",
+  "strategy.theOutwardFacingPortals": "The outward-facing portals (14)",
+  "strategy.theSixPillars": "The six pillars",
+  "strategy.todaySInventoryAnd":
+    "Today's inventory and each system's destination. Governing principle: “wrap, don't rewrite” — no legacy system is rewritten; each gets a connector and becomes an authentic source behind the backbone. HUB MAI proves the model already works at ministry scale.",
+  "strategy.total": "Total",
+  "strategy.unitCost": "Unit cost",
+  "strategy.value": "Value",
+  "strategy.whatTheCitizenDoes": "What the citizen does",
+  "strategy.whatTheSystemDoes": "What the system does",
+  "summary.digitalRomaniaIn30": "Digital Romania in 30 seconds",
+  "summary.estimatedCost23":
+    "Estimated cost: ~€2–3/citizen/year; licence savings: €30–60M/year.",
+  "summary.exploreTheFlows": "Explore the flows",
+  "summary.fromDec2027Banks":
+    "From Dec 2027 banks, telecoms, utilities and insurers must accept the wallet",
+  "summary.itKeepsWorkingWhen":
+    "It keeps working when the network dies: offline presentations, physical desks as a safety net",
+  "summary.openVerifiableCodeBuilds":
+    "Open, verifiable code: builds and the registry are publicly anchored — verify, don't trust",
+  "summary.roWalletEudiPid":
+    "RO Wallet (EUDI) — PID + age verification by Dec 2026, under MAI; attestations (mDL, criminal record, civil status) in 2027",
+  "summary.seeTheCitizensStories": "See the citizens' stories →",
+  "summary.seeTheFullComparison": "See the full comparison",
+  "summary.stsRegistryWhoMay":
+    "STS registry — who may issue and who may verify (WRPRC/WRPAC)",
+  "summary.weProposeTheState":
+    "We propose: the state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry.",
+  "summary.whatHappensToday": "What happens today",
+  "summary.whatWeProposeOn": "What we propose on top",
+  "summary.whyItMatters": "Why it matters",
+  "summary.youDecideWhatData":
+    "You decide what data you reveal, to whom and for what purpose — no tracking, no profiling",
 };

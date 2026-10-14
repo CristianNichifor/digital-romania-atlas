@@ -42,8 +42,7 @@ export const ro = {
     "DC-A (Cluj), DC-B (București) și DC-C (Iași) sunt centrele de date suverane propuse. Liniile întrerupte sunt legături de replicare propuse între situri, nu infrastructură existentă.",
   "map.loadError":
     "Harta nu a putut fi încărcată. Verificați conexiunea și încercați din nou.",
-  "map.retry":
-    "Reîncearcă",
+  "map.retry": "Reîncearcă",
   "map.attribution":
     "Limitele județelor: geoBoundaries (William & Mary geoLab), după datele Băncii Mondiale, CC BY 4.0; simplificate pentru afișare.",
   "nav.compare": "Comparație",
@@ -111,4 +110,154 @@ export const ro = {
   "timeline.ourProposal": "Propunerea noastră",
   "timeline.title":
     "Calendar: obligații UE vs. planul național vs. propunerea noastră",
+  // Views, part 2 (ATL-22)
+  "flows.dataFlowsBetweenParties": "Fluxuri de date între părți",
+  "flows.flows": "Fluxuri:",
+  "flows.hoverANodeFor":
+    "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră.",
+  "flows.institutions": "Instituții:",
+  "map.archiveCopyToThe": "Copie de arhivă către salină",
+  "map.countyShadeInstitutionDensity":
+    "Nuanța județului = densitatea instituțiilor",
+  "map.ctrlWheelToZoom":
+    "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; liniile arată replicarea între situri, iar badge-urile cu număr grupează punctele apropiate — mărește zoom-ul pentru a le vedea separat.",
+  "map.fibreRingBetweenThe": "Inel de fibră între DC-urile suverane",
+  "map.institutionalMapOfDigital": "Harta instituțională a României digitale",
+  "map.institutionsColourCategory": "Instituții (culoarea = categoria)",
+  "map.l0SyncWhenZoomed": "Sincronizare L0 (la zoom)",
+  "map.loadingTheMap": "Se încarcă harta…",
+  "map.nInstitutionClusterZoom": "N = cluster de instituții (mărește zoom-ul)",
+  "map.nationalPresenceUatIn": "Prezență națională (UAT) în fiecare județ",
+  "map.regionalMicroDc": "Micro-DC regional",
+  "map.regionalUplinkL3Mirror": "Uplink regional (oglindă L3)",
+  "map.sovereignDc": "DC suverană",
+  "map.undergroundSiteCandidate": "Sit subteran (candidat)",
+  "map.vranceaSeismicZone50": "Zona seismică Vrancea (50/100/200 km)",
+  "resilience.assessment": "Evaluare",
+  "resilience.autonomy": "Autonomie",
+  "resilience.backupTestingRules": "Reguli de backup & testare",
+  "resilience.dataCentrePlacement3":
+    "Plasamentul centrelor de date (3+3 universitare)",
+  "resilience.disasterScenariosResponse": "Scenarii de dezastru & răspuns",
+  "resilience.energyAutonomyByTier": "Autonomie energetică pe niveluri",
+  "resilience.hardwareIndependence": "Independența hardware",
+  "resilience.impact": "Impact",
+  "resilience.layer": "Strat",
+  "resilience.location": "Locație",
+  "resilience.nothingDependsOnA":
+    "Nimic nu depinde de un singur datacenter, un singur furnizor sau o singură rută de rețea. Modelul 3+8+1+L0: trei situri suverane semi-active, opt micro-DC regionale cu producție proprie de energie, un vault subteran în salină și nodurile offline din fiecare comună. Citește împreună cu clasele RPO/RTO din tab-ul Strategie și cu ancorarea publică din tab-ul Fluxuri.",
+  "resilience.onTheMapThe":
+    "Pe hartă: inelele zonei seismice Vrancea (50/100/200 km), pătratele galbene = siturile DC suverane, pătratele albastre = micro-DC-urile regionale, triunghiurile mov = siturile subterane.",
+  "resilience.ownGeneration": "Producție proprie",
+  "resilience.ownPower": "Energie proprie",
+  "resilience.powerCooling": "Energie & răcire",
+  "resilience.region": "Regiune",
+  "resilience.regionalMicroDcsOne":
+    "Micro-DC regionale (câte unul per regiune de dezvoltare)",
+  "resilience.resilienceCostsEstimate": "Costuri de reziliență (estimare)",
+  "resilience.resilienceHardwareGeographyDisasters":
+    "Reziliență: hardware, geografie, dezastre & comunitate academică",
+  "resilience.response": "Răspuns",
+  "resilience.role": "Rol",
+  "resilience.scenario": "Scenariu",
+  "resilience.schoolsUniversitiesResearchInside":
+    "Școli, universități & cercetare în infrastructură",
+  "resilience.seismicRisk": "Risc seismic",
+  "resilience.site": "Sit",
+  "resilience.sites": "Situri",
+  "resilience.softwareIndependence": "Independența software",
+  "resilience.target": "Țintă",
+  "resilience.tier": "Nivel",
+  "resilience.today": "Azi",
+  "resilience.undergroundCandidatesSaltMines":
+    "Candidați subterani (saline & galerii)",
+  "resilience.undergroundCaveatsSaltIs":
+    "Atenție la subteran: sarea e corozivă (containere etanșe, presiune pozitivă, control al umidității), iar cutremurele de adâncime Vrancea zguduie și galeriile — de aceea vault-ul stă în Nord-Est, nu în Muntenia.",
+  "strategy.2028TargetKpis": "KPI țintă 2028",
+  "strategy.action": "Acțiune",
+  "strategy.actions": "Acțiuni",
+  "strategy.annualGrossToEmployer":
+    "Cifre anuale brute angajator (cost total, inclusiv contribuții), în k€. Benzile RO reflectă piața privată românească din 2026; benzile EU sunt pentru aceleași roluri lucrate remote din România pentru angajatori externi — competiția directă a statului.",
+  "strategy.basis": "Bază de calcul",
+  "strategy.category": "Categorie",
+  "strategy.class": "Clasă",
+  "strategy.contents": "Conținut",
+  "strategy.destination": "Destinație",
+  "strategy.estimate": "Estimare",
+  "strategy.estimatedSavings": "Economii estimate",
+  "strategy.euInternationalRemote": "Remote UE / internațional",
+  "strategy.event": "Eveniment",
+  "strategy.examples": "Exemple",
+  "strategy.existingServices": "Servicii existente",
+  "strategy.focus": "Focus",
+  "strategy.fourGovernanceRules": "Patru reguli de guvernanță",
+  "strategy.fte": "FTE",
+  "strategy.humanResourcesHowThe": "Resurse umane — cum arată echipele",
+  "strategy.humanResourcesPerInstitution": "Resurse umane — pe instituție",
+  "strategy.institution": "Instituție",
+  "strategy.item": "Element",
+  "strategy.layer": "Strat",
+  "strategy.machinesEquipmentRequired": "Mașini & echipamente necesare",
+  "strategy.mechanism": "Mecanism",
+  "strategy.note": "Notă",
+  "strategy.operator": "Operator",
+  "strategy.owner": "Responsabil",
+  "strategy.payLevelsRomanianMarket":
+    "Niveluri salariale: piața românească vs. remote internațional",
+  "strategy.payNote": "Notă salarizare",
+  "strategy.period": "Perioadă",
+  "strategy.phase": "Fază",
+  "strategy.principleLocalTalentFirst":
+    "Principiu: talent local în primul rând, top-up de 10–20% pentru competențe rare (crypto, securitate) și o agenție digitală cu grilă proprie, care scapă de plafoanele de salarizare bugetară. Fiecare echipă este mică, dedicată unui strat, cu on-call și responsabilitate de capăt la capăt.",
+  "strategy.quantity": "Cantitate",
+  "strategy.rationalisingTheExistingPortals":
+    "Raționalizarea portalurilor existente",
+  "strategy.redundancyByServiceClass": "Redundanță pe clase de serviciu",
+  "strategy.resourcesCosts5Year": "Resurse & costuri (estimare pe 5 ani)",
+  "strategy.role": "Rol",
+  "strategy.roles": "Roluri",
+  "strategy.romaniaTotalCost": "România (brut angajator)",
+  "strategy.sector": "Sector",
+  "strategy.status": "Stare",
+  "strategy.systems": "Sisteme",
+  "strategy.target": "Țintă",
+  "strategy.team": "Echipă",
+  "strategy.the7LayerArchitecture": "Arhitectura pe 7 straturi",
+  "strategy.theFullStrategyFrom":
+    "Strategia completă — de la stația de lucru la plăți",
+  "strategy.theIdentityLifecycleLosing":
+    "Ciclul de viață al identității — pierderea telefonului planificată",
+  "strategy.theOutwardFacingPortals":
+    "Portalurile orientate către exterior (14)",
+  "strategy.theSixPillars": "Cei șase piloni",
+  "strategy.todaySInventoryAnd":
+    "Inventarul de azi și destinația fiecărui sistem. Principiu director: „wrap, don't rewrite” — niciun sistem legacy nu se rescrie; fiecare primește un conector și devine sursă autentică în spatele backbone-ului. HUB MAI demonstrează că modelul funcționează deja la scară de minister.",
+  "strategy.total": "Total",
+  "strategy.unitCost": "Cost unitar",
+  "strategy.value": "Valoare",
+  "strategy.whatTheCitizenDoes": "Ce face cetățeanul",
+  "strategy.whatTheSystemDoes": "Ce face sistemul",
+  "summary.digitalRomaniaIn30": "România digitală în 30 de secunde",
+  "summary.estimatedCost23":
+    "Cost estimat: ~2–3 €/cetățean/an; economii din licențe: 30–60M €/an.",
+  "summary.exploreTheFlows": "Explorează fluxurile",
+  "summary.fromDec2027Banks":
+    "De la dec. 2027, băncile, telecomul, utilitățile și asigurătorii trebuie să accepte portofelul",
+  "summary.itKeepsWorkingWhen":
+    "Funcționează și când rețeaua cade: prezentări offline, ghișeu fizic ca plasă de siguranță",
+  "summary.openVerifiableCodeBuilds":
+    "Cod deschis, verificabil: build-urile și registrul sunt ancorate public — verifici, nu crezi pe cuvânt",
+  "summary.roWalletEudiPid":
+    "RO Wallet (EUDI) — PID + verificarea vârstei în dec. 2026, sub MAI; atestări (mDL, cazier, stare civilă) în 2027",
+  "summary.seeTheCitizensStories": "Vezi poveștile cetățenilor →",
+  "summary.seeTheFullComparison": "Vezi comparația completă",
+  "summary.stsRegistryWhoMay":
+    "Registru STS — cine poate emite și cine poate verifica (WRPRC/WRPAC)",
+  "summary.weProposeTheState":
+    "Propunem: statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister.",
+  "summary.whatHappensToday": "Ce se întâmplă azi",
+  "summary.whatWeProposeOn": "Ce propunem în plus",
+  "summary.whyItMatters": "De ce contează",
+  "summary.youDecideWhatData":
+    "Tu decizi ce date dezvălui, cui și în ce scop — fără urmărire, fără profilare",
 } as const;

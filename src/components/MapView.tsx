@@ -177,11 +177,7 @@ export function MapView() {
     );
 
   if (!geo || !projection)
-    return (
-      <div className="loading">
-        {lang === "ro" ? "Se încarcă harta…" : "Loading the map…"}
-      </div>
-    );
+    return <div className="loading">{t("map.loadingTheMap")}</div>;
 
   const path = d3.geoPath(projection);
   const maxCount = Math.max(...counts.values(), 1);
@@ -475,11 +471,7 @@ export function MapView() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Harta instituțională a României digitale"
-            : "Institutional map of digital Romania"}
-        </h2>
+        <h2>{t("map.institutionalMapOfDigital")}</h2>
         <div className="legend">
           {Object.entries(CATEGORY_LABELS).map(([cat, label]) => (
             <button
@@ -907,17 +899,13 @@ export function MapView() {
           <svg width="12" height="12" viewBox="0 0 12 12">
             <circle cx="6" cy="6" r="4.5" fill="#4f8cff" stroke="#05070d" />
           </svg>
-          {lang === "ro"
-            ? "Instituții (culoarea = categoria)"
-            : "Institutions (colour = category)"}
+          {t("map.institutionsColourCategory")}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
             <circle cx="6" cy="6" r="3" fill="#53c1e8" stroke="#05070d" />
           </svg>
-          {lang === "ro"
-            ? "Prezență națională (UAT) în fiecare județ"
-            : "National presence (UAT) in every county"}
+          {t("map.nationalPresenceUatIn")}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
@@ -931,7 +919,7 @@ export function MapView() {
               stroke="#0e1729"
             />
           </svg>
-          {lang === "ro" ? "DC suverană" : "Sovereign DC"}
+          {t("map.sovereignDc")}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
@@ -945,7 +933,7 @@ export function MapView() {
               stroke="#0e1729"
             />
           </svg>
-          {lang === "ro" ? "Micro-DC regional" : "Regional micro-DC"}
+          {t("map.regionalMicroDc")}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
@@ -955,9 +943,7 @@ export function MapView() {
               stroke="#0e1729"
             />
           </svg>
-          {lang === "ro"
-            ? "Sit subteran (candidat)"
-            : "Underground site (candidate)"}
+          {t("map.undergroundSiteCandidate")}
         </span>
         <span className="sl-item">
           <svg width="14" height="12" viewBox="0 0 14 12">
@@ -970,9 +956,7 @@ export function MapView() {
               strokeDasharray="2.5 2"
             />
           </svg>
-          {lang === "ro"
-            ? "Zona seismică Vrancea (50/100/200 km)"
-            : "Vrancea seismic zone (50/100/200 km)"}
+          {t("map.vranceaSeismicZone50")}
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
@@ -986,9 +970,7 @@ export function MapView() {
               strokeDasharray="3 3"
             />
           </svg>
-          {lang === "ro"
-            ? "Inel de fibră între DC-urile suverane"
-            : "Fibre ring between the sovereign DCs"}
+          {t("map.fibreRingBetweenThe")}
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
@@ -1002,9 +984,7 @@ export function MapView() {
               strokeDasharray="2.5 3"
             />
           </svg>
-          {lang === "ro"
-            ? "Uplink regional (oglindă L3)"
-            : "Regional uplink (L3 mirror)"}
+          {t("map.regionalUplinkL3Mirror")}
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
@@ -1018,9 +998,7 @@ export function MapView() {
               strokeDasharray="1.2 2.4"
             />
           </svg>
-          {lang === "ro"
-            ? "Copie de arhivă către salină"
-            : "Archive copy to the salt mine"}
+          {t("map.archiveCopyToThe")}
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
@@ -1034,9 +1012,7 @@ export function MapView() {
               strokeDasharray="1.5 2.5"
             />
           </svg>
-          {lang === "ro"
-            ? "Sincronizare L0 (la zoom)"
-            : "L0 sync (when zoomed in)"}
+          {t("map.l0SyncWhenZoomed")}
         </span>
         <span className="sl-item">
           <svg width="14" height="14" viewBox="0 0 14 14">
@@ -1059,9 +1035,7 @@ export function MapView() {
               N
             </text>
           </svg>
-          {lang === "ro"
-            ? "N = cluster de instituții (mărește zoom-ul)"
-            : "N = institution cluster (zoom in)"}
+          {t("map.nInstitutionClusterZoom")}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
@@ -1074,9 +1048,7 @@ export function MapView() {
               stroke="#2a4d8f"
             />
           </svg>
-          {lang === "ro"
-            ? "Nuanța județului = densitatea instituțiilor"
-            : "County shade = institution density"}
+          {t("map.countyShadeInstitutionDensity")}
         </span>
       </div>
       <div className="hover-bar">
@@ -1100,11 +1072,7 @@ export function MapView() {
               : ""}
           </span>
         ) : (
-          <span className="muted">
-            {lang === "ro"
-              ? "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; liniile arată replicarea între situri, iar badge-urile cu număr grupează punctele apropiate — mărește zoom-ul pentru a le vedea separat."
-              : "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; lines show replication between sites, count badges group nearby dots — zoom in to see them separately."}
-          </span>
+          <span className="muted">{t("map.ctrlWheelToZoom")}</span>
         )}
       </div>
       <p className="muted map-caption">{t("map.caption")}</p>

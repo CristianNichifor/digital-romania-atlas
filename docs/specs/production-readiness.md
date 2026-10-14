@@ -354,6 +354,16 @@ ignored, only string literals count).
 
 Test: `scripts/validate-data.mjs` (cedilla check over tracked files).
 
+### ATL-30 Provenance line on every data view — `done`
+
+- Given any of Rezumat, Hartă, Fluxuri, Comparație, Analiză, Strategie,
+  Reziliență, Calendar, Pași or Povești (UX backlog D-2)
+- When the view opens
+- Then a `.prov` line under its heading links to Surse and shows
+  `META.dataAsOf` in `<time datetime>`.
+
+Test: `tests/e2e/provenance.spec.ts`.
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

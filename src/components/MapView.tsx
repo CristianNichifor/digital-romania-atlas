@@ -22,6 +22,7 @@ import {
 } from "../data/resilience";
 import { pick, useLang, useT, type Bi } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 interface Feature {
   type: string;
@@ -521,6 +522,7 @@ export function MapView() {
           ))}
         </div>
       </div>
+      <Prov />
       <div
         className="map-wrap"
         ref={wrapRef}

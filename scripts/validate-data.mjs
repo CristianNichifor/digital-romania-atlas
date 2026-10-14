@@ -176,6 +176,39 @@ const metaVersion = readTs("src/data/meta.ts").match(/version:\s*"([^"]+)"/)?.[1
 if (pkgVersion !== metaVersion)
   errors.push(`package.json version ${pkgVersion} differs from META.version ${metaVersion}`);
 
+// Interface copy lives in src/locales; both languages carry the same keys.
+const localeKeys = (lang) => {
+  const code = readFileSync(resolve(root, `src/locales/${lang}.ts`), "utf8");
+  const entries = new Map();
+  for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*"((?:[^"\\]|\\.)*)"/gm))
+    entries.set(m[1], m[2]);
+  // Values that prettier wraps onto the next line.
+  for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*\n\s*"((?:[^"\\]|\\.)*)"/gm))
+    entries.set(m[1], m[2]);
+  return entries;
+};
+const roUi = localeKeys("ro");
+const enUi = localeKeys("en");
+if (roUi.size === 0) errors.push("src/locales/ro.ts: no keys found");
+for (const [a, b, name] of [
+  [roUi, enUi, "en"],
+  [enUi, roUi, "ro"],
+]) {
+  for (const key of a.keys())
+    if (!b.has(key)) errors.push(`src/locales/${name}.ts: missing key "${key}"`);
+}
+for (const [name, entries] of [
+  ["ro", roUi],
+  ["en", enUi],
+]) {
+  for (const [key, value] of entries)
+    if (!value.trim()) errors.push(`src/locales/${name}.ts: empty value for "${key}"`);
+}
+for (const file of ["src/App.tsx", "src/components/CompareView.tsx"]) {
+  if (/lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(readFileSync(resolve(root, file), "utf8")))
+    errors.push(`${file}: interface copy belongs in src/locales, not inline`);
+}
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const e of errors) console.error("  - " + e);

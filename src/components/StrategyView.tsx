@@ -22,6 +22,7 @@ import {
   uatRollout,
   useUatPlan,
 } from "../lib/uatPlan";
+import { Prov } from "./Prov";
 
 const STATUS_LABEL: Record<string, { ro: string; en: string }> = {
   "in-flight": { ro: "În curs", en: "In flight" },
@@ -45,6 +46,7 @@ export function StrategyView() {
       <div className="panel-head">
         <h2>{t("strategy.theFullStrategyFrom")}</h2>
       </div>
+      <Prov />
 
       <h3>{t("strategy.the7LayerArchitecture")}</h3>
       <div className="table-scroll">

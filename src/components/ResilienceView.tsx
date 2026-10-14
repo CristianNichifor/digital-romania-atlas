@@ -13,6 +13,7 @@ import {
 import { pick, useLang, type Bi, useT } from "../i18n";
 import { UatPlanNote, uatUpsTotal, useUatPlan } from "../lib/uatPlan";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 export function ResilienceView() {
   const { lang } = useLang();
@@ -24,6 +25,7 @@ export function ResilienceView() {
       <div className="panel-head">
         <h2>{t("resilience.resilienceHardwareGeographyDisasters")}</h2>
       </div>
+      <Prov />
       <p className="muted note">
         <T text={t("resilience.nothingDependsOnA")} />
       </p>

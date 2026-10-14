@@ -6,8 +6,12 @@ export function Prov() {
   const t = useT();
   return (
     <p className="prov muted">
-      {t("prov.label")} <a href="#/sources">{t("prov.sources")}</a> ·{" "}
-      {t("prov.updated")} <time dateTime={META.dataAsOf}>{META.dataAsOf}</time>
+      {t("prov.label")}{" "}
+      <a href="#/sources" style={{ color: "#9db9f5" }}>
+        {t("prov.sources")}
+      </a>{" "}
+      · {t("prov.updated")}{" "}
+      <time dateTime={META.dataAsOf}>{META.dataAsOf}</time>
     </p>
   );
 }

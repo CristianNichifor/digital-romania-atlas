@@ -145,8 +145,11 @@ atlas session is moving view copy into the locale files (ATL-21/22).
   the flows the current mode and filters draw (from, to, data, status); in
   "Diferența" it lists only the proposed flows
   (`tests/e2e/flows-list.spec.ts`).
-- **D-5** Comparație cites sources in a note, not per row.
-- **D-6** Empty-state copy for filters that match nothing is not checked.
+- **D-5** Fixed: each Comparație row cites its sources as footnote links
+  (`tests/e2e/compare-sources.spec.ts`).
+- **D-6** Fixed: a map or flow filter that matches nothing says which
+  filter, in a `role="status"` block with a reset
+  (`tests/e2e/map-table.spec.ts`, `tests/e2e/flows-empty.spec.ts`).
 - **D-7** Fixed: under `prefers-reduced-motion: reduce` animations and
   transitions stop (`tests/e2e/motion-contrast.spec.ts`).
 - **D-8** Fixed: under `forced-colors: active` chips and tabs keep a

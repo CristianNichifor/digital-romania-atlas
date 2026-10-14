@@ -116,6 +116,8 @@ export const ro = {
     "Calendar: obligații UE vs. planul național vs. propunerea noastră",
   // Views, part 2 (ATL-22)
   "flows.dataFlowsBetweenParties": "Fluxuri de date între părți",
+  "flows.emptyFilter": "Niciun flux nu corespunde filtrelor: {filters}.",
+  "flows.emptyReset": "Șterge filtrele",
   "flows.flows": "Fluxuri:",
   "flows.hoverANodeFor":
     "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră.",

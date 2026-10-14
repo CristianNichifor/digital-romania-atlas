@@ -56,7 +56,8 @@ change for the maintainer (see ATL-7).
 
 ### ATL-7 Node 22 everywhere in CI — `needs-human`
 
-- Given `deploy.yml` and `security.yml` still run Node 20
+- Given `security.yml` still runs Node 20 (`deploy.yml` no longer runs Node
+  since it only publishes the GitHub Pages redirect stub)
 - When the maintainer applies the workflow diff listed in the pull request
 - Then every workflow runs Node 22 and CI runs `npm run lint`.
 

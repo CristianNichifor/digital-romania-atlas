@@ -234,6 +234,23 @@ Test: `tests/e2e/map.spec.ts`.
 Needs human review: `map.loadError`, `map.retry` and `map.caption` (ro and
 en) are new agent-written strings.
 
+## Theme G: UX guidelines
+
+### UXG-1 Written UX guideline with a conformance map — `done`
+
+- Given the fleet UX review and the civic-ui guideline
+- When a contributor changes a view
+- Then `docs/ux-guidelines.md` states the users and first-screen job, page
+  anatomy, content, data-viz, states, mobile/accessibility rules and status
+  vocabulary, maps each rule to an existing test, and lists the known
+  deviations (D-1…D-11) as backlog.
+
+Test: the conformance table in `docs/ux-guidelines.md` names only existing
+test files; rules without a test are listed as deviations.
+
+Needs human review: the Romanian status labels and badge wording in the
+guideline are agent-written.
+
 ## Needs human review
 
 - Translations or new copy written by the agent (listed per item when added).

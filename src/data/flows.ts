@@ -511,7 +511,7 @@ export const FLOWS: Flow[] = [
     to: "transparency",
     kind: "service",
     label: {
-      ro: "Verifică public orice artefact — verify, don't trust",
+      ro: "Verifică public orice artefact — verifici, nu crezi pe cuvânt",
       en: "Publicly verifies any artifact — verify, don't trust",
     },
     tech: { ro: "portal public", en: "public portal" },

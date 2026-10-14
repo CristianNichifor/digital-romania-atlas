@@ -570,7 +570,7 @@ export const INSTITUTIONS: Institution[] = [
     },
     acronym: "CIVIC",
     role: {
-      ro: "Verifică public statul prin portal și ancore — verify, don't trust",
+      ro: "Verifică public statul prin portal și ancore — verifici, nu crezi pe cuvânt",
       en: "Publicly verify the state via the portal and anchors — verify, don't trust",
     },
     category: "oversight",

@@ -45,3 +45,15 @@ test('legend chips stay on one line and the caption explains the DCs', async ({ 
   await expect(caption).toContainText('DC-C');
   await expect(caption).toContainText('întrerupte');
 });
+
+test('a slow boundaries request shows a staged message after 2 s', async ({ page }) => {
+  await page.route('**/ro-counties.geojson', async route => {
+    await new Promise(r => setTimeout(r, 3500));
+    return route.continue();
+  });
+  await page.goto('/#/map');
+  const status = page.getByRole('status');
+  await expect(status).toHaveText(/Se încarcă harta/);
+  await expect(status).toHaveText(/contururile județelor/, { timeout: 4000 });
+  await expect(page.locator('main svg path.county')).toHaveCount(42, { timeout: 10000 });
+});

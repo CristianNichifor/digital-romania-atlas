@@ -321,3 +321,16 @@ Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
   scroll inside their own containers.
 
 Test: `tests/e2e/no-hscroll.spec.ts`.
+
+### ATL-27 Staged loading message for the map — `done`
+
+- Given the county boundaries take longer than 2 s to arrive (UX backlog
+  D-11)
+- When the map is still loading
+- Then the loading text is a `role="status"` region that changes from "Se
+  încarcă harta…" to a staged message naming what is still being downloaded,
+  so the wait is explained rather than silent.
+
+Test: `tests/e2e/map.spec.ts` ("a slow boundaries request shows a staged
+message after 2 s"). The string `map.loadingSlow` is new: needs human
+review.

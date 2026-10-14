@@ -71,4 +71,44 @@ export const en: Record<MessageKey, string> = {
     "This site sets no cookies, runs no analytics and loads nothing from third parties. Your language choice is kept only in your own browser (localStorage); if you opened the administrative-reform simulator in the same browser, the atlas reads its latest scenario from there.",
   "privacy.title": "Privacy",
   "sources.accessed": "Retrieved",
+  // Views (ATL-21)
+  "journeys.intro":
+    "The four journeys that decide everything: enrollment, sign-in, a lost phone and the optional hardware key. Each step is a diagram — the actors are the real institutions in our architecture, and the orange lines mark optional or plan-B steps.",
+  "journeys.title": "Citizen journeys — flow diagrams",
+  "policy.better": "Better: ",
+  "policy.countersIntro":
+    "A proposal that does not know its opposition is not ready for debate. These are the arguments we take most seriously, stated fairly — with our response beside them.",
+  "policy.countersTitle": "The strongest arguments against — and our responses",
+  "policy.criterion": "Criterion",
+  "policy.currentArchitecture": "Current architecture",
+  "policy.currentProposes": "What the current architecture proposes",
+  "policy.disclaimer":
+    "A design position, not an official document. The “current” facts come from the public MAI documentation (the GitHub repo) and the MAI presentation of July 2026.",
+  "policy.element": "Element",
+  "policy.gainsTitle": "The concrete gains",
+  "policy.ourProposal": "Our proposal",
+  "policy.ourResponse": "Our response: ",
+  "policy.risk": "Risk: ",
+  "policy.risksTitle": "The 8 risks — and what we do better",
+  "policy.source": "Source",
+  "policy.title":
+    "Policy analysis: the RO Wallet architecture vs. our proposal",
+  "policy.whyTitle": "Why our proposal is the right one",
+  "sources.downloadCsv": "Download CSV (flat table)",
+  "sources.downloadJson": "Download JSON (full data)",
+  "sources.intro.after":
+    "— every accepted correction is logged publicly in ERRATA.",
+  "sources.intro.before":
+    "Everything marked “current” in the atlas comes from the sources below; everything marked “proposed” is a design argument. Follow the links and dispute our data — every row has provenance. Found an error?",
+  "sources.intro.link": "File a correction",
+  "sources.pressKit": "Press kit",
+  "sources.title": "Sources and provenance",
+  "stories.title": "Citizen stories — today vs. proposal",
+  "stories.today": "Today",
+  "stories.withProposal": "With the proposal",
+  "timeline.euObligations": "EU obligations",
+  "timeline.nationalPlan": "National plan / MAI",
+  "timeline.ourProposal": "Our proposal",
+  "timeline.title":
+    "Calendar: EU obligations vs. national plan vs. our proposal",
 };

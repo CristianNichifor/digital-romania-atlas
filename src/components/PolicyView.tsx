@@ -6,28 +6,19 @@ import {
   RISKS,
   VERDICT,
 } from "../data/policy";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
 
 export function PolicyView() {
   const { lang } = useLang();
+  const t = useT();
   return (
     <div className="panel policy">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Analiză de politică: arhitectura RO Wallet vs. propunerea noastră"
-            : "Policy analysis: the RO Wallet architecture vs. our proposal"}
-        </h2>
+        <h2>{t("policy.title")}</h2>
       </div>
       <p className="muted note">
-        <T
-          text={
-            lang === "ro"
-              ? "Poziție de design, nu document oficial. Faptele „actuale” provin din documentația publică MAI (repo-ul GitHub) și din prezentarea MAI din iulie 2026."
-              : "A design position, not an official document. The “current” facts come from the public MAI documentation (the GitHub repo) and the MAI presentation of July 2026."
-          }
-        />
+        <T text={t("policy.disclaimer")} />
       </p>
 
       <div className="callout">
@@ -39,17 +30,13 @@ export function PolicyView() {
         </p>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Ce propune arhitectura actuală"
-          : "What the current architecture proposes"}
-      </h3>
+      <h3>{t("policy.currentProposes")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Construcție" : "Element"}</th>
-              <th>{lang === "ro" ? "Sursă" : "Source"}</th>
+              <th>{t("policy.element")}</th>
+              <th>{t("policy.source")}</th>
             </tr>
           </thead>
           <tbody>
@@ -67,11 +54,7 @@ export function PolicyView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Cele 8 riscuri — și ce facem mai bine"
-          : "The 8 risks — and what we do better"}
-      </h3>
+      <h3>{t("policy.risksTitle")}</h3>
       <div className="risk-grid">
         {RISKS.map((r, i) => (
           <section key={i} className="risk-card">
@@ -80,31 +63,25 @@ export function PolicyView() {
               <T text={pick(r.risk, lang)} />
             </h4>
             <p className="risk-why">
-              <strong>{lang === "ro" ? "Riscul: " : "Risk: "}</strong>
+              <strong>{t("policy.risk")}</strong>
               <T text={pick(r.why, lang)} />
             </p>
             <p className="risk-fix">
-              <strong>{lang === "ro" ? "Mai bine: " : "Better: "}</strong>
+              <strong>{t("policy.better")}</strong>
               <T text={pick(r.fix, lang)} />
             </p>
           </section>
         ))}
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "De ce propunerea noastră este cea potrivită"
-          : "Why our proposal is the right one"}
-      </h3>
+      <h3>{t("policy.whyTitle")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Criteriu" : "Criterion"}</th>
-              <th>
-                {lang === "ro" ? "Arhitectura actuală" : "Current architecture"}
-              </th>
-              <th>{lang === "ro" ? "Propunerea noastră" : "Our proposal"}</th>
+              <th>{t("policy.criterion")}</th>
+              <th>{t("policy.currentArchitecture")}</th>
+              <th>{t("policy.ourProposal")}</th>
             </tr>
           </thead>
           <tbody>
@@ -125,7 +102,7 @@ export function PolicyView() {
         </table>
       </div>
 
-      <h3>{lang === "ro" ? "Câștigurile concrete" : "The concrete gains"}</h3>
+      <h3>{t("policy.gainsTitle")}</h3>
       <div className="grid-cards">
         {GAINS.map((g, i) => (
           <div key={i} className="card">
@@ -139,16 +116,8 @@ export function PolicyView() {
         ))}
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Cele mai puternice argumente împotrivă — și răspunsurile noastre"
-          : "The strongest arguments against — and our responses"}
-      </h3>
-      <p className="muted note">
-        {lang === "ro"
-          ? "O propunere care nu-și cunoaște opoziția nu e pregătită pentru dezbatere. Acestea sunt argumentele pe care le considerăm cele mai serioase, formulate pe cinste — cu răspunsul nostru alături."
-          : "A proposal that does not know its opposition is not ready for debate. These are the arguments we take most seriously, stated fairly — with our response beside them."}
-      </p>
+      <h3>{t("policy.countersTitle")}</h3>
+      <p className="muted note">{t("policy.countersIntro")}</p>
       <div className="counter-grid">
         {COUNTERS.map((c, i) => (
           <section key={i} className="counter-card">
@@ -158,9 +127,7 @@ export function PolicyView() {
               </strong>
             </p>
             <p className="counter-resp">
-              <strong>
-                {lang === "ro" ? "Răspunsul nostru: " : "Our response: "}
-              </strong>
+              <strong>{t("policy.ourResponse")}</strong>
               <T text={pick(c.response, lang)} />
             </p>
           </section>

@@ -10,56 +10,26 @@ export function SourcesView() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>
-          {lang === "ro" ? "Surse și proveniență" : "Sources and provenance"}
-        </h2>
+        <h2>{t("sources.title")}</h2>
       </div>
       <p className="muted note">
-        {lang === "ro" ? (
-          <>
-            Tot ce e marcat „actual” în atlas provine din sursele de mai jos;
-            tot ce e marcat „propus” este argument de design. Urmăriți linkurile
-            și contestați-ne datele — fiecare rând are proveniență. Găsiți o
-            eroare?{" "}
-            <a
-              href={`${META.issues}/new?template=correction.yml`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Trimiteți o corectură
-            </a>{" "}
-            — fiecare corectură acceptată apare public în ERRATA.
-          </>
-        ) : (
-          <>
-            Everything marked “current” in the atlas comes from the sources
-            below; everything marked “proposed” is a design argument. Follow the
-            links and dispute our data — every row has provenance. Found an
-            error?{" "}
-            <a
-              href={`${META.issues}/new?template=correction.yml`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              File a correction
-            </a>{" "}
-            — every accepted correction is logged publicly in ERRATA.
-          </>
-        )}
+        {t("sources.intro.before")}{" "}
+        <a
+          href={`${META.issues}/new?template=correction.yml`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t("sources.intro.link")}
+        </a>{" "}
+        {t("sources.intro.after")}
       </p>
       <div className="press-kit">
-        <span className="press-kit-label">
-          {lang === "ro" ? "Kit de presă" : "Press kit"}
-        </span>
+        <span className="press-kit-label">{t("sources.pressKit")}</span>
         <button className="ghost small" onClick={downloadPressJson}>
-          {lang === "ro"
-            ? "Descarcă JSON (date complete)"
-            : "Download JSON (full data)"}
+          {t("sources.downloadJson")}
         </button>
         <button className="ghost small" onClick={downloadPressCsv}>
-          {lang === "ro"
-            ? "Descarcă CSV (tabel plat)"
-            : "Download CSV (flat table)"}
+          {t("sources.downloadCsv")}
         </button>
       </div>
       <div className="sources">

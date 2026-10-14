@@ -204,7 +204,15 @@ for (const [name, entries] of [
   for (const [key, value] of entries)
     if (!value.trim()) errors.push(`src/locales/${name}.ts: empty value for "${key}"`);
 }
-for (const file of ["src/App.tsx", "src/components/CompareView.tsx"]) {
+for (const file of [
+  "src/App.tsx",
+  "src/components/CompareView.tsx",
+  "src/components/JourneysView.tsx",
+  "src/components/PolicyView.tsx",
+  "src/components/SourcesView.tsx",
+  "src/components/StoriesView.tsx",
+  "src/components/TimelineView.tsx",
+]) {
   if (/lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(readFileSync(resolve(root, file), "utf8")))
     errors.push(`${file}: interface copy belongs in src/locales, not inline`);
 }

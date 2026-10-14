@@ -99,7 +99,7 @@ to an ordered list under the table whose entries are the matching items from
 propunere" / "Aliniat" badges with text, not colour only. Open PR #30 already
 adds source footnotes; this mockup is the target it should converge on.
 
-Acceptance criteria (→ `tests/e2e/compare.spec.ts`):
+Acceptance criteria (→ `tests/e2e/compare-sources.spec.ts`, which already covers the footnote links and targets):
 
 - Every row's "actual" cell ends with a `<sup><a href="#src-n">` or the text
   "—" and `aria-label="sursa …"`.
@@ -120,6 +120,14 @@ Acceptance criteria (→ `tests/e2e/ia.spec.ts`, `tests/e2e/mobile.spec.ts`):
 - Every nav link's bounding box height ≥ 44 px at 390 px and ≥ 36 px at 1440.
 - The active link has `aria-current="page"` and is visible without scrolling
   its group list after navigation (`scrollIntoView` on route change).
+
+## Implementation status (2026-10-14)
+
+Opened the same day by the atlas session, from these criteria: 01 counts
+(#39), 02 map table and empty filter (#41), 03 flow list (#36), 05 nav
+targets (#42); shared items: family bar (#37), provenance line (#40),
+reduced motion and forced colours (#34), staged map loading (#33). Check
+`gh pr list` for what has merged since.
 
 ## Needs human review
 

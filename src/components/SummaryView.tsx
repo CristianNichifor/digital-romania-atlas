@@ -42,6 +42,12 @@ export function SummaryView({
     <div className="panel summary">
       <div className="summary-hero">
         <h2>{t("summary.digitalRomaniaIn30")}</h2>
+        <span
+          className="legend-chip badge-proposal"
+          style={{ borderColor: "#2ecc71" }}
+        >
+          {t("summary.badgeProposal")}
+        </span>
         <p className="summary-sub">
           <T text={t("summary.weProposeTheState")} />
         </p>

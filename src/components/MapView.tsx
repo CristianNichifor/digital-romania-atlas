@@ -68,6 +68,7 @@ export function MapView() {
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [slow, setSlow] = useState(false);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
   const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(
@@ -83,6 +84,9 @@ export function MapView() {
 
   useEffect(() => {
     setLoadError(false);
+    setSlow(false);
+    // Stage the loading message: after 2 s, say the connection seems slow.
+    const timer = window.setTimeout(() => setSlow(true), 2000);
     fetch(`${import.meta.env.BASE_URL}data/ro-counties.geojson`)
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -92,7 +96,9 @@ export function MapView() {
       .catch((e) => {
         console.error(e);
         setLoadError(true);
-      });
+      })
+      .finally(() => window.clearTimeout(timer));
+    return () => window.clearTimeout(timer);
   }, [attempt]);
 
   useEffect(() => {
@@ -177,7 +183,11 @@ export function MapView() {
     );
 
   if (!geo || !projection)
-    return <div className="loading">{t("map.loadingTheMap")}</div>;
+    return (
+      <div className="loading" role="status">
+        {t(slow ? "map.loadingSlow" : "map.loadingTheMap")}
+      </div>
+    );
 
   const path = d3.geoPath(projection);
   const maxCount = Math.max(...counts.values(), 1);

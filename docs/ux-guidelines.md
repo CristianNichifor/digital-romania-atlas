@@ -131,18 +131,25 @@ design proposals. Separately, each item is labelled **current** or
 From the 2026-10-14 fleet UX review and a source audit. Not fixed here: the
 atlas session is moving view copy into the locale files (ATL-21/22).
 
-- **D-1** No family bar / link back to the hub.
+- **D-1** Fixed (minimal): a family bar above the header links to the hub
+  (`META.hub`); civic-ui `FamilyBar` styling is still to adopt
+  (`tests/e2e/family-bar.spec.ts`).
 - **D-2** No per-view "Date: sursă, an" line; the data date sits only in
   the footer.
 - **D-3** Dark-only theme with its own tokens (`--bg #05070d`); the fleet
   default is light (civic-ui tokens). Decide: adopt light, or record the
   dark map canvas as an allowed deviation.
-- **D-4** Flow graph has no list alternative (intel dataflows added one in
-  its #28; reuse the pattern).
+- **D-4** Fixed: under the graph, a "Fluxurile ca listă" disclosure lists
+  the flows the current mode and filters draw (from, to, data, status); in
+  "Diferența" it lists only the proposed flows
+  (`tests/e2e/flows-list.spec.ts`).
 - **D-5** Comparație cites sources in a note, not per row.
 - **D-6** Empty-state copy for filters that match nothing is not checked.
-- **D-7** No `prefers-reduced-motion` rule in `src/styles.css`.
-- **D-8** No `forced-colors` rule; check focus and chip borders.
+- **D-7** Fixed: under `prefers-reduced-motion: reduce` animations and
+  transitions stop (`tests/e2e/motion-contrast.spec.ts`).
+- **D-8** Fixed: under `forced-colors: active` chips and tabs keep a
+  `ButtonText` border, the active one and focus get a `Highlight` outline
+  (`tests/e2e/motion-contrast.spec.ts`).
 - **D-9** Fixed: `tests/e2e/no-hscroll.spec.ts` (ATL-24).
 - **D-10** Fixed: all view copy is in `src/locales` (ATL-21 to ATL-23).
 - **D-11** Fixed for the map (ATL-25); the map is the only view that loads data.

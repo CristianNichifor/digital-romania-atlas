@@ -33,6 +33,22 @@ interface GeoCollection {
   features: Feature[];
 }
 
+// Shapes so the category filter does not rely on colour alone (screen 02).
+const CATEGORY_SYMBOLS: Record<Category, string> = {
+  user: "●",
+  identity: "■",
+  source: "◆",
+  trust: "▲",
+  infra: "▼",
+  oversight: "★",
+  governance: "✚",
+  service: "⬟",
+  backbone: "⬢",
+  payment: "◀",
+  anchor: "▶",
+  external: "✖",
+};
+
 const W = 960;
 const H = 760;
 
@@ -487,15 +503,19 @@ export function MapView() {
             <button
               key={cat}
               className={`legend-chip ${filter === cat ? "active" : ""}`}
+              aria-pressed={filter === cat}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
               onClick={() =>
                 setFilter(filter === cat ? null : (cat as Category))
               }
             >
               <span
-                className="dot"
-                style={{ background: CATEGORY_COLORS[cat as Category] }}
-              />
+                className="chip-symbol"
+                aria-hidden="true"
+                data-shape={CATEGORY_SYMBOLS[cat as Category]}
+              >
+                {CATEGORY_SYMBOLS[cat as Category]}
+              </span>
               <T text={pick(label, lang)} />
             </button>
           ))}
@@ -904,6 +924,44 @@ export function MapView() {
           </div>
         )}
       </div>
+      {filter && visibleMarkers.length === 0 && (
+        <div className="map-empty" role="status">
+          {t("map.emptyFilter").replace(
+            "{category}",
+            pick(CATEGORY_LABELS[filter], lang)
+          )}{" "}
+          <button onClick={() => setFilter(null)}>
+            {t("map.resetFilter")}
+          </button>
+        </div>
+      )}
+      <details className="map-table">
+        <summary>
+          {t("map.showTable").replace("{count}", String(visibleMarkers.length))}
+        </summary>
+        <div className="table-scroll">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th>{t("map.tableInstitution")}</th>
+                <th>{t("map.tableCategory")}</th>
+                <th>{t("map.tableCounty")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visibleMarkers.map((i) => (
+                <tr key={i.id}>
+                  <td>
+                    <strong>{i.acronym}</strong> — {pick(i.name, lang)}
+                  </td>
+                  <td>{pick(CATEGORY_LABELS[i.category], lang)}</td>
+                  <td>{i.county}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
       <div className="symbol-legend">
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">

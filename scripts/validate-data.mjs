@@ -207,11 +207,14 @@ for (const [name, entries] of [
 for (const file of [
   "src/App.tsx",
   "src/components/CompareView.tsx",
+  "src/components/FlowGraph.tsx",
   "src/components/JourneysView.tsx",
+  "src/components/MapView.tsx",
   "src/components/PolicyView.tsx",
   "src/components/ResilienceView.tsx",
   "src/components/SourcesView.tsx",
   "src/components/StoriesView.tsx",
+  "src/components/StrategyView.tsx",
   "src/components/SummaryView.tsx",
   "src/components/TimelineView.tsx",
 ]) {

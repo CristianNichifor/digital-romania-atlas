@@ -299,3 +299,14 @@ Remaining: three JSX fragments with inline markup (Flows diff banner,
 Strategy at the `lang === "ro" ? (` block, the Map hover bar's county
 suffix) still switch on `lang`; Map, Flows and Strategy are therefore not yet
 in the validator guard. Keys are derived from the English text.
+
+### ATL-23 Inline-markup copy in locale files — `done`
+
+- Given the last three `lang === "ro" ? (…)` JSX fragments (Flows diff
+  banner, Strategy sovereign-OS note, Map hover-bar county suffix)
+- When their text moves verbatim into the locale files, with `{count}` and
+  `{county}` placeholders and the link kept in the component
+- Then no view switches copy on `lang`, and the validator guards Map, Flows
+  and Strategy too.
+
+Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.

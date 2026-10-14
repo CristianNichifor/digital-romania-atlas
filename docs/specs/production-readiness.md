@@ -373,6 +373,17 @@ Test: `tests/e2e/provenance.spec.ts`.
 
 Test: `tests/e2e/nav-active.spec.ts` (390 px; Reziliență, Surse, Rezumat).
 
+### ATL-32 Flow filters that match nothing say so — `done`
+
+- Given Fluxuri with a flow kind and an institution category that share no
+  flow (for example Diferența + Identitate + Sursă autentică; UX backlog D-6)
+- When the graph would draw nothing
+- Then a `role="status"` block names the active filters and "Șterge
+  filtrele" clears both.
+
+Test: `tests/e2e/flows-empty.spec.ts`. Needs human review: `flows.emptyFilter`
+and `flows.emptyReset` (ro and en) are agent-written.
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

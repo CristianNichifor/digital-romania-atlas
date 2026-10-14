@@ -116,6 +116,8 @@ export const en: Record<MessageKey, string> = {
     "Calendar: EU obligations vs. national plan vs. our proposal",
   // Views, part 2 (ATL-22)
   "flows.dataFlowsBetweenParties": "Data flows between parties",
+  "flows.emptyFilter": "No flow matches these filters: {filters}.",
+  "flows.emptyReset": "Clear filters",
   "flows.flows": "Flows:",
   "flows.hoverANodeFor":
     "Hover a node for its full name and role; hover an edge for the data that flows. Drag nodes to rearrange. In “Diff” mode you see only what our proposal adds.",

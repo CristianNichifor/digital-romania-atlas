@@ -341,6 +341,27 @@ export function FlowGraph() {
           ))}
         </div>
       </div>
+      {listed.length === 0 && (kindFilter || catFilter) && (
+        <div className="flows-empty" role="status">
+          {t("flows.emptyFilter").replace(
+            "{filters}",
+            [
+              kindFilter && pick(FLOW_LABELS[kindFilter], lang),
+              catFilter && pick(CATEGORY_LABELS[catFilter], lang),
+            ]
+              .filter(Boolean)
+              .join(" + ")
+          )}{" "}
+          <button
+            onClick={() => {
+              setKindFilter(null);
+              setCatFilter(null);
+            }}
+          >
+            {t("flows.emptyReset")}
+          </button>
+        </div>
+      )}
       <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="graph-svg" />
       <details className="flow-list">
         <summary>

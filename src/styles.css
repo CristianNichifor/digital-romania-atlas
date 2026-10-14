@@ -1783,3 +1783,18 @@ footer details.privacy p {
     forced-color-adjust: none;
   }
 }
+
+/* Empty filter states (UX backlog D-6) */
+.map-empty,
+.flows-empty {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.map-empty button,
+.flows-empty button {
+  min-height: 44px;
+  margin-left: 6px;
+}

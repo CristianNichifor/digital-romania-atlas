@@ -19,3 +19,10 @@ test('bilingual navigation renders data flows and sources without runtime errors
   await expect(page.locator('html')).toHaveAttribute('lang', 'ro');
   expect(errors).toEqual([]);
 });
+
+test('the map draws all 42 counties with their names', async ({ page }) => {
+  await page.goto('/#/map');
+  await expect(page.locator('main svg path.county')).toHaveCount(42);
+  await expect(page.locator('main')).toContainText('geoBoundaries');
+  await expect(page.locator('main svg path.county').first()).toHaveAttribute('d', /^M/);
+});

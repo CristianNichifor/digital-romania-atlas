@@ -1692,3 +1692,8 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.map-attribution {
+  margin: 8px 0 0;
+  font-size: 12px;
+}

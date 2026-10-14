@@ -5,6 +5,8 @@ export interface Source {
   kind: Bi;
   url?: string;
   note?: Bi;
+  /** ISO date the source was last retrieved; META.dataAsOf may not be older. */
+  accessed?: string;
 }
 
 export const SOURCES: Source[] = [
@@ -350,5 +352,21 @@ export const SOURCES: Source[] = [
     },
     kind: { ro: "Site oficial UE", en: "Official EU site" },
     url: "https://digital-strategy.ec.europa.eu/en/policies/eudi-wallet-implementation",
+  },
+  {
+    claim: {
+      ro: "Limitele județelor pe hartă — geoBoundaries gbOpen ROU ADM1 (42 de unități), după datele Băncii Mondiale",
+      en: "County boundaries on the map — geoBoundaries gbOpen ROU ADM1 (42 units), from World Bank data",
+    },
+    kind: {
+      ro: "Date geografice deschise (CC BY 4.0)",
+      en: "Open geodata (CC BY 4.0)",
+    },
+    url: "https://www.geoboundaries.org/countryDownloads.html",
+    note: {
+      ro: "Ediția fixată 9469f09 (ROU-ADM1-36066543). Modificări: coordonate rotunjite la 3 zecimale, puncte repetate eliminate, nume cu diacritice și coduri ISO 3166-2 (scripts/build-counties.mjs).",
+      en: "Pinned release 9469f09 (ROU-ADM1-36066543). Changes: coordinates rounded to 3 decimals, repeated points dropped, names with diacritics and ISO 3166-2 codes (scripts/build-counties.mjs).",
+    },
+    accessed: "2026-10-14",
   },
 ];

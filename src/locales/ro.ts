@@ -38,6 +38,8 @@ export const ro = {
     "Demonstrație open source — datele „actuale” provin din",
   "footer.foundError": "găsiți o eroare?",
   "footer.report": "raportați-o",
+  "map.attribution":
+    "Limitele județelor: geoBoundaries (William & Mary geoLab), după datele Băncii Mondiale, CC BY 4.0; simplificate pentru afișare.",
   "nav.compare": "Comparație",
   "nav.flows": "Fluxuri de date",
   "nav.journeys": "Pași cetățean",
@@ -50,4 +52,5 @@ export const ro = {
   "nav.strategy": "Strategie",
   "nav.summary": "Rezumat",
   "nav.timeline": "Calendar",
+  "sources.accessed": "Accesat la",
 } as const;

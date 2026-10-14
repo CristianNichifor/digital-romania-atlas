@@ -209,6 +209,25 @@ for (const file of ["src/App.tsx", "src/components/CompareView.tsx"]) {
     errors.push(`${file}: interface copy belongs in src/locales, not inline`);
 }
 
+// County boundaries must come from an openly licensed source (ATL-1):
+// GADM forbids redistribution, so none of its properties may remain.
+const counties = JSON.parse(
+  readFileSync(resolve(root, "public/data/ro-counties.geojson"), "utf8")
+);
+if (counties.features?.length !== 42)
+  errors.push(`ro-counties.geojson: ${counties.features?.length} features, expected 42`);
+const GADM_KEYS = ["ID_0", "NAME_0", "ID_1", "NAME_1", "ROU_adm1", "TYPE_1", "ENGTYPE_1"];
+for (const f of counties.features ?? []) {
+  const props = f.properties ?? {};
+  const gadm = GADM_KEYS.filter((k) => k in props);
+  if (gadm.length) {
+    errors.push(`ro-counties.geojson: GADM properties ${gadm.join(", ")}`);
+    break;
+  }
+  if (!props.name || !/^RO-[A-Z]{1,2}$/.test(props.iso ?? ""))
+    errors.push(`ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`);
+}
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const e of errors) console.error("  - " + e);

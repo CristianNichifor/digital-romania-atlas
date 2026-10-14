@@ -39,6 +39,8 @@ export const en: Record<MessageKey, string> = {
     "Open source demo — the “current” data comes from",
   "footer.foundError": "found an error?",
   "footer.report": "report it",
+  "map.attribution":
+    "County boundaries: geoBoundaries (William & Mary geoLab), from World Bank data, CC BY 4.0; simplified for display.",
   "nav.compare": "Comparison",
   "nav.flows": "Data flows",
   "nav.journeys": "Citizen journeys",
@@ -51,4 +53,5 @@ export const en: Record<MessageKey, string> = {
   "nav.strategy": "Strategy",
   "nav.summary": "Summary",
   "nav.timeline": "Calendar",
+  "sources.accessed": "Retrieved",
 };

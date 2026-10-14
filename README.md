@@ -97,11 +97,15 @@ Everything is plain typed data — edit without touching components:
 - `src/data/journeys.ts` — the step-by-step citizen journeys (Pași cetățean)
 - `src/data/sources.ts` — provenance links for every claim
 - `src/i18n.tsx` — RO/EN language context; every data field is `{ ro, en }`
-- `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București)
+- `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București; see below)
 
-County GeoJSON source: [GabrielRondelli/geojson](https://github.com/GabrielRondelli/geojson)
-(GADM-derived, `romania-counties.geojson`); community alternative:
-[civicnet/geojson-romania](https://github.com/civicnet/geojson-romania).
+County boundaries: [geoBoundaries](https://www.geoboundaries.org/) gbOpen ROU ADM1
+(boundary `ROU-ADM1-36066543`, release commit `9469f09`, source: World Bank), licensed
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), retrieved 2026-10-14.
+`scripts/build-counties.mjs` rebuilds the file: it rounds coordinates to 3 decimals, drops
+repeated points, rewinds rings for d3 and keeps only the county name (with diacritics) and
+its ISO 3166-2 code. The earlier GADM-derived file was removed because GADM does not
+permit redistribution.
 
 ## Civic standards
 

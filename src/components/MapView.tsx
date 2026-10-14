@@ -20,12 +20,12 @@ import {
   VRANCEA_EPICENTRE,
   VRANCEA_RADII_KM,
 } from "../data/resilience";
-import { pick, useLang, type Bi } from "../i18n";
+import { pick, useLang, useT, type Bi } from "../i18n";
 import { T } from "./T";
 
 interface Feature {
   type: string;
-  properties: { NAME_1: string };
+  properties: { name: string; iso: string };
 }
 
 interface GeoCollection {
@@ -64,6 +64,7 @@ interface TipContent {
 
 export function MapView() {
   const { lang } = useLang();
+  const t = useT();
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
@@ -435,8 +436,8 @@ export function MapView() {
         y2,
         tip: {
           title: {
-            ro: `${f.properties.NAME_1} → ${t.name.ro}`,
-            en: `${f.properties.NAME_1} → ${t.name.en}`,
+            ro: `${f.properties.name} → ${t.name.ro}`,
+            en: `${f.properties.name} → ${t.name.en}`,
           },
           detail: {
             ro: "Nod L0 offline-first: sincronizare când există legătură",
@@ -510,7 +511,7 @@ export function MapView() {
           <g transform={`translate(${zoom.x},${zoom.y}) scale(${zoom.k})`}>
             {geo.features.map((f, idx) => {
               const p = path(f as unknown as GeoJSON.Feature) ?? "";
-              const count = counts.get(norm(f.properties.NAME_1)) ?? 0;
+              const count = counts.get(norm(f.properties.name)) ?? 0;
               const intensity = count / maxCount;
               return (
                 <path
@@ -531,8 +532,8 @@ export function MapView() {
                     showTip(
                       {
                         title: {
-                          ro: f.properties.NAME_1,
-                          en: f.properties.NAME_1,
+                          ro: f.properties.name,
+                          en: f.properties.name,
                         },
                         detail: {
                           ro: count
@@ -626,7 +627,7 @@ export function MapView() {
                   transform={`translate(${centroid[0]},${centroid[1]}) scale(${1 / k})`}
                 >
                   <text x={0} y={0} className="county-label">
-                    {f.properties.NAME_1}
+                    {f.properties.name}
                   </text>
                 </g>
               );
@@ -642,13 +643,13 @@ export function MapView() {
                     className="marker"
                     onMouseEnter={(e) => {
                       setHover(uat!);
-                      setHoverCounty(f.properties.NAME_1);
+                      setHoverCounty(f.properties.name);
                       showTip(
                         {
                           title: uat!.name,
                           detail: {
-                            ro: `${uat!.role.ro} · județul ${f.properties.NAME_1}`,
-                            en: `${uat!.role.en} · ${f.properties.NAME_1} county`,
+                            ro: `${uat!.role.ro} · județul ${f.properties.name}`,
+                            en: `${uat!.role.en} · ${f.properties.name} county`,
                           },
                         },
                         e
@@ -1090,6 +1091,7 @@ export function MapView() {
           </span>
         )}
       </div>
+      <p className="muted map-attribution">{t("map.attribution")}</p>
     </div>
   );
 }

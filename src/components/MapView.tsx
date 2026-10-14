@@ -33,6 +33,22 @@ interface GeoCollection {
   features: Feature[];
 }
 
+// Shapes so the category filter does not rely on colour alone (screen 02).
+const CATEGORY_SYMBOLS: Record<Category, string> = {
+  user: "●",
+  identity: "■",
+  source: "◆",
+  trust: "▲",
+  infra: "▼",
+  oversight: "★",
+  governance: "✚",
+  service: "⬟",
+  backbone: "⬢",
+  payment: "◀",
+  anchor: "▶",
+  external: "✖",
+};
+
 const W = 960;
 const H = 760;
 
@@ -477,15 +493,19 @@ export function MapView() {
             <button
               key={cat}
               className={`legend-chip ${filter === cat ? "active" : ""}`}
+              aria-pressed={filter === cat}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
               onClick={() =>
                 setFilter(filter === cat ? null : (cat as Category))
               }
             >
               <span
-                className="dot"
-                style={{ background: CATEGORY_COLORS[cat as Category] }}
-              />
+                className="chip-symbol"
+                aria-hidden="true"
+                data-shape={CATEGORY_SYMBOLS[cat as Category]}
+              >
+                {CATEGORY_SYMBOLS[cat as Category]}
+              </span>
               <T text={pick(label, lang)} />
             </button>
           ))}

@@ -143,7 +143,6 @@ atlas session is moving view copy into the locale files (ATL-21/22).
 - **D-6** Empty-state copy for filters that match nothing is not checked.
 - **D-7** No `prefers-reduced-motion` rule in `src/styles.css`.
 - **D-8** No `forced-colors` rule; check focus and chip borders.
-- **D-9** No test for horizontal scroll at 390 px on every view.
-- **D-10** `MapView` loading string is inline (`lang === "ro" ? …`), not in
-  locales — being handled by the locale work.
+- **D-9** Fixed: `tests/e2e/no-hscroll.spec.ts` (ATL-24).
+- **D-10** Fixed: all view copy is in `src/locales` (ATL-21 to ATL-23).
 - **D-11** No staged loading message for loads > 2 s.

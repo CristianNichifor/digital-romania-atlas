@@ -310,3 +310,14 @@ in the validator guard. Keys are derived from the English text.
   and Strategy too.
 
 Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
+
+## Theme G: UX backlog
+
+### ATL-24 No horizontal page scroll on phones — `done`
+
+- Given a 390 px wide viewport (UX backlog D-9)
+- When any of the eleven views opens
+- Then the page is no wider than the viewport; wide tables and the map
+  scroll inside their own containers.
+
+Test: `tests/e2e/no-hscroll.spec.ts`.

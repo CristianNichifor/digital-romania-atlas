@@ -387,14 +387,16 @@ and `flows.emptyReset` (ro and en) are agent-written.
 
 ### ATL-33 Interface labels never as inline pairs — `done`
 
-- Given the Flows mode labels, Strategy status labels and Rezumat proposal
-  list were `{ ro, en }` literals inside the components
+- Given the Flows mode labels, Strategy status labels, Rezumat proposal
+  list and the map tooltips were `{ ro, en }` literals inside the components
 - When they move verbatim into the locale files
 - Then those components hold only message keys, and the validator fails if a
-  `ro: "…"` literal returns to FlowGraph, StrategyView or SummaryView.
+  `ro: "…"` literal returns to FlowGraph, MapView, StrategyView or
+  SummaryView.
 
-Test: `scripts/validate-data.mjs`. MapView keeps its data-centre
-descriptions inline until they move to `src/data/` (content, not labels).
+Test: `scripts/validate-data.mjs`. MapView's tooltip copy moved too, as
+`{placeholder}` templates (`map.tip*`); only joins of data fields
+(acronym — name, source → target) stay inline (`tests/e2e/map-tips.spec.ts`).
 
 ## Theme H: target-state screen designs
 

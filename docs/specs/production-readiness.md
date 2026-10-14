@@ -146,6 +146,50 @@ preview server applies `public/_headers`). Deployment note: the Cloudflare
 workflow stages the build under `/digital-romania-atlas/`, so `_headers` must
 be moved to the site root; that is a workflow change for the maintainer.
 
+## Theme D: map polish
+
+### ATL-13 Map load failure is visible and retryable — `done`
+
+- Given the county boundaries request fails
+- When the map view opens
+- Then an alert says the map could not be loaded and offers a retry button;
+  retrying after the network recovers draws all 42 counties.
+
+Test: `tests/e2e/map.spec.ts` (the first GeoJSON request is aborted).
+
+### ATL-14 County names keep their diacritics — `done`
+
+- Given the county names in `public/data/ro-counties.geojson` (Argeș, Bacău,
+  București…)
+- When an institution names its county
+- Then the name matches a GeoJSON county name exactly (no ASCII fallbacks
+  such as `Bucuresti`), so tooltips and density shading use the same name.
+
+Test: `scripts/validate-data.mjs`.
+
+### ATL-15 County labels do not collide with symbols — `done`
+
+- Given the map at its default zoom
+- When the county labels and the per-county UAT markers are drawn
+- Then no label covers its county's marker, and "Vrancea" appears once (the
+  seismic epicentre has a symbol and a tooltip, not a second red label).
+
+Test: `tests/e2e/map.spec.ts`.
+
+### ATL-16 Legend chips and caption — `done`
+
+- Given the category filter chips and the map symbols
+- When the map renders at any width
+- Then each chip keeps its label on one line, and a caption names the
+  proposed sovereign data centres (DC-A Cluj, DC-B București, DC-C Iași,
+  from `src/data/resilience.ts`) and says the dashed lines are proposed
+  replication links, not existing infrastructure.
+
+Test: `tests/e2e/map.spec.ts`.
+
+Needs human review: `map.loadError`, `map.retry` and `map.caption` (ro and
+en) are new agent-written strings.
+
 ## Needs human review
 
 - Translations or new copy written by the agent (listed per item when added).

@@ -693,6 +693,7 @@ main {
   border-radius: 999px;
   padding: 4px 11px;
   font-size: 12px;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -861,12 +862,6 @@ main {
 .vrancea-epicentre,
 .dc-marker {
   cursor: pointer;
-}
-
-.vrancea-label {
-  fill: #e5484d;
-  font-size: 9.5px;
-  font-weight: 700;
 }
 
 .dc-label {

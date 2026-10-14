@@ -228,6 +228,12 @@ for (const f of counties.features ?? []) {
     errors.push(`ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`);
 }
 
+// Institution counties must use the GeoJSON names, diacritics included (ATL-14).
+const countyNames = new Set((counties.features ?? []).map((f) => f.properties?.name));
+for (const m of readTs("src/data/institutions.ts").matchAll(/\bcounty:\s*"([^"*]+)"/g))
+  if (!countyNames.has(m[1]))
+    errors.push(`src/data/institutions.ts: county "${m[1]}" is not a county name in ro-counties.geojson`);
+
 // The footer's "data as of" date may not predate a source it relies on.
 const dataAsOf = readTs("src/data/meta.ts").match(/dataAsOf:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
 const accessed = [...sourcesCode.matchAll(/\baccessed:\s*"([^"]*)"/g)].map((m) => m[1]);

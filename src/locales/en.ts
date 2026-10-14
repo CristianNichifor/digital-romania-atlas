@@ -124,6 +124,13 @@ export const en: Record<MessageKey, string> = {
   "flows.statusCurrent": "current",
   "flows.statusProposed": "proposed",
   "flows.institutions": "Institutions:",
+  "map.emptyFilter":
+    "No institution in the “{category}” category has a seat on the map.",
+  "map.resetFilter": "Show all categories",
+  "map.showTable": "Show as a table ({count})",
+  "map.tableCategory": "Category",
+  "map.tableCounty": "County",
+  "map.tableInstitution": "Institution",
   "map.archiveCopyToThe": "Archive copy to the salt mine",
   "map.countyShadeInstitutionDensity": "County shade = institution density",
   "map.ctrlWheelToZoom":

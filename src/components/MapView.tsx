@@ -894,6 +894,44 @@ export function MapView() {
           </div>
         )}
       </div>
+      {filter && visibleMarkers.length === 0 && (
+        <div className="map-empty" role="status">
+          {t("map.emptyFilter").replace(
+            "{category}",
+            pick(CATEGORY_LABELS[filter], lang)
+          )}{" "}
+          <button onClick={() => setFilter(null)}>
+            {t("map.resetFilter")}
+          </button>
+        </div>
+      )}
+      <details className="map-table">
+        <summary>
+          {t("map.showTable").replace("{count}", String(visibleMarkers.length))}
+        </summary>
+        <div className="table-scroll">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th>{t("map.tableInstitution")}</th>
+                <th>{t("map.tableCategory")}</th>
+                <th>{t("map.tableCounty")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visibleMarkers.map((i) => (
+                <tr key={i.id}>
+                  <td>
+                    <strong>{i.acronym}</strong> — {pick(i.name, lang)}
+                  </td>
+                  <td>{pick(CATEGORY_LABELS[i.category], lang)}</td>
+                  <td>{i.county}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
       <div className="symbol-legend">
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">

@@ -124,6 +124,13 @@ export const ro = {
   "flows.statusCurrent": "actual",
   "flows.statusProposed": "propus",
   "flows.institutions": "Instituții:",
+  "map.emptyFilter":
+    "Nicio instituție din categoria „{category}” nu are un sediu pe hartă.",
+  "map.resetFilter": "Arată toate categoriile",
+  "map.showTable": "Afișează ca tabel ({count})",
+  "map.tableCategory": "Categorie",
+  "map.tableCounty": "Județ",
+  "map.tableInstitution": "Instituție",
   "map.archiveCopyToThe": "Copie de arhivă către salină",
   "map.countyShadeInstitutionDensity":
     "Nuanța județului = densitatea instituțiilor",

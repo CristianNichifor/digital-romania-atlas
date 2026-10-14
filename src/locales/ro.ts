@@ -41,6 +41,10 @@ export const ro = {
   "footer.report": "raportați-o",
   "map.caption":
     "DC-A (Cluj), DC-B (București) și DC-C (Iași) sunt centrele de date suverane propuse. Liniile întrerupte sunt legături de replicare propuse între situri, nu infrastructură existentă.",
+  "map.dcTable": "Centrele de date propuse ca tabel ({count})",
+  "map.dcTableRole": "Rol",
+  "map.dcTableSite": "Sit",
+  "map.dcTableStatus": "Statut",
   "map.loadError":
     "Harta nu a putut fi încărcată. Verificați conexiunea și încercați din nou.",
   "map.retry": "Reîncearcă",

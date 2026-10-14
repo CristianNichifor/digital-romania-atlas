@@ -42,6 +42,10 @@ export const en: Record<MessageKey, string> = {
   "footer.report": "report it",
   "map.caption":
     "DC-A (Cluj), DC-B (Bucharest) and DC-C (Iași) are the proposed sovereign data centres. Dashed lines are proposed replication links between sites, not existing infrastructure.",
+  "map.dcTable": "The proposed data centres as a table ({count})",
+  "map.dcTableRole": "Role",
+  "map.dcTableSite": "Site",
+  "map.dcTableStatus": "Status",
   "map.loadError":
     "The map could not be loaded. Check your connection and try again.",
   "map.retry": "Retry",

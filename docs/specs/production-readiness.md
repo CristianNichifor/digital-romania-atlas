@@ -410,6 +410,17 @@ Test: `scripts/validate-data.mjs`. MapView's tooltip copy moved too, as
 Test: `tests/e2e/summary-cards.spec.ts`. Needs human review: the new
 `summary.*` badge and source-line copy is agent-written.
 
+### ATL-35 Proposed data centres as a table — `done`
+
+- Given the map draws the proposed sovereign DCs, regional micro-DCs and
+  underground vaults (design 02)
+- When the reader opens "Centrele de date propuse ca tabel"
+- Then a table lists each drawn site with its role and a "Propunere" badge,
+  and its count matches the sites drawn.
+
+Test: `tests/e2e/map-dc-table.spec.ts`. Needs human review: the new
+`map.dcTable*` headings are agent-written.
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

@@ -321,3 +321,16 @@ Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
   scroll inside their own containers.
 
 Test: `tests/e2e/no-hscroll.spec.ts`.
+
+### ATL-25 Reduced motion and forced colours — `done`
+
+- Given a user with `prefers-reduced-motion: reduce` or Windows high
+  contrast (`forced-colors: active`)
+- When any view renders
+- Then the resilience link animation and the hover transitions stop, and
+  chips, cards, buttons and the focus ring keep a visible border in forced
+  colours.
+
+Test: `scripts/validate-data.mjs` fails unless `src/styles.css` has a
+`prefers-reduced-motion: reduce` block that disables animations and a
+`forced-colors: active` block. Visual check in CI's Playwright run.

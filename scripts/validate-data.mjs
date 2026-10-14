@@ -155,11 +155,20 @@ for (const [file, code] of [
 
 // The site moved off GitHub Pages; only the dated history may name the old host.
 const OLD_HOST = ["cristiannichifor", "github", "io"].join(".");
-const HISTORY = new Set(["CHANGELOG.md", "ERRATA.md", "scripts/validate-data.mjs"]);
-const tracked = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8" })
+const HISTORY = new Set([
+  "CHANGELOG.md",
+  "ERRATA.md",
+  "scripts/validate-data.mjs",
+]);
+const tracked = execFileSync("git", ["ls-files"], {
+  cwd: root,
+  encoding: "utf8",
+})
   .split("\n")
   .filter((f) => f && !HISTORY.has(f) && !f.startsWith("docs/specs/"))
-  .filter((f) => !/\.(png|jpe?g|webp|woff2?|ico|geojson)$|package-lock\.json$/.test(f));
+  .filter(
+    (f) => !/\.(png|jpe?g|webp|woff2?|ico|geojson)$|package-lock\.json$/.test(f)
+  );
 for (const file of tracked) {
   let text;
   try {
@@ -168,13 +177,20 @@ for (const file of tracked) {
     continue;
   }
   if (text.toLowerCase().includes(OLD_HOST))
-    errors.push(`${file}: still links ${OLD_HOST}; use projects.cristian-nichifor.com`);
+    errors.push(
+      `${file}: still links ${OLD_HOST}; use projects.cristian-nichifor.com`
+    );
 }
 
-const pkgVersion = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8")).version;
-const metaVersion = readTs("src/data/meta.ts").match(/version:\s*"([^"]+)"/)?.[1];
+const pkgVersion = JSON.parse(
+  readFileSync(resolve(root, "package.json"), "utf8")
+).version;
+const metaVersion =
+  readTs("src/data/meta.ts").match(/version:\s*"([^"]+)"/)?.[1];
 if (pkgVersion !== metaVersion)
-  errors.push(`package.json version ${pkgVersion} differs from META.version ${metaVersion}`);
+  errors.push(
+    `package.json version ${pkgVersion} differs from META.version ${metaVersion}`
+  );
 
 // Interface copy lives in src/locales; both languages carry the same keys.
 const localeKeys = (lang) => {
@@ -183,7 +199,9 @@ const localeKeys = (lang) => {
   for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*"((?:[^"\\]|\\.)*)"/gm))
     entries.set(m[1], m[2]);
   // Values that prettier wraps onto the next line.
-  for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*\n\s*"((?:[^"\\]|\\.)*)"/gm))
+  for (const m of code.matchAll(
+    /^\s*"([\w.-]+)":\s*\n\s*"((?:[^"\\]|\\.)*)"/gm
+  ))
     entries.set(m[1], m[2]);
   return entries;
 };
@@ -195,14 +213,16 @@ for (const [a, b, name] of [
   [enUi, roUi, "ro"],
 ]) {
   for (const key of a.keys())
-    if (!b.has(key)) errors.push(`src/locales/${name}.ts: missing key "${key}"`);
+    if (!b.has(key))
+      errors.push(`src/locales/${name}.ts: missing key "${key}"`);
 }
 for (const [name, entries] of [
   ["ro", roUi],
   ["en", enUi],
 ]) {
   for (const [key, value] of entries)
-    if (!value.trim()) errors.push(`src/locales/${name}.ts: empty value for "${key}"`);
+    if (!value.trim())
+      errors.push(`src/locales/${name}.ts: empty value for "${key}"`);
 }
 for (const file of [
   "src/App.tsx",
@@ -218,14 +238,28 @@ for (const file of [
   "src/components/SummaryView.tsx",
   "src/components/TimelineView.tsx",
 ]) {
-  if (/lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(readFileSync(resolve(root, file), "utf8")))
+  if (
+    /lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(
+      readFileSync(resolve(root, file), "utf8")
+    )
+  )
     errors.push(`${file}: interface copy belongs in src/locales, not inline`);
 }
 
 // Romanian copy translates the slogan instead of quoting English (ATL-18).
-for (const file of ["src/data/flows.ts", "src/data/institutions.ts", "src/components/SummaryView.tsx"])
-  if (/ro:\s*"[^"]*verify, don't trust|\? "[^"]*verify, don't trust/.test(readFileSync(resolve(root, file), "utf8")))
-    errors.push(`${file}: Romanian copy quotes "verify, don't trust" in English`);
+for (const file of [
+  "src/data/flows.ts",
+  "src/data/institutions.ts",
+  "src/components/SummaryView.tsx",
+])
+  if (
+    /ro:\s*"[^"]*verify, don't trust|\? "[^"]*verify, don't trust/.test(
+      readFileSync(resolve(root, file), "utf8")
+    )
+  )
+    errors.push(
+      `${file}: Romanian copy quotes "verify, don't trust" in English`
+    );
 
 // County boundaries must come from an openly licensed source (ATL-1):
 // GADM forbids redistribution, so none of its properties may remain.
@@ -233,8 +267,18 @@ const counties = JSON.parse(
   readFileSync(resolve(root, "public/data/ro-counties.geojson"), "utf8")
 );
 if (counties.features?.length !== 42)
-  errors.push(`ro-counties.geojson: ${counties.features?.length} features, expected 42`);
-const GADM_KEYS = ["ID_0", "NAME_0", "ID_1", "NAME_1", "ROU_adm1", "TYPE_1", "ENGTYPE_1"];
+  errors.push(
+    `ro-counties.geojson: ${counties.features?.length} features, expected 42`
+  );
+const GADM_KEYS = [
+  "ID_0",
+  "NAME_0",
+  "ID_1",
+  "NAME_1",
+  "ROU_adm1",
+  "TYPE_1",
+  "ENGTYPE_1",
+];
 for (const f of counties.features ?? []) {
   const props = f.properties ?? {};
   const gadm = GADM_KEYS.filter((k) => k in props);
@@ -243,25 +287,40 @@ for (const f of counties.features ?? []) {
     break;
   }
   if (!props.name || !/^RO-[A-Z]{1,2}$/.test(props.iso ?? ""))
-    errors.push(`ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`);
+    errors.push(
+      `ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`
+    );
 }
 
 // Institution counties must use the GeoJSON names, diacritics included (ATL-14).
-const countyNames = new Set((counties.features ?? []).map((f) => f.properties?.name));
-for (const m of readTs("src/data/institutions.ts").matchAll(/\bcounty:\s*"([^"*]+)"/g))
+const countyNames = new Set(
+  (counties.features ?? []).map((f) => f.properties?.name)
+);
+for (const m of readTs("src/data/institutions.ts").matchAll(
+  /\bcounty:\s*"([^"*]+)"/g
+))
   if (!countyNames.has(m[1]))
-    errors.push(`src/data/institutions.ts: county "${m[1]}" is not a county name in ro-counties.geojson`);
+    errors.push(
+      `src/data/institutions.ts: county "${m[1]}" is not a county name in ro-counties.geojson`
+    );
 
 // The footer's "data as of" date may not predate a source it relies on.
-const dataAsOf = readTs("src/data/meta.ts").match(/dataAsOf:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
-const accessed = [...sourcesCode.matchAll(/\baccessed:\s*"([^"]*)"/g)].map((m) => m[1]);
+const dataAsOf = readTs("src/data/meta.ts").match(
+  /dataAsOf:\s*"(\d{4}-\d{2}-\d{2})"/
+)?.[1];
+const accessed = [...sourcesCode.matchAll(/\baccessed:\s*"([^"]*)"/g)].map(
+  (m) => m[1]
+);
 for (const date of accessed)
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date))
     errors.push(`src/data/sources.ts: accessed "${date}" is not an ISO date`);
 const newest = accessed.sort().at(-1);
-if (!dataAsOf) errors.push("src/data/meta.ts: dataAsOf missing or not an ISO date");
+if (!dataAsOf)
+  errors.push("src/data/meta.ts: dataAsOf missing or not an ISO date");
 else if (newest && dataAsOf < newest)
-  errors.push(`META.dataAsOf ${dataAsOf} is older than the newest source access ${newest}`);
+  errors.push(
+    `META.dataAsOf ${dataAsOf} is older than the newest source access ${newest}`
+  );
 
 // Comparison footnotes cite existing Surse entries by URL.
 {
@@ -269,15 +328,33 @@ else if (newest && dataAsOf < newest)
   const raw = (p) => readFileSync(resolve(root, p), "utf8");
   const comparisonCode = raw("src/data/comparison.ts");
   const sourceUrls = new Set(
-    [...raw("src/data/sources.ts").matchAll(/\burl:\s*"([^"]+)"/g)].map((m) => m[1])
+    [...raw("src/data/sources.ts").matchAll(/\burl:\s*"([^"]+)"/g)].map(
+      (m) => m[1]
+    )
   );
   const cited = [...comparisonCode.matchAll(/\bsources:\s*\[([^\]]*)\]/g)];
   if (cited.length === 0) errors.push("comparison: no row cites a source");
   for (const [, list] of cited) {
     for (const [, url] of list.matchAll(/"([^"]+)"/g)) {
-      if (!sourceUrls.has(url)) errors.push(`comparison: unknown source "${url}"`);
+      if (!sourceUrls.has(url))
+        errors.push(`comparison: unknown source "${url}"`);
     }
   }
+}
+
+// D-7 / D-8: reduced motion and forced colours (ATL-25).
+{
+  const css = readFileSync(resolve(root, "src/styles.css"), "utf8");
+  const rm = css.match(
+    /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\n\}/
+  );
+  if (!rm) errors.push("styles.css: no prefers-reduced-motion block (ATL-25)");
+  else if (!/animation(-duration)?:\s*(none|0s)/.test(rm[1]))
+    errors.push(
+      "styles.css: reduced-motion block does not stop animations (ATL-25)"
+    );
+  if (!/@media\s*\(forced-colors:\s*active\)/.test(css))
+    errors.push("styles.css: no forced-colors block (ATL-25)");
 }
 
 if (errors.length) {

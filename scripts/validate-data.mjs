@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -150,6 +151,24 @@ for (const [file, code] of [
       `${file}: identifiers/comments should be ASCII (diacritics allowed only inside string literals)`
     );
   }
+}
+
+// The site moved off GitHub Pages; only the dated history may name the old host.
+const OLD_HOST = ["cristiannichifor", "github", "io"].join(".");
+const HISTORY = new Set(["CHANGELOG.md", "ERRATA.md", "scripts/validate-data.mjs"]);
+const tracked = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8" })
+  .split("\n")
+  .filter((f) => f && !HISTORY.has(f) && !f.startsWith("docs/specs/"))
+  .filter((f) => !/\.(png|jpe?g|webp|woff2?|ico|geojson)$|package-lock\.json$/.test(f));
+for (const file of tracked) {
+  let text;
+  try {
+    text = readFileSync(resolve(root, file), "utf8");
+  } catch {
+    continue;
+  }
+  if (text.toLowerCase().includes(OLD_HOST))
+    errors.push(`${file}: still links ${OLD_HOST}; use projects.cristian-nichifor.com`);
 }
 
 if (errors.length) {

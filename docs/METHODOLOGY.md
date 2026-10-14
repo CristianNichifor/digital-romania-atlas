@@ -48,7 +48,7 @@ UPS, HR rows) have three modes, chosen in this order:
    Everyone opening that link sees identical figures; it never changes and is
    the citable form.
 2. **Live bridge** — if the
-   [administrative-reform map](https://cristiannichifor.github.io/romania-reforms/administrativ/)
+   [administrative-reform map](https://projects.cristian-nichifor.com/romania-reforms/administrative-reform/)
    is open in another tab of the same browser, the atlas recomputes from the
    scenario that tab publishes (same-origin `localStorage`). Two readers with
    different maps open will see different numbers — the page says so.

@@ -113,7 +113,9 @@ nav {
 
 nav a,
 nav button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   text-decoration: none;
   font-family: inherit;
   line-height: normal;
@@ -1276,6 +1278,7 @@ footer {
 
   nav a,
   nav button {
+    min-height: 44px;
     padding: 7px 13px;
     font-size: 13px;
     white-space: nowrap;

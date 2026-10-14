@@ -267,19 +267,12 @@ export function FlowGraph() {
       </div>
       {mode === "diff" && (
         <div className="diff-banner">
-          {lang === "ro" ? (
-            <>
-              <strong>{newCount} fluxuri noi</strong> adăugate de propunere
-              (evidențiate). Ce e estompat există deja în ecosistemul
-              documentat.
-            </>
-          ) : (
-            <>
-              <strong>{newCount} new flows</strong> added by the proposal
-              (highlighted). The dimmed ones already exist in the documented
-              ecosystem.
-            </>
-          )}
+          <>
+            <strong>
+              {t("flows.newCount").replace("{count}", String(newCount))}
+            </strong>{" "}
+            {t("flows.newCountAfter")}
+          </>
         </div>
       )}
       <div className="legend-row">

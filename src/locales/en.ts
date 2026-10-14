@@ -257,4 +257,13 @@ export const en: Record<MessageKey, string> = {
   "summary.whyItMatters": "Why it matters",
   "summary.youDecideWhatData":
     "You decide what data you reveal, to whom and for what purpose — no tracking, no profiling",
+  // JSX fragments (ATL-23)
+  "flows.newCount": "{count} new flows",
+  "flows.newCountAfter":
+    "added by the proposal (highlighted). The dimmed ones already exist in the documented ecosystem.",
+  "map.countySuffix": " · county of {county}",
+  "strategy.sovereignOs.after":
+    ") as layers L0–L1: the “institutional” half of the same doctrine — nothing depends on a single vendor, a single DC or a single ministry, and the citizen and the clerk both keep working when the network dies. Figures are design estimates, not official documents.",
+  "strategy.sovereignOs.before":
+    "The synthesis includes the “sovereign operating system” proposal for public administration (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —",
 };

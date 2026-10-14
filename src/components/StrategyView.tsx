@@ -492,42 +492,17 @@ export function StrategyView() {
       </div>
 
       <p className="muted note">
-        {lang === "ro" ? (
-          <>
-            Sinteza include propunerea de „sistem de operare suveran” pentru
-            administrația publică (Fedora Silverblue, WireGuard, FreeIPA,
-            Matrix, Nextcloud, ONLYOFFICE —{" "}
-            <a
-              href="https://danieltamas.com/blog/arhitectura-suverana"
-              target="_blank"
-              rel="noreferrer"
-            >
-              danieltamas.com/blog/arhitectura-suverana
-            </a>
-            ) ca straturi L0–L1: partea „instituțională” a aceleiași doctrine —
-            nimic nu depinde de un singur furnizor, un singur DC sau un singur
-            minister, iar cetățeanul și funcționarul continuă să lucreze când
-            rețeaua cade. Cifrele sunt estimări de design, nu documente
-            oficiale.
-          </>
-        ) : (
-          <>
-            The synthesis includes the “sovereign operating system” proposal for
-            public administration (Fedora Silverblue, WireGuard, FreeIPA,
-            Matrix, Nextcloud, ONLYOFFICE —{" "}
-            <a
-              href="https://danieltamas.com/blog/arhitectura-suverana"
-              target="_blank"
-              rel="noreferrer"
-            >
-              danieltamas.com/blog/arhitectura-suverana
-            </a>
-            ) as layers L0–L1: the “institutional” half of the same doctrine —
-            nothing depends on a single vendor, a single DC or a single
-            ministry, and the citizen and the clerk both keep working when the
-            network dies. Figures are design estimates, not official documents.
-          </>
-        )}
+        <>
+          {t("strategy.sovereignOs.before")}{" "}
+          <a
+            href="https://danieltamas.com/blog/arhitectura-suverana"
+            target="_blank"
+            rel="noreferrer"
+          >
+            danieltamas.com/blog/arhitectura-suverana
+          </a>
+          {t("strategy.sovereignOs.after")}
+        </>
       </p>
     </div>
   );

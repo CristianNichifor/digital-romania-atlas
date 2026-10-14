@@ -65,7 +65,7 @@ Test: none in the repository; the agent cannot push workflow changes.
 
 ## Theme B: user experience
 
-### ATL-3 Hash routing for views — `todo`
+### ATL-3 Hash routing for views — `done`
 
 - Given the atlas is open on any view
 - When the user picks a view
@@ -76,7 +76,7 @@ Test: none in the repository; the agent cannot push workflow changes.
 
 Test: `tests/e2e/routing.spec.ts`.
 
-### ATL-4 Accessible navigation — `todo`
+### ATL-4 Accessible navigation — `done`
 
 - Given any view, in either language
 - When it is scanned with axe-core (WCAG 2.1 A/AA rules)
@@ -86,7 +86,7 @@ Test: `tests/e2e/routing.spec.ts`.
 
 Test: `tests/e2e/a11y.spec.ts` (`@axe-core/playwright`).
 
-### ATL-9 Interface copy in locale files — `todo`
+### ATL-9 Interface copy in locale files — `done`
 
 - Given interface copy that was written inline as `lang === "ro" ? … : …`
 - When it moves into `src/locales/ro.ts` and `src/locales/en.ts`
@@ -99,7 +99,7 @@ views still carry inline bilingual copy; moving it is follow-up work.
 English and Romanian text moved verbatim; new strings written by the agent
 are marked "needs human review" below.
 
-### ATL-10 Self-hosted Inter — `todo`
+### ATL-10 Self-hosted Inter — `done`
 
 - Given the page loads
 - When all of its requests are recorded
@@ -149,3 +149,6 @@ be moved to the site root; that is a workflow change for the maintainer.
 ## Needs human review
 
 - Translations or new copy written by the agent (listed per item when added).
+- ATL-4/ATL-9: `nav.langToggle` ("EN, switch to English" / "RO, comută în
+  română", adapted from the old tooltip) and `compare.euRegion` ("Comparație cu
+  sistemele UE" / "Comparison with EU systems") are new strings.

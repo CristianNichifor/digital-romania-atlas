@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 import * as d3 from "d3";
 import {
   CATEGORY_COLORS,
@@ -33,7 +39,10 @@ const H = 760;
 const BY_ID = new Map(INSTITUTIONS.map((i) => [i.id, i]));
 
 function norm(s: string) {
-  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  return s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 }
 
 function distKm(a: [number, number], b: [number, number]) {
@@ -43,7 +52,8 @@ function distKm(a: [number, number], b: [number, number]) {
   const la1 = (a[1] * Math.PI) / 180;
   const la2 = (b[1] * Math.PI) / 180;
   const h =
-    Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
@@ -57,7 +67,9 @@ export function MapView() {
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
-  const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(null);
+  const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(
+    null
+  );
   const [filter, setFilter] = useState<Category | null>(null);
   const [zoom, setZoom] = useState({ x: 0, y: 0, k: 1 });
   const [tip, setTip] = useState<TipContent | null>(null);
@@ -89,7 +101,11 @@ export function MapView() {
         return !event.button;
       })
       .on("zoom", (event) =>
-        setZoom({ x: event.transform.x, y: event.transform.y, k: event.transform.k })
+        setZoom({
+          x: event.transform.x,
+          y: event.transform.y,
+          k: event.transform.k,
+        })
       );
     d3.select(svg).call(behavior);
     zoomRef.current = behavior;
@@ -109,20 +125,21 @@ export function MapView() {
     const svg = svgRef.current;
     const z = zoomRef.current;
     if (!svg || !z) return;
-    d3.select(svg).transition().duration(200).call(z.transform, d3.zoomIdentity);
+    d3.select(svg)
+      .transition()
+      .duration(200)
+      .call(z.transform, d3.zoomIdentity);
   };
 
   const projection = useMemo(() => {
     if (!geo) return null;
-    return d3
-      .geoMercator()
-      .fitExtent(
-        [
-          [20, 20],
-          [W - 20, H - 20],
-        ],
-        geo as unknown as GeoJSON.GeoJSON
-      );
+    return d3.geoMercator().fitExtent(
+      [
+        [20, 20],
+        [W - 20, H - 20],
+      ],
+      geo as unknown as GeoJSON.GeoJSON
+    );
   }, [geo]);
 
   const counts = useMemo(() => {
@@ -171,15 +188,36 @@ export function MapView() {
   // Collision resolution in screen space: relax overlapping dots apart so
   // they stay distinguishable, then let geographic separation take over as
   // you zoom in (the artificial spread shrinks with zoom).
-  const pts: { id: string; x: number; y: number; px: number; py: number; isUat: boolean }[] = [];
+  const pts: {
+    id: string;
+    x: number;
+    y: number;
+    px: number;
+    py: number;
+    isUat: boolean;
+  }[] = [];
   for (const i of visibleMarkers) {
     const [px, py] = projection([i.lon!, i.lat!]) ?? [0, 0];
-    pts.push({ id: i.id, x: zoom.x + px * k, y: zoom.y + py * k, px, py, isUat: false });
+    pts.push({
+      id: i.id,
+      x: zoom.x + px * k,
+      y: zoom.y + py * k,
+      px,
+      py,
+      isUat: false,
+    });
   }
   if (uatVisible) {
     geo.features.forEach((f, fi) => {
       const [cx, cy] = path.centroid(f as unknown as GeoJSON.Feature);
-      pts.push({ id: `uat-${fi}`, x: zoom.x + cx * k, y: zoom.y + cy * k, px: cx, py: cy, isUat: true });
+      pts.push({
+        id: `uat-${fi}`,
+        x: zoom.x + cx * k,
+        y: zoom.y + cy * k,
+        px: cx,
+        py: cy,
+        isUat: true,
+      });
     });
   }
   const D = 18;
@@ -225,7 +263,13 @@ export function MapView() {
   // zoom in, denser clusters get a count badge instead.
   const CL = 40;
   const clusterOf = new Map<string, number>();
-  const clusters: { size: number; count: number; cx: number; cy: number; ids: string[] }[] = [];
+  const clusters: {
+    size: number;
+    count: number;
+    cx: number;
+    cy: number;
+    ids: string[];
+  }[] = [];
   for (const p of relaxed) {
     if (clusterOf.has(p.id)) continue;
     const stack = [p];
@@ -236,7 +280,10 @@ export function MapView() {
       members.push(cur);
       for (const o of relaxed) {
         if (clusterOf.has(o.id)) continue;
-        const d = Math.hypot(cur.x + cur.ox - o.x - o.ox, cur.y + cur.oy - o.y - o.oy);
+        const d = Math.hypot(
+          cur.x + cur.ox - o.x - o.ox,
+          cur.y + cur.oy - o.y - o.oy
+        );
         if (d < CL) {
           clusterOf.set(o.id, -1);
           stack.push(o);
@@ -255,12 +302,17 @@ export function MapView() {
     for (const m of members) clusterOf.set(m.id, idx);
   }
 
-  const sovereignDcs = DC_PLACEMENT.filter((d) => ["dc-a", "dc-b", "dc-c"].includes(d.id));
+  const sovereignDcs = DC_PLACEMENT.filter((d) =>
+    ["dc-a", "dc-b", "dc-c"].includes(d.id)
+  );
   const regionalDcs = REGIONAL_DCS.filter(
     (r) => !/covered by DC-B|acoperit de DC-B/.test(pick(r.city, "en"))
   );
   const underground = UNDERGROUND_SITES;
-  const [vx, vy] = projection([VRANCEA_EPICENTRE.lon, VRANCEA_EPICENTRE.lat]) ?? [0, 0];
+  const [vx, vy] = projection([
+    VRANCEA_EPICENTRE.lon,
+    VRANCEA_EPICENTRE.lat,
+  ]) ?? [0, 0];
 
   // Replication links: sovereign fibre mesh, regional uplinks, vault copies
   // and (zoomed in) the L0 nodes synchronising with their nearest DC.
@@ -274,7 +326,12 @@ export function MapView() {
     tip: TipContent;
   };
   const allDcs = [
-    ...sovereignDcs.map((d) => ({ id: d.id, name: d.name, lon: d.lon, lat: d.lat })),
+    ...sovereignDcs.map((d) => ({
+      id: d.id,
+      name: d.name,
+      lon: d.lon,
+      lat: d.lat,
+    })),
     ...regionalDcs.map((r) => ({
       id: `r-${pick(r.region, "ro")}`,
       name: { ro: `Micro-DC ${r.region.ro}`, en: `${r.region.en} micro-DC` },
@@ -284,7 +341,10 @@ export function MapView() {
   ];
   const nearest = (lon: number, lat: number, pool: typeof allDcs) =>
     pool.reduce((best, d) =>
-      distKm([lon, lat], [d.lon, d.lat]) < distKm([lon, lat], [best.lon, best.lat]) ? d : best
+      distKm([lon, lat], [d.lon, d.lat]) <
+      distKm([lon, lat], [best.lon, best.lat])
+        ? d
+        : best
     );
   const links: Link[] = [];
   for (let i = 0; i < sovereignDcs.length; i++) {
@@ -406,9 +466,14 @@ export function MapView() {
               key={cat}
               className={`legend-chip ${filter === cat ? "active" : ""}`}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
-              onClick={() => setFilter(filter === cat ? null : (cat as Category))}
+              onClick={() =>
+                setFilter(filter === cat ? null : (cat as Category))
+              }
             >
-              <span className="dot" style={{ background: CATEGORY_COLORS[cat as Category] }} />
+              <span
+                className="dot"
+                style={{ background: CATEGORY_COLORS[cat as Category] }}
+              />
               <T text={pick(label, lang)} />
             </button>
           ))}
@@ -423,10 +488,18 @@ export function MapView() {
         onMouseLeave={() => setTip(null)}
       >
         <div className="map-controls">
-          <button onClick={() => zoomBy(1.5)} title="Zoom in" aria-label="Zoom in">
+          <button
+            onClick={() => zoomBy(1.5)}
+            title="Zoom in"
+            aria-label="Zoom in"
+          >
             +
           </button>
-          <button onClick={() => zoomBy(1 / 1.5)} title="Zoom out" aria-label="Zoom out">
+          <button
+            onClick={() => zoomBy(1 / 1.5)}
+            title="Zoom out"
+            aria-label="Zoom out"
+          >
             −
           </button>
           <button onClick={resetZoom} title="Reset" aria-label="Reset zoom">
@@ -446,7 +519,10 @@ export function MapView() {
                   className="county"
                   fill={
                     count
-                      ? d3.interpolateRgb("#0e1729", "#2a4d8f")(0.25 + intensity * 0.75)
+                      ? d3.interpolateRgb(
+                          "#0e1729",
+                          "#2a4d8f"
+                        )(0.25 + intensity * 0.75)
                       : "#0a1120"
                   }
                   stroke="#233452"
@@ -459,8 +535,12 @@ export function MapView() {
                           en: f.properties.NAME_1,
                         },
                         detail: {
-                          ro: count ? `${count} instituție/instituții` : "Fără instituții centralizate",
-                          en: count ? `${count} institution(s)` : "No central institutions",
+                          ro: count
+                            ? `${count} instituție/instituții`
+                            : "Fără instituții centralizate",
+                          en: count
+                            ? `${count} institution(s)`
+                            : "No central institutions",
                         },
                       },
                       e
@@ -541,7 +621,10 @@ export function MapView() {
             {geo.features.map((f, idx) => {
               const centroid = path.centroid(f as unknown as GeoJSON.Feature);
               return (
-                <g key={`c-${idx}`} transform={`translate(${centroid[0]},${centroid[1]}) scale(${1 / k})`}>
+                <g
+                  key={`c-${idx}`}
+                  transform={`translate(${centroid[0]},${centroid[1]}) scale(${1 / k})`}
+                >
                   <text x={0} y={0} className="county-label">
                     {f.properties.NAME_1}
                   </text>
@@ -603,7 +686,10 @@ export function MapView() {
                     setHoverCounty(null);
                     showTip(
                       {
-                        title: { ro: `${i.acronym} — ${i.name.ro}`, en: `${i.acronym} — ${i.name.en}` },
+                        title: {
+                          ro: `${i.acronym} — ${i.name.ro}`,
+                          en: `${i.acronym} — ${i.name.en}`,
+                        },
                         detail: {
                           ro: `${i.role.ro} · ${CATEGORY_LABELS[i.category].ro}${
                             i.county ? ` · județul ${i.county}` : ""
@@ -660,8 +746,20 @@ export function MapView() {
                   }
                   onMouseLeave={() => setTip(null)}
                 >
-                  <circle r={11} fill="#0c1526" stroke="#4f8cff" strokeWidth={1.5} opacity={0.94} />
-                  <text x={0} y={0} textAnchor="middle" dominantBaseline="central" className="cluster-count">
+                  <circle
+                    r={11}
+                    fill="#0c1526"
+                    stroke="#4f8cff"
+                    strokeWidth={1.5}
+                    opacity={0.94}
+                  />
+                  <text
+                    x={0}
+                    y={0}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    className="cluster-count"
+                  >
                     {c.count}
                   </text>
                 </g>
@@ -677,7 +775,10 @@ export function MapView() {
                   onMouseEnter={(e) => {
                     const content = {
                       title: d.name,
-                      detail: { ro: `${d.role.ro} · ${d.seismic.ro}`, en: `${d.role.en} · ${d.seismic.en}` },
+                      detail: {
+                        ro: `${d.role.ro} · ${d.seismic.ro}`,
+                        en: `${d.role.en} · ${d.seismic.en}`,
+                      },
                     };
                     setSiteHover(content);
                     showTip(content, e);
@@ -712,7 +813,10 @@ export function MapView() {
                   className="dc-marker regional"
                   onMouseEnter={(e) => {
                     const content = {
-                      title: { ro: `Micro-DC ${r.region.ro}`, en: `${r.region.en} micro-DC` },
+                      title: {
+                        ro: `Micro-DC ${r.region.ro}`,
+                        en: `${r.region.en} micro-DC`,
+                      },
                       detail: r.power,
                     };
                     setSiteHover(content);
@@ -753,7 +857,12 @@ export function MapView() {
                     setTip(null);
                   }}
                 >
-                  <path d="M0,-5 L4.5,4 L-4.5,4 Z" fill="#a479e2" stroke="#0e1729" strokeWidth={1.5} />
+                  <path
+                    d="M0,-5 L4.5,4 L-4.5,4 Z"
+                    fill="#a479e2"
+                    stroke="#0e1729"
+                    strokeWidth={1.5}
+                  />
                 </g>
               );
             })}
@@ -762,7 +871,10 @@ export function MapView() {
         {tip && (
           <div
             className="map-tip"
-            style={{ left: tipClampX(tipPos.x + 14), top: Math.max(tipPos.y - 58, 4) }}
+            style={{
+              left: tipClampX(tipPos.x + 14),
+              top: Math.max(tipPos.y - 58, 4),
+            }}
           >
             <strong>
               <T text={pick(tip.title, lang)} />
@@ -778,7 +890,9 @@ export function MapView() {
           <svg width="12" height="12" viewBox="0 0 12 12">
             <circle cx="6" cy="6" r="4.5" fill="#4f8cff" stroke="#05070d" />
           </svg>
-          {lang === "ro" ? "Instituții (culoarea = categoria)" : "Institutions (colour = category)"}
+          {lang === "ro"
+            ? "Instituții (culoarea = categoria)"
+            : "Institutions (colour = category)"}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
@@ -790,25 +904,54 @@ export function MapView() {
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
-            <rect x="2.6" y="2.6" width="6.8" height="6.8" transform="rotate(45 6 6)" fill="#ffd166" stroke="#0e1729" />
+            <rect
+              x="2.6"
+              y="2.6"
+              width="6.8"
+              height="6.8"
+              transform="rotate(45 6 6)"
+              fill="#ffd166"
+              stroke="#0e1729"
+            />
           </svg>
           {lang === "ro" ? "DC suverană" : "Sovereign DC"}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
-            <rect x="3.2" y="3.2" width="5.6" height="5.6" transform="rotate(45 6 6)" fill="#53c1e8" stroke="#0e1729" />
+            <rect
+              x="3.2"
+              y="3.2"
+              width="5.6"
+              height="5.6"
+              transform="rotate(45 6 6)"
+              fill="#53c1e8"
+              stroke="#0e1729"
+            />
           </svg>
           {lang === "ro" ? "Micro-DC regional" : "Regional micro-DC"}
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
-            <path d="M6,1.5 L10.5,10 L1.5,10 Z" fill="#a479e2" stroke="#0e1729" />
+            <path
+              d="M6,1.5 L10.5,10 L1.5,10 Z"
+              fill="#a479e2"
+              stroke="#0e1729"
+            />
           </svg>
-          {lang === "ro" ? "Sit subteran (candidat)" : "Underground site (candidate)"}
+          {lang === "ro"
+            ? "Sit subteran (candidat)"
+            : "Underground site (candidate)"}
         </span>
         <span className="sl-item">
           <svg width="14" height="12" viewBox="0 0 14 12">
-            <circle cx="7" cy="6" r="4.5" fill="none" stroke="#e5484d" strokeDasharray="2.5 2" />
+            <circle
+              cx="7"
+              cy="6"
+              r="4.5"
+              fill="none"
+              stroke="#e5484d"
+              strokeDasharray="2.5 2"
+            />
           </svg>
           {lang === "ro"
             ? "Zona seismică Vrancea (50/100/200 km)"
@@ -816,7 +959,15 @@ export function MapView() {
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
-            <line x1="1" y1="6" x2="17" y2="6" stroke="#4f8cff" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line
+              x1="1"
+              y1="6"
+              x2="17"
+              y2="6"
+              stroke="#4f8cff"
+              strokeWidth="1.5"
+              strokeDasharray="3 3"
+            />
           </svg>
           {lang === "ro"
             ? "Inel de fibră între DC-urile suverane"
@@ -824,26 +975,70 @@ export function MapView() {
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
-            <line x1="1" y1="6" x2="17" y2="6" stroke="#53c1e8" strokeWidth="1.2" strokeDasharray="2.5 3" />
+            <line
+              x1="1"
+              y1="6"
+              x2="17"
+              y2="6"
+              stroke="#53c1e8"
+              strokeWidth="1.2"
+              strokeDasharray="2.5 3"
+            />
           </svg>
-          {lang === "ro" ? "Uplink regional (oglindă L3)" : "Regional uplink (L3 mirror)"}
+          {lang === "ro"
+            ? "Uplink regional (oglindă L3)"
+            : "Regional uplink (L3 mirror)"}
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
-            <line x1="1" y1="6" x2="17" y2="6" stroke="#a479e2" strokeWidth="1.2" strokeDasharray="1.2 2.4" />
+            <line
+              x1="1"
+              y1="6"
+              x2="17"
+              y2="6"
+              stroke="#a479e2"
+              strokeWidth="1.2"
+              strokeDasharray="1.2 2.4"
+            />
           </svg>
-          {lang === "ro" ? "Copie de arhivă către salină" : "Archive copy to the salt mine"}
+          {lang === "ro"
+            ? "Copie de arhivă către salină"
+            : "Archive copy to the salt mine"}
         </span>
         <span className="sl-item">
           <svg width="18" height="12" viewBox="0 0 18 12">
-            <line x1="1" y1="6" x2="17" y2="6" stroke="#33517e" strokeWidth="1" strokeDasharray="1.5 2.5" />
+            <line
+              x1="1"
+              y1="6"
+              x2="17"
+              y2="6"
+              stroke="#33517e"
+              strokeWidth="1"
+              strokeDasharray="1.5 2.5"
+            />
           </svg>
-          {lang === "ro" ? "Sincronizare L0 (la zoom)" : "L0 sync (when zoomed in)"}
+          {lang === "ro"
+            ? "Sincronizare L0 (la zoom)"
+            : "L0 sync (when zoomed in)"}
         </span>
         <span className="sl-item">
           <svg width="14" height="14" viewBox="0 0 14 14">
-            <circle cx="7" cy="7" r="5.5" fill="#0c1526" stroke="#4f8cff" strokeWidth="1.3" />
-            <text x="7" y="7.4" textAnchor="middle" fontSize="7.5" fill="#dbe4f3" fontWeight="700">
+            <circle
+              cx="7"
+              cy="7"
+              r="5.5"
+              fill="#0c1526"
+              stroke="#4f8cff"
+              strokeWidth="1.3"
+            />
+            <text
+              x="7"
+              y="7.4"
+              textAnchor="middle"
+              fontSize="7.5"
+              fill="#dbe4f3"
+              fontWeight="700"
+            >
               N
             </text>
           </svg>
@@ -853,7 +1048,14 @@ export function MapView() {
         </span>
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">
-            <rect x="1.5" y="1.5" width="9" height="9" fill="#1a2c4e" stroke="#2a4d8f" />
+            <rect
+              x="1.5"
+              y="1.5"
+              width="9"
+              height="9"
+              fill="#1a2c4e"
+              stroke="#2a4d8f"
+            />
           </svg>
           {lang === "ro"
             ? "Nuanța județului = densitatea instituțiilor"
@@ -863,11 +1065,16 @@ export function MapView() {
       <div className="hover-bar">
         {siteHover ? (
           <span>
-            <strong><T text={pick(siteHover.title, lang)} /></strong> — <T text={pick(siteHover.detail, lang)} />
+            <strong>
+              <T text={pick(siteHover.title, lang)} />
+            </strong>{" "}
+            — <T text={pick(siteHover.detail, lang)} />
           </span>
         ) : hover ? (
           <span>
-            <strong>{hover.acronym}</strong> — <T text={pick(hover.name, lang)} /> · <T text={pick(hover.role, lang)} /> ·{" "}
+            <strong>{hover.acronym}</strong> —{" "}
+            <T text={pick(hover.name, lang)} /> ·{" "}
+            <T text={pick(hover.role, lang)} /> ·{" "}
             {pick(CATEGORY_LABELS[hover.category], lang)}
             {hoverCounty
               ? lang === "ro"

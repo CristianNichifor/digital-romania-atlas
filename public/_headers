@@ -1,0 +1,10 @@
+# Cloudflare Pages response headers. The deploy workflow stages the build
+# under /digital-romania-atlas/, so this file must sit at the staged site root.
+# vite.config.ts applies the same headers to `npm run preview`, so the e2e
+# tests run under this policy.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: DENY

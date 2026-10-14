@@ -8,6 +8,7 @@ import {
 } from "react";
 import { UAT_SNAPSHOT } from "../data/uatPlanSnapshot";
 import { useLang } from "../i18n";
+import { readStorage } from "./storage";
 
 export interface UatPlan {
   units: number;
@@ -74,10 +75,8 @@ function readPlan(): UatPlan {
       }
     }
   }
-  if (typeof localStorage !== "undefined") {
-    const live = parseLive(localStorage.getItem(LIVE_KEY));
-    if (live) return live;
-  }
+  const live = parseLive(readStorage(LIVE_KEY));
+  if (live) return live;
   return {
     units: UAT_SNAPSHOT.units,
     baseline: UAT_SNAPSHOT.baseline,

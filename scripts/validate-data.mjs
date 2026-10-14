@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,7 +10,7 @@ const readTs = (p) => {
   return raw.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
 };
 
-const asciiRe = /[^\x00-\x7F]/;
+const asciiRe = /[\u0080-\uFFFF]/;
 const errors = [];
 
 function findArray(code, name) {
@@ -151,6 +152,92 @@ for (const [file, code] of [
     );
   }
 }
+
+// The site moved off GitHub Pages; only the dated history may name the old host.
+const OLD_HOST = ["cristiannichifor", "github", "io"].join(".");
+const HISTORY = new Set(["CHANGELOG.md", "ERRATA.md", "scripts/validate-data.mjs"]);
+const tracked = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8" })
+  .split("\n")
+  .filter((f) => f && !HISTORY.has(f) && !f.startsWith("docs/specs/"))
+  .filter((f) => !/\.(png|jpe?g|webp|woff2?|ico|geojson)$|package-lock\.json$/.test(f));
+for (const file of tracked) {
+  let text;
+  try {
+    text = readFileSync(resolve(root, file), "utf8");
+  } catch {
+    continue;
+  }
+  if (text.toLowerCase().includes(OLD_HOST))
+    errors.push(`${file}: still links ${OLD_HOST}; use projects.cristian-nichifor.com`);
+}
+
+const pkgVersion = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8")).version;
+const metaVersion = readTs("src/data/meta.ts").match(/version:\s*"([^"]+)"/)?.[1];
+if (pkgVersion !== metaVersion)
+  errors.push(`package.json version ${pkgVersion} differs from META.version ${metaVersion}`);
+
+// Interface copy lives in src/locales; both languages carry the same keys.
+const localeKeys = (lang) => {
+  const code = readFileSync(resolve(root, `src/locales/${lang}.ts`), "utf8");
+  const entries = new Map();
+  for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*"((?:[^"\\]|\\.)*)"/gm))
+    entries.set(m[1], m[2]);
+  // Values that prettier wraps onto the next line.
+  for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*\n\s*"((?:[^"\\]|\\.)*)"/gm))
+    entries.set(m[1], m[2]);
+  return entries;
+};
+const roUi = localeKeys("ro");
+const enUi = localeKeys("en");
+if (roUi.size === 0) errors.push("src/locales/ro.ts: no keys found");
+for (const [a, b, name] of [
+  [roUi, enUi, "en"],
+  [enUi, roUi, "ro"],
+]) {
+  for (const key of a.keys())
+    if (!b.has(key)) errors.push(`src/locales/${name}.ts: missing key "${key}"`);
+}
+for (const [name, entries] of [
+  ["ro", roUi],
+  ["en", enUi],
+]) {
+  for (const [key, value] of entries)
+    if (!value.trim()) errors.push(`src/locales/${name}.ts: empty value for "${key}"`);
+}
+for (const file of ["src/App.tsx", "src/components/CompareView.tsx"]) {
+  if (/lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(readFileSync(resolve(root, file), "utf8")))
+    errors.push(`${file}: interface copy belongs in src/locales, not inline`);
+}
+
+// County boundaries must come from an openly licensed source (ATL-1):
+// GADM forbids redistribution, so none of its properties may remain.
+const counties = JSON.parse(
+  readFileSync(resolve(root, "public/data/ro-counties.geojson"), "utf8")
+);
+if (counties.features?.length !== 42)
+  errors.push(`ro-counties.geojson: ${counties.features?.length} features, expected 42`);
+const GADM_KEYS = ["ID_0", "NAME_0", "ID_1", "NAME_1", "ROU_adm1", "TYPE_1", "ENGTYPE_1"];
+for (const f of counties.features ?? []) {
+  const props = f.properties ?? {};
+  const gadm = GADM_KEYS.filter((k) => k in props);
+  if (gadm.length) {
+    errors.push(`ro-counties.geojson: GADM properties ${gadm.join(", ")}`);
+    break;
+  }
+  if (!props.name || !/^RO-[A-Z]{1,2}$/.test(props.iso ?? ""))
+    errors.push(`ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`);
+}
+
+// The footer's "data as of" date may not predate a source it relies on.
+const dataAsOf = readTs("src/data/meta.ts").match(/dataAsOf:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+const accessed = [...sourcesCode.matchAll(/\baccessed:\s*"([^"]*)"/g)].map((m) => m[1]);
+for (const date of accessed)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date))
+    errors.push(`src/data/sources.ts: accessed "${date}" is not an ISO date`);
+const newest = accessed.sort().at(-1);
+if (!dataAsOf) errors.push("src/data/meta.ts: dataAsOf missing or not an ISO date");
+else if (newest && dataAsOf < newest)
+  errors.push(`META.dataAsOf ${dataAsOf} is older than the newest source access ${newest}`);
 
 if (errors.length) {
   console.error("Data validation failed:");

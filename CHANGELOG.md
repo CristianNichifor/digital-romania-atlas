@@ -6,6 +6,10 @@ version (shown in the page footer) so a citation stays verifiable.
 
 ## [Unreleased]
 
+- County boundaries now come from geoBoundaries gbOpen ROU ADM1 (World Bank
+  data, CC BY 4.0) instead of a GADM-derived file, whose licence does not
+  permit redistribution. County names now carry Romanian diacritics.
+
 - Responsive design: the header navigation becomes a single horizontally
   scrollable row on mobile, journey/counter grids collapse to one column and
   the press-kit buttons go full-width on small screens.

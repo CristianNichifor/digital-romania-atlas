@@ -1,11 +1,12 @@
 import { SOURCES } from "../data/sources";
 import { META } from "../data/meta";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, useT } from "../i18n";
 import { downloadPressCsv, downloadPressJson } from "../lib/export";
 import { T } from "./T";
 
 export function SourcesView() {
   const { lang } = useLang();
+  const t = useT();
   return (
     <div className="panel">
       <div className="panel-head">
@@ -73,6 +74,11 @@ export function SourcesView() {
             {s.note && (
               <p className="muted source-note">
                 <T text={pick(s.note, lang)} />
+              </p>
+            )}
+            {s.accessed && (
+              <p className="muted source-note">
+                {t("sources.accessed")} {s.accessed}
               </p>
             )}
             {s.url && (

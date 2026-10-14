@@ -59,5 +59,8 @@ window before public disclosure.
 - **Least privilege**: workflows start from `contents: read` and only the
   deploy jobs get an OIDC token (Cloudflare Pages through the token broker)
   or Pages write access (the GitHub Pages redirect).
+- **Response headers**: `public/_headers` sets a strict Content-Security-Policy
+  (same-origin only), `nosniff`, a referrer policy and frame blocking; the
+  e2e suite runs under the same headers.
 - **Secrets**: none are needed by this project. If you find one committed,
   treat it as compromised and report it immediately.

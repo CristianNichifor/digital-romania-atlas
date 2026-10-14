@@ -70,4 +70,45 @@ export const ro = {
     "Site-ul nu folosește cookie-uri, nu are analiză de trafic și nu încarcă resurse de la terți. Alegerea limbii se păstrează doar în browserul dumneavoastră (localStorage); dacă ați deschis simulatorul de reformă administrativă în același browser, atlasul citește de acolo ultimul scenariu.",
   "privacy.title": "Confidențialitate",
   "sources.accessed": "Accesat la",
+  // Views (ATL-21)
+  "journeys.intro":
+    "Cele patru trasee care decid totul: înrolare, autentificare, pierderea telefonului și cheia hardware opțională. Fiecare pas e o diagramă — actorii sunt instituțiile reale din arhitectura noastră, iar liniile portocalii marchează pașii opționali sau planul B.",
+  "journeys.title": "Pașii cetățeanului — diagrame de flux",
+  "policy.better": "Mai bine: ",
+  "policy.countersIntro":
+    "O propunere care nu-și cunoaște opoziția nu e pregătită pentru dezbatere. Acestea sunt argumentele pe care le considerăm cele mai serioase, formulate pe cinste — cu răspunsul nostru alături.",
+  "policy.countersTitle":
+    "Cele mai puternice argumente împotrivă — și răspunsurile noastre",
+  "policy.criterion": "Criteriu",
+  "policy.currentArchitecture": "Arhitectura actuală",
+  "policy.currentProposes": "Ce propune arhitectura actuală",
+  "policy.disclaimer":
+    "Poziție de design, nu document oficial. Faptele „actuale” provin din documentația publică MAI (repo-ul GitHub) și din prezentarea MAI din iulie 2026.",
+  "policy.element": "Construcție",
+  "policy.gainsTitle": "Câștigurile concrete",
+  "policy.ourProposal": "Propunerea noastră",
+  "policy.ourResponse": "Răspunsul nostru: ",
+  "policy.risk": "Riscul: ",
+  "policy.risksTitle": "Cele 8 riscuri — și ce facem mai bine",
+  "policy.source": "Sursă",
+  "policy.title":
+    "Analiză de politică: arhitectura RO Wallet vs. propunerea noastră",
+  "policy.whyTitle": "De ce propunerea noastră este cea potrivită",
+  "sources.downloadCsv": "Descarcă CSV (tabel plat)",
+  "sources.downloadJson": "Descarcă JSON (date complete)",
+  "sources.intro.after":
+    "— fiecare corectură acceptată apare public în ERRATA.",
+  "sources.intro.before":
+    "Tot ce e marcat „actual” în atlas provine din sursele de mai jos; tot ce e marcat „propus” este argument de design. Urmăriți linkurile și contestați-ne datele — fiecare rând are proveniență. Găsiți o eroare?",
+  "sources.intro.link": "Trimiteți o corectură",
+  "sources.pressKit": "Kit de presă",
+  "sources.title": "Surse și proveniență",
+  "stories.title": "Povești de cetățean — azi vs. propunere",
+  "stories.today": "Azi",
+  "stories.withProposal": "Cu propunerea",
+  "timeline.euObligations": "Obligații UE",
+  "timeline.nationalPlan": "Plan național / MAI",
+  "timeline.ourProposal": "Propunerea noastră",
+  "timeline.title":
+    "Calendar: obligații UE vs. planul național vs. propunerea noastră",
 } as const;

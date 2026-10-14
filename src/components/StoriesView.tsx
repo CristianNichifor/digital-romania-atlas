@@ -1,7 +1,7 @@
 import { STORIES } from "../data/stories";
 import { FLOW_COLORS } from "../data/flows";
 import { INSTITUTIONS } from "../data/institutions";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
 
 function acronym(id: string) {
@@ -16,14 +16,11 @@ function tipFor(id: string, lang: "ro" | "en"): string {
 
 export function StoriesView() {
   const { lang } = useLang();
+  const t = useT();
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Povești de cetățean — azi vs. propunere"
-            : "Citizen stories — today vs. proposal"}
-        </h2>
+        <h2>{t("stories.title")}</h2>
       </div>
       <div className="stories">
         {STORIES.map((s) => (
@@ -38,13 +35,13 @@ export function StoriesView() {
             </div>
             <div className="story-cols">
               <div className="story-col today-col">
-                <h4>{lang === "ro" ? "Azi" : "Today"}</h4>
+                <h4>{t("stories.today")}</h4>
                 <p>
                   <T text={pick(s.today, lang)} />
                 </p>
               </div>
               <div className="story-col proposed-col">
-                <h4>{lang === "ro" ? "Cu propunerea" : "With the proposal"}</h4>
+                <h4>{t("stories.withProposal")}</h4>
                 <p>
                   <T text={pick(s.proposed, lang)} />
                 </p>

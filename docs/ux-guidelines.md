@@ -141,8 +141,8 @@ atlas session is moving view copy into the locale files (ATL-21/22).
   its #28; reuse the pattern).
 - **D-5** Comparație cites sources in a note, not per row.
 - **D-6** Empty-state copy for filters that match nothing is not checked.
-- **D-7** No `prefers-reduced-motion` rule in `src/styles.css`.
-- **D-8** No `forced-colors` rule; check focus and chip borders.
+- **D-7** Done (ATL-25): `prefers-reduced-motion` block in `src/styles.css`.
+- **D-8** Done (ATL-25): `forced-colors` block keeps chip borders and focus visible.
 - **D-9** Fixed: `tests/e2e/no-hscroll.spec.ts` (ATL-24).
 - **D-10** Fixed: all view copy is in `src/locales` (ATL-21 to ATL-23).
 - **D-11** No staged loading message for loads > 2 s.

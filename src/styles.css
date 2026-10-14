@@ -1746,3 +1746,34 @@ footer details.privacy p {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+
+/* ATL-25: honour reduced motion (D-7) and forced colours (D-8). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  button,
+  .legend-chip,
+  .source-card,
+  .table-scroll table th,
+  .table-scroll table td {
+    border: 1px solid CanvasText;
+  }
+
+  :focus-visible {
+    outline: 3px solid Highlight;
+  }
+
+  /* Map and graph marks keep their data colours; the chip label carries the meaning. */
+  .res-link,
+  svg [fill] {
+    forced-color-adjust: none;
+  }
+}

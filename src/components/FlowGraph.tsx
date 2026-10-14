@@ -8,8 +8,10 @@ import {
   type Institution,
 } from "../data/institutions";
 import { FLOWS, FLOW_COLORS, FLOW_LABELS, type FlowKind } from "../data/flows";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, useT } from "../i18n";
+import type { MessageKey } from "../locales";
 import { useUatPlan } from "../lib/uatPlan";
+import { Prov } from "./Prov";
 
 type Mode = "current" | "proposed" | "diff";
 
@@ -26,36 +28,45 @@ interface GLink extends d3.SimulationLinkDatum<GNode> {
   status: "current" | "proposed";
 }
 
+const ACRONYM = new Map(INSTITUTIONS.map((i) => [i.id, i.acronym]));
+
 const W = 960;
 const H = 720;
 
-const MODE_LABELS: { id: Mode; ro: string; en: string }[] = [
-  {
-    id: "current",
-    ro: "Propunerea actuală (doc GitHub MAI)",
-    en: "Current proposal (MAI GitHub docs)",
-  },
-  {
-    id: "proposed",
-    ro: "Propunerea noastră (extinsă)",
-    en: "Our proposal (extended)",
-  },
-  {
-    id: "diff",
-    ro: "Diferența (doar ce adăugăm)",
-    en: "Diff (only what we add)",
-  },
+const MODE_LABELS: { id: Mode; key: MessageKey }[] = [
+  { id: "current", key: "flows.modeCurrent" },
+  { id: "proposed", key: "flows.modeProposed" },
+  { id: "diff", key: "flows.modeDiff" },
 ];
 
 export function FlowGraph() {
   const { lang } = useLang();
+  const t = useT();
   const { fill } = useUatPlan();
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [mode, setMode] = useState<Mode>("proposed");
-  const [kindFilter, setKindFilter] = useState<FlowKind | null>(null);
+  const [mode, setMode] = useState<Mode>("diff");
+  const [kindFilter, setKindFilter] = useState<FlowKind | null>("identity");
   const [catFilter, setCatFilter] = useState<Category | null>(null);
   const [hoverInst, setHoverInst] = useState<Institution | null>(null);
   const [hoverFlow, setHoverFlow] = useState<string | null>(null);
+  // Text alternative to the graph: the same flows the current filters draw.
+  const listed = useMemo(() => {
+    const ids = new Set(
+      INSTITUTIONS.filter(
+        (i) =>
+          (mode !== "current" || i.scope !== "proposed") &&
+          (!catFilter || i.category === catFilter)
+      ).map((i) => i.id)
+    );
+    return FLOWS.filter(
+      (f) =>
+        ids.has(f.from) &&
+        ids.has(f.to) &&
+        (mode !== "current" || f.status === "current") &&
+        (mode !== "diff" || f.status === "proposed") &&
+        (!kindFilter || f.kind === kindFilter)
+    );
+  }, [mode, kindFilter, catFilter]);
 
   useEffect(() => {
     const el = svgRef.current;
@@ -250,49 +261,39 @@ export function FlowGraph() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Fluxuri de date între părți"
-            : "Data flows between parties"}
-        </h2>
+        <h2>{t("flows.dataFlowsBetweenParties")}</h2>
         <div className="mode-toggle">
           {MODE_LABELS.map((m) => (
             <button
               key={m.id}
               className={mode === m.id ? "active" : ""}
+              aria-pressed={mode === m.id}
               onClick={() => setMode(m.id)}
             >
-              {lang === "ro" ? m.ro : m.en}
+              {t(m.key)}
             </button>
           ))}
         </div>
       </div>
+      <Prov />
       {mode === "diff" && (
-        <div className="diff-banner">
-          {lang === "ro" ? (
-            <>
-              <strong>{newCount} fluxuri noi</strong> adăugate de propunere
-              (evidențiate). Ce e estompat există deja în ecosistemul
-              documentat.
-            </>
-          ) : (
-            <>
-              <strong>{newCount} new flows</strong> added by the proposal
-              (highlighted). The dimmed ones already exist in the documented
-              ecosystem.
-            </>
-          )}
+        <div className="diff-banner" role="status">
+          <>
+            <strong>
+              {t("flows.newCount").replace("{count}", String(newCount))}
+            </strong>{" "}
+            {t("flows.newCountAfter")}
+          </>
         </div>
       )}
       <div className="legend-row">
-        <span className="legend-caption">
-          {lang === "ro" ? "Fluxuri:" : "Flows:"}
-        </span>
+        <span className="legend-caption">{t("flows.flows")}</span>
         <div className="legend">
           {Object.entries(FLOW_LABELS).map(([k, label]) => (
             <button
               key={k}
               className={`legend-chip ${kindFilter === k ? "active" : ""}`}
+              aria-pressed={kindFilter === k}
               style={{ borderColor: FLOW_COLORS[k as FlowKind] }}
               onClick={() =>
                 setKindFilter(kindFilter === k ? null : (k as FlowKind))
@@ -308,14 +309,13 @@ export function FlowGraph() {
         </div>
       </div>
       <div className="legend-row">
-        <span className="legend-caption">
-          {lang === "ro" ? "Instituții:" : "Institutions:"}
-        </span>
+        <span className="legend-caption">{t("flows.institutions")}</span>
         <div className="legend">
           {Object.entries(CATEGORY_LABELS).map(([cat, label]) => (
             <button
               key={cat}
               className={`legend-chip ${catFilter === cat ? "active" : ""}`}
+              aria-pressed={catFilter === cat}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
               onClick={() =>
                 setCatFilter(catFilter === cat ? null : (cat as Category))
@@ -330,7 +330,64 @@ export function FlowGraph() {
           ))}
         </div>
       </div>
+      {listed.length === 0 && (kindFilter || catFilter) && (
+        <div className="flows-empty" role="status">
+          {t("flows.emptyFilter").replace(
+            "{filters}",
+            [
+              kindFilter && pick(FLOW_LABELS[kindFilter], lang),
+              catFilter && pick(CATEGORY_LABELS[catFilter], lang),
+            ]
+              .filter(Boolean)
+              .join(" + ")
+          )}{" "}
+          <button
+            onClick={() => {
+              setKindFilter(null);
+              setCatFilter(null);
+            }}
+          >
+            {t("flows.emptyReset")}
+          </button>
+        </div>
+      )}
       <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="graph-svg" />
+      <details className="flow-list">
+        <summary>
+          {t("flows.listSummary").replace("{count}", String(listed.length))}
+        </summary>
+        <div className="table-scroll">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th>{t("flows.listFrom")}</th>
+                <th>{t("flows.listTo")}</th>
+                <th>{t("flows.listData")}</th>
+                <th>{t("flows.listStatus")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listed.map((f) => (
+                <tr key={f.id}>
+                  <td>{ACRONYM.get(f.from) ?? f.from}</td>
+                  <td>{ACRONYM.get(f.to) ?? f.to}</td>
+                  <td>
+                    {pick(FLOW_LABELS[f.kind], lang)}:{" "}
+                    {fill(pick(f.label, lang))}
+                  </td>
+                  <td>
+                    {t(
+                      f.status === "proposed"
+                        ? "flows.statusProposed"
+                        : "flows.statusCurrent"
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
       <div className="hover-bar">
         {hoverFlow ? (
           <span>
@@ -343,11 +400,7 @@ export function FlowGraph() {
             {pick(CATEGORY_LABELS[hoverInst.category], lang)}
           </span>
         ) : (
-          <span className="muted">
-            {lang === "ro"
-              ? "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră."
-              : "Hover a node for its full name and role; hover an edge for the data that flows. Drag nodes to rearrange. In “Diff” mode you see only what our proposal adds."}
-          </span>
+          <span className="muted">{t("flows.hoverANodeFor")}</span>
         )}
       </div>
     </div>

@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,7 +10,7 @@ const readTs = (p) => {
   return raw.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
 };
 
-const asciiRe = /[^\x00-\x7F]/;
+const asciiRe = /[\u0080-\uFFFF]/;
 const errors = [];
 
 function findArray(code, name) {
@@ -150,6 +151,288 @@ for (const [file, code] of [
       `${file}: identifiers/comments should be ASCII (diacritics allowed only inside string literals)`
     );
   }
+}
+
+// The site moved off GitHub Pages; only the dated history may name the old host.
+const OLD_HOST = ["cristiannichifor", "github", "io"].join(".");
+const HISTORY = new Set([
+  "CHANGELOG.md",
+  "ERRATA.md",
+  "scripts/validate-data.mjs",
+]);
+const tracked = execFileSync("git", ["ls-files"], {
+  cwd: root,
+  encoding: "utf8",
+})
+  .split("\n")
+  .filter((f) => f && !HISTORY.has(f) && !f.startsWith("docs/specs/"))
+  .filter(
+    (f) => !/\.(png|jpe?g|webp|woff2?|ico|geojson)$|package-lock\.json$/.test(f)
+  );
+for (const file of tracked) {
+  let text;
+  try {
+    text = readFileSync(resolve(root, file), "utf8");
+  } catch {
+    continue;
+  }
+  if (text.toLowerCase().includes(OLD_HOST))
+    errors.push(
+      `${file}: still links ${OLD_HOST}; use projects.cristian-nichifor.com`
+    );
+}
+
+const pkgVersion = JSON.parse(
+  readFileSync(resolve(root, "package.json"), "utf8")
+).version;
+const metaVersion =
+  readTs("src/data/meta.ts").match(/version:\s*"([^"]+)"/)?.[1];
+if (pkgVersion !== metaVersion)
+  errors.push(
+    `package.json version ${pkgVersion} differs from META.version ${metaVersion}`
+  );
+
+// Interface copy lives in src/locales; both languages carry the same keys.
+const localeKeys = (lang) => {
+  const code = readFileSync(resolve(root, `src/locales/${lang}.ts`), "utf8");
+  const entries = new Map();
+  for (const m of code.matchAll(/^\s*"([\w.-]+)":\s*"((?:[^"\\]|\\.)*)"/gm))
+    entries.set(m[1], m[2]);
+  // Values that prettier wraps onto the next line.
+  for (const m of code.matchAll(
+    /^\s*"([\w.-]+)":\s*\n\s*"((?:[^"\\]|\\.)*)"/gm
+  ))
+    entries.set(m[1], m[2]);
+  return entries;
+};
+const roUi = localeKeys("ro");
+const enUi = localeKeys("en");
+if (roUi.size === 0) errors.push("src/locales/ro.ts: no keys found");
+for (const [a, b, name] of [
+  [roUi, enUi, "en"],
+  [enUi, roUi, "ro"],
+]) {
+  for (const key of a.keys())
+    if (!b.has(key))
+      errors.push(`src/locales/${name}.ts: missing key "${key}"`);
+}
+for (const [name, entries] of [
+  ["ro", roUi],
+  ["en", enUi],
+]) {
+  for (const [key, value] of entries)
+    if (!value.trim())
+      errors.push(`src/locales/${name}.ts: empty value for "${key}"`);
+}
+for (const file of [
+  "src/App.tsx",
+  "src/components/CompareView.tsx",
+  "src/components/FlowGraph.tsx",
+  "src/components/JourneysView.tsx",
+  "src/components/MapView.tsx",
+  "src/components/PolicyView.tsx",
+  "src/components/ResilienceView.tsx",
+  "src/components/SourcesView.tsx",
+  "src/components/StoriesView.tsx",
+  "src/components/StrategyView.tsx",
+  "src/components/SummaryView.tsx",
+  "src/components/TimelineView.tsx",
+]) {
+  if (
+    /lang === "ro"\s*\?\s*(\(|"[^"]{3,})/.test(
+      readFileSync(resolve(root, file), "utf8")
+    )
+  )
+    errors.push(`${file}: interface copy belongs in src/locales, not inline`);
+}
+
+// Interface labels as inline { ro, en } pairs bypass the locale files too.
+for (const file of [
+  "src/components/FlowGraph.tsx",
+  "src/components/MapView.tsx",
+  "src/components/StrategyView.tsx",
+  "src/components/SummaryView.tsx",
+]) {
+  if (/\bro:\s*"/.test(readFileSync(resolve(root, file), "utf8")))
+    errors.push(`${file}: bilingual labels belong in src/locales, not inline`);
+}
+
+// Romanian copy translates the slogan instead of quoting English (ATL-18).
+for (const file of [
+  "src/data/flows.ts",
+  "src/data/institutions.ts",
+  "src/components/SummaryView.tsx",
+])
+  if (
+    /ro:\s*"[^"]*verify, don't trust|\? "[^"]*verify, don't trust/.test(
+      readFileSync(resolve(root, file), "utf8")
+    )
+  )
+    errors.push(
+      `${file}: Romanian copy quotes "verify, don't trust" in English`
+    );
+
+// County boundaries must come from an openly licensed source (ATL-1):
+// GADM forbids redistribution, so none of its properties may remain.
+const counties = JSON.parse(
+  readFileSync(resolve(root, "public/data/ro-counties.geojson"), "utf8")
+);
+if (counties.features?.length !== 42)
+  errors.push(
+    `ro-counties.geojson: ${counties.features?.length} features, expected 42`
+  );
+const GADM_KEYS = [
+  "ID_0",
+  "NAME_0",
+  "ID_1",
+  "NAME_1",
+  "ROU_adm1",
+  "TYPE_1",
+  "ENGTYPE_1",
+];
+for (const f of counties.features ?? []) {
+  const props = f.properties ?? {};
+  const gadm = GADM_KEYS.filter((k) => k in props);
+  if (gadm.length) {
+    errors.push(`ro-counties.geojson: GADM properties ${gadm.join(", ")}`);
+    break;
+  }
+  if (!props.name || !/^RO-[A-Z]{1,2}$/.test(props.iso ?? ""))
+    errors.push(
+      `ro-counties.geojson: feature without name/iso (${JSON.stringify(props)})`
+    );
+}
+
+// Institution counties must use the GeoJSON names, diacritics included (ATL-14).
+const countyNames = new Set(
+  (counties.features ?? []).map((f) => f.properties?.name)
+);
+for (const m of readTs("src/data/institutions.ts").matchAll(
+  /\bcounty:\s*"([^"*]+)"/g
+))
+  if (!countyNames.has(m[1]))
+    errors.push(
+      `src/data/institutions.ts: county "${m[1]}" is not a county name in ro-counties.geojson`
+    );
+
+// The footer's "data as of" date may not predate a source it relies on.
+const dataAsOf = readTs("src/data/meta.ts").match(
+  /dataAsOf:\s*"(\d{4}-\d{2}-\d{2})"/
+)?.[1];
+const accessed = [...sourcesCode.matchAll(/\baccessed:\s*"([^"]*)"/g)].map(
+  (m) => m[1]
+);
+for (const date of accessed)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date))
+    errors.push(`src/data/sources.ts: accessed "${date}" is not an ISO date`);
+const newest = accessed.sort().at(-1);
+if (!dataAsOf)
+  errors.push("src/data/meta.ts: dataAsOf missing or not an ISO date");
+else if (newest && dataAsOf < newest)
+  errors.push(
+    `META.dataAsOf ${dataAsOf} is older than the newest source access ${newest}`
+  );
+
+// Comparison footnotes cite existing Surse entries by URL.
+{
+  // Read raw: readTs strips "//", which would cut every URL.
+  const raw = (p) => readFileSync(resolve(root, p), "utf8");
+  const comparisonCode = raw("src/data/comparison.ts");
+  const sourceUrls = new Set(
+    [...raw("src/data/sources.ts").matchAll(/\burl:\s*"([^"]+)"/g)].map(
+      (m) => m[1]
+    )
+  );
+  const cited = [...comparisonCode.matchAll(/\bsources:\s*\[([^\]]*)\]/g)];
+  if (cited.length === 0) errors.push("comparison: no row cites a source");
+  for (const [, list] of cited) {
+    for (const [, url] of list.matchAll(/"([^"]+)"/g)) {
+      if (!sourceUrls.has(url))
+        errors.push(`comparison: unknown source "${url}"`);
+    }
+  }
+}
+
+// Interface copy carries no placeholders or internal IDs (ATL-28, guideline §3).
+{
+  const files = tracked.filter((f) => /^src\/(locales|data)\/.*\.ts$/.test(f));
+  const banned = [
+    [/\bTBD\b/, '"TBD"'],
+    [/lorem/i, '"lorem"'],
+    [/\bATL-\d+/, "a spec ID"],
+  ];
+  for (const file of files) {
+    const text = readFileSync(resolve(root, file), "utf8");
+    const literals = [...text.matchAll(/"((?:[^"\\\n]|\\.)*)"/g)].map(
+      (m) => m[1]
+    );
+    for (const literal of literals) {
+      for (const [re, what] of banned) {
+        if (re.test(literal))
+          errors.push(
+            `${file}: ${what} in interface copy: "${literal.slice(0, 60)}"`
+          );
+      }
+    }
+    // A data centre code is only readable once the file names its city
+    // ("DC-A (Cluj)" or "DC-A · Cluj"); later mentions may use the code alone.
+    const codes = new Set(
+      literals.flatMap((l) => l.match(/\bDC-[ABC]\b/g) || [])
+    );
+    for (const code of codes) {
+      if (
+        !literals.some((l) =>
+          new RegExp(`${code} (\\(|· )\\p{Lu}`, "u").test(l)
+        )
+      )
+        errors.push(`${file}: ${code} never appears with its city`);
+    }
+  }
+}
+
+// Diacritics are comma-below, never cedilla (ATL-29, guideline §3).
+{
+  const scan = tracked.filter(
+    (f) =>
+      !HISTORY.has(f) &&
+      (/^(src|public\/data|docs)\//.test(f) ||
+        f === "README.md" ||
+        f === "index.html") &&
+      /\.(ts|tsx|css|md|html|json|geojson)$/.test(f)
+  );
+  for (const file of scan) {
+    const lines = readFileSync(resolve(root, file), "utf8").split("\n");
+    lines.forEach((line, i) => {
+      // A line that explains the rule may show the banned forms.
+      if (/[\u015e\u015f\u0162\u0163]/.test(line) && !/cedil/i.test(line))
+        errors.push(`${file}:${i + 1}: cedilla diacritic; use comma-below ș ț`);
+    });
+  }
+}
+
+// The UX guideline's conformance checklist names the test behind each rule:
+// every path it cites must exist, no rule may be untested, and every e2e spec
+// must back a listed rule.
+{
+  const guide = readFileSync(resolve(root, "docs/ux-guidelines.md"), "utf8");
+  const checklist =
+    guide.split("## 8. Conformance checklist")[1]?.split("\n## ")[0] ?? "";
+  if (!checklist)
+    errors.push("docs/ux-guidelines.md: conformance checklist missing");
+  for (const [, path] of checklist.matchAll(/`((?:tests|scripts)\/[^`]+)`/g))
+    if (!existsSync(resolve(root, path)))
+      errors.push(`docs/ux-guidelines.md checklist: ${path} does not exist`);
+  if (/none yet/i.test(checklist))
+    errors.push(
+      "docs/ux-guidelines.md checklist: a rule has no test (none yet)"
+    );
+  for (const spec of readdirSync(resolve(root, "tests/e2e")).filter((f) =>
+    f.endsWith(".spec.ts")
+  ))
+    if (!checklist.includes(`tests/e2e/${spec}`))
+      errors.push(
+        `docs/ux-guidelines.md checklist: tests/e2e/${spec} backs no listed rule`
+      );
 }
 
 if (errors.length) {

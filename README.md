@@ -7,8 +7,8 @@ data-flow graphs between all parties, a side-by-side feature comparison, and a t
 **Live intent:** make the national EUDI Wallet plans (and the gaps) legible to developers,
 journalists, and decision makers.
 
-**Live demo:** https://cristiannichifor.github.io/digital-romania-atlas/ (RO/EN toggle in the
-header)
+**Live demo:** https://projects.cristian-nichifor.com/digital-romania-atlas/ (RO/EN toggle
+in the header). The old GitHub Pages address redirects there.
 
 **Author:** [Cristian Nichifor](mailto:cristian@cristian-nichifor.com) — see
 [AUTHORS.md](AUTHORS.md) and [CITATION.cff](CITATION.cff).
@@ -66,6 +66,9 @@ oversight (DNSC, ANSPDCP).
 - **Methodology.** [docs/METHODOLOGY.md](docs/METHODOLOGY.md) states what every figure claims:
   cost numbers are design estimates (bands, with named precedents), never budgets.
 - **Press kit.** The Sources view exports the full data as JSON or CSV for journalists.
+- **Design.** [docs/ux-guidelines.md](docs/ux-guidelines.md) is the rule set every view
+  follows; [docs/design/README.md](docs/design/README.md) holds the target-state screen
+  mockups with acceptance criteria for the next implementation steps.
 - **Archival.** Cite by version string; the repo is archived by Software Heritage
   (`archive.softwareheritage.org`). Release tags match the footer version.
 
@@ -97,11 +100,15 @@ Everything is plain typed data — edit without touching components:
 - `src/data/journeys.ts` — the step-by-step citizen journeys (Pași cetățean)
 - `src/data/sources.ts` — provenance links for every claim
 - `src/i18n.tsx` — RO/EN language context; every data field is `{ ro, en }`
-- `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București)
+- `public/data/ro-counties.geojson` — Romania counties (42 features, incl. București; see below)
 
-County GeoJSON source: [GabrielRondelli/geojson](https://github.com/GabrielRondelli/geojson)
-(GADM-derived, `romania-counties.geojson`); community alternative:
-[civicnet/geojson-romania](https://github.com/civicnet/geojson-romania).
+County boundaries: [geoBoundaries](https://www.geoboundaries.org/) gbOpen ROU ADM1
+(boundary `ROU-ADM1-36066543`, release commit `9469f09`, source: World Bank), licensed
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), retrieved 2026-10-14.
+`scripts/build-counties.mjs` rebuilds the file: it rounds coordinates to 3 decimals, drops
+repeated points, rewinds rings for d3 and keeps only the county name (with diacritics) and
+its ISO 3166-2 code. The earlier GADM-derived file was removed because GADM does not
+permit redistribution.
 
 ## Civic standards
 
@@ -121,7 +128,6 @@ See [SECURITY.md](SECURITY.md) for the reporting policy. The repository enforces
 - CodeQL static analysis on every push and PR;
 - OSV-Scanner on every push and PR;
 - OSSF Scorecard weekly (results published on the Security tab);
-- SLSA provenance attestation for the GitHub Pages artifact;
 - least-privilege workflow permissions (`contents: read` by default);
 - Dependabot: weekly npm + monthly Actions PRs, plus push protection and
   private vulnerability reporting enabled on the repository.

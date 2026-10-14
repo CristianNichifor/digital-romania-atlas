@@ -6,9 +6,27 @@ version (shown in the page footer) so a citation stays verifiable.
 
 ## [Unreleased]
 
+- County boundaries now come from geoBoundaries gbOpen ROU ADM1 (World Bank
+  data, CC BY 4.0) instead of a GADM-derived file, whose licence does not
+  permit redistribution. County names now carry Romanian diacritics.
+
 - Responsive design: the header navigation becomes a single horizontally
   scrollable row on mobile, journey/counter grids collapse to one column and
   the press-kit buttons go full-width on small screens.
+
+- Map: a failed boundaries request shows an alert with a retry button;
+  county labels no longer cover the per-county markers; the epicentre has
+  one "Vrancea" label; a caption explains DC-A/B/C and the dashed lines;
+  institution counties use the diacritic names (#23).
+
+- Navigation grouped as Înțelege / Explorează / Argument / Surse with the
+  same `#/<view>` links; the summary lead starts "Propunem:"; data flows open
+  on "Diferența" with the Identity filter (#24).
+
+- All interface copy now lives in `src/locales` with ro/en key parity, and
+  the validator rejects inline copy in the views (#25, #27, #29).
+
+- An end-to-end check that no view scrolls horizontally at 390 px (#31).
 
 ## [0.3.0] — 2026-09-11
 

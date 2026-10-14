@@ -1,7 +1,8 @@
 import { JOURNEYS, VARIANT_LABEL, type JourneyStep } from "../data/journeys";
 import { INSTITUTIONS } from "../data/institutions";
-import { pick, useLang } from "../i18n";
+import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 function acronym(id: string): string {
   return INSTITUTIONS.find((i) => i.id === id)?.acronym ?? id;
@@ -49,32 +50,14 @@ function StepRow({ step, index }: { step: JourneyStep; index: number }) {
 
 export function JourneysView() {
   const { lang } = useLang();
+  const t = useT();
   return (
     <div className="panel journeys">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Pașii cetățeanului — diagrame de flux"
-            : "Citizen journeys — flow diagrams"}
-        </h2>
+        <h2>{t("journeys.title")}</h2>
       </div>
-      <p className="muted note">
-        {lang === "ro" ? (
-          <>
-            Cele patru trasee care decid totul: înrolare, autentificare,
-            pierderea telefonului și cheia hardware opțională. Fiecare pas e o
-            diagramă — actorii sunt instituțiile reale din arhitectura noastră,
-            iar liniile portocalii marchează pașii opționali sau planul B.
-          </>
-        ) : (
-          <>
-            The four journeys that decide everything: enrollment, sign-in, a
-            lost phone and the optional hardware key. Each step is a diagram —
-            the actors are the real institutions in our architecture, and the
-            orange lines mark optional or plan-B steps.
-          </>
-        )}
-      </p>
+      <Prov />
+      <p className="muted note">{t("journeys.intro")}</p>
       <div className="journey-grid">
         {JOURNEYS.map((j) => (
           <article key={j.id} className="journey">

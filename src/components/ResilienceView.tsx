@@ -10,47 +10,36 @@ import {
   SOFTWARE_STACK,
   UNDERGROUND_SITES,
 } from "../data/resilience";
-import { pick, useLang, type Bi } from "../i18n";
+import { pick, useLang, type Bi, useT } from "../i18n";
 import { UatPlanNote, uatUpsTotal, useUatPlan } from "../lib/uatPlan";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 export function ResilienceView() {
   const { lang } = useLang();
+  const t = useT();
   const { plan, fill, fmtUnits } = useUatPlan();
   const tt = (b: Bi) => fill(pick(b, lang));
   return (
     <div className="panel resilience">
       <div className="panel-head">
-        <h2>
-          {lang === "ro"
-            ? "Reziliență: hardware, geografie, dezastre & comunitate academică"
-            : "Resilience: hardware, geography, disasters & the academic community"}
-        </h2>
+        <h2>{t("resilience.resilienceHardwareGeographyDisasters")}</h2>
       </div>
+      <Prov />
       <p className="muted note">
-        <T
-          text={
-            lang === "ro"
-              ? "Nimic nu depinde de un singur datacenter, un singur furnizor sau o singură rută de rețea. Modelul 3+8+1+L0: trei situri suverane semi-active, opt micro-DC regionale cu producție proprie de energie, un vault subteran în salină și nodurile offline din fiecare comună. Citește împreună cu clasele RPO/RTO din tab-ul Strategie și cu ancorarea publică din tab-ul Fluxuri."
-              : "Nothing depends on a single datacenter, vendor or network route. The 3+8+1+L0 model: three semi-active sovereign sites, eight regional micro-DCs with their own power generation, one underground salt-mine vault and the offline nodes in every commune. Read together with the RPO/RTO classes in the Strategy tab and the public anchoring in the Flows tab."
-          }
-        />
+        <T text={t("resilience.nothingDependsOnA")} />
       </p>
 
-      <h3>
-        {lang === "ro"
-          ? "Plasamentul centrelor de date (3+3 universitare)"
-          : "Data centre placement (3+3 university)"}
-      </h3>
+      <h3>{t("resilience.dataCentrePlacement3")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Sit" : "Site"}</th>
-              <th>{lang === "ro" ? "Regiune" : "Region"}</th>
-              <th>{lang === "ro" ? "Rol" : "Role"}</th>
-              <th>{lang === "ro" ? "Risc seismic" : "Seismic risk"}</th>
-              <th>{lang === "ro" ? "Energie & răcire" : "Power & cooling"}</th>
+              <th>{t("resilience.site")}</th>
+              <th>{t("resilience.region")}</th>
+              <th>{t("resilience.role")}</th>
+              <th>{t("resilience.seismicRisk")}</th>
+              <th>{t("resilience.powerCooling")}</th>
             </tr>
           </thead>
           <tbody>
@@ -79,25 +68,17 @@ export function ResilienceView() {
           </tbody>
         </table>
       </div>
-      <p className="muted note">
-        {lang === "ro"
-          ? "Pe hartă: inelele zonei seismice Vrancea (50/100/200 km), pătratele galbene = siturile DC suverane, pătratele albastre = micro-DC-urile regionale, triunghiurile mov = siturile subterane."
-          : "On the map: the Vrancea seismic-zone rings (50/100/200 km), yellow squares = the sovereign DC sites, cyan squares = the regional micro-DCs, purple triangles = the underground sites."}
-      </p>
+      <p className="muted note">{t("resilience.onTheMapThe")}</p>
 
-      <h3>
-        {lang === "ro"
-          ? "Micro-DC regionale (câte unul per regiune de dezvoltare)"
-          : "Regional micro-DCs (one per development region)"}
-      </h3>
+      <h3>{t("resilience.regionalMicroDcsOne")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Regiune" : "Region"}</th>
-              <th>{lang === "ro" ? "Locație" : "Location"}</th>
-              <th>{lang === "ro" ? "Energie proprie" : "Own power"}</th>
-              <th>{lang === "ro" ? "Rol" : "Role"}</th>
+              <th>{t("resilience.region")}</th>
+              <th>{t("resilience.location")}</th>
+              <th>{t("resilience.ownPower")}</th>
+              <th>{t("resilience.role")}</th>
             </tr>
           </thead>
           <tbody>
@@ -121,19 +102,15 @@ export function ResilienceView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Autonomie energetică pe niveluri"
-          : "Energy autonomy by tier"}
-      </h3>
+      <h3>{t("resilience.energyAutonomyByTier")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Nivel" : "Tier"}</th>
-              <th>{lang === "ro" ? "Situri" : "Sites"}</th>
-              <th>{lang === "ro" ? "Producție proprie" : "Own generation"}</th>
-              <th>{lang === "ro" ? "Autonomie" : "Autonomy"}</th>
+              <th>{t("resilience.tier")}</th>
+              <th>{t("resilience.sites")}</th>
+              <th>{t("resilience.ownGeneration")}</th>
+              <th>{t("resilience.autonomy")}</th>
             </tr>
           </thead>
           <tbody>
@@ -157,18 +134,14 @@ export function ResilienceView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Candidați subterani (saline & galerii)"
-          : "Underground candidates (salt mines & galleries)"}
-      </h3>
+      <h3>{t("resilience.undergroundCandidatesSaltMines")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Sit" : "Site"}</th>
-              <th>{lang === "ro" ? "Regiune" : "Region"}</th>
-              <th>{lang === "ro" ? "Evaluare" : "Assessment"}</th>
+              <th>{t("resilience.site")}</th>
+              <th>{t("resilience.region")}</th>
+              <th>{t("resilience.assessment")}</th>
             </tr>
           </thead>
           <tbody>
@@ -189,27 +162,17 @@ export function ResilienceView() {
         </table>
       </div>
       <p className="muted note">
-        <T
-          text={
-            lang === "ro"
-              ? "Atenție la subteran: sarea e corozivă (containere etanșe, presiune pozitivă, control al umidității), iar cutremurele de adâncime Vrancea zguduie și galeriile — de aceea vault-ul stă în Nord-Est, nu în Muntenia."
-              : "Underground caveats: salt is corrosive (sealed containers, positive pressure, humidity control), and deep Vrancea earthquakes shake galleries too — which is why the vault sits in the North-East, not in Wallachia."
-          }
-        />
+        <T text={t("resilience.undergroundCaveatsSaltIs")} />
       </p>
 
-      <h3>
-        {lang === "ro"
-          ? "Scenarii de dezastru & răspuns"
-          : "Disaster scenarios & response"}
-      </h3>
+      <h3>{t("resilience.disasterScenariosResponse")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Scenariu" : "Scenario"}</th>
-              <th>{lang === "ro" ? "Impact" : "Impact"}</th>
-              <th>{lang === "ro" ? "Răspuns" : "Response"}</th>
+              <th>{t("resilience.scenario")}</th>
+              <th>{t("resilience.impact")}</th>
+              <th>{t("resilience.response")}</th>
             </tr>
           </thead>
           <tbody>
@@ -230,16 +193,14 @@ export function ResilienceView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro" ? "Independența hardware" : "Hardware independence"}
-      </h3>
+      <h3>{t("resilience.hardwareIndependence")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Strat" : "Layer"}</th>
-              <th>{lang === "ro" ? "Azi" : "Today"}</th>
-              <th>{lang === "ro" ? "Țintă" : "Target"}</th>
+              <th>{t("resilience.layer")}</th>
+              <th>{t("resilience.today")}</th>
+              <th>{t("resilience.target")}</th>
             </tr>
           </thead>
           <tbody>
@@ -260,16 +221,14 @@ export function ResilienceView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro" ? "Independența software" : "Software independence"}
-      </h3>
+      <h3>{t("resilience.softwareIndependence")}</h3>
       <div className="table-scroll">
         <table className="compare-table">
           <thead>
             <tr>
-              <th>{lang === "ro" ? "Strat" : "Layer"}</th>
-              <th>{lang === "ro" ? "Azi" : "Today"}</th>
-              <th>{lang === "ro" ? "Țintă" : "Target"}</th>
+              <th>{t("resilience.layer")}</th>
+              <th>{t("resilience.today")}</th>
+              <th>{t("resilience.target")}</th>
             </tr>
           </thead>
           <tbody>
@@ -290,11 +249,7 @@ export function ResilienceView() {
         </table>
       </div>
 
-      <h3>
-        {lang === "ro"
-          ? "Școli, universități & cercetare în infrastructură"
-          : "Schools, universities & research inside the infrastructure"}
-      </h3>
+      <h3>{t("resilience.schoolsUniversitiesResearchInside")}</h3>
       <div className="grid-cards">
         {EDU_RESEARCH.map((e, i) => (
           <div key={i} className="card">
@@ -311,11 +266,7 @@ export function ResilienceView() {
       <UatPlanNote />
       <div className="pillars" style={{ marginTop: 12 }}>
         <section className="pillar">
-          <h4>
-            {lang === "ro"
-              ? "Reguli de backup & testare"
-              : "Backup & testing rules"}
-          </h4>
+          <h4>{t("resilience.backupTestingRules")}</h4>
           <ul>
             {BACKUP_RULES.map((r, i) => (
               <li key={i}>
@@ -325,11 +276,7 @@ export function ResilienceView() {
           </ul>
         </section>
         <section className="pillar">
-          <h4>
-            {lang === "ro"
-              ? "Costuri de reziliență (estimare)"
-              : "Resilience costs (estimate)"}
-          </h4>
+          <h4>{t("resilience.resilienceCostsEstimate")}</h4>
           <ul className="cost-list">
             {RESILIENCE_COSTS.map((c, i) => (
               <li key={i}>

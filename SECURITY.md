@@ -3,7 +3,7 @@
 ## Supported versions
 
 Only the latest commit on `main` (published at
-https://cristiannichifor.github.io/digital-romania-atlas/) is supported.
+https://projects.cristian-nichifor.com/digital-romania-atlas/) is supported.
 This is a static demonstration site: there is no backend, no database and
 no runtime processing of user data.
 
@@ -55,8 +55,12 @@ window before public disclosure.
   every push and PR.
 - **Static analysis**: CodeQL runs on every push, PR and weekly.
 - **Supply-chain posture**: OSSF Scorecard runs weekly and results are
-  published; builds are attested with SLSA provenance.
+  published.
 - **Least privilege**: workflows start from `contents: read` and only the
-  deploy job can write to GitHub Pages.
+  deploy jobs get an OIDC token (Cloudflare Pages through the token broker)
+  or Pages write access (the GitHub Pages redirect).
+- **Response headers**: `public/_headers` sets a strict Content-Security-Policy
+  (same-origin only), `nosniff`, a referrer policy and frame blocking; the
+  e2e suite runs under the same headers.
 - **Secrets**: none are needed by this project. If you find one committed,
   treat it as compromised and report it immediately.

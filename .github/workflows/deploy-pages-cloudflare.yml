@@ -3,8 +3,8 @@ name: Deploy to Cloudflare Pages
 # main is public behind projects.cristian-nichifor.com/digital-romania-atlas/; dev is the
 # protected preview behind projects-dev.cristian-nichifor.com, reached only through the
 # CN Webify preview gate (ADR-022). The CN Webify token broker accepts this exact file on
-# main and dev. The build sits under /digital-romania-atlas/ as on GitHub Pages, so the hub
-# proxies the path 1:1. deploy.yml (GitHub Pages) stays until the hub switches upstreams.
+# main and dev. The build sits under /digital-romania-atlas/, so the hub proxies the path
+# 1:1. deploy.yml now only publishes a GitHub Pages redirect to this site.
 
 on:
   push:
@@ -39,11 +39,12 @@ jobs:
       - run: npm test
       - run: npm run build
 
-      - name: Stage the GitHub Pages layout
+      - name: Stage the site under /digital-romania-atlas/
         run: |
           set -euo pipefail
           mkdir -p "site/$PROJECT_NAME"
           cp -R dist/. "site/$PROJECT_NAME/"
+          mv "site/$PROJECT_NAME/_headers" site/_headers
           echo "/ /$PROJECT_NAME/ 302" > site/_redirects
 
       - name: Cloudflare token from the CN Webify broker

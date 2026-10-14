@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { messages, type MessageKey } from "./locales";
 
 export type Lang = "ro" | "en";
 
@@ -20,3 +21,9 @@ export const LangContext = createContext<LangState>({
 export const useLang = () => useContext(LangContext);
 
 export const pick = (b: Bi, lang: Lang) => b[lang];
+
+/** Interface copy for the current language, from src/locales. */
+export const useT = () => {
+  const { lang } = useLang();
+  return (key: MessageKey) => messages[lang][key];
+};

@@ -21,12 +21,13 @@ Local setup and PR correctness checks require no credentials, private handbook,
 
 | Command | Evidence |
 | --- | --- |
+| `npm run lint` | oxlint with warnings treated as errors |
 | `npm test` | scripts/validate-data.mjs: IDs, references, bilingual content and matrix integrity |
 | `npm run typecheck` | TypeScript project checks |
 | `npm run build` | TypeScript and production Vite build |
 | `npm run test:e2e` | Chromium: language persistence, data-flow SVG and source links |
 
-There is no lint script. The source-text validator does not establish factual
+The source-text validator does not establish factual
 accuracy: cite evidence for factual changes. CI's aggregate `verify` succeeds
 only when its correctness job succeeds; remote branch rules are managed separately.
 
@@ -67,6 +68,8 @@ repository settings when changing the delivery workflow; this is a snapshot.
 - `main` is production. Its update restriction allows repository administrators
   to bypass it. Credentials may therefore permit an action that these agent
   instructions prohibit: agents must never merge PRs or deploy.
-- `.github/workflows/deploy.yml` publishes GitHub Pages on pushes to `main`
-  and also exposes a manual `workflow_dispatch` trigger. Merging into `dev`
-  does not automatically publish the site.
+- `.github/workflows/deploy-pages-cloudflare.yml` deploys the site to
+  Cloudflare Pages on pushes to `main` (production, behind
+  projects.cristian-nichifor.com/digital-romania-atlas/) and `dev` (gated
+  preview). `.github/workflows/deploy.yml` only publishes the GitHub Pages
+  redirect stub from `redirect/` on pushes to `main`.

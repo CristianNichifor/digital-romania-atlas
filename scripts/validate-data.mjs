@@ -171,6 +171,11 @@ for (const file of tracked) {
     errors.push(`${file}: still links ${OLD_HOST}; use projects.cristian-nichifor.com`);
 }
 
+const pkgVersion = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8")).version;
+const metaVersion = readTs("src/data/meta.ts").match(/version:\s*"([^"]+)"/)?.[1];
+if (pkgVersion !== metaVersion)
+  errors.push(`package.json version ${pkgVersion} differs from META.version ${metaVersion}`);
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const e of errors) console.error("  - " + e);

@@ -53,5 +53,13 @@ export const en: Record<MessageKey, string> = {
   "nav.strategy": "Strategy",
   "nav.summary": "Summary",
   "nav.timeline": "Calendar",
+  "privacy.contact": "Questions or requests:",
+  "privacy.contactLink": "open a GitHub issue",
+  "privacy.hosting":
+    "The site is hosted on Cloudflare Pages, which receives the technical data of each request (such as the IP address) in order to serve it.",
+  "privacy.operator": "Operator:",
+  "privacy.storage":
+    "This site sets no cookies, runs no analytics and loads nothing from third parties. Your language choice is kept only in your own browser (localStorage); if you opened the administrative-reform simulator in the same browser, the atlas reads its latest scenario from there.",
+  "privacy.title": "Privacy",
   "sources.accessed": "Retrieved",
 };

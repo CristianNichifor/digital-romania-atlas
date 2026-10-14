@@ -152,6 +152,19 @@ export default function App() {
                 </a>
               </>
             </p>
+            <details className="privacy">
+              <summary>{t("privacy.title")}</summary>
+              <p>{t("privacy.storage")}</p>
+              <p>{t("privacy.hosting")}</p>
+              <p>
+                {t("privacy.operator")} {META.author.name}.{" "}
+                {t("privacy.contact")}{" "}
+                <a href={META.issues} target="_blank" rel="noreferrer">
+                  {t("privacy.contactLink")}
+                </a>
+                .
+              </p>
+            </details>
           </footer>
         </div>
       </UatPlanProvider>

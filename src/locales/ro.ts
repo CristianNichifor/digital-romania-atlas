@@ -52,5 +52,13 @@ export const ro = {
   "nav.strategy": "Strategie",
   "nav.summary": "Rezumat",
   "nav.timeline": "Calendar",
+  "privacy.contact": "Întrebări sau solicitări:",
+  "privacy.contactLink": "deschideți un issue pe GitHub",
+  "privacy.hosting":
+    "Site-ul este găzduit pe Cloudflare Pages, care primește datele tehnice ale fiecărei cereri (de exemplu adresa IP) pentru a-l livra.",
+  "privacy.operator": "Operator:",
+  "privacy.storage":
+    "Site-ul nu folosește cookie-uri, nu are analiză de trafic și nu încarcă resurse de la terți. Alegerea limbii se păstrează doar în browserul dumneavoastră (localStorage); dacă ați deschis simulatorul de reformă administrativă în același browser, atlasul citește de acolo ultimul scenariu.",
+  "privacy.title": "Confidențialitate",
   "sources.accessed": "Accesat la",
 } as const;

@@ -1697,3 +1697,17 @@ footer {
   margin: 8px 0 0;
   font-size: 12px;
 }
+
+footer details.privacy {
+  margin-top: 6px;
+}
+
+footer details.privacy summary {
+  cursor: pointer;
+  width: fit-content;
+}
+
+footer details.privacy p {
+  margin: 6px 0 0;
+  max-width: 860px;
+}

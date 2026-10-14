@@ -21,12 +21,13 @@ Local setup and PR correctness checks require no credentials, private handbook,
 
 | Command | Evidence |
 | --- | --- |
+| `npm run lint` | oxlint with warnings treated as errors |
 | `npm test` | scripts/validate-data.mjs: IDs, references, bilingual content and matrix integrity |
 | `npm run typecheck` | TypeScript project checks |
 | `npm run build` | TypeScript and production Vite build |
 | `npm run test:e2e` | Chromium: language persistence, data-flow SVG and source links |
 
-There is no lint script. The source-text validator does not establish factual
+The source-text validator does not establish factual
 accuracy: cite evidence for factual changes. CI's aggregate `verify` succeeds
 only when its correctness job succeeds; remote branch rules are managed separately.
 

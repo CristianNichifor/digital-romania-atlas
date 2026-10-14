@@ -10,7 +10,7 @@ const readTs = (p) => {
   return raw.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
 };
 
-const asciiRe = /[^\x00-\x7F]/;
+const asciiRe = /[\u0080-\uFFFF]/;
 const errors = [];
 
 function findArray(code, name) {

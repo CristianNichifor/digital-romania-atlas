@@ -10,7 +10,8 @@
     "test": "node scripts/validate-data.mjs && node --test tests/preview-gate.test.mjs",
     "typecheck": "tsc -b",
     "test:e2e": "playwright test",
-    "verify": "npm test && npm run typecheck && npm run build && npm run test:e2e"
+    "verify": "npm run lint && npm test && npm run typecheck && npm run build && npm run test:e2e",
+    "lint": "oxlint --deny-warnings"
   },
   "dependencies": {
     "d3": "^7.9.0",
@@ -25,6 +26,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
+    "oxlint": "^1.88.0",
     "prettier": "^3.9.9",
     "typescript": "~5.9.3",
     "vite": "^8.3.4"

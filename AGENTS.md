@@ -67,6 +67,8 @@ repository settings when changing the delivery workflow; this is a snapshot.
 - `main` is production. Its update restriction allows repository administrators
   to bypass it. Credentials may therefore permit an action that these agent
   instructions prohibit: agents must never merge PRs or deploy.
-- `.github/workflows/deploy.yml` publishes GitHub Pages on pushes to `main`
-  and also exposes a manual `workflow_dispatch` trigger. Merging into `dev`
-  does not automatically publish the site.
+- `.github/workflows/deploy-pages-cloudflare.yml` deploys the site to
+  Cloudflare Pages on pushes to `main` (production, behind
+  projects.cristian-nichifor.com/digital-romania-atlas/) and `dev` (gated
+  preview). `.github/workflows/deploy.yml` only publishes the GitHub Pages
+  redirect stub from `redirect/` on pushes to `main`.

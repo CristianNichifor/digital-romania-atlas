@@ -249,3 +249,22 @@ en) are new agent-written strings.
 - ATL-5: `https://projects.cristian-nichifor.com/romania-reforms/administrative-reform/`
   replaced the brief's `/administrativ/` path, which returned 404 after the
   romania-reforms promotion.
+
+## Theme F: remaining interface copy
+
+### ATL-21 View copy in locale files — `done` (partial scope)
+
+- Given the Journeys, Sources, Stories, Timeline and Policy views carried
+  inline `lang === "ro" ? … : …` copy
+- When it moves verbatim into `src/locales/ro.ts` and `src/locales/en.ts`
+- Then those views read every interface string through `useT()`, both locale
+  files keep exact key parity, and the validator fails if inline copy
+  returns to them.
+
+Test: `scripts/validate-data.mjs` (inline-copy check over these files, key
+parity); `tests/e2e/a11y.spec.ts` and `smoke.spec.ts` render every view in
+both languages. Text moved verbatim; no new translations.
+
+Remaining: Map, Flows, Summary, Strategy and Resilience views still carry
+inline copy (Map/Flows/Summary are being edited in the theme D and E pull
+requests; move them after those land).

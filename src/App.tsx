@@ -40,7 +40,8 @@ const VIEW_IDS = new Set<string>(VIEWS);
 // Views live in the hash (#/compare) so links are shareable, Back/Forward
 // work, and the ?scenario= query string is left untouched.
 function viewFromHash(hash: string): ViewId {
-  const id = hash.replace(/^#\/?/, "");
+  // A trailing segment (#/sources/3) addresses an item inside the view.
+  const id = hash.replace(/^#\/?/, "").split("/")[0];
   return VIEW_IDS.has(id) ? (id as ViewId) : "summary";
 }
 

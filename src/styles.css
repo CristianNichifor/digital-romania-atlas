@@ -1726,3 +1726,23 @@ footer details.privacy p {
   margin: 6px 0 0;
   max-width: 860px;
 }
+
+.source-refs {
+  margin-left: 0.25em;
+  font-weight: 400;
+}
+
+.source-refs a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.source-refs a + a {
+  margin-left: 0.25em;
+}
+
+.source-card:target,
+.source-card:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

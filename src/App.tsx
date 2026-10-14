@@ -59,6 +59,12 @@ export default function App() {
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
+  // On a phone the nav is one horizontal strip; keep the current tab on screen.
+  useEffect(() => {
+    document
+      .querySelector('header nav a[aria-current="page"]')
+      ?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [view]);
   const [lang, setLang] = useState<Lang>(initialLang);
 
   useEffect(() => {

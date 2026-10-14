@@ -4,6 +4,7 @@ import type { MessageKey } from ".";
 // scripts/validate-data.mjs checks the parity.
 
 export const en: Record<MessageKey, string> = {
+  "app.hub": "← All projects",
   "app.tagline":
     "The RO EUDI Wallet ecosystem vs. the digital backbone proposal — institutions, flows, comparison",
   "compare.adds1":

@@ -110,7 +110,7 @@ Test: `tests/e2e/third-party.spec.ts`.
 
 ## Theme C: data licensing and privacy
 
-### ATL-1 Openly licensed county boundaries — `todo`
+### ATL-1 Openly licensed county boundaries — `done`
 
 - Given `public/data/ro-counties.geojson` was GADM-derived, and GADM does not
   permit redistribution
@@ -123,7 +123,7 @@ Test: `tests/e2e/third-party.spec.ts`.
 Test: `scripts/validate-data.mjs` (feature count and GADM properties);
 `tests/e2e/smoke.spec.ts` renders the map.
 
-### ATL-11 Data date not older than its sources — `todo`
+### ATL-11 Data date not older than its sources — `done`
 
 - Given `META.dataAsOf` and the `accessed` dates in `src/data/sources.ts`
 - When the validator runs
@@ -131,7 +131,7 @@ Test: `scripts/validate-data.mjs` (feature count and GADM properties);
 
 Test: `scripts/validate-data.mjs`.
 
-### ATL-12 Privacy notice and security headers — `todo`
+### ATL-12 Privacy notice and security headers — `done`
 
 - Given the site sets no cookies, runs no analytics and keeps only the
   language choice in the visitor's own browser
@@ -152,3 +152,12 @@ be moved to the site root; that is a workflow change for the maintainer.
 - ATL-4/ATL-9: `nav.langToggle` ("EN, switch to English" / "RO, comută în
   română", adapted from the old tooltip) and `compare.euRegion` ("Comparație cu
   sistemele UE" / "Comparison with EU systems") are new strings.
+- ATL-1: `map.attribution`, `sources.accessed` and the geoBoundaries entry in
+  `src/data/sources.ts` (ro and en) are new strings.
+- ATL-12: the `privacy.*` strings (ro and en) are new and need review,
+  including whether the hosting description is complete.
+- ATL-12: `public/_headers` only takes effect once the Cloudflare workflow
+  moves it to the staged site root (workflow diff in the theme C PR).
+- ATL-5: `https://projects.cristian-nichifor.com/romania-reforms/administrative-reform/`
+  replaced the brief's `/administrativ/` path, which returned 404 after the
+  romania-reforms promotion.

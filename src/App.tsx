@@ -78,7 +78,9 @@ export default function App() {
             className="family-bar"
             style={{ padding: "6px 32px", fontSize: 13 }}
           >
-            <a href={META.hub}>{t("app.hub")}</a>
+            <a href={META.hub} style={{ color: "#9db9f5" }}>
+              {t("app.hub")}
+            </a>
           </div>
           <header>
             <div className="title">

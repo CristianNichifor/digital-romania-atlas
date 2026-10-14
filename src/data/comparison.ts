@@ -5,6 +5,8 @@ export interface ComparisonRow {
   current: Bi;
   proposed: Bi;
   verdict: "aligned" | "extended" | "added";
+  /** URLs of the Surse entries (src/data/sources.ts) behind this row. */
+  sources?: string[];
 }
 
 export const COMPARISON: ComparisonRow[] = [
@@ -18,6 +20,11 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Aceeași bază + politică de pseudonime pairwise per relying party",
       en: "Same base + pairwise pseudonym policy per relying party",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+      "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "https://www.iso.org/standard/69084.html",
+    ],
     verdict: "extended",
   },
   {
@@ -30,6 +37,10 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Același + surse din toate sectoarele (sănătate, fiscal, educație) prin backbone",
       en: "Same + sources from all sectors (health, tax, education) via the backbone",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+      "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+    ],
     verdict: "extended",
   },
   {
@@ -45,6 +56,10 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Backbone național (X-Road/GovStack), toate registrele, consimțământ la gateway",
       en: "National backbone (X-Road/GovStack), all registries, consent at the gateway",
     },
+    sources: [
+      "https://hub.mai.gov.ro/",
+      "https://x-road.global/",
+    ],
     verdict: "added",
   },
   {
@@ -54,6 +69,9 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "SEPA Instant + Request-to-Pay în wallet, pregătit pentru euro digital",
       en: "SEPA Instant + Request-to-Pay in wallet, digital-euro ready",
     },
+    sources: [
+      "https://eur-lex.europa.eu/eli/reg/2024/886/oj",
+    ],
     verdict: "added",
   },
   {
@@ -69,6 +87,9 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Cutie poștală digitală legală + canale de încredere anti-phishing",
       en: "Legal digital postbox + trusted anti-phishing channels",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+    ],
     verdict: "added",
   },
   {
@@ -81,6 +102,9 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Active-active geo-redundant, funcționare offline a wallet-ului, fallback fizic",
       en: "Active-active geo-redundancy, offline wallet operation, physical fallback",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+    ],
     verdict: "added",
   },
   {
@@ -93,6 +117,10 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Cod EUPL: wallet, SDK-uri, relying parties de referință, build-uri reproducibile",
       en: "EUPL code: wallet, SDKs, reference relying parties, reproducible builds",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+      "https://eur-lex.europa.eu/eli/reg/2024/903/oj",
+    ],
     verdict: "added",
   },
   {
@@ -105,6 +133,10 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "+ DNSC și ANSPDCP membri permanenți, audituri publice",
       en: "+ DNSC and ANSPDCP as permanent members, public audits",
     },
+    sources: [
+      "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+    ],
     verdict: "added",
   },
   {
@@ -117,6 +149,10 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "+ pseudonime pairwise, fără jurnale centrale de prezentări",
       en: "+ pairwise pseudonyms, no central presentation logs",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+      "https://github.com/eu-digital-identity-wallet",
+    ],
     verdict: "extended",
   },
   {
@@ -132,6 +168,9 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "+ cheie FIDO2 (CTAP2) opțională: step-up pentru LoA High și sume mari, PID pe cheie prin NFC, ancoră de recuperare în caz de telefon pierdut",
       en: "+ optional FIDO2 (CTAP2) key: step-up for LoA High and large amounts, PID on the key over NFC, recovery anchor for a lost phone",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+    ],
     verdict: "added",
   },
   {
@@ -153,6 +192,9 @@ export const COMPARISON: ComparisonRow[] = [
       en: "Via QTSPs, free for non-professional use",
     },
     proposed: { ro: "Identic", en: "Identical" },
+    sources: [
+      "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+    ],
     verdict: "aligned",
   },
   {
@@ -168,6 +210,10 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Același + interogabilitate publică și redundanță geo",
       en: "Same + public queryability and geo-redundancy",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+      "https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/latest/arf/",
+    ],
     verdict: "extended",
   },
   {
@@ -183,6 +229,11 @@ export const COMPARISON: ComparisonRow[] = [
       ro: "Ancore criptografice publice (lanț permisiv + EBSI) pentru registru, build-uri, ceremonii de chei, rapoarte SLA — doar hash-uri, niciodată date personale",
       en: "Public cryptographic anchors (permissionless chain + EBSI) for the registry, builds, key ceremonies, SLA reports — hashes only, never personal data",
     },
+    sources: [
+      "https://github.com/Ministerul-Afacerilor-Interne/rowallet-documentation",
+      "https://ec.europa.eu/digital-building-blocks/sites/display/EBSI/",
+      "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+    ],
     verdict: "added",
   },
 ];

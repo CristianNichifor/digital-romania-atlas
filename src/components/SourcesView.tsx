@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { SOURCES } from "../data/sources";
 import { META } from "../data/meta";
 import { pick, useLang, useT } from "../i18n";
@@ -7,6 +8,22 @@ import { T } from "./T";
 export function SourcesView() {
   const { lang } = useLang();
   const t = useT();
+
+  // #/sources/3 (a Comparație footnote) brings card 3 into view and focus.
+  useEffect(() => {
+    const focusTarget = () => {
+      const n = window.location.hash.match(/^#\/sources\/(\d+)$/)?.[1];
+      const card = n && document.getElementById(`source-${n}`);
+      if (card) {
+        card.scrollIntoView({ block: "center" });
+        card.focus({ preventScroll: true });
+      }
+    };
+    focusTarget();
+    window.addEventListener("hashchange", focusTarget);
+    return () => window.removeEventListener("hashchange", focusTarget);
+  }, []);
+
   return (
     <div className="panel">
       <div className="panel-head">
@@ -34,8 +51,9 @@ export function SourcesView() {
       </div>
       <div className="sources">
         {SOURCES.map((s, i) => (
-          <div key={i} className="source-card">
+          <div key={i} className="source-card" id={`source-${i + 1}`} tabIndex={-1}>
             <div className="source-kind">
+              <span className="source-number">[{i + 1}]</span>{" "}
               <T text={pick(s.kind, lang)} />
             </div>
             <p>

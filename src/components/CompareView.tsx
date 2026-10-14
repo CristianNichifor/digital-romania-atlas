@@ -1,7 +1,28 @@
 import { COMPARISON, VERDICT_LABELS } from "../data/comparison";
+import { SOURCES } from "../data/sources";
 import { EU_EVAL_LABELS, EU_MATRIX, EU_SYSTEMS } from "../data/euSystems";
 import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+
+// 1-based Surse numbers, matching the numbered cards in SourcesView.
+const SOURCE_NUMBER = new Map(
+  SOURCES.flatMap((s, i) => (s.url ? [[s.url, i + 1] as const] : []))
+);
+
+function SourceRefs({ urls }: { urls?: string[] }) {
+  const t = useT();
+  const numbers = (urls ?? []).flatMap((u) => SOURCE_NUMBER.get(u) ?? []);
+  if (numbers.length === 0) return null;
+  return (
+    <sup className="source-refs" aria-label={t("nav.sources")}>
+      {numbers.map((n) => (
+        <a key={n} href={`#/sources/${n}`}>
+          {n}
+        </a>
+      ))}
+    </sup>
+  );
+}
 
 const VERDICT_CLASS: Record<string, string> = {
   aligned: "v-aligned",
@@ -32,6 +53,7 @@ export function CompareView() {
               <tr key={pick(row.dimension, "ro")}>
                 <td className="dim">
                   <T text={pick(row.dimension, lang)} />
+                  <SourceRefs urls={row.sources} />
                 </td>
                 <td>
                   <T text={pick(row.current, lang)} />

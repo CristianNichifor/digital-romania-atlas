@@ -49,8 +49,8 @@ export function SummaryView({
           <T
             text={
               lang === "ro"
-                ? "Statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister."
-                : "The state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry."
+                ? "Propunem: statul garantează datele la sursă și le rutează cu consimțământul tău. Nu le colectează, nu le urmărește. Nimic nu depinde de un singur furnizor, un singur datacenter sau un singur minister."
+                : "We propose: the state vouches for data at the source and routes it with your consent. It neither collects it nor tracks it. Nothing depends on a single vendor, a single datacenter or a single ministry."
             }
           />
         </p>
@@ -116,7 +116,7 @@ export function SummaryView({
             </li>
             <li>
               {lang === "ro"
-                ? "Cod deschis, verificabil: build-urile și registrul sunt ancorate public — verify, don't trust"
+                ? "Cod deschis, verificabil: build-urile și registrul sunt ancorate public — verifici, nu crezi pe cuvânt"
                 : "Open, verifiable code: builds and the registry are publicly anchored — verify, don't trust"}
             </li>
           </ul>

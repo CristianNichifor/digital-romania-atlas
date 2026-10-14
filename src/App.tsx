@@ -17,19 +17,18 @@ import { initAcroTips } from "./lib/acroTip";
 import { META } from "./data/meta";
 import { readStorage, writeStorage } from "./lib/storage";
 
-const VIEWS: ViewId[] = [
-  "summary",
-  "stories",
-  "map",
-  "flows",
-  "compare",
-  "policy",
-  "timeline",
-  "journeys",
-  "strategy",
-  "resilience",
-  "sources",
+// Grouped tabs; the ids are the hash routes and must not change.
+const NAV_GROUPS: { label: MessageKey | null; views: ViewId[] }[] = [
+  { label: "nav.group.understand", views: ["summary", "stories", "journeys"] },
+  { label: "nav.group.explore", views: ["map", "flows", "timeline"] },
+  {
+    label: "nav.group.argue",
+    views: ["compare", "policy", "strategy", "resilience"],
+  },
+  { label: null, views: ["sources"] },
 ];
+
+const VIEWS: ViewId[] = NAV_GROUPS.flatMap((g) => g.views);
 
 function initialLang(): Lang {
   const saved = readStorage("dra-lang");
@@ -83,14 +82,28 @@ export default function App() {
               </div>
             </div>
             <nav>
-              {VIEWS.map((id) => (
-                <a
-                  key={id}
-                  href={`#/${id}`}
-                  aria-current={view === id ? "page" : undefined}
+              {NAV_GROUPS.map((g) => (
+                <div
+                  key={g.views[0]}
+                  className="nav-group"
+                  role={g.label ? "group" : undefined}
+                  aria-labelledby={g.label ? `nav-${g.views[0]}` : undefined}
                 >
-                  {messages[lang][`nav.${id}`]}
-                </a>
+                  {g.label && (
+                    <span className="nav-group-label" id={`nav-${g.views[0]}`}>
+                      {t(g.label)}
+                    </span>
+                  )}
+                  {g.views.map((id) => (
+                    <a
+                      key={id}
+                      href={`#/${id}`}
+                      aria-current={view === id ? "page" : undefined}
+                    >
+                      {messages[lang][`nav.${id}`]}
+                    </a>
+                  ))}
+                </div>
               ))}
               <button
                 className="lang-toggle"

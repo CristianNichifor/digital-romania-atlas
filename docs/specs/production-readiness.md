@@ -8,6 +8,50 @@ an ID, Given/When/Then criteria and the test that proves it. Status values:
 Items are grouped into three themes, each delivered as one pull request into
 `dev`.
 
+## Theme E: copy and information architecture
+
+### ATL-17 Grouped navigation with stable routes — `done`
+
+- Given eleven views in one flat row of tabs
+- When the header renders
+- Then the tabs are grouped as Înțelege (Rezumat, Povești, Pași cetățean),
+  Explorează (Hartă, Fluxuri, Calendar), Argument (Comparație, Analiză,
+  Strategie, Reziliență) and Surse, and every existing `#/<view>` hash still
+  opens the same view.
+
+Test: `tests/e2e/ia.spec.ts`, `tests/e2e/routing.spec.ts`.
+
+### ATL-18 Summary lead and Romanian copy — `done`
+
+- Given the summary view in Romanian
+- When it renders
+- Then its lead sentence starts with "Propunem:" (it is a proposal, not a
+  description of today), and the Romanian copy translates "verify, don't
+  trust" instead of leaving it in English (summary, flows, institutions).
+
+Test: `tests/e2e/ia.spec.ts`; `scripts/validate-data.mjs` rejects the English
+phrase in `ro:` strings.
+
+### ATL-19 Logo keeps its shape on mobile — `done`
+
+- Given a 390 px wide viewport
+- When the header wraps
+- Then the "DR" logo stays square.
+
+Test: `tests/e2e/ia.spec.ts`.
+
+### ATL-20 Flows open on the difference — `done`
+
+- Given a visitor opening the data flows view
+- When it first renders
+- Then the "Diferența" mode and the Identity flow filter are selected
+  (exposed with `aria-pressed`).
+
+Test: `tests/e2e/ia.spec.ts`.
+
+Needs human review: `nav.group.*`, the "Propunem:" lead (ro and en) and the
+Romanian rendering "verifici, nu crezi pe cuvânt" are agent-written.
+
 ## Theme A: robustness and correctness
 
 ### ATL-2 Survive blocked storage — `done`

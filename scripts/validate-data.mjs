@@ -209,6 +209,11 @@ for (const file of ["src/App.tsx", "src/components/CompareView.tsx"]) {
     errors.push(`${file}: interface copy belongs in src/locales, not inline`);
 }
 
+// Romanian copy translates the slogan instead of quoting English (ATL-18).
+for (const file of ["src/data/flows.ts", "src/data/institutions.ts", "src/components/SummaryView.tsx"])
+  if (/ro:\s*"[^"]*verify, don't trust|\? "[^"]*verify, don't trust/.test(readFileSync(resolve(root, file), "utf8")))
+    errors.push(`${file}: Romanian copy quotes "verify, don't trust" in English`);
+
 // County boundaries must come from an openly licensed source (ATL-1):
 // GADM forbids redistribution, so none of its properties may remain.
 const counties = JSON.parse(

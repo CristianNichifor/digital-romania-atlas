@@ -44,6 +44,7 @@ jobs:
           set -euo pipefail
           mkdir -p "site/$PROJECT_NAME"
           cp -R dist/. "site/$PROJECT_NAME/"
+          mv "site/$PROJECT_NAME/_headers" site/_headers
           echo "/ /$PROJECT_NAME/ 302" > site/_redirects
 
       - name: Cloudflare token from the CN Webify broker

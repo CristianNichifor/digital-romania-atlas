@@ -96,7 +96,10 @@ export default function App() {
               <button
                 className="lang-toggle"
                 onClick={() => setLang(lang === "ro" ? "en" : "ro")}
-                title={lang === "ro" ? "Switch to English" : "Comută în română"}
+                aria-label={
+                  lang === "ro" ? "EN, switch to English" : "RO, comută în română"
+                }
+                lang={lang === "ro" ? "en" : "ro"}
               >
                 {lang === "ro" ? "EN" : "RO"}
               </button>

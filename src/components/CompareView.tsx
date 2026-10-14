@@ -82,7 +82,12 @@ export function CompareView() {
             ? "Cele mai mature sisteme de identitate și schimb de date din UE fac fiecare câte una dintre bucăți; aproape nimeni nu le combină. Mai jos, propunerea din acest atlas pusă lângă ele."
             : "The EU's most mature identity and data-exchange systems each do one of the pieces; almost nobody combines them. Below, this atlas's proposal next to them."}
         </p>
-        <div className="table-scroll eu-wrap">
+        <div
+          className="table-scroll eu-wrap"
+          role="region"
+          aria-label={lang === "ro" ? "Comparație cu sistemele UE" : "Comparison with EU systems"}
+          tabIndex={0}
+        >
           <table className="compare-table eu-table">
             <thead>
               <tr>

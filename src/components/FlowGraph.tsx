@@ -9,6 +9,7 @@ import {
 } from "../data/institutions";
 import { FLOWS, FLOW_COLORS, FLOW_LABELS, type FlowKind } from "../data/flows";
 import { pick, useLang, useT } from "../i18n";
+import type { MessageKey } from "../locales";
 import { useUatPlan } from "../lib/uatPlan";
 import { Prov } from "./Prov";
 
@@ -32,22 +33,10 @@ const ACRONYM = new Map(INSTITUTIONS.map((i) => [i.id, i.acronym]));
 const W = 960;
 const H = 720;
 
-const MODE_LABELS: { id: Mode; ro: string; en: string }[] = [
-  {
-    id: "current",
-    ro: "Propunerea actuală (doc GitHub MAI)",
-    en: "Current proposal (MAI GitHub docs)",
-  },
-  {
-    id: "proposed",
-    ro: "Propunerea noastră (extinsă)",
-    en: "Our proposal (extended)",
-  },
-  {
-    id: "diff",
-    ro: "Diferența (doar ce adăugăm)",
-    en: "Diff (only what we add)",
-  },
+const MODE_LABELS: { id: Mode; key: MessageKey }[] = [
+  { id: "current", key: "flows.modeCurrent" },
+  { id: "proposed", key: "flows.modeProposed" },
+  { id: "diff", key: "flows.modeDiff" },
 ];
 
 export function FlowGraph() {
@@ -281,7 +270,7 @@ export function FlowGraph() {
               aria-pressed={mode === m.id}
               onClick={() => setMode(m.id)}
             >
-              {lang === "ro" ? m.ro : m.en}
+              {t(m.key)}
             </button>
           ))}
         </div>

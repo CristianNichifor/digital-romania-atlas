@@ -115,6 +115,9 @@ export const en: Record<MessageKey, string> = {
   "timeline.title":
     "Calendar: EU obligations vs. national plan vs. our proposal",
   // Views, part 2 (ATL-22)
+  "flows.modeCurrent": "Current proposal (MAI GitHub docs)",
+  "flows.modeDiff": "Diff (only what we add)",
+  "flows.modeProposed": "Our proposal (extended)",
   "flows.dataFlowsBetweenParties": "Data flows between parties",
   "flows.emptyFilter": "No flow matches these filters: {filters}.",
   "flows.emptyReset": "Clear filters",
@@ -196,6 +199,9 @@ export const en: Record<MessageKey, string> = {
     "Underground candidates (salt mines & galleries)",
   "resilience.undergroundCaveatsSaltIs":
     "Underground caveats: salt is corrosive (sealed containers, positive pressure, humidity control), and deep Vrancea earthquakes shake galleries too — which is why the vault sits in the North-East, not in Wallachia.",
+  "strategy.statusInFlight": "In flight",
+  "strategy.statusPartial": "Partial",
+  "strategy.statusProposal": "Proposal",
   "strategy.2028TargetKpis": "2028 target KPIs",
   "strategy.action": "Action",
   "strategy.actions": "Actions",
@@ -259,6 +265,11 @@ export const en: Record<MessageKey, string> = {
   "strategy.value": "Value",
   "strategy.whatTheCitizenDoes": "What the citizen does",
   "strategy.whatTheSystemDoes": "What the system does",
+  "summary.gapExchange": "Inter-institution data exchange",
+  "summary.gapPayments": "Instant payments in the wallet",
+  "summary.gapPostbox": "The digital postbox",
+  "summary.gapResilience": "Geo-redundancy & offline operation",
+  "summary.gapTransparency": "Publicly verifiable transparency",
   "summary.badgeProposal": "Proposal",
   "summary.countDimensions": "{count} dimensions compared",
   "summary.countInstitutions": "{count} institutions on the map",

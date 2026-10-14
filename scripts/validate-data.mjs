@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -408,6 +408,31 @@ else if (newest && dataAsOf < newest)
         errors.push(`${file}:${i + 1}: cedilla diacritic; use comma-below ș ț`);
     });
   }
+}
+
+// The UX guideline's conformance checklist names the test behind each rule:
+// every path it cites must exist, no rule may be untested, and every e2e spec
+// must back a listed rule.
+{
+  const guide = readFileSync(resolve(root, "docs/ux-guidelines.md"), "utf8");
+  const checklist =
+    guide.split("## 8. Conformance checklist")[1]?.split("\n## ")[0] ?? "";
+  if (!checklist)
+    errors.push("docs/ux-guidelines.md: conformance checklist missing");
+  for (const [, path] of checklist.matchAll(/`((?:tests|scripts)\/[^`]+)`/g))
+    if (!existsSync(resolve(root, path)))
+      errors.push(`docs/ux-guidelines.md checklist: ${path} does not exist`);
+  if (/none yet/i.test(checklist))
+    errors.push(
+      "docs/ux-guidelines.md checklist: a rule has no test (none yet)"
+    );
+  for (const spec of readdirSync(resolve(root, "tests/e2e")).filter((f) =>
+    f.endsWith(".spec.ts")
+  ))
+    if (!checklist.includes(`tests/e2e/${spec}`))
+      errors.push(
+        `docs/ux-guidelines.md checklist: tests/e2e/${spec} backs no listed rule`
+      );
 }
 
 if (errors.length) {

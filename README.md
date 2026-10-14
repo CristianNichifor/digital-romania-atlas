@@ -7,8 +7,8 @@ data-flow graphs between all parties, a side-by-side feature comparison, and a t
 **Live intent:** make the national EUDI Wallet plans (and the gaps) legible to developers,
 journalists, and decision makers.
 
-**Live demo:** https://cristiannichifor.github.io/digital-romania-atlas/ (RO/EN toggle in the
-header)
+**Live demo:** https://projects.cristian-nichifor.com/digital-romania-atlas/ (RO/EN toggle
+in the header). The old GitHub Pages address redirects there.
 
 **Author:** [Cristian Nichifor](mailto:cristian@cristian-nichifor.com) — see
 [AUTHORS.md](AUTHORS.md) and [CITATION.cff](CITATION.cff).
@@ -121,7 +121,6 @@ See [SECURITY.md](SECURITY.md) for the reporting policy. The repository enforces
 - CodeQL static analysis on every push and PR;
 - OSV-Scanner on every push and PR;
 - OSSF Scorecard weekly (results published on the Security tab);
-- SLSA provenance attestation for the GitHub Pages artifact;
 - least-privilege workflow permissions (`contents: read` by default);
 - Dependabot: weekly npm + monthly Actions PRs, plus push protection and
   private vulnerability reporting enabled on the repository.

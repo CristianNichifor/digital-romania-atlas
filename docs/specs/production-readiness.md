@@ -321,3 +321,17 @@ Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
   scroll inside their own containers.
 
 Test: `tests/e2e/no-hscroll.spec.ts`.
+
+### ATL-26 Family bar back to the hub — `done`
+
+- Given any view, in either language (UX backlog D-1)
+- When the page renders
+- Then a bar above the header links to the hub
+  `https://projects.cristian-nichifor.com/` with the family name "Proiecte
+  civice", names the tool from the civic-ui registry ("Atlasul României
+  digitale" / "Digital Romania Atlas") and shows the status badge "Prototip"
+  / "Prototype" from the status vocabulary.
+
+Test: `tests/e2e/ia.spec.ts` ("the family bar links back to the hub").
+Strings `family.home`, `family.tool`, `family.status` are new: needs human
+review.

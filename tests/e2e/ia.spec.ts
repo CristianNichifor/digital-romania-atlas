@@ -34,3 +34,14 @@ test('the flows view opens on the difference with the identity filter', async ({
   await expect(page.getByRole('button', { name: /^Diferența/ })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('.legend-row').first().locator('.legend-chip', { hasText: /^Identitate$/ })).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('the family bar links back to the hub', async ({ page }) => {
+  await page.goto('/');
+  const bar = page.getByRole('navigation', { name: 'Proiecte civice' });
+  await expect(bar.getByRole('link', { name: 'Proiecte civice' })).toHaveAttribute('href', 'https://projects.cristian-nichifor.com/');
+  await expect(bar).toContainText('Atlasul României digitale');
+  await expect(bar).toContainText('Prototip');
+  await page.getByRole('button', { name: /switch to English/ }).click();
+  await expect(bar).toContainText('Digital Romania Atlas');
+  await expect(bar).toContainText('Prototype');
+});

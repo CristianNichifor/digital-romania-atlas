@@ -237,6 +237,9 @@ export const ro = {
   "strategy.value": "Valoare",
   "strategy.whatTheCitizenDoes": "Ce face cetățeanul",
   "strategy.whatTheSystemDoes": "Ce face sistemul",
+  "summary.countDimensions": "{count} dimensiuni comparate",
+  "summary.countInstitutions": "{count} instituții pe hartă",
+  "summary.countNewFlows": "{count} fluxuri noi propuse",
   "summary.digitalRomaniaIn30": "România digitală în 30 de secunde",
   "summary.estimatedCost23":
     "Cost estimat: ~2–3 €/cetățean/an; economii din licențe: 30–60M €/an.",

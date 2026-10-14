@@ -332,6 +332,28 @@ Test: `tests/e2e/no-hscroll.spec.ts`.
 Test: `tests/e2e/map-slow.spec.ts` (the GeoJSON response is delayed 3.5 s).
 Needs human review: `map.loadingSlow` (ro and en) is agent-written.
 
+### ATL-28 No placeholders or internal IDs in interface copy — `done`
+
+- Given the UI strings in `src/locales/*.ts` and the data text in
+  `src/data/*.ts` (guideline §3)
+- When the validator runs
+- Then it fails on "TBD", "lorem", a spec ID such as `ATL-12`, or a data
+  centre code `DC-A`/`DC-B`/`DC-C` without its city in parentheses, inside
+  any string literal.
+
+Test: `scripts/validate-data.mjs` (banned-words check; comments are
+ignored, only string literals count).
+
+### ATL-29 Comma-below diacritics everywhere — `done`
+
+- Given any tracked text file outside the dated history (guideline §3:
+  `ș ț Ș Ț`, never cedilla `ş ţ Ş Ţ`)
+- When the validator runs
+- Then it fails on any cedilla form in `src/`, `public/data/`, `docs/`,
+  `README.md` or `index.html`.
+
+Test: `scripts/validate-data.mjs` (cedilla check over tracked files).
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

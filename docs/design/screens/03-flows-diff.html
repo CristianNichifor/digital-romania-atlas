@@ -1,0 +1,127 @@
+<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fluxuri de date între părți · Atlasul României digitale · machetă</title><style>
+:root{--civic-font-sans:system-ui,-apple-system,"Segoe UI",sans-serif;--civic-bg:#f4f6f6;--civic-surface:#fff;--civic-raised:#e7eeee;--civic-text:#182b2c;--civic-muted:#475d60;--civic-border:#718588;--civic-action:#006b60;--civic-action-hover:#00564d;--civic-on-action:#fff;--civic-focus:#006b60;--civic-danger:#a31b34;--civic-on-danger:#fff;--civic-success:#1e6b3a;--civic-warning:#8a5a00;--civic-info:#0e4a7a;
+--civic-viz-1:#3987e5;--civic-viz-2:#d95926;--civic-viz-3:#199e70;--civic-viz-4:#c98500;--civic-viz-5:#d55181;--civic-viz-6:#008300;--civic-viz-7:#9085e9;--civic-viz-8:#e66767;
+--civic-viz-seq-1:#184f95;--civic-viz-seq-4:#3987e5;--civic-viz-seq-7:#cde2fb;
+--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--r:6px;
+--fs-0:.8125rem;--fs-1:.9375rem;--fs-2:1.125rem;--fs-3:1.5rem;--fs-4:2rem}
+*{box-sizing:border-box}html{font-family:var(--civic-font-sans);color:var(--civic-text);background:var(--civic-bg);line-height:1.55;font-size:16px}
+body{margin:0}a{color:var(--civic-action)}a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--civic-focus);outline-offset:2px}
+.fambar{background:var(--civic-surface);border-bottom:1px solid var(--civic-border);font-size:var(--fs-0)}
+.fambar .in{max-width:1200px;margin:0 auto;padding:var(--s2) var(--s4);display:flex;gap:var(--s4);align-items:center;flex-wrap:wrap;min-height:44px}
+.fambar .home{font-weight:600;text-decoration:none;display:inline-flex;align-items:center;min-height:24px}
+.fambar .tool{color:var(--civic-muted)}.fambar .spacer{flex:1}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:var(--fs-0);font-weight:600;border:1px solid transparent;min-height:24px}
+.badge.proto{background:#e8eefc;color:var(--civic-info);border-color:#b7cbe8}
+.badge.proposal{background:#e6f5ef;color:var(--civic-success);border-color:#9fd4b6}
+.badge.current{background:var(--civic-raised);color:var(--civic-text);border-color:var(--civic-border)}
+.badge.added{background:#fff3e0;color:var(--civic-warning);border-color:#f0c78a}
+.lang{display:flex;gap:2px;border:1px solid var(--civic-border);border-radius:var(--r);overflow:hidden}
+.lang a{padding:4px 10px;text-decoration:none;color:var(--civic-text);min-height:24px;display:inline-flex;align-items:center}.lang a[aria-current]{background:var(--civic-action);color:var(--civic-on-action)}
+header.app{max-width:1200px;margin:0 auto;padding:var(--s5) var(--s4) 0}
+h1{font-size:var(--fs-4);margin:0 0 var(--s1);line-height:1.2}.purpose{margin:0 0 var(--s3);color:var(--civic-muted);font-size:var(--fs-2)}
+.prov{font-size:var(--fs-0);color:var(--civic-muted);margin:0 0 var(--s4);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4)}
+.prov b{color:var(--civic-text);font-weight:600}
+nav.groups{border-top:1px solid var(--civic-border);border-bottom:1px solid var(--civic-border);background:var(--civic-surface)}
+nav.groups .in{max-width:1200px;margin:0 auto;padding:var(--s2) var(--s4);display:flex;gap:var(--s5);flex-wrap:wrap}
+nav.groups .g{display:flex;flex-direction:column;gap:2px}
+nav.groups .gl{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--civic-muted)}
+nav.groups ul{list-style:none;margin:0;padding:0;display:flex;gap:var(--s1);flex-wrap:wrap}
+nav.groups a{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--s3);border-radius:var(--r);text-decoration:none;color:var(--civic-text)}
+nav.groups a[aria-current]{background:var(--civic-action);color:var(--civic-on-action)}
+main{max-width:1200px;margin:0 auto;padding:var(--s5) var(--s4) var(--s7)}
+h2{font-size:var(--fs-3);margin:var(--s6) 0 var(--s3)}h3{font-size:var(--fs-2);margin:var(--s4) 0 var(--s2)}
+.card{background:var(--civic-surface);border:1px solid var(--civic-border);border-radius:var(--r);padding:var(--s4)}
+.grid{display:grid;gap:var(--s4)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:1fr 1fr}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 var(--s4);border-radius:var(--r);border:1px solid var(--civic-action);background:var(--civic-action);color:var(--civic-on-action);font-weight:600;text-decoration:none;cursor:pointer;font-size:var(--fs-1)}
+.btn.sec{background:var(--civic-surface);color:var(--civic-action)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s3) 0}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 var(--s3);border:1px solid var(--civic-border);border-radius:999px;background:var(--civic-surface);font-size:var(--fs-0);white-space:nowrap;cursor:pointer;color:var(--civic-text)}
+.chip[aria-pressed=true]{border-color:var(--civic-action);box-shadow:inset 0 0 0 1px var(--civic-action)}
+.sym{display:inline-block;width:12px;height:12px;flex:none}
+.sym.circle{border-radius:50%}.sym.square{}.sym.diamond{transform:rotate(45deg) scale(.8)}.sym.tri{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-1)}th,td{text-align:left;vertical-align:top;padding:var(--s2) var(--s3);border-bottom:1px solid var(--civic-raised)}th{font-size:var(--fs-0);color:var(--civic-muted);font-weight:600;border-bottom:1px solid var(--civic-border)}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.status{border-radius:var(--r);padding:var(--s3) var(--s4);display:flex;gap:var(--s3);align-items:flex-start;border:1px solid}
+.status.error{background:#fbe9ec;border-color:var(--civic-danger);color:#5a0f1e}.status.loading{background:var(--civic-raised);border-color:var(--civic-border)}.status.empty{background:var(--civic-surface);border-color:var(--civic-border)}
+.status .ico{font-weight:700;flex:none}.status .btn{min-height:36px;margin-left:auto}
+.progress{height:6px;background:var(--civic-surface);border:1px solid var(--civic-border);border-radius:3px;overflow:hidden;margin-top:var(--s2)}.progress i{display:block;height:100%;width:45%;background:var(--civic-action)}
+.states{display:grid;gap:var(--s3);margin-top:var(--s4)}
+.statelabel{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--civic-muted);margin:0 0 var(--s1)}
+footer.site{border-top:1px solid var(--civic-border);font-size:var(--fs-0);color:var(--civic-muted)}
+footer.site .in{max-width:1200px;margin:0 auto;padding:var(--s4);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4)}
+.sr{position:absolute;left:-9999px}
+.src{font-size:var(--fs-0);color:var(--civic-muted)}.src sup a{text-decoration:none;font-weight:600;padding:0 3px}
+.mapwrap{position:relative;background:var(--civic-surface);border:1px solid var(--civic-border);border-radius:var(--r);overflow:hidden}
+.mapwrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);padding:var(--s3) var(--s4);border-top:1px solid var(--civic-raised);font-size:var(--fs-0)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.caption{font-size:var(--fs-0);color:var(--civic-muted);margin:var(--s2) 0 0}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.kpi .card b{display:block;font-size:var(--fs-3);line-height:1.2}
+.kpi .card span{font-size:var(--fs-0);color:var(--civic-muted)}
+.note{font-size:var(--fs-0);color:var(--civic-muted);border-left:3px solid var(--civic-border);padding-left:var(--s3);margin:var(--s3) 0}
+.flowlist li{margin:0 0 var(--s2)}
+.ann{font-size:.75rem;color:#fff;background:var(--civic-danger);display:inline-block;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
+@media (max-width:600px){
+ .grid-3,.grid-2,.kpi{grid-template-columns:1fr}
+ h1{font-size:var(--fs-3)}.purpose{font-size:var(--fs-1)}
+ nav.groups .in{flex-direction:column;gap:var(--s3)}
+ nav.groups ul{overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+ nav.groups a{min-height:44px;white-space:nowrap}
+ .fambar .spacer{display:none}
+ .btn{width:100%}
+ .legend{flex-direction:column;gap:var(--s2)}
+ .chip{min-height:44px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (forced-colors:active){.badge,.chip,.card,.status{border:1px solid CanvasText}}
+</style></head><body>
+<a class="sr" href="#main">Sari la conținut</a>
+<div class="fambar"><div class="in">
+<a class="home" href="https://projects.cristian-nichifor.com/">← Proiecte civice</a>
+<span class="tool">Atlasul României digitale</span>
+<span class="badge proto">Prototip</span>
+<span class="spacer"></span>
+<nav class="lang" aria-label="Limbă"><a href="#" aria-current="true" lang="ro">RO</a><a href="#" lang="en">EN</a></nav>
+</div></div>
+<nav class="groups" aria-label="Secțiuni"><div class="in"><div class="g"><span class="gl">Înțelege</span><ul><li><a href="#/summary">Rezumat</a></li><li><a href="#/stories">Povești</a></li><li><a href="#/journeys">Pași cetățean</a></li></ul></div><div class="g"><span class="gl">Explorează</span><ul><li><a href="#/map">Harta României</a></li><li><a href="#/flows" aria-current="page">Fluxuri de date</a></li><li><a href="#/timeline">Calendar</a></li></ul></div><div class="g"><span class="gl">Argument</span><ul><li><a href="#/compare">Comparație</a></li><li><a href="#/policy">Analiză</a></li><li><a href="#/strategy">Strategie</a></li><li><a href="#/resilience">Reziliență</a></li></ul></div><div class="g"><span class="gl">Surse</span><ul><li><a href="#/sources">Surse</a></li></ul></div></div></nav>
+<header class="app">
+<h1>Fluxuri de date între părți</h1>
+<p class="purpose">Cine trimite ce cui, azi și în propunere; modul „Diferența” arată doar ce se schimbă.</p>
+<p class="prov"><span><b>Date:</b> documentația RO Wallet (MAI, commit 40ceede, 31 aug. 2026), ARF EUDI; 2026</span><span><b>Actualizat:</b> <time datetime="2026-10-14">14 octombrie 2026</time> (v0.3.0)</span><span><a href="#/sources">Metodă și surse</a></span></p>
+</header>
+<main id="main">
+<div class="chips" role="group" aria-label="Mod"><button class="chip" type="button" aria-pressed="false">Situația actuală</button><button class="chip" type="button" aria-pressed="false">Propunere</button><button class="chip" type="button" aria-pressed="true">Diferența</button></div>
+<div class="chips" role="group" aria-label="Tip de flux"><button class="chip" type="button" aria-pressed="true"><span class="sym circle" style="background:var(--civic-viz-1)" aria-hidden="true"></span>Identitate</button><button class="chip" type="button" aria-pressed="false"><span class="sym square" style="background:var(--civic-viz-2)" aria-hidden="true"></span>Prezentare</button><button class="chip" type="button" aria-pressed="false"><span class="sym diamond" style="background:var(--civic-viz-3)" aria-hidden="true"></span>Ciclu de viață</button><button class="chip" type="button" aria-pressed="false"><span class="sym square" style="background:var(--civic-viz-4)" aria-hidden="true"></span>Securitate</button><button class="chip" type="button" aria-pressed="false"><span class="sym circle" style="background:var(--civic-viz-5)" aria-hidden="true"></span>Notificare</button></div>
+<div class="status empty" role="status" style="margin:var(--s3) 0"><span class="ico" aria-hidden="true">Δ</span><div><strong>— fluxuri noi</strong> față de documentația MAI (cifra vine din <code>flows.ts</code>). Liniile pline sunt fluxuri existente; liniile întrerupte sunt fluxuri propuse.</div></div>
+<div class="grid grid-2">
+<div class="mapwrap"><svg viewBox="0 0 600 360" role="img" aria-labelledby="ft fd"><title id="ft">Graful fluxurilor, mod Diferența</title><desc id="fd">Noduri: Cetățean + RO Wallet, MAI – DGCTI, HUB MAI, Backbone național (propus), Relying party. Fluxurile propuse sunt întrerupte.</desc>
+<g font-size="13" fill="var(--civic-text)">
+<rect x="20" y="150" width="150" height="44" rx="6" fill="var(--civic-surface)" stroke="var(--civic-border)"/><text x="30" y="177">Cetățean + RO Wallet</text>
+<rect x="230" y="40" width="130" height="44" rx="6" fill="var(--civic-surface)" stroke="var(--civic-border)"/><text x="245" y="67">MAI – DGCTI</text>
+<rect x="230" y="150" width="130" height="44" rx="6" fill="var(--civic-surface)" stroke="var(--civic-border)"/><text x="262" y="177">HUB MAI</text>
+<rect x="230" y="270" width="150" height="44" rx="6" fill="#e6f5ef" stroke="var(--civic-success)" stroke-dasharray="6 4"/><text x="240" y="297">Backbone național</text>
+<rect x="440" y="150" width="130" height="44" rx="6" fill="var(--civic-surface)" stroke="var(--civic-border)"/><text x="460" y="177">Relying party</text>
+</g>
+<g stroke-width="2" fill="none">
+<path d="M170 172 L230 62" stroke="var(--civic-viz-1)"/><text x="150" y="110" font-size="12" fill="var(--civic-muted)">f-pid-issue</text>
+<path d="M170 172 L440 172" stroke="var(--civic-viz-2)"/><text x="330" y="140" font-size="12" fill="var(--civic-muted)">f-pid-present</text>
+<path d="M360 172 L440 172" stroke="var(--civic-viz-1)"/>
+<path d="M170 180 L230 292" stroke="var(--civic-viz-3)" stroke-dasharray="7 5"/><text x="120" y="250" font-size="12" fill="var(--civic-success)">consimțământ la gateway (propus)</text>
+<path d="M380 292 L480 194" stroke="var(--civic-viz-3)" stroke-dasharray="7 5"/>
+</g></svg>
+<div class="legend"><span><span style="display:inline-block;width:22px;border-top:2px solid var(--civic-text)" aria-hidden="true"></span>Flux existent</span><span><span style="display:inline-block;width:22px;border-top:2px dashed var(--civic-success)" aria-hidden="true"></span>Flux propus</span></div></div>
+<section class="card" aria-labelledby="fl"><h3 id="fl" style="margin-top:0">Lista fluxurilor (alternativă text)</h3>
+<div class="tscroll"><table><thead><tr><th>ID</th><th>Flux</th><th>Tip</th><th>Statut</th></tr></thead><tbody>
+<tr><td>f-pid-issue</td><td>Emitere PID către wallet</td><td>Identitate</td><td><span class="badge current">Situația actuală</span></td></tr>
+<tr><td>f-pid-present</td><td>Prezentare PID către relying party</td><td>Prezentare</td><td><span class="badge current">Situația actuală</span></td></tr>
+<tr><td>f-rp-check</td><td>Verificare relying party</td><td>Identitate</td><td><span class="badge current">Situația actuală</span></td></tr>
+<tr><td>f-wb-lifecycle</td><td>Ciclu de viață Wallet Backend</td><td>Ciclu de viață</td><td><span class="badge current">Situația actuală</span></td></tr>
+<tr><td>—</td><td>Consimțământ la gateway (backbone)</td><td>Identitate</td><td><span class="badge proposal">Propunere</span></td></tr>
+<tr><td colspan="4" class="src">Etichetele complete vin din <code>flows.ts</code> (<code>label.ro</code>); cele de mai sus sunt prescurtate pentru machetă.</td></tr>
+</tbody></table></div></section>
+</div>
+<p class="src" style="margin-top:var(--s3)">Sursă: documentația RO Wallet (MAI), ARF EUDI; fluxurile marcate „Propunere” nu există în documentația publicată.</p>
+<section aria-labelledby="st"><h2 id="st">Stări</h2><div class="states"><div><p class="statelabel">Încărcare peste 2 s (staged)</p><div class="status loading" role="status"><span class="ico" aria-hidden="true">…</span><div style="flex:1">Se așază graful (1 din 2)…<div class="progress"><i></i></div></div></div></div><div><p class="statelabel">Filtru fără rezultat</p><div class="status empty" role="status"><span class="ico" aria-hidden="true">○</span><div>Niciun flux de tip „Notificare” nu se schimbă în propunere. Alegeți alt tip sau modul „Propunere”.</div><button class="btn sec" type="button">Resetează filtrele</button></div></div><div><p class="statelabel">Eroare</p><div class="status error" role="alert"><span class="ico" aria-hidden="true">!</span><div>Fluxurile nu au putut fi încărcate. Verificați conexiunea și încercați din nou.</div><button class="btn sec" type="button">Reîncearcă</button></div></div></div></section></main>
+<footer class="site"><div class="in"><span>Prototip: date actuale cu sursă + propuneri de design.</span><span>Autor: Cristian Nichifor</span><span>date actualizate la 2026-10-14 (v0.3.0)</span><span><a href="#">ERRATA</a></span><span><a href="#">găsiți o eroare? raportați-o</a></span><span><a href="#">Confidențialitate</a></span></div></footer>
+</body></html>

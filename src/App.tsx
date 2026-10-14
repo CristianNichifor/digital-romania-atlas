@@ -14,6 +14,7 @@ import { LangContext, type Lang } from "./i18n";
 import { UatPlanProvider } from "./lib/uatPlan";
 import { initAcroTips } from "./lib/acroTip";
 import { META } from "./data/meta";
+import { readStorage, writeStorage } from "./lib/storage";
 
 const VIEWS: { id: ViewId; ro: string; en: string }[] = [
   { id: "summary", ro: "Rezumat", en: "Summary" },
@@ -30,7 +31,7 @@ const VIEWS: { id: ViewId; ro: string; en: string }[] = [
 ];
 
 function initialLang(): Lang {
-  const saved = localStorage.getItem("dra-lang");
+  const saved = readStorage("dra-lang");
   return saved === "en" ? "en" : "ro";
 }
 
@@ -39,7 +40,7 @@ export default function App() {
   const [lang, setLang] = useState<Lang>(initialLang);
 
   useEffect(() => {
-    localStorage.setItem("dra-lang", lang);
+    writeStorage("dra-lang", lang);
     document.documentElement.lang = lang;
   }, [lang]);
 

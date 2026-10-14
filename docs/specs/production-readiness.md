@@ -398,6 +398,18 @@ Test: `scripts/validate-data.mjs`. MapView's tooltip copy moved too, as
 `{placeholder}` templates (`map.tip*`); only joins of data fields
 (acronym — name, source → target) stay inline (`tests/e2e/map-tips.spec.ts`).
 
+### ATL-34 Rezumat columns say what they are and where from — `done`
+
+- Given the Rezumat columns "Ce se întâmplă azi" and "Ce propunem în plus"
+  (design 01)
+- When the view opens
+- Then each carries a text badge ("Situația actuală" / "Propunere"), the
+  first names its main sources (RO Wallet documentation, eIDAS 2.0) with a
+  link to Surse, and the second links to Comparație.
+
+Test: `tests/e2e/summary-cards.spec.ts`. Needs human review: the new
+`summary.*` badge and source-line copy is agent-written.
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

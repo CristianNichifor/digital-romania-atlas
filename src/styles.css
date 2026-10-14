@@ -1402,6 +1402,34 @@ footer {
   border-left: 4px solid #2ecc71;
 }
 
+.card-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.card-badge.current {
+  border-color: #4f8cff;
+}
+
+.card-badge.proposal {
+  border-color: #2ecc71;
+}
+
+.card-src {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+/* Same link colour as the provenance line, which passes AA on the panel. */
+.card-src a {
+  color: #9db9f5;
+}
+
 .summary-card.why {
   border-left: 4px solid #ffb020;
 }

@@ -33,6 +33,22 @@ interface GeoCollection {
   features: Feature[];
 }
 
+// Shapes so the category filter does not rely on colour alone (screen 02).
+const CATEGORY_SYMBOLS: Record<Category, string> = {
+  user: "●",
+  identity: "■",
+  source: "◆",
+  trust: "▲",
+  infra: "▼",
+  oversight: "★",
+  governance: "✚",
+  service: "⬟",
+  backbone: "⬢",
+  payment: "◀",
+  anchor: "▶",
+  external: "✖",
+};
+
 const W = 960;
 const H = 760;
 
@@ -68,6 +84,7 @@ export function MapView() {
   const [geo, setGeo] = useState<GeoCollection | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [slow, setSlow] = useState(false);
   const [hover, setHover] = useState<Institution | null>(null);
   const [hoverCounty, setHoverCounty] = useState<string | null>(null);
   const [siteHover, setSiteHover] = useState<{ title: Bi; detail: Bi } | null>(
@@ -83,6 +100,9 @@ export function MapView() {
 
   useEffect(() => {
     setLoadError(false);
+    setSlow(false);
+    // Stage the loading message: after 2 s, say the connection seems slow.
+    const timer = window.setTimeout(() => setSlow(true), 2000);
     fetch(`${import.meta.env.BASE_URL}data/ro-counties.geojson`)
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -92,7 +112,9 @@ export function MapView() {
       .catch((e) => {
         console.error(e);
         setLoadError(true);
-      });
+      })
+      .finally(() => window.clearTimeout(timer));
+    return () => window.clearTimeout(timer);
   }, [attempt]);
 
   useEffect(() => {
@@ -177,7 +199,11 @@ export function MapView() {
     );
 
   if (!geo || !projection)
-    return <div className="loading">{t("map.loadingTheMap")}</div>;
+    return (
+      <div className="loading" role="status">
+        {t(slow ? "map.loadingSlow" : "map.loadingTheMap")}
+      </div>
+    );
 
   const path = d3.geoPath(projection);
   const maxCount = Math.max(...counts.values(), 1);
@@ -477,15 +503,19 @@ export function MapView() {
             <button
               key={cat}
               className={`legend-chip ${filter === cat ? "active" : ""}`}
+              aria-pressed={filter === cat}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
               onClick={() =>
                 setFilter(filter === cat ? null : (cat as Category))
               }
             >
               <span
-                className="dot"
-                style={{ background: CATEGORY_COLORS[cat as Category] }}
-              />
+                className="chip-symbol"
+                aria-hidden="true"
+                data-shape={CATEGORY_SYMBOLS[cat as Category]}
+              >
+                {CATEGORY_SYMBOLS[cat as Category]}
+              </span>
               <T text={pick(label, lang)} />
             </button>
           ))}
@@ -894,6 +924,44 @@ export function MapView() {
           </div>
         )}
       </div>
+      {filter && visibleMarkers.length === 0 && (
+        <div className="map-empty" role="status">
+          {t("map.emptyFilter").replace(
+            "{category}",
+            pick(CATEGORY_LABELS[filter], lang)
+          )}{" "}
+          <button onClick={() => setFilter(null)}>
+            {t("map.resetFilter")}
+          </button>
+        </div>
+      )}
+      <details className="map-table">
+        <summary>
+          {t("map.showTable").replace("{count}", String(visibleMarkers.length))}
+        </summary>
+        <div className="table-scroll">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th>{t("map.tableInstitution")}</th>
+                <th>{t("map.tableCategory")}</th>
+                <th>{t("map.tableCounty")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visibleMarkers.map((i) => (
+                <tr key={i.id}>
+                  <td>
+                    <strong>{i.acronym}</strong> — {pick(i.name, lang)}
+                  </td>
+                  <td>{pick(CATEGORY_LABELS[i.category], lang)}</td>
+                  <td>{i.county}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
       <div className="symbol-legend">
         <span className="sl-item">
           <svg width="12" height="12" viewBox="0 0 12 12">

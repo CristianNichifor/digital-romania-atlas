@@ -2,6 +2,7 @@
 // scripts/validate-data.mjs checks the parity.
 
 export const ro = {
+  "app.hub": "← Toate proiectele",
   "app.tagline":
     "Ecosistemul RO EUDI Wallet vs. propunerea de backbone digital — instituții, fluxuri, comparație",
   "compare.adds1":
@@ -60,6 +61,9 @@ export const ro = {
   "nav.strategy": "Strategie",
   "nav.summary": "Rezumat",
   "nav.timeline": "Calendar",
+  "prov.label": "Date:",
+  "prov.sources": "sursele din tabul Surse",
+  "prov.updated": "actualizate la",
   "privacy.contact": "Întrebări sau solicitări:",
   "privacy.contactLink": "deschideți un issue pe GitHub",
   "privacy.hosting":
@@ -115,7 +119,21 @@ export const ro = {
   "flows.flows": "Fluxuri:",
   "flows.hoverANodeFor":
     "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră.",
+  "flows.listData": "Date",
+  "flows.listFrom": "De la",
+  "flows.listStatus": "Statut",
+  "flows.listSummary": "Fluxurile ca listă ({count})",
+  "flows.listTo": "Către",
+  "flows.statusCurrent": "actual",
+  "flows.statusProposed": "propus",
   "flows.institutions": "Instituții:",
+  "map.emptyFilter":
+    "Nicio instituție din categoria „{category}” nu are un sediu pe hartă.",
+  "map.resetFilter": "Arată toate categoriile",
+  "map.showTable": "Afișează ca tabel ({count})",
+  "map.tableCategory": "Categorie",
+  "map.tableCounty": "Județ",
+  "map.tableInstitution": "Instituție",
   "map.archiveCopyToThe": "Copie de arhivă către salină",
   "map.countyShadeInstitutionDensity":
     "Nuanța județului = densitatea instituțiilor",
@@ -125,6 +143,8 @@ export const ro = {
   "map.institutionalMapOfDigital": "Harta instituțională a României digitale",
   "map.institutionsColourCategory": "Instituții (culoarea = categoria)",
   "map.l0SyncWhenZoomed": "Sincronizare L0 (la zoom)",
+  "map.loadingSlow":
+    "Harta se încarcă mai greu decât de obicei; conexiunea pare lentă…",
   "map.loadingTheMap": "Se încarcă harta…",
   "map.nInstitutionClusterZoom": "N = cluster de instituții (mărește zoom-ul)",
   "map.nationalPresenceUatIn": "Prezență națională (UAT) în fiecare județ",
@@ -237,6 +257,10 @@ export const ro = {
   "strategy.value": "Valoare",
   "strategy.whatTheCitizenDoes": "Ce face cetățeanul",
   "strategy.whatTheSystemDoes": "Ce face sistemul",
+  "summary.badgeProposal": "Propunere",
+  "summary.countDimensions": "{count} dimensiuni comparate",
+  "summary.countInstitutions": "{count} instituții pe hartă",
+  "summary.countNewFlows": "{count} fluxuri noi propuse",
   "summary.digitalRomaniaIn30": "România digitală în 30 de secunde",
   "summary.estimatedCost23":
     "Cost estimat: ~2–3 €/cetățean/an; economii din licențe: 30–60M €/an.",

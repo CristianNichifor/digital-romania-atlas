@@ -4,6 +4,7 @@ import type { MessageKey } from ".";
 // scripts/validate-data.mjs checks the parity.
 
 export const en: Record<MessageKey, string> = {
+  "app.hub": "← All projects",
   "app.tagline":
     "The RO EUDI Wallet ecosystem vs. the digital backbone proposal — institutions, flows, comparison",
   "compare.adds1":
@@ -61,6 +62,9 @@ export const en: Record<MessageKey, string> = {
   "nav.strategy": "Strategy",
   "nav.summary": "Summary",
   "nav.timeline": "Calendar",
+  "prov.label": "Data:",
+  "prov.sources": "the sources in the Sources tab",
+  "prov.updated": "updated",
   "privacy.contact": "Questions or requests:",
   "privacy.contactLink": "open a GitHub issue",
   "privacy.hosting":
@@ -115,7 +119,21 @@ export const en: Record<MessageKey, string> = {
   "flows.flows": "Flows:",
   "flows.hoverANodeFor":
     "Hover a node for its full name and role; hover an edge for the data that flows. Drag nodes to rearrange. In “Diff” mode you see only what our proposal adds.",
+  "flows.listData": "Data",
+  "flows.listFrom": "From",
+  "flows.listStatus": "Status",
+  "flows.listSummary": "The flows as a list ({count})",
+  "flows.listTo": "To",
+  "flows.statusCurrent": "current",
+  "flows.statusProposed": "proposed",
   "flows.institutions": "Institutions:",
+  "map.emptyFilter":
+    "No institution in the “{category}” category has a seat on the map.",
+  "map.resetFilter": "Show all categories",
+  "map.showTable": "Show as a table ({count})",
+  "map.tableCategory": "Category",
+  "map.tableCounty": "County",
+  "map.tableInstitution": "Institution",
   "map.archiveCopyToThe": "Archive copy to the salt mine",
   "map.countyShadeInstitutionDensity": "County shade = institution density",
   "map.ctrlWheelToZoom":
@@ -124,6 +142,8 @@ export const en: Record<MessageKey, string> = {
   "map.institutionalMapOfDigital": "Institutional map of digital Romania",
   "map.institutionsColourCategory": "Institutions (colour = category)",
   "map.l0SyncWhenZoomed": "L0 sync (when zoomed in)",
+  "map.loadingSlow":
+    "The map is taking longer than usual; the connection seems slow…",
   "map.loadingTheMap": "Loading the map…",
   "map.nInstitutionClusterZoom": "N = institution cluster (zoom in)",
   "map.nationalPresenceUatIn": "National presence (UAT) in every county",
@@ -234,6 +254,10 @@ export const en: Record<MessageKey, string> = {
   "strategy.value": "Value",
   "strategy.whatTheCitizenDoes": "What the citizen does",
   "strategy.whatTheSystemDoes": "What the system does",
+  "summary.badgeProposal": "Proposal",
+  "summary.countDimensions": "{count} dimensions compared",
+  "summary.countInstitutions": "{count} institutions on the map",
+  "summary.countNewFlows": "{count} new flows proposed",
   "summary.digitalRomaniaIn30": "Digital Romania in 30 seconds",
   "summary.estimatedCost23":
     "Estimated cost: ~€2–3/citizen/year; licence savings: €30–60M/year.",

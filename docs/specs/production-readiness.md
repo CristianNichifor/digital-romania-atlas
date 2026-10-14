@@ -322,6 +322,16 @@ Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
 
 Test: `tests/e2e/no-hscroll.spec.ts`.
 
+### ATL-25 Staged map loading message — `done`
+
+- Given the county boundaries take longer than 2 s to load (UX backlog D-11)
+- When the map view is waiting
+- Then the loading status first says "Se încarcă harta…" and after 2 s says
+  the connection seems slow; the map still draws once the data arrives.
+
+Test: `tests/e2e/map-slow.spec.ts` (the GeoJSON response is delayed 3.5 s).
+Needs human review: `map.loadingSlow` (ro and en) is agent-written.
+
 ### ATL-28 No placeholders or internal IDs in interface copy — `done`
 
 - Given the UI strings in `src/locales/*.ts` and the data text in
@@ -343,3 +353,40 @@ ignored, only string literals count).
   `README.md` or `index.html`.
 
 Test: `scripts/validate-data.mjs` (cedilla check over tracked files).
+
+## Theme H: target-state screen designs
+
+Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the
+index `docs/design/README.md`. They are design input for implementation
+sessions, not shipped UI; `src/` is untouched.
+
+### DS-1 Screen mockups for the five key screens — `done`
+
+- Given the UX guideline (`docs/ux-guidelines.md`) and its backlog D-1..D-11
+- When a designer or an implementation session opens `docs/design/README.md`
+- Then each of Rezumat, Hartă, Fluxuri (Diferența), Comparație and the mobile
+  navigation has a self-contained mockup with civic-ui token values, the
+  family bar, H1 + purpose + "Date: sursă, an" line, the status vocabulary,
+  colour-blind-safe symbols with labels and a table alternative, and every
+  relevant state (staged loading, empty, error + retry), with real copy from
+  `src/locales/ro.ts` and data from `src/data/`.
+
+Test: `docs/design/screens/*.png` exist for each HTML at both widths; manual
+review. No automated test: the mockups are documentation.
+
+### DS-2 Acceptance criteria per screen for implementation — `done`
+
+- Given the mockups above
+- When an implementation session picks a screen
+- Then `docs/design/README.md` lists, per screen, the guideline sections it
+  satisfies, what changes against the live site (before screenshot in
+  `docs/design/before/`) and acceptance criteria phrased as tests.
+
+Test: manual review of the README; each criterion names the spec file it
+should become (`tests/e2e/*.spec.ts`).
+
+Needs human review: Romanian copy written for the mockups that does not yet
+exist in `src/locales/ro.ts` (page purposes, provenance lines, staged loading
+messages, empty-state sentences, map category labels, "Extins" / "Adăugat de
+propunere" badges). The map category labels in the mockup are placeholders for
+`CATEGORY_LABELS` in `MapView.tsx`.

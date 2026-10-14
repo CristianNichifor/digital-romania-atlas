@@ -8,6 +8,7 @@ import {
 } from "../data/policy";
 import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 export function PolicyView() {
   const { lang } = useLang();
@@ -17,6 +18,7 @@ export function PolicyView() {
       <div className="panel-head">
         <h2>{t("policy.title")}</h2>
       </div>
+      <Prov />
       <p className="muted note">
         <T text={t("policy.disclaimer")} />
       </p>

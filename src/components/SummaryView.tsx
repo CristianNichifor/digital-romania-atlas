@@ -1,4 +1,7 @@
 import { useLang, useT } from "../i18n";
+import { INSTITUTIONS } from "../data/institutions";
+import { COMPARISON } from "../data/comparison";
+import { FLOWS } from "../data/flows";
 import { T } from "./T";
 
 export type ViewId =
@@ -31,6 +34,24 @@ const GAPS: { ro: string; en: string }[] = [
   },
 ];
 
+const COUNTS = [
+  {
+    key: "summary.countInstitutions",
+    value: INSTITUTIONS.length,
+    view: "map",
+  },
+  {
+    key: "summary.countDimensions",
+    value: COMPARISON.length,
+    view: "compare",
+  },
+  {
+    key: "summary.countNewFlows",
+    value: FLOWS.filter((f) => f.status === "proposed").length,
+    view: "flows",
+  },
+] as const;
+
 export function SummaryView({
   onNavigate,
 }: {
@@ -42,6 +63,12 @@ export function SummaryView({
     <div className="panel summary">
       <div className="summary-hero">
         <h2>{t("summary.digitalRomaniaIn30")}</h2>
+        <span
+          className="legend-chip badge-proposal"
+          style={{ borderColor: "#2ecc71" }}
+        >
+          {t("summary.badgeProposal")}
+        </span>
         <p className="summary-sub">
           <T text={t("summary.weProposeTheState")} />
         </p>
@@ -78,6 +105,19 @@ export function SummaryView({
             <li>{t("summary.openVerifiableCodeBuilds")}</li>
           </ul>
         </section>
+      </div>
+      {/* Counts are computed from the data, never typed (design screen 01). */}
+      <div className="summary-cta summary-counts">
+        {COUNTS.map((c) => (
+          <button
+            key={c.view}
+            className="cta secondary"
+            data-count={c.value}
+            onClick={() => onNavigate(c.view)}
+          >
+            {t(c.key).replace("{count}", String(c.value))}
+          </button>
+        ))}
       </div>
       <div className="summary-cta">
         <button className="cta" onClick={() => onNavigate("stories")}>

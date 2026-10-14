@@ -113,7 +113,9 @@ nav {
 
 nav a,
 nav button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   text-decoration: none;
   font-family: inherit;
   line-height: normal;
@@ -1276,6 +1278,7 @@ footer {
 
   nav a,
   nav button {
+    min-height: 44px;
     padding: 7px 13px;
     font-size: 13px;
     white-space: nowrap;
@@ -1745,4 +1748,38 @@ footer details.privacy p {
 .source-card:focus {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+/* Reduced motion (D-7): stop the fibre-link animation and transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Forced colours (D-8): keep chip borders, the active chip and focus
+   visible when the system palette replaces ours. */
+@media (forced-colors: active) {
+  .legend-chip,
+  nav a,
+  nav button {
+    border: 1px solid ButtonText;
+  }
+
+  .legend-chip.active,
+  nav a[aria-current="page"] {
+    outline: 2px solid Highlight;
+  }
+
+  :focus-visible {
+    outline: 2px solid Highlight;
+  }
+
+  .dot {
+    forced-color-adjust: none;
+  }
 }

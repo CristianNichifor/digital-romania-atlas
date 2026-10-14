@@ -66,6 +66,9 @@ oversight (DNSC, ANSPDCP).
 - **Methodology.** [docs/METHODOLOGY.md](docs/METHODOLOGY.md) states what every figure claims:
   cost numbers are design estimates (bands, with named precedents), never budgets.
 - **Press kit.** The Sources view exports the full data as JSON or CSV for journalists.
+- **Design.** [docs/ux-guidelines.md](docs/ux-guidelines.md) is the rule set every view
+  follows; [docs/design/README.md](docs/design/README.md) holds the target-state screen
+  mockups with acceptance criteria for the next implementation steps.
 - **Archival.** Cite by version string; the repo is archived by Software Heritage
   (`archive.softwareheritage.org`). Release tags match the footer version.
 

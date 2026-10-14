@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+# The atlas is served from Cloudflare Pages (deploy-pages-cloudflare.yml) behind
+# projects.cristian-nichifor.com/digital-romania-atlas/. GitHub Pages now publishes only
+# redirect/index.html, as index.html and as 404.html, so every old github.io link, deep
+# path, query and hash included, forwards to the same place on the hub.
+
 on:
   push:
     branches: [main]
@@ -15,29 +20,31 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-      attestations: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm audit --audit-level=high
-      - run: npm test
-      - run: npm run build
+
+      # A redirect that points at nothing turns a working link into a loop through a 404,
+      # so the stub cannot go live before the site it forwards to.
+      - name: Check the destination is live
+        run: |
+          url=https://projects.cristian-nichifor.com/digital-romania-atlas/
+          code=$(curl -s -o /dev/null -w '%{http_code}' -L "$url")
+          echo "$url -> $code"
+          [ "$code" = "200" ] || { echo "destination is not serving; refusing to publish the redirect"; exit 1; }
+
+      - name: Stage the redirect
+        run: |
+          set -euo pipefail
+          mkdir -p stub
+          cp redirect/index.html stub/index.html
+          cp redirect/index.html stub/404.html
+
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
-      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
-        with:
-          subject-path: dist
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: dist
+          path: stub
 
   deploy:
     needs: build

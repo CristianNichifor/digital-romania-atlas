@@ -100,9 +100,9 @@ route and a place in one nav group.
 
 ## 7. Status vocabulary
 
-Use exactly one, in both languages: **Live data / Date actuale**, **Demo
-data / Date demonstrative**, **Prototype / Prototip**, **Archived /
-Arhivat**. The atlas is a **Prototype**: sourced current-state data plus
+Use exactly one, in both languages, from civic-ui's list: **Live data /
+Date reale**, **Demo data / Date demonstrative**, **Prototype / Prototip**,
+**Archived / Arhivat**. "Prototip" describes the app, never the data. The atlas is a **Prototype**: sourced current-state data plus
 design proposals. Separately, each item is labelled **current** or
 **proposed** (src/AGENTS.md).
 

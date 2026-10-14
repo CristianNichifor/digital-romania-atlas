@@ -21,6 +21,7 @@ import {
   VRANCEA_RADII_KM,
 } from "../data/resilience";
 import { pick, useLang, useT, type Bi } from "../i18n";
+import { messages, type MessageKey } from "../locales";
 import { T } from "./T";
 import { Prov } from "./Prov";
 
@@ -72,6 +73,19 @@ function distKm(a: [number, number], b: [number, number]) {
     Math.sin(dLat / 2) ** 2 +
     Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+/** A tooltip string in both languages from a locale template, filled per language. */
+function bi(
+  key: MessageKey,
+  vars: (lang: "ro" | "en") => Record<string, string | number> = () => ({})
+): Bi {
+  const fillIn = (lang: "ro" | "en") =>
+    Object.entries(vars(lang)).reduce(
+      (text, [name, value]) => text.split(`{${name}}`).join(String(value)),
+      messages[lang][key]
+    );
+  return { ro: fillIn("ro"), en: fillIn("en") };
 }
 
 interface TipContent {
@@ -383,7 +397,7 @@ export function MapView() {
     })),
     ...regionalDcs.map((r) => ({
       id: `r-${pick(r.region, "ro")}`,
-      name: { ro: `Micro-DC ${r.region.ro}`, en: `${r.region.en} micro-DC` },
+      name: bi("map.tipMicroDc", (l) => ({ region: r.region[l] })),
       lon: r.lon,
       lat: r.lat,
     })),
@@ -410,14 +424,11 @@ export function MapView() {
         x2,
         y2,
         tip: {
-          title: {
-            ro: `Inel de fibră · ${a.name.ro} ⇄ ${b.name.ro}`,
-            en: `Fibre ring · ${a.name.en} ⇄ ${b.name.en}`,
-          },
-          detail: {
-            ro: "Replicare sincronă T1 (RPO ≤ 5 min, RTO ≤ 30 min)",
-            en: "Synchronous T1 replication (RPO ≤ 5 min, RTO ≤ 30 min)",
-          },
+          title: bi("map.tipFibreTitle", (l) => ({
+            a: a.name[l],
+            b: b.name[l],
+          })),
+          detail: bi("map.tipFibreDetail"),
         },
       });
     }
@@ -438,10 +449,7 @@ export function MapView() {
           ro: `${r.region.ro} → ${t.name.ro}`,
           en: `${r.region.en} → ${t.name.en}`,
         },
-        detail: {
-          ro: "Servicii locale + oglindă L3 a registrelor",
-          en: "Local services + L3 mirror of the registries",
-        },
+        detail: bi("map.tipUplinkDetail"),
       },
     });
   }
@@ -461,10 +469,7 @@ export function MapView() {
           ro: `${u.name.ro} → ${t.name.ro}`,
           en: `${u.name.en} → ${t.name.en}`,
         },
-        detail: {
-          ro: "Copie WORM LTO air-gapped (a doua copie 3-2-1-1-0)",
-          en: "Air-gapped WORM LTO copy (the second 3-2-1-1-0 copy)",
-        },
+        detail: bi("map.tipVaultDetail"),
       },
     });
   }
@@ -487,10 +492,7 @@ export function MapView() {
             ro: `${f.properties.name} → ${t.name.ro}`,
             en: `${f.properties.name} → ${t.name.en}`,
           },
-          detail: {
-            ro: "Nod L0 offline-first: sincronizare când există legătură",
-            en: "Offline-first L0 node: syncs when a link is available",
-          },
+          detail: bi("map.tipL0Detail"),
         },
       });
     });
@@ -631,14 +633,8 @@ export function MapView() {
                   onMouseEnter={(e) =>
                     showTip(
                       {
-                        title: {
-                          ro: "Zona seismică Vrancea",
-                          en: "Vrancea seismic zone",
-                        },
-                        detail: {
-                          ro: `Rază de ${km} km față de epicentru`,
-                          en: `${km} km radius from the epicentre`,
-                        },
+                        title: bi("map.tipVranceaZone"),
+                        detail: bi("map.tipVranceaRadius", () => ({ km })),
                       },
                       e
                     )
@@ -653,14 +649,8 @@ export function MapView() {
               onMouseEnter={(e) =>
                 showTip(
                   {
-                    title: {
-                      ro: "Epicentrul seismic Vrancea",
-                      en: "Vrancea seismic epicentre",
-                    },
-                    detail: {
-                      ro: "Inel interior 50 km · mediu 100 km · exterior 200 km",
-                      en: "Inner ring 50 km · middle 100 km · outer 200 km",
-                    },
+                    title: bi("map.tipEpicentre"),
+                    detail: bi("map.tipEpicentreRings"),
                   },
                   e
                 )
@@ -697,10 +687,10 @@ export function MapView() {
                       showTip(
                         {
                           title: uat!.name,
-                          detail: {
-                            ro: `${uat!.role.ro} · județul ${f.properties.name}`,
-                            en: `${uat!.role.en} · ${f.properties.name} county`,
-                          },
+                          detail: bi("map.tipUatDetail", (l) => ({
+                            role: uat!.role[l],
+                            county: f.properties.name,
+                          })),
                         },
                         e
                       );
@@ -741,14 +731,16 @@ export function MapView() {
                           ro: `${i.acronym} — ${i.name.ro}`,
                           en: `${i.acronym} — ${i.name.en}`,
                         },
-                        detail: {
-                          ro: `${i.role.ro} · ${CATEGORY_LABELS[i.category].ro}${
-                            i.county ? ` · județul ${i.county}` : ""
-                          }`,
-                          en: `${i.role.en} · ${CATEGORY_LABELS[i.category].en}${
-                            i.county ? ` · ${i.county} county` : ""
-                          }`,
-                        },
+                        detail: bi(
+                          i.county
+                            ? "map.tipInstitutionCounty"
+                            : "map.tipInstitution",
+                          (l) => ({
+                            role: i.role[l],
+                            category: CATEGORY_LABELS[i.category][l],
+                            county: i.county ?? "",
+                          })
+                        ),
                       },
                       e
                     );
@@ -786,10 +778,10 @@ export function MapView() {
                   onMouseEnter={(e) =>
                     showTip(
                       {
-                        title: {
-                          ro: `${c.count} instituții · ${county}`,
-                          en: `${c.count} institutions · ${county}`,
-                        },
+                        title: bi("map.tipCluster", () => ({
+                          count: c.count,
+                          county,
+                        })),
                         detail: { ro: acronyms, en: acronyms },
                       },
                       e
@@ -864,10 +856,9 @@ export function MapView() {
                   className="dc-marker regional"
                   onMouseEnter={(e) => {
                     const content = {
-                      title: {
-                        ro: `Micro-DC ${r.region.ro}`,
-                        en: `${r.region.en} micro-DC`,
-                      },
+                      title: bi("map.tipMicroDc", (l) => ({
+                        region: r.region[l],
+                      })),
                       detail: r.power,
                     };
                     setSiteHover(content);

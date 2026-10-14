@@ -16,5 +16,5 @@ test('loads no third-party resources and serves Inter itself', async ({ page, ba
   await page.evaluate(() => document.fonts.ready);
   expect(foreign).toEqual([]);
   expect(fonts.some(f => /inter/i.test(f))).toBe(true);
-  expect(await page.evaluate(() => document.fonts.check('16px Inter'))).toBe(true);
+  expect(await page.evaluate(() => document.fonts.check('16px "Inter Variable"'))).toBe(true);
 });

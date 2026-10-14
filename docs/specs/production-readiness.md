@@ -10,7 +10,7 @@ Items are grouped into three themes, each delivered as one pull request into
 
 ## Theme A: robustness and correctness
 
-### ATL-2 Survive blocked storage — `todo`
+### ATL-2 Survive blocked storage — `done`
 
 - Given a browser where every `localStorage` access throws (private mode,
   blocked site data)
@@ -21,7 +21,7 @@ Items are grouped into three themes, each delivered as one pull request into
 Test: `tests/e2e/storage-blocked.spec.ts` (an init script makes
 `localStorage` throw).
 
-### ATL-5 Canonical public URLs — `todo`
+### ATL-5 Canonical public URLs — `done`
 
 - Given the site moved from GitHub Pages to `projects.cristian-nichifor.com`
 - When any file outside the `CHANGELOG.md` / `ERRATA.md` history refers to the
@@ -37,7 +37,7 @@ reference outside `CHANGELOG.md` and `ERRATA.md`. Third-party `*.github.io`
 sites (MAI, EUDI ARF, CivicTech România) are other organisations' canonical
 URLs and stay.
 
-### ATL-6 One version number — `todo`
+### ATL-6 One version number — `done`
 
 - Given `package.json` and `META.version` in `src/data/meta.ts`
 - When the validator runs
@@ -45,7 +45,7 @@ URLs and stay.
 
 Test: `scripts/validate-data.mjs` (version check).
 
-### ATL-8 Lint in the verify gate — `todo`
+### ATL-8 Lint in the verify gate — `done`
 
 - Given the source tree
 - When `npm run verify` runs

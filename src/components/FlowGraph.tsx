@@ -26,6 +26,8 @@ interface GLink extends d3.SimulationLinkDatum<GNode> {
   status: "current" | "proposed";
 }
 
+const ACRONYM = new Map(INSTITUTIONS.map((i) => [i.id, i.acronym]));
+
 const W = 960;
 const H = 720;
 
@@ -57,6 +59,24 @@ export function FlowGraph() {
   const [catFilter, setCatFilter] = useState<Category | null>(null);
   const [hoverInst, setHoverInst] = useState<Institution | null>(null);
   const [hoverFlow, setHoverFlow] = useState<string | null>(null);
+  // Text alternative to the graph: the same flows the current filters draw.
+  const listed = useMemo(() => {
+    const ids = new Set(
+      INSTITUTIONS.filter(
+        (i) =>
+          (mode !== "current" || i.scope !== "proposed") &&
+          (!catFilter || i.category === catFilter)
+      ).map((i) => i.id)
+    );
+    return FLOWS.filter(
+      (f) =>
+        ids.has(f.from) &&
+        ids.has(f.to) &&
+        (mode !== "current" || f.status === "current") &&
+        (mode !== "diff" || f.status === "proposed") &&
+        (!kindFilter || f.kind === kindFilter)
+    );
+  }, [mode, kindFilter, catFilter]);
 
   useEffect(() => {
     const el = svgRef.current;
@@ -320,6 +340,42 @@ export function FlowGraph() {
         </div>
       </div>
       <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="graph-svg" />
+      <details className="flow-list">
+        <summary>
+          {t("flows.listSummary").replace("{count}", String(listed.length))}
+        </summary>
+        <div className="table-scroll">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th>{t("flows.listFrom")}</th>
+                <th>{t("flows.listTo")}</th>
+                <th>{t("flows.listData")}</th>
+                <th>{t("flows.listStatus")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listed.map((f) => (
+                <tr key={f.id}>
+                  <td>{ACRONYM.get(f.from) ?? f.from}</td>
+                  <td>{ACRONYM.get(f.to) ?? f.to}</td>
+                  <td>
+                    {pick(FLOW_LABELS[f.kind], lang)}:{" "}
+                    {fill(pick(f.label, lang))}
+                  </td>
+                  <td>
+                    {t(
+                      f.status === "proposed"
+                        ? "flows.statusProposed"
+                        : "flows.statusCurrent"
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
       <div className="hover-bar">
         {hoverFlow ? (
           <span>

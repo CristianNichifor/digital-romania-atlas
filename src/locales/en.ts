@@ -115,6 +115,13 @@ export const en: Record<MessageKey, string> = {
   "flows.flows": "Flows:",
   "flows.hoverANodeFor":
     "Hover a node for its full name and role; hover an edge for the data that flows. Drag nodes to rearrange. In “Diff” mode you see only what our proposal adds.",
+  "flows.listData": "Data",
+  "flows.listFrom": "From",
+  "flows.listStatus": "Status",
+  "flows.listSummary": "The flows as a list ({count})",
+  "flows.listTo": "To",
+  "flows.statusCurrent": "current",
+  "flows.statusProposed": "proposed",
   "flows.institutions": "Institutions:",
   "map.archiveCopyToThe": "Archive copy to the salt mine",
   "map.countyShadeInstitutionDensity": "County shade = institution density",

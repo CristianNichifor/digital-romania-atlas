@@ -116,6 +116,13 @@ export const ro = {
   "flows.hoverANodeFor":
     "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră.",
   "flows.institutions": "Instituții:",
+  "map.emptyFilter":
+    "Nicio instituție din categoria „{category}” nu are un sediu pe hartă.",
+  "map.resetFilter": "Arată toate categoriile",
+  "map.showTable": "Afișează ca tabel ({count})",
+  "map.tableCategory": "Categorie",
+  "map.tableCounty": "Județ",
+  "map.tableInstitution": "Instituție",
   "map.archiveCopyToThe": "Copie de arhivă către salină",
   "map.countyShadeInstitutionDensity":
     "Nuanța județului = densitatea instituțiilor",

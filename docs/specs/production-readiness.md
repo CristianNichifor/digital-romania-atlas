@@ -321,3 +321,15 @@ Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
   scroll inside their own containers.
 
 Test: `tests/e2e/no-hscroll.spec.ts`.
+
+### ATL-28 No placeholders or internal IDs in interface copy — `done`
+
+- Given the UI strings in `src/locales/*.ts` and the data text in
+  `src/data/*.ts` (guideline §3)
+- When the validator runs
+- Then it fails on "TBD", "lorem", a spec ID such as `ATL-12`, or a data
+  centre code `DC-A`/`DC-B`/`DC-C` without its city in parentheses, inside
+  any string literal.
+
+Test: `scripts/validate-data.mjs` (banned-words check; comments are
+ignored, only string literals count).

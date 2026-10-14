@@ -74,6 +74,16 @@ export default function App() {
     <LangContext.Provider value={{ lang, setLang }}>
       <UatPlanProvider>
         <div className="app">
+          <nav className="family-bar" aria-label={t("family.home")}>
+            <a
+              className="family-home"
+              href="https://projects.cristian-nichifor.com/"
+            >
+              ← {t("family.home")}
+            </a>
+            <span className="family-tool">{t("family.tool")}</span>
+            <span className="family-status">{t("family.status")}</span>
+          </nav>
           <header>
             <div className="title">
               <span className="logo">DR</span>

@@ -540,19 +540,23 @@ export function MapView() {
         <div className="map-controls">
           <button
             onClick={() => zoomBy(1.5)}
-            title="Zoom in"
-            aria-label="Zoom in"
+            title={t("map.zoomIn")}
+            aria-label={t("map.zoomIn")}
           >
             +
           </button>
           <button
             onClick={() => zoomBy(1 / 1.5)}
-            title="Zoom out"
-            aria-label="Zoom out"
+            title={t("map.zoomOut")}
+            aria-label={t("map.zoomOut")}
           >
             −
           </button>
-          <button onClick={resetZoom} title="Reset" aria-label="Reset zoom">
+          <button
+            onClick={resetZoom}
+            title={t("map.zoomReset")}
+            aria-label={t("map.zoomReset")}
+          >
             ⟲
           </button>
         </div>

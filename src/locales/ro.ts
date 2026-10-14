@@ -139,6 +139,9 @@ export const ro = {
   "map.archiveCopyToThe": "Copie de arhivă către salină",
   "map.countyShadeInstitutionDensity":
     "Nuanța județului = densitatea instituțiilor",
+  "map.zoomIn": "Mărește harta",
+  "map.zoomOut": "Micșorează harta",
+  "map.zoomReset": "Resetează zoom-ul",
   "map.ctrlWheelToZoom":
     "Ctrl + rotiță pentru zoom (sau butoanele +/−), trage cu mouse-ul pentru panoramare. Treci cu mouse-ul peste simboluri pentru detalii; liniile arată replicarea între situri, iar badge-urile cu număr grupează punctele apropiate — mărește zoom-ul pentru a le vedea separat.",
   "map.fibreRingBetweenThe": "Inel de fibră între DC-urile suverane",

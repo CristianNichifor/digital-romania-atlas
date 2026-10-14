@@ -138,6 +138,9 @@ export const en: Record<MessageKey, string> = {
   "map.tableInstitution": "Institution",
   "map.archiveCopyToThe": "Archive copy to the salt mine",
   "map.countyShadeInstitutionDensity": "County shade = institution density",
+  "map.zoomIn": "Zoom in",
+  "map.zoomOut": "Zoom out",
+  "map.zoomReset": "Reset zoom",
   "map.ctrlWheelToZoom":
     "Ctrl + wheel to zoom (or the +/− buttons), drag to pan. Hover over symbols for details; lines show replication between sites, count badges group nearby dots — zoom in to see them separately.",
   "map.fibreRingBetweenThe": "Fibre ring between the sovereign DCs",

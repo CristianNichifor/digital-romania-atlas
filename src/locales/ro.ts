@@ -260,4 +260,13 @@ export const ro = {
   "summary.whyItMatters": "De ce contează",
   "summary.youDecideWhatData":
     "Tu decizi ce date dezvălui, cui și în ce scop — fără urmărire, fără profilare",
+  // JSX fragments (ATL-23)
+  "flows.newCount": "{count} fluxuri noi",
+  "flows.newCountAfter":
+    "adăugate de propunere (evidențiate). Ce e estompat există deja în ecosistemul documentat.",
+  "map.countySuffix": " · județul {county}",
+  "strategy.sovereignOs.after":
+    ") ca straturi L0–L1: partea „instituțională” a aceleiași doctrine — nimic nu depinde de un singur furnizor, un singur DC sau un singur minister, iar cetățeanul și funcționarul continuă să lucreze când rețeaua cade. Cifrele sunt estimări de design, nu documente oficiale.",
+  "strategy.sovereignOs.before":
+    "Sinteza include propunerea de „sistem de operare suveran” pentru administrația publică (Fedora Silverblue, WireGuard, FreeIPA, Matrix, Nextcloud, ONLYOFFICE —",
 } as const;

@@ -1066,9 +1066,7 @@ export function MapView() {
             <T text={pick(hover.role, lang)} /> ·{" "}
             {pick(CATEGORY_LABELS[hover.category], lang)}
             {hoverCounty
-              ? lang === "ro"
-                ? ` · județul ${hoverCounty}`
-                : ` · county of ${hoverCounty}`
+              ? t("map.countySuffix").replace("{county}", hoverCounty)
               : ""}
           </span>
         ) : (

@@ -132,8 +132,11 @@ From the 2026-10-14 fleet UX review and a source audit. Not fixed here: the
 atlas session is moving view copy into the locale files (ATL-21/22).
 
 - **D-1** No family bar / link back to the hub.
-- **D-2** No per-view "Date: sursă, an" line; the data date sits only in
-  the footer.
+- **D-2** Fixed for Comparație, Analiză, Strategie, Reziliență, Calendar,
+  Pași and Povești: a `.prov` line under the view heading links to Surse
+  and shows `META.dataAsOf` in `<time datetime>`
+  (`tests/e2e/provenance.spec.ts`). Rezumat, Hartă and Fluxuri follow once
+  their open PRs land.
 - **D-3** Dark-only theme with its own tokens (`--bg #05070d`); the fleet
   default is light (civic-ui tokens). Decide: adopt light, or record the
   dark map canvas as an allowed deviation.

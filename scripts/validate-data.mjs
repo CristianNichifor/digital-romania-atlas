@@ -247,9 +247,9 @@ for (const file of [
 }
 
 // Interface labels as inline { ro, en } pairs bypass the locale files too.
-// MapView keeps its data-centre descriptions until they move to src/data.
 for (const file of [
   "src/components/FlowGraph.tsx",
+  "src/components/MapView.tsx",
   "src/components/StrategyView.tsx",
   "src/components/SummaryView.tsx",
 ]) {

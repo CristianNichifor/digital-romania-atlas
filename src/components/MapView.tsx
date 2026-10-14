@@ -503,7 +503,6 @@ export function MapView() {
                 className="chip-symbol"
                 aria-hidden="true"
                 data-shape={CATEGORY_SYMBOLS[cat as Category]}
-                style={{ color: CATEGORY_COLORS[cat as Category] }}
               >
                 {CATEGORY_SYMBOLS[cat as Category]}
               </span>

@@ -254,6 +254,7 @@ export const en: Record<MessageKey, string> = {
   "strategy.value": "Value",
   "strategy.whatTheCitizenDoes": "What the citizen does",
   "strategy.whatTheSystemDoes": "What the system does",
+  "summary.badgeProposal": "Proposal",
   "summary.countDimensions": "{count} dimensions compared",
   "summary.countInstitutions": "{count} institutions on the map",
   "summary.countNewFlows": "{count} new flows proposed",

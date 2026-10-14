@@ -257,6 +257,7 @@ export const ro = {
   "strategy.value": "Valoare",
   "strategy.whatTheCitizenDoes": "Ce face cetățeanul",
   "strategy.whatTheSystemDoes": "Ce face sistemul",
+  "summary.badgeProposal": "Propunere",
   "summary.countDimensions": "{count} dimensiuni comparate",
   "summary.countInstitutions": "{count} instituții pe hartă",
   "summary.countNewFlows": "{count} fluxuri noi propuse",

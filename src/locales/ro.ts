@@ -115,6 +115,13 @@ export const ro = {
   "flows.flows": "Fluxuri:",
   "flows.hoverANodeFor":
     "Treci peste un nod pentru numele complet și rolul său; peste o linie pentru ce date circulă. Trage nodurile pentru a rearanja. În modul „Diferența” vezi doar ce adaugă propunerea noastră.",
+  "flows.listData": "Date",
+  "flows.listFrom": "De la",
+  "flows.listStatus": "Statut",
+  "flows.listSummary": "Fluxurile ca listă ({count})",
+  "flows.listTo": "Către",
+  "flows.statusCurrent": "actual",
+  "flows.statusProposed": "propus",
   "flows.institutions": "Instituții:",
   "map.archiveCopyToThe": "Copie de arhivă către salină",
   "map.countyShadeInstitutionDensity":

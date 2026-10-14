@@ -263,6 +263,23 @@ if (!dataAsOf) errors.push("src/data/meta.ts: dataAsOf missing or not an ISO dat
 else if (newest && dataAsOf < newest)
   errors.push(`META.dataAsOf ${dataAsOf} is older than the newest source access ${newest}`);
 
+// Comparison footnotes cite existing Surse entries by URL.
+{
+  // Read raw: readTs strips "//", which would cut every URL.
+  const raw = (p) => readFileSync(resolve(root, p), "utf8");
+  const comparisonCode = raw("src/data/comparison.ts");
+  const sourceUrls = new Set(
+    [...raw("src/data/sources.ts").matchAll(/\burl:\s*"([^"]+)"/g)].map((m) => m[1])
+  );
+  const cited = [...comparisonCode.matchAll(/\bsources:\s*\[([^\]]*)\]/g)];
+  if (cited.length === 0) errors.push("comparison: no row cites a source");
+  for (const [, list] of cited) {
+    for (const [, url] of list.matchAll(/"([^"]+)"/g)) {
+      if (!sourceUrls.has(url)) errors.push(`comparison: unknown source "${url}"`);
+    }
+  }
+}
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const e of errors) console.error("  - " + e);

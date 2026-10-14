@@ -310,6 +310,7 @@ export const ro = {
   "summary.stsRegistryWhoMay":
     "Registru STS — cine poate emite și cine poate verifica (WRPRC/WRPAC)",
   "summary.proposalDetail": "Detalii în",
+  "summary.proposalDetailLink": "tabul Comparație",
   "summary.todaySource":
     "Surse principale: documentația RO Wallet (MAI) și eIDAS 2.0, Reg. (UE) 2024/1183; lista completă în",
   "summary.todaySourceLink": "tabul Surse",

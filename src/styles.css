@@ -1425,6 +1425,11 @@ footer {
   font-size: 12px;
 }
 
+/* Same link colour as the provenance line, which passes AA on the panel. */
+.card-src a {
+  color: #9db9f5;
+}
+
 .summary-card.why {
   border-left: 4px solid #ffb020;
 }

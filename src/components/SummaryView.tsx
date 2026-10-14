@@ -101,7 +101,7 @@ export function SummaryView({
           <p className="muted">{t("summary.estimatedCost23")}</p>
           <p className="card-src muted">
             {t("summary.proposalDetail")}{" "}
-            <a href="#/compare">{t("nav.compare")}</a>
+            <a href="#/compare">{t("summary.proposalDetailLink")}</a>
           </p>
         </section>
         <section className="summary-card why">

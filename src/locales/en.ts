@@ -307,6 +307,7 @@ export const en: Record<MessageKey, string> = {
   "summary.stsRegistryWhoMay":
     "STS registry — who may issue and who may verify (WRPRC/WRPAC)",
   "summary.proposalDetail": "Details in",
+  "summary.proposalDetailLink": "the Comparison tab",
   "summary.todaySource":
     "Main sources: the RO Wallet documentation (MAI) and eIDAS 2.0, Reg. (EU) 2024/1183; the full list is in",
   "summary.todaySourceLink": "the Sources tab",

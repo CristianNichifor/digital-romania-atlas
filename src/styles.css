@@ -125,6 +125,25 @@ nav button {
   font-size: 14px;
 }
 
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-group + .nav-group {
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+}
+
+.nav-group-label {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
 nav a[aria-current="page"] {
   color: var(--text);
   border-color: var(--accent);

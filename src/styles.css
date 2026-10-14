@@ -1798,3 +1798,11 @@ footer details.privacy p {
   min-height: 44px;
   margin-left: 6px;
 }
+
+/* Indeterminate progress under the staged map loading message (design 02) */
+.loading-progress {
+  display: block;
+  width: min(240px, 80%);
+  margin: 10px auto 0;
+  accent-color: var(--accent);
+}

@@ -203,6 +203,12 @@ export function MapView() {
     return (
       <div className="loading" role="status">
         {t(slow ? "map.loadingSlow" : "map.loadingTheMap")}
+        {slow && (
+          <progress
+            className="loading-progress"
+            aria-label={t("map.loadingSlow")}
+          />
+        )}
       </div>
     );
 

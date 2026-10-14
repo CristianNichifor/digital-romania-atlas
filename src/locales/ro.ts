@@ -60,6 +60,9 @@ export const ro = {
   "nav.strategy": "Strategie",
   "nav.summary": "Rezumat",
   "nav.timeline": "Calendar",
+  "prov.label": "Date:",
+  "prov.sources": "sursele din tabul Surse",
+  "prov.updated": "actualizate la",
   "privacy.contact": "Întrebări sau solicitări:",
   "privacy.contactLink": "deschideți un issue pe GitHub",
   "privacy.hosting":

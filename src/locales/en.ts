@@ -61,6 +61,9 @@ export const en: Record<MessageKey, string> = {
   "nav.strategy": "Strategy",
   "nav.summary": "Summary",
   "nav.timeline": "Calendar",
+  "prov.label": "Data:",
+  "prov.sources": "the sources in the Sources tab",
+  "prov.updated": "updated",
   "privacy.contact": "Questions or requests:",
   "privacy.contactLink": "open a GitHub issue",
   "privacy.hosting":

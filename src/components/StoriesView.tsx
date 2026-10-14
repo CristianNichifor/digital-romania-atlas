@@ -3,6 +3,7 @@ import { FLOW_COLORS } from "../data/flows";
 import { INSTITUTIONS } from "../data/institutions";
 import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 function acronym(id: string) {
   return INSTITUTIONS.find((i) => i.id === id)?.acronym ?? id;
@@ -22,6 +23,7 @@ export function StoriesView() {
       <div className="panel-head">
         <h2>{t("stories.title")}</h2>
       </div>
+      <Prov />
       <div className="stories">
         {STORIES.map((s) => (
           <article key={s.id} className="story">

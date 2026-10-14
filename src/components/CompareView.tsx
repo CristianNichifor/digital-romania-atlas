@@ -3,6 +3,7 @@ import { SOURCES } from "../data/sources";
 import { EU_EVAL_LABELS, EU_MATRIX, EU_SYSTEMS } from "../data/euSystems";
 import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 // 1-based Surse numbers, matching the numbered cards in SourcesView.
 const SOURCE_NUMBER = new Map(
@@ -38,6 +39,7 @@ export function CompareView() {
       <div className="panel-head">
         <h2>{t("compare.title")}</h2>
       </div>
+      <Prov />
       <div className="table-scroll">
         <table className="compare-table">
           <thead>

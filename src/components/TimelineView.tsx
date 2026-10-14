@@ -1,6 +1,7 @@
 import { TIMELINE } from "../data/timeline";
 import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 export function TimelineView() {
   const { lang } = useLang();
@@ -10,6 +11,7 @@ export function TimelineView() {
       <div className="panel-head">
         <h2>{t("timeline.title")}</h2>
       </div>
+      <Prov />
       <div className="timeline">
         {TIMELINE.map((ev, i) => (
           <div key={i} className={`tl-item ${ev.owner}`}>

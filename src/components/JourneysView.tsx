@@ -2,6 +2,7 @@ import { JOURNEYS, VARIANT_LABEL, type JourneyStep } from "../data/journeys";
 import { INSTITUTIONS } from "../data/institutions";
 import { pick, useLang, useT } from "../i18n";
 import { T } from "./T";
+import { Prov } from "./Prov";
 
 function acronym(id: string): string {
   return INSTITUTIONS.find((i) => i.id === id)?.acronym ?? id;
@@ -55,6 +56,7 @@ export function JourneysView() {
       <div className="panel-head">
         <h2>{t("journeys.title")}</h2>
       </div>
+      <Prov />
       <p className="muted note">{t("journeys.intro")}</p>
       <div className="journey-grid">
         {JOURNEYS.map((j) => (

@@ -13,6 +13,7 @@ export const META = {
     name: "Cristian Nichifor",
     email: "cristian@cristian-nichifor.com",
   },
+  hub: "https://projects.cristian-nichifor.com/",
   repo: "https://github.com/CristianNichifor/digital-romania-atlas",
   issues: "https://github.com/CristianNichifor/digital-romania-atlas/issues",
 } as const;

@@ -74,6 +74,12 @@ export default function App() {
     <LangContext.Provider value={{ lang, setLang }}>
       <UatPlanProvider>
         <div className="app">
+          <div
+            className="family-bar"
+            style={{ padding: "6px 32px", fontSize: 13 }}
+          >
+            <a href={META.hub}>{t("app.hub")}</a>
+          </div>
           <header>
             <div className="title">
               <span className="logo">DR</span>

@@ -2,6 +2,7 @@
 // scripts/validate-data.mjs checks the parity.
 
 export const ro = {
+  "app.hub": "← Toate proiectele",
   "app.tagline":
     "Ecosistemul RO EUDI Wallet vs. propunerea de backbone digital — instituții, fluxuri, comparație",
   "compare.adds1":

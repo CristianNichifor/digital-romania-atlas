@@ -415,16 +415,24 @@ else if (newest && dataAsOf < newest)
 // must back a listed rule.
 {
   const guide = readFileSync(resolve(root, "docs/ux-guidelines.md"), "utf8");
-  const checklist = guide.split("## 8. Conformance checklist")[1]?.split("\n## ")[0] ?? "";
-  if (!checklist) errors.push("docs/ux-guidelines.md: conformance checklist missing");
+  const checklist =
+    guide.split("## 8. Conformance checklist")[1]?.split("\n## ")[0] ?? "";
+  if (!checklist)
+    errors.push("docs/ux-guidelines.md: conformance checklist missing");
   for (const [, path] of checklist.matchAll(/`((?:tests|scripts)\/[^`]+)`/g))
     if (!existsSync(resolve(root, path)))
       errors.push(`docs/ux-guidelines.md checklist: ${path} does not exist`);
   if (/none yet/i.test(checklist))
-    errors.push("docs/ux-guidelines.md checklist: a rule has no test (none yet)");
-  for (const spec of readdirSync(resolve(root, "tests/e2e")).filter((f) => f.endsWith(".spec.ts")))
+    errors.push(
+      "docs/ux-guidelines.md checklist: a rule has no test (none yet)"
+    );
+  for (const spec of readdirSync(resolve(root, "tests/e2e")).filter((f) =>
+    f.endsWith(".spec.ts")
+  ))
     if (!checklist.includes(`tests/e2e/${spec}`))
-      errors.push(`docs/ux-guidelines.md checklist: tests/e2e/${spec} backs no listed rule`);
+      errors.push(
+        `docs/ux-guidelines.md checklist: tests/e2e/${spec} backs no listed rule`
+      );
 }
 
 if (errors.length) {

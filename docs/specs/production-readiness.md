@@ -321,3 +321,13 @@ Test: `scripts/validate-data.mjs`; CI's Playwright suite renders the views.
   scroll inside their own containers.
 
 Test: `tests/e2e/no-hscroll.spec.ts`.
+
+### ATL-25 Staged map loading message — `done`
+
+- Given the county boundaries take longer than 2 s to load (UX backlog D-11)
+- When the map view is waiting
+- Then the loading status first says "Se încarcă harta…" and after 2 s says
+  the connection seems slow; the map still draws once the data arrives.
+
+Test: `tests/e2e/map-slow.spec.ts` (the GeoJSON response is delayed 3.5 s).
+Needs human review: `map.loadingSlow` (ro and en) is agent-written.

@@ -333,3 +333,13 @@ Test: `tests/e2e/no-hscroll.spec.ts`.
 
 Test: `scripts/validate-data.mjs` (banned-words check; comments are
 ignored, only string literals count).
+
+### ATL-29 Comma-below diacritics everywhere — `done`
+
+- Given any tracked text file outside the dated history (guideline §3:
+  `ș ț Ș Ț`, never cedilla `ş ţ Ş Ţ`)
+- When the validator runs
+- Then it fails on any cedilla form in `src/`, `public/data/`, `docs/`,
+  `README.md` or `index.html`.
+
+Test: `scripts/validate-data.mjs` (cedilla check over tracked files).

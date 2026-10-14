@@ -379,6 +379,26 @@ else if (newest && dataAsOf < newest)
   }
 }
 
+// Diacritics are comma-below, never cedilla (ATL-29, guideline §3).
+{
+  const scan = tracked.filter(
+    (f) =>
+      !HISTORY.has(f) &&
+      (/^(src|public\/data|docs)\//.test(f) ||
+        f === "README.md" ||
+        f === "index.html") &&
+      /\.(ts|tsx|css|md|html|json|geojson)$/.test(f)
+  );
+  for (const file of scan) {
+    const lines = readFileSync(resolve(root, file), "utf8").split("\n");
+    lines.forEach((line, i) => {
+      // A line that explains the rule may show the banned forms.
+      if (/[\u015e\u015f\u0162\u0163]/.test(line) && !/cedil/i.test(line))
+        errors.push(`${file}:${i + 1}: cedilla diacritic; use comma-below ș ț`);
+    });
+  }
+}
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const e of errors) console.error("  - " + e);

@@ -131,7 +131,9 @@ design proposals. Separately, each item is labelled **current** or
 From the 2026-10-14 fleet UX review and a source audit. Not fixed here: the
 atlas session is moving view copy into the locale files (ATL-21/22).
 
-- **D-1** No family bar / link back to the hub.
+- **D-1** Fixed (minimal): a family bar above the header links to the hub
+  (`META.hub`); civic-ui `FamilyBar` styling is still to adopt
+  (`tests/e2e/family-bar.spec.ts`).
 - **D-2** No per-view "Date: sursă, an" line; the data date sits only in
   the footer.
 - **D-3** Dark-only theme with its own tokens (`--bg #05070d`); the fleet

@@ -39,3 +39,24 @@ Cele mai importante, pentru acest repo:
 - `src/data/stories.ts` — povești de cetățean (pașii referă id-uri de instituții)
 - `src/data/comparison.ts`, `timeline.ts`, `strategy.ts`, `sources.ts` — conținut bilingv
 - `src/data/meta.ts` — versiunea, data „as of” și autorul (subsolul site-ului)
+
+## Reproducible local gate
+
+Use Node 22, `npm ci`, then `npx playwright install chromium` and `npm run verify`.
+This runs the existing data validator, TypeScript, production build and browser
+smoke (language persistence, data-flow SVG and source links). CI's `verify`
+requires all checks to succeed, without publishing credentials or private tools.
+Generated dist/, node_modules/, tsbuildinfo and browser reports are not source.
+
+PRs target dev. Agents never merge PRs or deploy. Maintainers use
+`wt new chore/my-change origin/dev` under `<repo>/.worktrees/`; contributors
+without wt can use a separate clone and a topic branch from origin/dev.
+Include acceptance criteria, provenance and exact check results in the issue/PR.
+
+The root entrypoint is `AGENTS.md` (`CLAUDE.md` links to it), with additional
+source guidance in `src/AGENTS.md`. The root guide also records the measured
+branch gates and deployment triggers.
+
+For bounded implementation work, use the [Scoped contribution task form](.github/ISSUE_TEMPLATE/task.yml)
+to record the problem, scope, observable acceptance criteria and verification evidence.
+Existing issue forms remain available for their specific purposes.

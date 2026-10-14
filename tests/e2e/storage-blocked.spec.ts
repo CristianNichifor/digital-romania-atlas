@@ -16,7 +16,7 @@ test('renders and switches language when localStorage throws', async ({ page }) 
   await expect(page.getByRole('heading', { name: 'Digital Romania Atlas', exact: true })).toBeVisible();
   await page.getByRole('button', { name: /^EN/ }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await page.getByRole('button', { name: 'Comparison', exact: true }).click();
+  await page.getByRole('link', { name: 'Comparison', exact: true }).click();
   await expect(page.locator('main')).not.toBeEmpty();
   await page.waitForTimeout(2000); // the scenario poll reads storage every 1.5 s
   expect(errors).toEqual([]);

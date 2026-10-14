@@ -35,8 +35,29 @@ function initialLang(): Lang {
   return saved === "en" ? "en" : "ro";
 }
 
+const VIEW_IDS = new Set<string>(VIEWS.map((v) => v.id));
+
+// Views live in the hash (#/compare) so links are shareable, Back/Forward
+// work, and the ?scenario= query string is left untouched.
+function viewFromHash(hash: string): ViewId {
+  const id = hash.replace(/^#\/?/, "");
+  return VIEW_IDS.has(id) ? (id as ViewId) : "summary";
+}
+
+const navigate = (v: ViewId) => {
+  window.location.hash = `/${v}`;
+};
+
 export default function App() {
-  const [view, setView] = useState<ViewId>("summary");
+  const [view, setView] = useState<ViewId>(() =>
+    viewFromHash(window.location.hash)
+  );
+
+  useEffect(() => {
+    const sync = () => setView(viewFromHash(window.location.hash));
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
   const [lang, setLang] = useState<Lang>(initialLang);
 
   useEffect(() => {
@@ -64,13 +85,13 @@ export default function App() {
             </div>
             <nav>
               {VIEWS.map((v) => (
-                <button
+                <a
                   key={v.id}
-                  className={view === v.id ? "active" : ""}
-                  onClick={() => setView(v.id)}
+                  href={`#/${v.id}`}
+                  aria-current={view === v.id ? "page" : undefined}
                 >
                   {lang === "ro" ? v.ro : v.en}
-                </button>
+                </a>
               ))}
               <button
                 className="lang-toggle"
@@ -82,7 +103,7 @@ export default function App() {
             </nav>
           </header>
           <main>
-            {view === "summary" && <SummaryView onNavigate={setView} />}
+            {view === "summary" && <SummaryView onNavigate={navigate} />}
             {view === "stories" && <StoriesView />}
             {view === "map" && <MapView />}
             {view === "flows" && <FlowGraph />}

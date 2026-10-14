@@ -8,10 +8,10 @@ test('bilingual navigation renders data flows and sources without runtime errors
   await expect(page.locator('html')).toHaveAttribute('lang', 'ro');
   await page.getByRole('button', { name: 'EN', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await page.getByRole('button', { name: 'Data flows', exact: true }).click();
+  await page.getByRole('link', { name: 'Data flows', exact: true }).click();
   await expect(page.locator('main svg')).toBeVisible();
   await expect(page.locator('main svg text').first()).toBeVisible();
-  await page.getByRole('button', { name: 'Sources', exact: true }).click();
+  await page.getByRole('link', { name: 'Sources', exact: true }).click();
   await expect(page.locator('main a[href^="http"]').first()).toBeVisible();
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');

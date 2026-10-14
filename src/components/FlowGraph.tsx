@@ -51,8 +51,8 @@ export function FlowGraph() {
   const { lang } = useLang();
   const { fill } = useUatPlan();
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [mode, setMode] = useState<Mode>("proposed");
-  const [kindFilter, setKindFilter] = useState<FlowKind | null>(null);
+  const [mode, setMode] = useState<Mode>("diff");
+  const [kindFilter, setKindFilter] = useState<FlowKind | null>("identity");
   const [catFilter, setCatFilter] = useState<Category | null>(null);
   const [hoverInst, setHoverInst] = useState<Institution | null>(null);
   const [hoverFlow, setHoverFlow] = useState<string | null>(null);
@@ -260,6 +260,7 @@ export function FlowGraph() {
             <button
               key={m.id}
               className={mode === m.id ? "active" : ""}
+              aria-pressed={mode === m.id}
               onClick={() => setMode(m.id)}
             >
               {lang === "ro" ? m.ro : m.en}
@@ -293,6 +294,7 @@ export function FlowGraph() {
             <button
               key={k}
               className={`legend-chip ${kindFilter === k ? "active" : ""}`}
+              aria-pressed={kindFilter === k}
               style={{ borderColor: FLOW_COLORS[k as FlowKind] }}
               onClick={() =>
                 setKindFilter(kindFilter === k ? null : (k as FlowKind))
@@ -316,6 +318,7 @@ export function FlowGraph() {
             <button
               key={cat}
               className={`legend-chip ${catFilter === cat ? "active" : ""}`}
+              aria-pressed={catFilter === cat}
               style={{ borderColor: CATEGORY_COLORS[cat as Category] }}
               onClick={() =>
                 setCatFilter(catFilter === cat ? null : (cat as Category))

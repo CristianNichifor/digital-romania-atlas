@@ -137,8 +137,10 @@ atlas session is moving view copy into the locale files (ATL-21/22).
 - **D-3** Dark-only theme with its own tokens (`--bg #05070d`); the fleet
   default is light (civic-ui tokens). Decide: adopt light, or record the
   dark map canvas as an allowed deviation.
-- **D-4** Flow graph has no list alternative (intel dataflows added one in
-  its #28; reuse the pattern).
+- **D-4** Fixed: under the graph, a "Fluxurile ca listă" disclosure lists
+  the flows the current mode and filters draw (from, to, data, status); in
+  "Diferența" it lists only the proposed flows
+  (`tests/e2e/flows-list.spec.ts`).
 - **D-5** Comparație cites sources in a note, not per row.
 - **D-6** Empty-state copy for filters that match nothing is not checked.
 - **D-7** No `prefers-reduced-motion` rule in `src/styles.css`.

@@ -152,4 +152,4 @@ atlas session is moving view copy into the locale files (ATL-21/22).
   (`tests/e2e/motion-contrast.spec.ts`).
 - **D-9** Fixed: `tests/e2e/no-hscroll.spec.ts` (ATL-24).
 - **D-10** Fixed: all view copy is in `src/locales` (ATL-21 to ATL-23).
-- **D-11** No staged loading message for loads > 2 s.
+- **D-11** Fixed for the map (ATL-25); the map is the only view that loads data.

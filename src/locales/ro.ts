@@ -140,6 +140,8 @@ export const ro = {
   "map.institutionalMapOfDigital": "Harta instituțională a României digitale",
   "map.institutionsColourCategory": "Instituții (culoarea = categoria)",
   "map.l0SyncWhenZoomed": "Sincronizare L0 (la zoom)",
+  "map.loadingSlow":
+    "Harta se încarcă mai greu decât de obicei; conexiunea pare lentă…",
   "map.loadingTheMap": "Se încarcă harta…",
   "map.nInstitutionClusterZoom": "N = cluster de instituții (mărește zoom-ul)",
   "map.nationalPresenceUatIn": "Prezență națională (UAT) în fiecare județ",

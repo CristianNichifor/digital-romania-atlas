@@ -139,6 +139,8 @@ export const en: Record<MessageKey, string> = {
   "map.institutionalMapOfDigital": "Institutional map of digital Romania",
   "map.institutionsColourCategory": "Institutions (colour = category)",
   "map.l0SyncWhenZoomed": "L0 sync (when zoomed in)",
+  "map.loadingSlow":
+    "The map is taking longer than usual; the connection seems slow…",
   "map.loadingTheMap": "Loading the map…",
   "map.nInstitutionClusterZoom": "N = institution cluster (zoom in)",
   "map.nationalPresenceUatIn": "National presence (UAT) in every county",

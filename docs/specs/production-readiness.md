@@ -385,6 +385,17 @@ Test: `tests/e2e/nav-active.spec.ts` (390 px; Reziliență, Surse, Rezumat).
 Test: `tests/e2e/flows-empty.spec.ts`. Needs human review: `flows.emptyFilter`
 and `flows.emptyReset` (ro and en) are agent-written.
 
+### ATL-33 Interface labels never as inline pairs — `done`
+
+- Given the Flows mode labels, Strategy status labels and Rezumat proposal
+  list were `{ ro, en }` literals inside the components
+- When they move verbatim into the locale files
+- Then those components hold only message keys, and the validator fails if a
+  `ro: "…"` literal returns to FlowGraph, StrategyView or SummaryView.
+
+Test: `scripts/validate-data.mjs`. MapView keeps its data-centre
+descriptions inline until they move to `src/data/` (content, not labels).
+
 ## Theme H: target-state screen designs
 
 Static mockups in `docs/design/screens/` (HTML + PNG at 1440 and 390) and the

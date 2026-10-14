@@ -1,4 +1,5 @@
-import { useLang, useT } from "../i18n";
+import { useT } from "../i18n";
+import type { MessageKey } from "../locales";
 import { INSTITUTIONS } from "../data/institutions";
 import { COMPARISON } from "../data/comparison";
 import { FLOWS } from "../data/flows";
@@ -18,21 +19,12 @@ export type ViewId =
   | "resilience"
   | "sources";
 
-const GAPS: { ro: string; en: string }[] = [
-  {
-    ro: "Schimb de date între instituții",
-    en: "Inter-institution data exchange",
-  },
-  { ro: "Plăți instant în wallet", en: "Instant payments in the wallet" },
-  { ro: "Cutia poștală digitală", en: "The digital postbox" },
-  {
-    ro: "Reziliență geografică & offline",
-    en: "Geo-redundancy & offline operation",
-  },
-  {
-    ro: "Transparență verificabilă public",
-    en: "Publicly verifiable transparency",
-  },
+const GAPS: MessageKey[] = [
+  "summary.gapExchange",
+  "summary.gapPayments",
+  "summary.gapPostbox",
+  "summary.gapResilience",
+  "summary.gapTransparency",
 ];
 
 const COUNTS = [
@@ -58,7 +50,6 @@ export function SummaryView({
 }: {
   onNavigate: (v: ViewId) => void;
 }) {
-  const { lang } = useLang();
   const t = useT();
   return (
     <div className="panel summary">
@@ -91,9 +82,9 @@ export function SummaryView({
         <section className="summary-card proposal">
           <h3>{t("summary.whatWeProposeOn")}</h3>
           <ul>
-            {GAPS.map((g) => (
-              <li key={g.ro}>
-                <T text={lang === "ro" ? g.ro : g.en} />
+            {GAPS.map((key) => (
+              <li key={key}>
+                <T text={t(key)} />
               </li>
             ))}
           </ul>

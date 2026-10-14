@@ -246,6 +246,17 @@ for (const file of [
     errors.push(`${file}: interface copy belongs in src/locales, not inline`);
 }
 
+// Interface labels as inline { ro, en } pairs bypass the locale files too.
+// MapView keeps its data-centre descriptions until they move to src/data.
+for (const file of [
+  "src/components/FlowGraph.tsx",
+  "src/components/StrategyView.tsx",
+  "src/components/SummaryView.tsx",
+]) {
+  if (/\bro:\s*"/.test(readFileSync(resolve(root, file), "utf8")))
+    errors.push(`${file}: bilingual labels belong in src/locales, not inline`);
+}
+
 // Romanian copy translates the slogan instead of quoting English (ATL-18).
 for (const file of [
   "src/data/flows.ts",

@@ -15,6 +15,7 @@ import {
 } from "../data/strategy";
 import { HR_INSTITUTIONS, HR_PAYROLL, HR_TEAMS, PAY_ROWS } from "../data/hr";
 import { pick, useLang, type Bi, useT } from "../i18n";
+import type { MessageKey } from "../locales";
 import { T } from "./T";
 import {
   UatPlanNote,
@@ -24,10 +25,10 @@ import {
 } from "../lib/uatPlan";
 import { Prov } from "./Prov";
 
-const STATUS_LABEL: Record<string, { ro: string; en: string }> = {
-  "in-flight": { ro: "În curs", en: "In flight" },
-  proposal: { ro: "Propunere", en: "Proposal" },
-  partial: { ro: "Parțial", en: "Partial" },
+const STATUS_LABEL: Record<string, MessageKey> = {
+  "in-flight": "strategy.statusInFlight",
+  proposal: "strategy.statusProposal",
+  partial: "strategy.statusPartial",
 };
 
 const STATUS_CLASS: Record<string, string> = {
@@ -77,7 +78,7 @@ export function StrategyView() {
                 </td>
                 <td>
                   <span className={`verdict ${STATUS_CLASS[l.status]}`}>
-                    {tt(STATUS_LABEL[l.status])}
+                    {t(STATUS_LABEL[l.status])}
                   </span>
                 </td>
               </tr>

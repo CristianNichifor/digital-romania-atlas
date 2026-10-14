@@ -115,6 +115,9 @@ export const ro = {
   "timeline.title":
     "Calendar: obligații UE vs. planul național vs. propunerea noastră",
   // Views, part 2 (ATL-22)
+  "flows.modeCurrent": "Propunerea actuală (doc GitHub MAI)",
+  "flows.modeDiff": "Diferența (doar ce adăugăm)",
+  "flows.modeProposed": "Propunerea noastră (extinsă)",
   "flows.dataFlowsBetweenParties": "Fluxuri de date între părți",
   "flows.emptyFilter": "Niciun flux nu corespunde filtrelor: {filters}.",
   "flows.emptyReset": "Șterge filtrele",
@@ -198,6 +201,9 @@ export const ro = {
     "Candidați subterani (saline & galerii)",
   "resilience.undergroundCaveatsSaltIs":
     "Atenție la subteran: sarea e corozivă (containere etanșe, presiune pozitivă, control al umidității), iar cutremurele de adâncime Vrancea zguduie și galeriile — de aceea vault-ul stă în Nord-Est, nu în Muntenia.",
+  "strategy.statusInFlight": "În curs",
+  "strategy.statusPartial": "Parțial",
+  "strategy.statusProposal": "Propunere",
   "strategy.2028TargetKpis": "KPI țintă 2028",
   "strategy.action": "Acțiune",
   "strategy.actions": "Acțiuni",
@@ -262,6 +268,11 @@ export const ro = {
   "strategy.value": "Valoare",
   "strategy.whatTheCitizenDoes": "Ce face cetățeanul",
   "strategy.whatTheSystemDoes": "Ce face sistemul",
+  "summary.gapExchange": "Schimb de date între instituții",
+  "summary.gapPayments": "Plăți instant în wallet",
+  "summary.gapPostbox": "Cutia poștală digitală",
+  "summary.gapResilience": "Reziliență geografică & offline",
+  "summary.gapTransparency": "Transparență verificabilă public",
   "summary.badgeProposal": "Propunere",
   "summary.countDimensions": "{count} dimensiuni comparate",
   "summary.countInstitutions": "{count} instituții pe hartă",

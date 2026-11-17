@@ -30,8 +30,11 @@ interface GLink extends d3.SimulationLinkDatum<GNode> {
 
 const ACRONYM = new Map(INSTITUTIONS.map((i) => [i.id, i.acronym]));
 
-const W = 960;
-const H = 720;
+// Landscape canvas on wide screens; on a phone a narrow portrait canvas so
+// the graph is drawn at a readable scale instead of shrunk to fit 960 px.
+const WIDE = { W: 960, H: 720 };
+const NARROW = { W: 420, H: 640 };
+const NARROW_QUERY = "(max-width: 600px)";
 
 const MODE_LABELS: { id: Mode; key: MessageKey }[] = [
   { id: "current", key: "flows.modeCurrent" },
@@ -49,6 +52,17 @@ export function FlowGraph() {
   const [catFilter, setCatFilter] = useState<Category | null>(null);
   const [hoverInst, setHoverInst] = useState<Institution | null>(null);
   const [hoverFlow, setHoverFlow] = useState<string | null>(null);
+  const [narrow, setNarrow] = useState(
+    () => window.matchMedia?.(NARROW_QUERY).matches ?? false
+  );
+  useEffect(() => {
+    const mq = window.matchMedia?.(NARROW_QUERY);
+    if (!mq) return;
+    const sync = () => setNarrow(mq.matches);
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  const { W, H } = narrow ? NARROW : WIDE;
   // Text alternative to the graph: the same flows the current filters draw.
   const listed = useMemo(() => {
     const ids = new Set(
@@ -234,11 +248,24 @@ export function FlowGraph() {
             d.kind === "oversight" || d.kind === "governance" ? 150 : 90
           )
       )
-      .force("charge", d3.forceManyBody().strength(-380))
+      .force("charge", d3.forceManyBody().strength(narrow ? -150 : -380))
       .force("center", d3.forceCenter(W / 2, H / 2))
-      .force("collide", d3.forceCollide<GNode>().radius(30));
+      .force("collide", d3.forceCollide<GNode>().radius(narrow ? 24 : 30));
+    // On a phone, pull unlinked nodes in so none drift off the canvas.
+    if (narrow) {
+      sim
+        .force("x", d3.forceX<GNode>(W / 2).strength(0.14))
+        .force("y", d3.forceY<GNode>(H / 2).strength(0.06));
+    }
 
     sim.on("tick", () => {
+      if (narrow) {
+        // Keep every node and its label inside the phone canvas.
+        for (const n of nodes) {
+          n.x = Math.max(16, Math.min(W - 52, n.x ?? W / 2));
+          n.y = Math.max(16, Math.min(H - 16, n.y ?? H / 2));
+        }
+      }
       link
         .attr("x1", (d) => (d.source as GNode).x!)
         .attr("y1", (d) => (d.source as GNode).y!)
@@ -250,7 +277,7 @@ export function FlowGraph() {
     return () => {
       sim.stop();
     };
-  }, [mode, kindFilter, catFilter, lang, fill]);
+  }, [mode, kindFilter, catFilter, lang, fill, narrow, W, H]);
 
   const newCount = useMemo(
     () =>

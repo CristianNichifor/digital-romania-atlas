@@ -1420,6 +1420,14 @@ footer {
     height: 66vh;
   }
 
+  /* The phone canvas is portrait (FlowGraph NARROW); keep its ratio. */
+  @media (max-width: 600px) {
+    .graph-svg {
+      height: auto;
+      min-height: 0;
+    }
+  }
+
   .legend-caption {
     min-width: 100%;
   }

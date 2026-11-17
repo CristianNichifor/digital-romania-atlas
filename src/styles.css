@@ -1852,12 +1852,18 @@ footer details.privacy p {
 }
 
 .source-refs a {
-  color: inherit;
+  display: inline-block;
+  min-width: 24px;
+  min-height: 24px;
+  line-height: 24px;
+  text-align: center;
+  color: #9db9f5;
   text-decoration: underline;
+  border-radius: 4px;
 }
 
-.source-refs a + a {
-  margin-left: 0.25em;
+.source-refs a:hover {
+  background: rgba(79, 140, 255, 0.12);
 }
 
 .source-card:target,

@@ -1257,6 +1257,31 @@ footer {
   }
 }
 
+/* Wide tables scroll inside their container. A soft edge glow shows on the
+   side that still hides columns; the panel-coloured covers scroll with the
+   content and hide the glow once that edge is reached. */
+@media (max-width: 900px) {
+  .table-scroll {
+    background:
+      linear-gradient(to right, var(--panel) 40%, transparent) 0 0 / 44px 100%
+        no-repeat local,
+      linear-gradient(to left, var(--panel) 40%, transparent) 100% 0 / 44px 100%
+        no-repeat local,
+      linear-gradient(to right, rgba(79, 140, 255, 0.34), transparent) 0 0 /
+        16px 100% no-repeat scroll,
+      linear-gradient(to left, rgba(79, 140, 255, 0.34), transparent) 100% 0 /
+        16px 100% no-repeat scroll;
+  }
+}
+
+.table-scroll.eu-wrap {
+  background:
+    linear-gradient(to left, var(--panel) 40%, transparent) 100% 0 / 44px 100%
+      no-repeat local,
+    linear-gradient(to left, rgba(79, 140, 255, 0.34), transparent) 100% 0 /
+      16px 100% no-repeat scroll;
+}
+
 @media (max-width: 900px) {
   header {
     padding: 10px 14px;

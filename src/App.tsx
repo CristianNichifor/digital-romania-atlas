@@ -60,10 +60,19 @@ export default function App() {
     return () => window.removeEventListener("hashchange", sync);
   }, []);
   // On a phone the nav is one horizontal strip; keep the current tab on screen.
+  // Scroll the strip itself: scrollIntoView() would also move the browser's
+  // sequential focus starting point, so the first Tab would skip the header.
   useEffect(() => {
-    document
-      .querySelector('header nav a[aria-current="page"]')
-      ?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    const nav = document.querySelector<HTMLElement>("header nav");
+    const link = nav?.querySelector<HTMLElement>('a[aria-current="page"]');
+    if (!nav || !link || nav.scrollWidth <= nav.clientWidth) return;
+    const pad = 36;
+    const box = link.getBoundingClientRect();
+    const left = box.left - nav.getBoundingClientRect().left + nav.scrollLeft;
+    const right = left + box.width;
+    if (left - pad < nav.scrollLeft) nav.scrollLeft = left - pad;
+    else if (right + pad > nav.scrollLeft + nav.clientWidth)
+      nav.scrollLeft = right + pad - nav.clientWidth;
   }, [view]);
   const [lang, setLang] = useState<Lang>(initialLang);
   // Fade the edge of the tab strip where more tabs are scrolled out of view.
@@ -99,9 +108,7 @@ export default function App() {
       <UatPlanProvider>
         <div className="app">
           <div className="family-bar">
-            <a href={META.hub}>
-              {t("app.hub")}
-            </a>
+            <a href={META.hub}>{t("app.hub")}</a>
           </div>
           <header>
             <div className="title">

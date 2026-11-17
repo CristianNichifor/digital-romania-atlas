@@ -129,6 +129,7 @@ design proposals. Separately, each item is labelled **current** or
 | Family bar links to the hub (D-1)                                          | `tests/e2e/family-bar.spec.ts`                                                                                              |
 | Nav targets 36 px desktop, 44 px phone; active tab in view                 | `tests/e2e/nav-targets.spec.ts`, `tests/e2e/nav-active.spec.ts`                                                             |
 | Language toggle on screen at 390 px; tab strip marks hidden tabs           | `tests/e2e/nav-lang.spec.ts`                                                                                                |
+| First Tab starts at the top of the page, also on deep links                | `tests/e2e/nav-focus-start.spec.ts`                                                                                         |
 | Reduced motion and forced colours (D-7, D-8)                               | `tests/e2e/motion-contrast.spec.ts`                                                                                         |
 | Summary: proposal badge, computed counts, column badges and sources        | `tests/e2e/summary-badge.spec.ts`, `tests/e2e/summary-counts.spec.ts`, `tests/e2e/summary-cards.spec.ts`                    |
 | Map: staged loading, chip shapes, labelled controls, tooltips from locales | `tests/e2e/map-slow.spec.ts`, `tests/e2e/map-chips.spec.ts`, `tests/e2e/map-controls.spec.ts`, `tests/e2e/map-tips.spec.ts` |

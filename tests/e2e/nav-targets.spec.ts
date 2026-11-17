@@ -4,7 +4,7 @@ for (const [width, min] of [[1440, 36], [390, 44]] as const) {
   test(`navigation targets are at least ${min} px tall at ${width} px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
-    const targets = page.locator('header nav a, header nav button');
+    const targets = page.locator('header nav a, header .lang-toggle');
     await expect(targets.first()).toBeVisible();
     const heights = await targets.evaluateAll(els => els.map(el => el.getBoundingClientRect().height));
     expect(heights.length).toBeGreaterThan(11);

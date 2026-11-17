@@ -73,10 +73,23 @@ header {
   flex-wrap: wrap;
 }
 
+.family-bar {
+  padding: 6px 32px;
+  font-size: 13px;
+}
+
+.family-bar a {
+  display: inline-block;
+  padding: 4px 0;
+  color: #9db9f5;
+}
+
 .title {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .logo {
@@ -109,10 +122,11 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  flex: 1 1 100%;
 }
 
 nav a,
-nav button {
+.lang-toggle {
   display: inline-flex;
   align-items: center;
   min-height: 36px;
@@ -122,7 +136,7 @@ nav button {
   background: transparent;
   color: var(--muted);
   border: 1px solid var(--border);
-  padding: 8px 16px;
+  padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
@@ -131,7 +145,7 @@ nav button {
 .nav-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .nav-group + .nav-group {
@@ -565,6 +579,7 @@ main {
 
 @media print {
   header nav,
+  .lang-toggle,
   .press-kit,
   footer {
     display: none !important;
@@ -1276,8 +1291,45 @@ footer {
     display: none;
   }
 
+  .family-bar {
+    padding: 4px 14px;
+  }
+
+  /* The strip scrolls sideways: fade the side that hides more tabs and
+     keep a peek of the neighbour when a tab is scrolled into view. */
+  nav {
+    scroll-padding-inline: 36px;
+  }
+
+  nav.more-before {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 36px);
+    mask-image: linear-gradient(to right, transparent, #000 36px);
+  }
+
+  nav.more-after {
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 36px);
+    mask-image: linear-gradient(to left, transparent, #000 36px);
+  }
+
+  nav.more-before.more-after {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 36px,
+      #000 calc(100% - 36px),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 36px,
+      #000 calc(100% - 36px),
+      transparent
+    );
+  }
+
   nav a,
-  nav button {
+  .lang-toggle {
     min-height: 44px;
     padding: 7px 13px;
     font-size: 13px;
@@ -1362,6 +1414,9 @@ footer {
 }
 
 .lang-toggle {
+  flex-shrink: 0;
+  justify-content: center;
+  min-width: 44px;
   font-weight: 700;
   border-color: #ffb020 !important;
   color: #ffb020 !important;
@@ -1794,7 +1849,7 @@ footer details.privacy p {
 @media (forced-colors: active) {
   .legend-chip,
   nav a,
-  nav button {
+  .lang-toggle {
     border: 1px solid ButtonText;
   }
 

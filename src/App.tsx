@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapView } from "./components/MapView";
 import { FlowGraph } from "./components/FlowGraph";
 import { CompareView } from "./components/CompareView";
@@ -66,6 +66,24 @@ export default function App() {
       ?.scrollIntoView({ block: "nearest", inline: "nearest" });
   }, [view]);
   const [lang, setLang] = useState<Lang>(initialLang);
+  // Fade the edge of the tab strip where more tabs are scrolled out of view.
+  const navRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const sync = () => {
+      const max = nav.scrollWidth - nav.clientWidth;
+      nav.classList.toggle("more-before", nav.scrollLeft > 4);
+      nav.classList.toggle("more-after", nav.scrollLeft < max - 4);
+    };
+    sync();
+    nav.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    return () => {
+      nav.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, [lang]);
 
   useEffect(() => {
     writeStorage("dra-lang", lang);
@@ -80,11 +98,8 @@ export default function App() {
     <LangContext.Provider value={{ lang, setLang }}>
       <UatPlanProvider>
         <div className="app">
-          <div
-            className="family-bar"
-            style={{ padding: "6px 32px", fontSize: 13 }}
-          >
-            <a href={META.hub} style={{ color: "#9db9f5" }}>
+          <div className="family-bar">
+            <a href={META.hub}>
               {t("app.hub")}
             </a>
           </div>
@@ -96,7 +111,15 @@ export default function App() {
                 <p>{messages[lang]["app.tagline"]}</p>
               </div>
             </div>
-            <nav>
+            <button
+              className="lang-toggle"
+              onClick={() => setLang(lang === "ro" ? "en" : "ro")}
+              aria-label={messages[lang]["nav.langToggle"]}
+              lang={lang === "ro" ? "en" : "ro"}
+            >
+              {lang === "ro" ? "EN" : "RO"}
+            </button>
+            <nav ref={navRef}>
               {NAV_GROUPS.map((g) => (
                 <div
                   key={g.views[0]}
@@ -120,14 +143,6 @@ export default function App() {
                   ))}
                 </div>
               ))}
-              <button
-                className="lang-toggle"
-                onClick={() => setLang(lang === "ro" ? "en" : "ro")}
-                aria-label={messages[lang]["nav.langToggle"]}
-                lang={lang === "ro" ? "en" : "ro"}
-              >
-                {lang === "ro" ? "EN" : "RO"}
-              </button>
             </nav>
           </header>
           <main>

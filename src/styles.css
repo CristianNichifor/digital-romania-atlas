@@ -1907,6 +1907,63 @@ footer details.privacy p {
   margin-left: 6px;
 }
 
+/* Secondary buttons: download, reset filters. Without this they fall back
+   to the browser's light default on the dark panels. */
+button.ghost,
+.map-empty button,
+.flows-empty button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 7px 14px;
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: normal;
+  color: #9db9f5;
+  background: rgba(79, 140, 255, 0.08);
+  border: 1px solid #2c4a80;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.ghost:hover,
+.map-empty button:hover,
+.flows-empty button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.map-empty button,
+.flows-empty button {
+  min-height: 44px;
+}
+
+/* The provenance line is a caption, not body copy. */
+.prov {
+  margin: 0 0 14px;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  button.ghost {
+    min-height: 44px;
+  }
+
+  /* Filter chips: a comfortable touch target. */
+  button.legend-chip {
+    min-height: 32px;
+    padding: 6px 12px;
+  }
+
+  /* Let the map fill the width at its own aspect ratio instead of
+     floating small inside a tall, mostly empty canvas. */
+  .map-svg {
+    height: auto;
+    min-height: 0;
+  }
+}
+
 /* Indeterminate progress under the staged map loading message (design 02) */
 .loading-progress {
   display: block;

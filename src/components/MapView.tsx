@@ -534,7 +534,9 @@ export function MapView() {
               >
                 {CATEGORY_SYMBOLS[cat as Category]}
               </span>
-              <T text={pick(label, lang)} />
+              <span>
+                <T text={pick(label, lang)} />
+              </span>
             </button>
           ))}
         </div>
